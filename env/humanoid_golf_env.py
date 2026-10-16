@@ -37,6 +37,7 @@ class HumanoidGolfEnv(gym.Env):
         handedness: str = "right",
         ball_x: float = 0.43,
         ball_dz: float = 0.0,
+        ball_x_noise: float = 0.03,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -64,6 +65,7 @@ class HumanoidGolfEnv(gym.Env):
         self.gate_lo, self.gate_hi = gate_lo, gate_hi
         self.action_smoothing = action_smoothing  # ctrl = s*prev_ctrl + (1-s)*new (0 = off)
         self._ctrl_prev = np.zeros(self.model.nu if hasattr(self,'model') else 11)
+        self.ball_x_noise = ball_x_noise
         self.randomize_reset = randomize_reset  # small ball-x / pose noise on reset (fixed pose only)
         self.forward_reward = forward_reward    # contact-gated forward-direction reward + lateral penalty
         self.torque_scale = torque_scale  # ctrl = action * torque_scale (legacy 10 -> up to 500Nm at shoulder)
@@ -353,7 +355,7 @@ class HumanoidGolfEnv(gym.Env):
             self.data.qpos[14] = -10.0
             self.data.qpos[16] = 60.0
         if self.randomize_reset:
-            self.data.qpos[0] += self.np_random.uniform(-0.03, 0.03)      # ball x
+            self.data.qpos[0] += self.np_random.uniform(-self.ball_x_noise, self.ball_x_noise)      # ball x
             self.data.qpos[1] += self.hand_sign * self.np_random.uniform(-0.02, 0.02)      # ball y (mirrored for left-handers)
             self.data.qpos[self._q_sp] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
             self.data.qpos[self._q_el] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
