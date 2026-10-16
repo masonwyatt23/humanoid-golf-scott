@@ -40,10 +40,13 @@ Club speed (from `results/leaderboard.md`, peak club-head linear speed over all 
 | ppo_resid_v3_left_an7_s5 (flat-launch, leaderboard) | 100% | 66% | 9.0 | 0.26 | 115.3 | 116.9 |
 | ppo_resid_v3_left_an8_s6 (flat-launch, leaderboard) | 100% | 82% | 11.4 | 0.10 | 118.5 | 119.2 |
 | ppo_resid_v3_left_an10_s8 (leaderboard) | 100% | 94% | 110.0 | 5.67 | 107.0 | 108.4 |
+| ppo_resid_v3_left_fast2_s11 (flat-launch, gate JSON) | 100% | 100% | 15.2 | 0.017 | 123.6 | 123.8 |
 
 (All from `results/gate_*.json`, `policy_det` block; same 50 episodes, seeds 4000+. Note the scripted row is the default scripted swing; the an4/an5/an6/an9 gate files use loft 7 and have their own scripted block with 48.1 m carry, 54% landed, 3.97 m lateral std. `gate_pass` is false for every model above.)
 
 an7, an8 and an10 rows come from the committed `results/leaderboard.md`/`.json` (deterministic, 50 episodes, seeds 4000-4049, no gate JSON exists for them). an7 and an8 are flat-launch exploits (mean launch elevation -3.2 and -5.2 degrees) with near-zero lateral spread but only 9-11 m carry, so they fail the carry gate. an10 reaches 110.0 m mean carry (94% landed) with the lowest lateral std of the deep-carry runs, 5.67 m, but it still fails the lateral gate (< 2.73 m); its stochastic carry is 57.1 m with 6.40 m lateral std. Every trained left-handed run in this table fails the gate. Checkpoints are still unpublished.
+
+`left_fast2_s11` (`results/gate_ppo_resid_v3_left_fast2_s11.json`, deterministic, 50 episodes, seed 4000) reaches 123.6 mph mean peak club speed and a 0.017 m lateral std, so it passes the literal gate (carry > 11.98 m, lateral std < 2.73 m, contact >= 99%). But its launch elevation is about -5.8 degrees (100% flat flag), so it is a flat-launch exploit and not a good drive (15.2 m carry). The scripted base in the same protocol carries 30.0 m with 2.92 m lateral std (119.8 mph), i.e. it fails the lateral gate.
 
 **Honest summary (verified against the committed files above):** the best deterministic carry is about 96-114 m at about 111-115 mph peak club speed (an2: 114.3 m / 114.7 mph), but every trained left-handed model **fails** the lateral gate (< 2.73 m): lateral std is 6.7-8.2 m. an5 has lateral std 0.14 m only because it learned a flat, negative-launch strike (carry 9.6 m, 72% landed, so it fails the carry gate too). The default scripted swing also fails the lateral gate (4.22 m / 3.97 m in the gate JSONs). A tuned scripted configuration (`ball_x=0.422`, 5 mm ball-position noise, loft 7, no learning) is reported in `results/TRAINING_NOTES.md` (Address-geometry finding) as passing carry > 11.98 m and lateral std < 2.73 m: 53.1 m carry, 1.98 m lateral std, 107.8 mph, launch about 11 degrees. That result is from the notes only (no committed gate JSON), uses 5 mm noise instead of the default 3 cm, and in the same notes the trained policies do not beat their scripted baseline (an10: lateral 5.74 m vs 2.18 m scripted). Launch is bimodal and set mainly by ball position along the swing arc. Details and an7-an10 numbers (analytic evaluation, not gate protocol) are in `results/TRAINING_NOTES.md`.
 
@@ -80,6 +83,8 @@ python -m train.train_ppo --style scott --timesteps 50000
 # train_ppo writes models/ppo_scott.zip (models/ is created by training; trained models are gitignored and go to a releases note)
 python -m eval.evaluate --model models/ppo_scott --episodes 5
 python -m eval.compare_styles
+# showcase video comparing the learned left_an3_s1 policy with the scripted swing (needs trained models/ locally; output goes to results/videos/, which is gitignored)
+python -m eval.render_showcase --compare   # add --reuse to reuse swing seeds from an earlier showcase_compare.json
 ```
 
 ## Project Structure
