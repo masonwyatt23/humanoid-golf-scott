@@ -21,7 +21,7 @@ Numbers below are copied from the committed `results/leaderboard.md` / `results/
 
 Takeaways: 100% contact has been reached by some models in deterministic mode, but not together with distance. Carry is still tiny (best mean 0.24 m) and the leaderboard ranks by contact, then carry. Peak club-speed columns in `results/leaderboard.md` include implausible values for early models and should not be trusted.
 
-> **Reproducibility caveat:** these results were produced with v2-physics environment and evaluation code (`env/`, `eval/leaderboard.py`, etc.) and model checkpoints that are not yet pushed to this repo, so they cannot be reproduced from this commit alone. Other files in `results/` (dispersion reports, per-model eval JSONs, training logs) are included as raw outputs.
+> **Reproducibility caveat:** the v2/v3 environment code (`env/`), `eval/flight_tracker.py` and training scripts are now pushed, but the model checkpoints are not (trained models are not committed; they will be shared via a GitHub Releases note). `eval/leaderboard.py`, which produced `results/leaderboard.*`, is also not in the repo. So the table can't be re-run end to end from this repo yet; the `results/` files are raw outputs.
 
 See [ROADMAP.md](ROADMAP.md) for next steps.
 
@@ -42,7 +42,7 @@ See [ROADMAP.md](ROADMAP.md) for next steps.
 pip install -r requirements.txt
 python -m data.generate_synthetic_scott
 python -m train.train_ppo --style scott --timesteps 50000
-# train_ppo writes models/ppo_scott.zip (models/ is created by training; no trained model is committed)
+# train_ppo writes models/ppo_scott.zip (models/ is created by training; trained models are gitignored and go to a releases note)
 python -m eval.evaluate --model models/ppo_scott --episodes 5
 python -m eval.compare_styles
 ```

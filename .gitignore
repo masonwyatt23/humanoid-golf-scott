@@ -29,3 +29,11 @@ results/videos/
 frames/
 data/raw_frames/
 results/leaderboard_cache.json
+
+# trained models: not committed; distribute via GitHub Releases
+*.zip
+*.pt
+*.pth
+models/
+logs/
+*.log
