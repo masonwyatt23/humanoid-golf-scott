@@ -288,10 +288,11 @@ class HumanoidGolfEnv(gym.Env):
         reward = 0.0
 
         if self.reference is not None and self.ref_idx < len(self.reference["joints"]):
-            target_joints = self.reference["joints"][self.ref_idx]
+            # reference joints are stored in degrees; qpos[14:] is radians
+            target_joints = np.deg2rad(self.reference["joints"][self.ref_idx])
             current_joints = self.data.qpos[14:14+len(target_joints)]
             joint_err = np.mean((current_joints - target_joints) ** 2)
-            reward += 2.0 * np.exp(-joint_err / 200.0)
+            reward += 2.0 * np.exp(-joint_err / 0.5)
 
             if self.reference.get("club_head") is not None:
                 target_club = self.reference["club_head"][self.ref_idx]
