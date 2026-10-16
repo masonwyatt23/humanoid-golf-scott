@@ -5,7 +5,7 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 ## Current Performance
 
 - **Contact:** reliable (100%) contact rate is achievable with the dense approach + contact rewards.
-- **Distance:** still modest; longer training and curriculum progression are expected to improve carry.
+- **Distance:** still modest; the ball-velocity (cvel) fix and post-contact velocity bonus (see `ROADMAP.md`) are expected to improve carry, but no post-fix numbers are committed yet.
 
 > No results/metrics files are committed to this repo, so no exact distance figures are quoted here. Reproduce them with `python -m eval.evaluate` (mean distance, contact rate) and `python -m eval.compare_styles`.
 
