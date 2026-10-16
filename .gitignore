@@ -19,3 +19,6 @@ data/mason_swings/*
 instagram-*/
 **/your_instagram_activity/
 data/references/mason_ingest_report.json
+
+# CMU mocap raw BVH (re-downloadable, see docs/CMU_MOCAP_GOLF.md); derived data/references/cmu_*.npz are tracked
+data/raw_mocap/cmu/*.bvh
