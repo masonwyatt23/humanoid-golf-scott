@@ -1,3 +1,21 @@
 data/raw_videos/
 __pycache__/
 *.pyc
+__pycache__/
+MUJOCO_LOG.TXT
+
+# Mason's raw self-filmed swing videos: never commit (docs/MASON_SWINGS.md)
+data/mason_swings/*
+!data/mason_swings/README.md
+!data/mason_swings/metadata.example.csv
+!data/mason_swings/.gitkeep
+*.mov
+*.MOV
+*.mp4
+*.m4v
+*.mkv
+*.webm
+*.avi
+instagram-*/
+**/your_instagram_activity/
+data/references/mason_ingest_report.json
