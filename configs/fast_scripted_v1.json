@@ -1,0 +1,31 @@
+{
+ "description": "WARNING: mean metrics pass (launch 9-13 deg, lat std 2.0-2.6 m, 120.4 mph, 100% contact over 4 seeds x100 eps) but per-shot launch is BIMODAL (~60% flat <3 deg, ~30% >25 deg, 0% in 5-20 deg), so the means are artefacts; evaluator protocol: lateral std 6.3 m, landed 58%. NOT a pass. Kept for reproducibility.",
+ "script": {
+  "q_back": 2.2,
+  "t_down": 0.095,
+  "t_back": 0.6,
+  "wr_end": -0.01,
+  "yaw_ff": -3.0
+ },
+ "loft_deg": 8.0,
+ "ball_x": 0.396,
+ "ball_x_noise": 0.005,
+ "flight_model": true,
+ "tee_height": 0.04,
+ "force_scale": 2.0,
+ "kp": 700.0,
+ "kd": 23.333333333333332,
+ "randomize_reset": true,
+ "curriculum": true,
+ "carry_reward": true,
+ "forward_reward": true,
+ "residual_scale": [
+  0.1,
+  0.08,
+  0.05,
+  0.05
+ ],
+ "ball_dz": 0.008,
+ "analytic_ball": true,
+ "handedness": "left"
+}
