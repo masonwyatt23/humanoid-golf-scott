@@ -101,6 +101,7 @@ def main():
     ap.add_argument("--lat_angular", action="store_true")
     ap.add_argument("--ball_x", type=float, default=0.43)
     ap.add_argument("--ball_x_noise", type=float, default=0.03)
+    ap.add_argument("--elev_low_mult", type=float, default=1.0)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--log_std_init", type=float, default=-1.5)
     ap.add_argument("--ent", type=float, default=0.0)
@@ -110,7 +111,7 @@ def main():
     kw = dict(script=script, residual_scale=tuple(a.res_scale), model_xml=a.model_xml, flight_model=a.flight_model, tee_height=0.04,
               force_scale=a.force_scale, kp=700.0, kd=700.0 / 30, loft_deg=a.loft, curriculum=True, carry_reward=True, forward_reward=True,
               randomize_reset=True, ball_dz=a.ball_dz, handedness=a.handedness, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
-              analytic_ball=a.analytic_ball, lat_weight=a.lat_weight, elev_weight=a.elev_weight, az_weight=a.az_weight, carry_cap=a.carry_cap, ball_x=a.ball_x, ball_x_noise=a.ball_x_noise, lat_angular=a.lat_angular, elev_target_deg=a.elev_target, style_ref=(a.style_ref[0] if len(a.style_ref) == 1 else a.style_ref) if a.style_ref else None, style_weight=a.style_weight,
+              analytic_ball=a.analytic_ball, lat_weight=a.lat_weight, elev_weight=a.elev_weight, az_weight=a.az_weight, carry_cap=a.carry_cap, elev_low_mult=a.elev_low_mult, ball_x=a.ball_x, ball_x_noise=a.ball_x_noise, lat_angular=a.lat_angular, elev_target_deg=a.elev_target, style_ref=(a.style_ref[0] if len(a.style_ref) == 1 else a.style_ref) if a.style_ref else None, style_weight=a.style_weight,
               style_prior=a.style_prior, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
     make_env = lambda: ResidualGolfEnv(**kw)
     import subprocess

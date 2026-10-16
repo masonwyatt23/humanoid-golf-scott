@@ -25,7 +25,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -59,6 +59,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._contact_step = None
         self.grip = grip
         self.carry_cap = carry_cap
+        self.elev_low_mult = elev_low_mult  # penalty multiplier when launch is BELOW the target (kills the flat-launch exploit)
         self.lat_angular = lat_angular  # penalise lateral/carry in percent (angular miss) instead of metres, so short flat shots cannot hide dispersion
         self.lat_weight, self.elev_weight, self.az_weight = lat_weight, elev_weight, az_weight
         self.analytic_ball = analytic_ball  # score carry from analytic flight (drag+Magnus) of the MuJoCo launch vector, end episode 3 steps after contact
@@ -174,7 +175,8 @@ class ResidualGolfEnv(HumanoidGolfEnv):
     def _elev_pen(self):
         v = self._ball_lin_vel() if self._an is None else None
         e = self._an["launch"] if self._an is not None else float(np.degrees(self.launch_elevation))
-        return min(abs(e - np.degrees(self.elev_target)), 40.0) / 10.0
+        dev = e - np.degrees(self.elev_target)
+        return min(abs(dev), 40.0) / 10.0 * (self.elev_low_mult if dev < 0 else 1.0)
 
     def _lockout(self):
         sc = self.script
