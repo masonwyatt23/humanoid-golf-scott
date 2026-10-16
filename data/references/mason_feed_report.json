@@ -1,0 +1,1445 @@
+{
+ "total_swings": 15,
+ "videos": [
+  {
+   "video": "mason_swing_part1.mov",
+   "frames": 4258,
+   "duration_s": 70.97,
+   "fps_mean": 59.99,
+   "duplicate_frame_frac": 0.457,
+   "frame_gap_max_s": 0.0183,
+   "tile_frames_frac": 1.0,
+   "spans": [
+    {
+     "span": 0,
+     "t0": 0.0,
+     "t1": 5.25,
+     "tile_rows_thumb": [
+      50,
+      167
+     ],
+     "unique_frames": 153,
+     "detect_frac": 0.993,
+     "bbox": [
+      642,
+      262,
+      925,
+      1178
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.78,
+     "pose_jump_cuts_at": [
+      1.55,
+      2.53,
+      2.57,
+      2.6,
+      2.63,
+      2.67,
+      4.87
+     ],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.154
+    },
+    {
+     "span": 1,
+     "t0": 6.07,
+     "t1": 9.95,
+     "tile_rows_thumb": [
+      131,
+      194
+     ],
+     "unique_frames": 89,
+     "detect_frac": 0.528,
+     "bbox": [
+      717,
+      0,
+      1055,
+      556
+     ],
+     "tile_wh": [
+      1180,
+      639
+     ],
+     "person_bbox_frac_of_tile_h": 0.87,
+     "pose_jump_cuts_at": [
+      7.05,
+      7.09,
+      7.45,
+      7.55
+     ],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.15
+    },
+    {
+     "span": 2,
+     "t0": 10.8,
+     "t1": 17.79,
+     "tile_rows_thumb": [
+      83,
+      200
+     ],
+     "unique_frames": 213,
+     "detect_frac": 1.0,
+     "bbox": [
+      345,
+      119,
+      975,
+      1178
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.9,
+     "pose_jump_cuts_at": [
+      17.4
+     ],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.196
+    },
+    {
+     "span": 3,
+     "t0": 18.34,
+     "t1": 23.57,
+     "tile_rows_thumb": [
+      87,
+      205
+     ],
+     "unique_frames": 150,
+     "detect_frac": 1.0,
+     "bbox": [
+      564,
+      79,
+      1084,
+      1164
+     ],
+     "tile_wh": [
+      1180,
+      1188
+     ],
+     "person_bbox_frac_of_tile_h": 0.91,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.187
+    },
+    {
+     "span": 4,
+     "t0": 23.99,
+     "t1": 28.89,
+     "tile_rows_thumb": [
+      73,
+      191
+     ],
+     "unique_frames": 82,
+     "detect_frac": 1.0,
+     "bbox": [
+      595,
+      76,
+      1001,
+      1117
+     ],
+     "tile_wh": [
+      1180,
+      1188
+     ],
+     "person_bbox_frac_of_tile_h": 0.88,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.172
+    },
+    {
+     "span": 5,
+     "t0": 36.33,
+     "t1": 40.83,
+     "tile_rows_thumb": [
+      71,
+      188
+     ],
+     "unique_frames": 137,
+     "detect_frac": 1.0,
+     "bbox": [
+      525,
+      97,
+      1180,
+      1124
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.87,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.169
+    },
+    {
+     "span": 6,
+     "t0": 41.94,
+     "t1": 55.48,
+     "tile_rows_thumb": [
+      79,
+      196
+     ],
+     "unique_frames": 408,
+     "detect_frac": 1.0,
+     "bbox": [
+      641,
+      2,
+      1161,
+      1178
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [
+      42.48,
+      42.51
+     ],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.21
+    },
+    {
+     "span": 7,
+     "t0": 56.25,
+     "t1": 58.58,
+     "tile_rows_thumb": [
+      87,
+      205
+     ],
+     "unique_frames": 80,
+     "detect_frac": 1.0,
+     "bbox": [
+      542,
+      86,
+      985,
+      1188
+     ],
+     "tile_wh": [
+      1180,
+      1188
+     ],
+     "person_bbox_frac_of_tile_h": 0.93,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.176
+    },
+    {
+     "span": 8,
+     "t0": 59.11,
+     "t1": 64.18,
+     "tile_rows_thumb": [
+      74,
+      191
+     ],
+     "unique_frames": 154,
+     "detect_frac": 1.0,
+     "bbox": [
+      419,
+      180,
+      911,
+      1154
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.83,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 2,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.148
+    },
+    {
+     "span": 9,
+     "t0": 64.23,
+     "t1": 70.93,
+     "tile_rows_thumb": [
+      124,
+      193
+     ],
+     "unique_frames": 211,
+     "detect_frac": 0.033,
+     "bbox": [
+      412,
+      0,
+      803,
+      600
+     ],
+     "tile_wh": [
+      1180,
+      699
+     ],
+     "status": "person_intermittent"
+    }
+   ],
+   "swings": [
+    {
+     "file": "mason_swing_part1_s01.npz",
+     "span": 0,
+     "t_start": 2.67,
+     "t_top": 2.9,
+     "t_impact": 3.07,
+     "t_end": 4.2,
+     "tempo_ratio": 1.4,
+     "backswing_s": 0.23,
+     "downswing_s": 0.17,
+     "valid_frame_ratio": 0.522,
+     "process_valid_frac": 0.87,
+     "mean_visibility": 0.854,
+     "torso_frac_of_tile_h": 0.154,
+     "peak_hand_speed_torso_per_s": 12.1,
+     "flags": [
+      "little_address_before_takeaway"
+     ],
+     "leg_valid_frame_ratio": 0.717,
+     "output_frames_at_0.01s": 152
+    },
+    {
+     "file": "mason_swing_part1_s02.npz",
+     "span": 2,
+     "t_start": 12.89,
+     "t_top": 13.77,
+     "t_impact": 13.92,
+     "t_end": 14.79,
+     "tempo_ratio": 3.22,
+     "backswing_s": 0.48,
+     "downswing_s": 0.15,
+     "valid_frame_ratio": 0.123,
+     "process_valid_frac": 0.617,
+     "mean_visibility": 0.727,
+     "torso_frac_of_tile_h": 0.196,
+     "peak_hand_speed_torso_per_s": 10.7,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.561,
+     "output_frames_at_0.01s": 149
+    },
+    {
+     "file": "mason_swing_part1_s03.npz",
+     "span": 3,
+     "t_start": 18.82,
+     "t_top": 19.74,
+     "t_impact": 19.97,
+     "t_end": 20.9,
+     "tempo_ratio": 2.21,
+     "backswing_s": 0.52,
+     "downswing_s": 0.23,
+     "valid_frame_ratio": 0.246,
+     "process_valid_frac": 0.696,
+     "mean_visibility": 0.739,
+     "torso_frac_of_tile_h": 0.187,
+     "peak_hand_speed_torso_per_s": 12.5,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.368,
+     "output_frames_at_0.01s": 166
+    },
+    {
+     "file": "mason_swing_part1_s04.npz",
+     "span": 4,
+     "t_start": 26.32,
+     "t_top": 27.19,
+     "t_impact": 27.37,
+     "t_end": 28.44,
+     "tempo_ratio": 2.55,
+     "backswing_s": 0.47,
+     "downswing_s": 0.18,
+     "valid_frame_ratio": 0.175,
+     "process_valid_frac": 0.622,
+     "mean_visibility": 0.72,
+     "torso_frac_of_tile_h": 0.172,
+     "peak_hand_speed_torso_per_s": 12.2,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.298,
+     "output_frames_at_0.01s": 171
+    },
+    {
+     "file": "mason_swing_part1_s05.npz",
+     "span": 5,
+     "t_start": 37.29,
+     "t_top": 38.27,
+     "t_impact": 38.44,
+     "t_end": 39.97,
+     "tempo_ratio": 3.5,
+     "backswing_s": 0.58,
+     "downswing_s": 0.17,
+     "valid_frame_ratio": 0.425,
+     "process_valid_frac": 0.795,
+     "mean_visibility": 0.784,
+     "torso_frac_of_tile_h": 0.169,
+     "peak_hand_speed_torso_per_s": 14.0,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.575,
+     "output_frames_at_0.01s": 239
+    },
+    {
+     "file": "mason_swing_part1_s06.npz",
+     "span": 7,
+     "t_start": 56.24,
+     "t_top": 56.89,
+     "t_impact": 57.06,
+     "t_end": 58.08,
+     "tempo_ratio": 2.9,
+     "backswing_s": 0.48,
+     "downswing_s": 0.17,
+     "valid_frame_ratio": 0.21,
+     "process_valid_frac": 0.709,
+     "mean_visibility": 0.719,
+     "torso_frac_of_tile_h": 0.176,
+     "peak_hand_speed_torso_per_s": 13.2,
+     "flags": [
+      "little_address_before_takeaway"
+     ],
+     "leg_valid_frame_ratio": 0.323,
+     "output_frames_at_0.01s": 167
+    },
+    {
+     "file": "mason_swing_part1_s07.npz",
+     "span": 8,
+     "t_start": 61.72,
+     "t_top": 62.53,
+     "t_impact": 64.14,
+     "t_end": 64.18,
+     "tempo_ratio": null,
+     "backswing_s": 1.18,
+     "downswing_s": 1.62,
+     "valid_frame_ratio": 0.419,
+     "process_valid_frac": 0.905,
+     "mean_visibility": 0.829,
+     "torso_frac_of_tile_h": 0.148,
+     "peak_hand_speed_torso_per_s": 9.4,
+     "flags": [
+      "tempo_out_of_range(0.73)",
+      "clipped_follow_through"
+     ],
+     "leg_valid_frame_ratio": 0.405,
+     "output_frames_at_0.01s": 246
+    }
+   ],
+   "rejected": [
+    {
+     "span": 1,
+     "t_in_video": 7.73,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 8,
+     "t_in_video": 62.04,
+     "reason": "low_valid_frames: only 57% frames have all key landmarks (need 60%)"
+    }
+   ],
+   "issues": [],
+   "n_swings": 7,
+   "elapsed_s": 38.2
+  },
+  {
+   "video": "mason_swing_part2.mov",
+   "frames": 5304,
+   "duration_s": 88.4,
+   "fps_mean": 59.99,
+   "duplicate_frame_frac": 0.611,
+   "frame_gap_max_s": 0.0183,
+   "tile_frames_frac": 0.806,
+   "spans": [
+    {
+     "span": 0,
+     "t0": 0.0,
+     "t1": 7.54,
+     "tile_rows_thumb": [
+      111,
+      190
+     ],
+     "unique_frames": 222,
+     "detect_frac": 0.523,
+     "bbox": [
+      518,
+      0,
+      882,
+      799
+     ],
+     "tile_wh": [
+      1180,
+      799
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [
+      2.32,
+      4.52,
+      5.08,
+      5.32,
+      7.49,
+      7.52
+     ],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.246
+    },
+    {
+     "span": 1,
+     "t0": 7.55,
+     "t1": 12.24,
+     "tile_rows_thumb": [
+      72,
+      189
+     ],
+     "unique_frames": 140,
+     "detect_frac": 1.0,
+     "bbox": [
+      453,
+      0,
+      1049,
+      1178
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.24
+    },
+    {
+     "span": 2,
+     "t0": 13.37,
+     "t1": 18.6,
+     "tile_rows_thumb": [
+      76,
+      193
+     ],
+     "unique_frames": 114,
+     "detect_frac": 1.0,
+     "bbox": [
+      439,
+      95,
+      1038,
+      1178
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.92,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.208
+    },
+    {
+     "span": 3,
+     "t0": 19.24,
+     "t1": 22.8,
+     "tile_rows_thumb": [
+      70,
+      187
+     ],
+     "unique_frames": 110,
+     "detect_frac": 1.0,
+     "bbox": [
+      496,
+      209,
+      864,
+      1120
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.77,
+     "pose_jump_cuts_at": [
+      22.54
+     ],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.142
+    },
+    {
+     "span": 4,
+     "t0": 23.74,
+     "t1": 24.91,
+     "tile_rows_thumb": [
+      53,
+      192
+     ],
+     "unique_frames": 39,
+     "detect_frac": 1.0,
+     "bbox": [
+      478,
+      277,
+      946,
+      1398
+     ],
+     "tile_wh": [
+      1180,
+      1398
+     ],
+     "person_bbox_frac_of_tile_h": 0.8,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.166
+    },
+    {
+     "span": 5,
+     "t0": 25.96,
+     "t1": 27.17,
+     "tile_rows_thumb": [
+      55,
+      170
+     ],
+     "unique_frames": 39,
+     "detect_frac": 1.0,
+     "bbox": [
+      568,
+      313,
+      968,
+      1158
+     ],
+     "tile_wh": [
+      1180,
+      1158
+     ],
+     "person_bbox_frac_of_tile_h": 0.73,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.209
+    },
+    {
+     "span": 6,
+     "t0": 28.71,
+     "t1": 32.57,
+     "tile_rows_thumb": [
+      51,
+      198
+     ],
+     "unique_frames": 121,
+     "detect_frac": 0.975,
+     "bbox": [
+      529,
+      126,
+      1180,
+      1478
+     ],
+     "tile_wh": [
+      1180,
+      1478
+     ],
+     "person_bbox_frac_of_tile_h": 0.91,
+     "pose_jump_cuts_at": [
+      30.31,
+      30.44,
+      32.01
+     ],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.166
+    },
+    {
+     "span": 7,
+     "t0": 32.91,
+     "t1": 35.92,
+     "tile_rows_thumb": [
+      96,
+      198
+     ],
+     "unique_frames": 91,
+     "detect_frac": 0.615,
+     "bbox": [
+      440,
+      103,
+      765,
+      577
+     ],
+     "tile_wh": [
+      1180,
+      1029
+     ],
+     "person_bbox_frac_of_tile_h": 0.46,
+     "pose_jump_cuts_at": [
+      33.01,
+      33.04,
+      35.71,
+      35.74
+     ],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.119
+    },
+    {
+     "span": 8,
+     "t0": 35.94,
+     "t1": 39.56,
+     "tile_rows_thumb": [
+      100,
+      198
+     ],
+     "unique_frames": 108,
+     "detect_frac": 0.0,
+     "bbox": null,
+     "tile_wh": [
+      1180,
+      989
+     ],
+     "status": "no_person_detected"
+    },
+    {
+     "span": 9,
+     "t0": 42.16,
+     "t1": 43.48,
+     "tile_rows_thumb": [
+      78,
+      195
+     ],
+     "unique_frames": 8,
+     "detect_frac": 1.0,
+     "bbox": [
+      526,
+      200,
+      838,
+      711
+     ],
+     "tile_wh": [
+      1180,
+      1178
+     ],
+     "person_bbox_frac_of_tile_h": 0.43,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.173
+    },
+    {
+     "span": 10,
+     "t0": 43.54,
+     "t1": 47.33,
+     "tile_rows_thumb": [
+      70,
+      188
+     ],
+     "unique_frames": 101,
+     "detect_frac": 1.0,
+     "bbox": [
+      356,
+      1,
+      1022,
+      1111
+     ],
+     "tile_wh": [
+      1180,
+      1188
+     ],
+     "person_bbox_frac_of_tile_h": 0.93,
+     "pose_jump_cuts_at": [
+      45.21
+     ],
+     "n_swings_detected": 2,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.191
+    },
+    {
+     "span": 11,
+     "t0": 47.34,
+     "t1": 52.95,
+     "tile_rows_thumb": [
+      133,
+      187
+     ],
+     "unique_frames": 58,
+     "detect_frac": 0.0,
+     "bbox": [
+      428,
+      89,
+      684,
+      371
+     ],
+     "tile_wh": [
+      1180,
+      549
+     ],
+     "status": "person_intermittent"
+    },
+    {
+     "span": 12,
+     "t0": 71.4,
+     "t1": 78.23,
+     "tile_rows_thumb": [
+      132,
+      192
+     ],
+     "unique_frames": 204,
+     "detect_frac": 0.338,
+     "bbox": [
+      554,
+      0,
+      842,
+      609
+     ],
+     "tile_wh": [
+      1180,
+      609
+     ],
+     "status": "person_intermittent"
+    },
+    {
+     "span": 13,
+     "t0": 79.12,
+     "t1": 85.44,
+     "tile_rows_thumb": [
+      69,
+      187
+     ],
+     "unique_frames": 110,
+     "detect_frac": 1.0,
+     "bbox": [
+      442,
+      194,
+      830,
+      1139
+     ],
+     "tile_wh": [
+      1180,
+      1188
+     ],
+     "person_bbox_frac_of_tile_h": 0.8,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.17
+    },
+    {
+     "span": 14,
+     "t0": 86.55,
+     "t1": 88.15,
+     "tile_rows_thumb": [
+      105,
+      218
+     ],
+     "unique_frames": 52,
+     "detect_frac": 0.596,
+     "bbox": [
+      655,
+      0,
+      911,
+      893
+     ],
+     "tile_wh": [
+      1180,
+      1139
+     ],
+     "person_bbox_frac_of_tile_h": 0.78,
+     "pose_jump_cuts_at": [
+      86.98,
+      87.05,
+      88.09
+     ],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.147
+    }
+   ],
+   "swings": [
+    {
+     "file": "mason_swing_part2_s01.npz",
+     "span": 2,
+     "t_start": 14.8,
+     "t_top": 15.7,
+     "t_impact": 15.87,
+     "t_end": 17.67,
+     "tempo_ratio": 3.0,
+     "backswing_s": 0.5,
+     "downswing_s": 0.17,
+     "valid_frame_ratio": 0.15,
+     "process_valid_frac": 0.74,
+     "mean_visibility": 0.767,
+     "torso_frac_of_tile_h": 0.208,
+     "peak_hand_speed_torso_per_s": 12.1,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.188,
+     "output_frames_at_0.01s": 239
+    },
+    {
+     "file": "mason_swing_part2_s02.npz",
+     "span": 3,
+     "t_start": 19.75,
+     "t_top": 20.64,
+     "t_impact": 20.79,
+     "t_end": 22.47,
+     "tempo_ratio": 3.22,
+     "backswing_s": 0.48,
+     "downswing_s": 0.15,
+     "valid_frame_ratio": 0.494,
+     "process_valid_frac": 0.779,
+     "mean_visibility": 0.8,
+     "torso_frac_of_tile_h": 0.142,
+     "peak_hand_speed_torso_per_s": 12.4,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.543,
+     "output_frames_at_0.01s": 227
+    },
+    {
+     "file": "mason_swing_part2_s03.npz",
+     "span": 4,
+     "t_start": 23.74,
+     "t_top": 24.32,
+     "t_impact": 24.44,
+     "t_end": 24.89,
+     "tempo_ratio": 5.0,
+     "backswing_s": 0.58,
+     "downswing_s": 0.12,
+     "valid_frame_ratio": 0.184,
+     "process_valid_frac": 0.623,
+     "mean_visibility": 0.689,
+     "torso_frac_of_tile_h": 0.166,
+     "peak_hand_speed_torso_per_s": 11.1,
+     "flags": [
+      "little_address_before_takeaway",
+      "tracking_gaps_in_window"
+     ],
+     "leg_valid_frame_ratio": 0.447,
+     "output_frames_at_0.01s": 99
+    },
+    {
+     "file": "mason_swing_part2_s04.npz",
+     "span": 10,
+     "t_start": 45.21,
+     "t_top": 45.38,
+     "t_impact": 47.29,
+     "t_end": 47.33,
+     "tempo_ratio": null,
+     "backswing_s": 0.17,
+     "downswing_s": 1.92,
+     "valid_frame_ratio": 0.917,
+     "process_valid_frac": 0.969,
+     "mean_visibility": 0.922,
+     "torso_frac_of_tile_h": 0.191,
+     "peak_hand_speed_torso_per_s": 5.4,
+     "flags": [
+      "tempo_out_of_range(0.09)",
+      "little_address_before_takeaway",
+      "clipped_follow_through"
+     ],
+     "leg_valid_frame_ratio": 0.667,
+     "output_frames_at_0.01s": 204
+    },
+    {
+     "file": "mason_swing_part2_s05.npz",
+     "span": 13,
+     "t_start": 81.52,
+     "t_top": 82.4,
+     "t_impact": 82.57,
+     "t_end": 83.48,
+     "tempo_ratio": 2.9,
+     "backswing_s": 0.48,
+     "downswing_s": 0.17,
+     "valid_frame_ratio": 0.481,
+     "process_valid_frac": 0.619,
+     "mean_visibility": 0.774,
+     "torso_frac_of_tile_h": 0.17,
+     "peak_hand_speed_torso_per_s": 12.1,
+     "flags": [],
+     "leg_valid_frame_ratio": 0.538,
+     "output_frames_at_0.01s": 146
+    }
+   ],
+   "rejected": [
+    {
+     "span": 0,
+     "t_in_video": 1.67,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 0,
+     "t_in_video": 6.38,
+     "reason": "hands_not_above_shoulder_at_top (partial swing / chip / waggle)"
+    },
+    {
+     "span": 6,
+     "t_in_video": 29.87,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 6,
+     "t_in_video": 30.54,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 10,
+     "t_in_video": 44.99,
+     "reason": "low_valid_frames: only 35% frames have all key landmarks (need 60%)"
+    },
+    {
+     "span": 14,
+     "t_in_video": 87.48,
+     "reason": "hands_not_above_shoulder_at_top (partial swing / chip / waggle)"
+    }
+   ],
+   "issues": [],
+   "n_swings": 5,
+   "elapsed_s": 48.2
+  },
+  {
+   "video": "mason_swing_part3.mov",
+   "frames": 6714,
+   "duration_s": 111.96,
+   "fps_mean": 59.96,
+   "duplicate_frame_frac": 0.753,
+   "frame_gap_max_s": 0.0333,
+   "tile_frames_frac": 0.463,
+   "spans": [
+    {
+     "span": 0,
+     "t0": 5.54,
+     "t1": 18.92,
+     "tile_rows_thumb": [
+      50,
+      197
+     ],
+     "unique_frames": 414,
+     "detect_frac": 0.988,
+     "bbox": [
+      368,
+      0,
+      1117,
+      1416
+     ],
+     "tile_wh": [
+      1180,
+      1478
+     ],
+     "person_bbox_frac_of_tile_h": 0.96,
+     "pose_jump_cuts_at": [
+      11.82,
+      11.84
+     ],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.186
+    },
+    {
+     "span": 1,
+     "t0": 21.51,
+     "t1": 22.66,
+     "tile_rows_thumb": [
+      65,
+      210
+     ],
+     "unique_frames": 41,
+     "detect_frac": 1.0,
+     "bbox": [
+      608,
+      221,
+      1034,
+      1458
+     ],
+     "tile_wh": [
+      1180,
+      1458
+     ],
+     "person_bbox_frac_of_tile_h": 0.85,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.197
+    },
+    {
+     "span": 2,
+     "t0": 23.94,
+     "t1": 25.06,
+     "tile_rows_thumb": [
+      67,
+      213
+     ],
+     "unique_frames": 28,
+     "detect_frac": 1.0,
+     "bbox": [
+      585,
+      43,
+      1070,
+      1468
+     ],
+     "tile_wh": [
+      1180,
+      1468
+     ],
+     "person_bbox_frac_of_tile_h": 0.97,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.187
+    },
+    {
+     "span": 3,
+     "t0": 25.91,
+     "t1": 27.04,
+     "tile_rows_thumb": [
+      67,
+      214
+     ],
+     "unique_frames": 31,
+     "detect_frac": 1.0,
+     "bbox": [
+      598,
+      56,
+      1114,
+      1452
+     ],
+     "tile_wh": [
+      1180,
+      1478
+     ],
+     "person_bbox_frac_of_tile_h": 0.94,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.203
+    },
+    {
+     "span": 4,
+     "t0": 28.31,
+     "t1": 29.71,
+     "tile_rows_thumb": [
+      67,
+      213
+     ],
+     "unique_frames": 47,
+     "detect_frac": 1.0,
+     "bbox": [
+      588,
+      51,
+      1163,
+      1468
+     ],
+     "tile_wh": [
+      1180,
+      1468
+     ],
+     "person_bbox_frac_of_tile_h": 0.97,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.192
+    },
+    {
+     "span": 5,
+     "t0": 41.98,
+     "t1": 44.81,
+     "tile_rows_thumb": [
+      58,
+      208
+     ],
+     "unique_frames": 81,
+     "detect_frac": 1.0,
+     "bbox": [
+      465,
+      0,
+      1028,
+      1508
+     ],
+     "tile_wh": [
+      1180,
+      1508
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.231
+    },
+    {
+     "span": 6,
+     "t0": 46.03,
+     "t1": 48.38,
+     "tile_rows_thumb": [
+      58,
+      193
+     ],
+     "unique_frames": 66,
+     "detect_frac": 1.0,
+     "bbox": [
+      457,
+      21,
+      1180,
+      1358
+     ],
+     "tile_wh": [
+      1180,
+      1358
+     ],
+     "person_bbox_frac_of_tile_h": 0.98,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.251
+    },
+    {
+     "span": 7,
+     "t0": 48.54,
+     "t1": 50.08,
+     "tile_rows_thumb": [
+      58,
+      207
+     ],
+     "unique_frames": 53,
+     "detect_frac": 1.0,
+     "bbox": [
+      418,
+      0,
+      1180,
+      1498
+     ],
+     "tile_wh": [
+      1180,
+      1498
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.237
+    },
+    {
+     "span": 8,
+     "t0": 50.39,
+     "t1": 52.01,
+     "tile_rows_thumb": [
+      58,
+      193
+     ],
+     "unique_frames": 49,
+     "detect_frac": 1.0,
+     "bbox": [
+      468,
+      24,
+      1180,
+      1358
+     ],
+     "tile_wh": [
+      1180,
+      1358
+     ],
+     "person_bbox_frac_of_tile_h": 0.98,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.257
+    },
+    {
+     "span": 9,
+     "t0": 54.2,
+     "t1": 56.71,
+     "tile_rows_thumb": [
+      60,
+      167
+     ],
+     "unique_frames": 61,
+     "detect_frac": 1.0,
+     "bbox": [
+      459,
+      0,
+      975,
+      1078
+     ],
+     "tile_wh": [
+      1180,
+      1078
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 1,
+     "status": "ok",
+     "torso_frac_of_tile_h": 0.281
+    },
+    {
+     "span": 10,
+     "t0": 56.76,
+     "t1": 58.11,
+     "tile_rows_thumb": [
+      60,
+      167
+     ],
+     "unique_frames": 34,
+     "detect_frac": 1.0,
+     "bbox": [
+      466,
+      0,
+      1012,
+      1078
+     ],
+     "tile_wh": [
+      1180,
+      1078
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.288
+    },
+    {
+     "span": 11,
+     "t0": 59.1,
+     "t1": 60.28,
+     "tile_rows_thumb": [
+      60,
+      175
+     ],
+     "unique_frames": 25,
+     "detect_frac": 1.0,
+     "bbox": [
+      552,
+      0,
+      1010,
+      1158
+     ],
+     "tile_wh": [
+      1180,
+      1158
+     ],
+     "person_bbox_frac_of_tile_h": 1.0,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.267
+    },
+    {
+     "span": 12,
+     "t0": 60.93,
+     "t1": 62.01,
+     "tile_rows_thumb": [
+      60,
+      168
+     ],
+     "unique_frames": 41,
+     "detect_frac": 0.976,
+     "bbox": [
+      433,
+      187,
+      1076,
+      891
+     ],
+     "tile_wh": [
+      1180,
+      1088
+     ],
+     "person_bbox_frac_of_tile_h": 0.65,
+     "pose_jump_cuts_at": [],
+     "n_swings_detected": 0,
+     "status": "no_swing_found",
+     "torso_frac_of_tile_h": 0.278
+    }
+   ],
+   "swings": [
+    {
+     "file": "mason_swing_part3_s01.npz",
+     "span": 2,
+     "t_start": 23.94,
+     "t_top": 24.0,
+     "t_impact": 24.69,
+     "t_end": 24.99,
+     "tempo_ratio": null,
+     "backswing_s": 0.07,
+     "downswing_s": 0.68,
+     "valid_frame_ratio": 0.111,
+     "process_valid_frac": 0.73,
+     "mean_visibility": 0.713,
+     "torso_frac_of_tile_h": 0.187,
+     "peak_hand_speed_torso_per_s": 6.1,
+     "flags": [
+      "phase_too_short_for_tempo",
+      "little_address_before_takeaway",
+      "clipped_follow_through"
+     ],
+     "leg_valid_frame_ratio": 0.259,
+     "output_frames_at_0.01s": 76
+    },
+    {
+     "file": "mason_swing_part3_s02.npz",
+     "span": 5,
+     "t_start": 43.34,
+     "t_top": 44.06,
+     "t_impact": 44.72,
+     "t_end": 44.76,
+     "tempo_ratio": null,
+     "backswing_s": 0.32,
+     "downswing_s": 0.67,
+     "valid_frame_ratio": 0.0,
+     "process_valid_frac": 0.635,
+     "mean_visibility": 0.662,
+     "torso_frac_of_tile_h": 0.231,
+     "peak_hand_speed_torso_per_s": 5.5,
+     "flags": [
+      "tempo_out_of_range(0.47)",
+      "clipped_follow_through"
+     ],
+     "leg_valid_frame_ratio": 0.2,
+     "output_frames_at_0.01s": 127
+    },
+    {
+     "file": "mason_swing_part3_s03.npz",
+     "span": 9,
+     "t_start": 55.31,
+     "t_top": 55.71,
+     "t_impact": 56.53,
+     "t_end": 56.68,
+     "tempo_ratio": null,
+     "backswing_s": 0.0,
+     "downswing_s": 0.82,
+     "valid_frame_ratio": 0.0,
+     "process_valid_frac": 0.817,
+     "mean_visibility": 0.72,
+     "torso_frac_of_tile_h": 0.281,
+     "peak_hand_speed_torso_per_s": 5.1,
+     "flags": [
+      "phase_too_short_for_tempo",
+      "clipped_follow_through"
+     ],
+     "leg_valid_frame_ratio": 0.088,
+     "output_frames_at_0.01s": 111
+    }
+   ],
+   "rejected": [
+    {
+     "span": 0,
+     "t_in_video": 11.7,
+     "reason": "low_valid_frames: only 46% frames have all key landmarks (need 60%)"
+    },
+    {
+     "span": 4,
+     "t_in_video": 29.56,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 7,
+     "t_in_video": 49.64,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 7,
+     "t_in_video": 48.59,
+     "reason": "no_backswing_before_peak"
+    },
+    {
+     "span": 12,
+     "t_in_video": 61.0,
+     "reason": "no_backswing_before_peak"
+    }
+   ],
+   "issues": [],
+   "n_swings": 3,
+   "elapsed_s": 71.5
+  }
+ ]
+}
