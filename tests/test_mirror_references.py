@@ -52,3 +52,38 @@ def test_written_files_keep_provenance_and_originals():
             assert m[k] == o[k]
         assert str(m["handedness"]) == "left" and str(m["assumed_handedness"]) == "right"
         assert bool(m["mirrored"]) and not bool(o.get("mirrored", False))
+
+
+MS = "data/references/multisense_P19_s20.npz"
+
+
+def test_multisense_mirror_semantics(tmp_path):
+    d = _load(MS)
+    out = mirror_file(MS, tmp_path / "m.npz")
+    m = _load(out)
+    assert bool(m["mirrored"]) and str(m["mirrored_from"]) == "multisense_P19_s20.npz"
+    assert str(m["original_handedness"]) == "right" and str(m["handedness"]) == "left"
+    assert str(m["license_class"]) == "cc0" and bool(m["commercial_ok"])
+    assert "player_stated_handedness" not in m  # not Mason
+    assert m["joints"].shape == d["joints"].shape
+    assert np.allclose(m["joints"][:, 1], -d["joints"][:, 1])
+    assert np.allclose(m["joints"][:, 5:8], d["joints"][:, 8:11])
+    assert np.allclose(m["joints"][:, 8:11], d["joints"][:, 5:8])
+    assert np.allclose(m["joints"][:, [0, 2, 3, 4]], d["joints"][:, [0, 2, 3, 4]])
+    assert np.allclose(m["pelvis_rot_deg"], -d["pelvis_rot_deg"])
+    assert np.allclose(m["joints_rad"], np.deg2rad(m["joints"]))
+    assert np.allclose(m["time"], d["time"]) and np.allclose(m["events"], d["events"])
+    assert float(m["club_speed_mph_launch_monitor"]) == float(d["club_speed_mph_launch_monitor"])
+    # unmeasured wrist/ankle stay zero after mirroring
+    assert np.all(m["joints"][:, [3, 7, 10]] == 0)
+    back = mirror_dict(m)
+    assert np.allclose(back["joints"], d["joints"]) and str(back["handedness"]) == "right"
+
+
+def test_all_multisense_mirrors_exist_and_tagged():
+    srcs = [f for f in glob.glob("data/references/multisense_P*_s[0-9]*.npz") if "_mirrored" not in f]
+    assert srcs
+    for f in srcs:
+        m = _load(f.replace(".npz", "_mirrored.npz"))
+        assert bool(m["mirrored"]) and str(m["license_class"]) == "cc0" and bool(m["commercial_ok"])
+        assert str(m["original_handedness"]) == "right"
