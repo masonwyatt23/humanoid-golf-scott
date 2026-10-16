@@ -25,7 +25,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -59,6 +59,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._contact_step = None
         self.grip = grip
         self.carry_cap = carry_cap
+        self.lat_angular = lat_angular  # penalise lateral/carry in percent (angular miss) instead of metres, so short flat shots cannot hide dispersion
         self.lat_weight, self.elev_weight, self.az_weight = lat_weight, elev_weight, az_weight
         self.analytic_ball = analytic_ball  # score carry from analytic flight (drag+Magnus) of the MuJoCo launch vector, end episode 3 steps after contact
         self.elev_target = np.deg2rad(elev_target_deg)
@@ -163,6 +164,12 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         b = q[(q[:, 0] >= s["t_hold"]) & (q[:, 0] <= t_top), 1]; dn = q[q[:, 0] >= t_top, 1]
         e = np.mean((self._resamp(b) - self._ref_shape["back"]) ** 2) + np.mean((self._resamp(dn) - self._ref_shape["down"]) ** 2)
         return float(np.exp(-e / 0.1))
+
+    def _lat_pen(self):
+        lat = abs(self.ball_lateral)
+        if self.lat_angular:
+            return min(lat / max(self.carry, 30.0), 0.3) * 100.0
+        return min(lat, 20.0)
 
     def _elev_pen(self):
         v = self._ball_lin_vel() if self._an is None else None
@@ -273,7 +280,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             if self.true_contact and self._ref_shape is not None:
                 sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:
-                r += g * min(self.carry, self.carry_cap) / 5.0 - self.lat_weight * min(abs(self.ball_lateral), 20.0) - self.elev_weight * self._elev_pen()
+                r += g * min(self.carry, self.carry_cap) / 5.0 - self.lat_weight * self._lat_pen() - self.elev_weight * self._elev_pen()
                 if not self._landed:
                     r -= 1.0
             else:
