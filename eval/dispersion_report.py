@@ -87,7 +87,7 @@ def _mirrored(names):
             out.append(n + "_mirrored")
     return out
 
-MASON_REFS = _mirrored(MASON_REFS_ORIG)
+MASON_REFS = []   # v1 mirrored refs no longer scored (v1+v2 twins double count); only native-left v2 recommended refs are used
 MASON_QUALITY = {n + "_mirrored": q for n, q in MASON_QUALITY_ORIG.items()}
 
 

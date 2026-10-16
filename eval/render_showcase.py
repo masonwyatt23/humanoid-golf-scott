@@ -45,7 +45,9 @@ def pick_model(name, pick="best"):
     if name:
         m = next(m for m in ms if name in m["names"])
     else:
-        best = lb["best_left"] if pick == "best_left" else lb["best_model"]   # best TRAINED checkpoint (scripted baseline excluded)
+        best = {"best": lb["best_model"], "best_left": lb.get("best_left"), "best_qualifying": lb.get("best_qualifying")}[pick]
+        if best is None:
+            raise SystemExit(f"no model for pick={pick} (none meets the leaderboard criterion)")   # best TRAINED checkpoint (scripted baseline excluded)
         m = next(m for m in ms if m["names"] == best)
     return m, lb
 
@@ -161,7 +163,7 @@ def render_swing(env, model, seed, K, label, writer, tail_s=1.5):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--swings", type=int, default=12); ap.add_argument("--seed", type=int, default=5000)
-    ap.add_argument("--model", default=None); ap.add_argument("--pick", default="best", choices=["best", "best_left"]); ap.add_argument("--reel-top", type=int, default=4)
+    ap.add_argument("--model", default=None); ap.add_argument("--pick", default="best", choices=["best", "best_left", "best_qualifying"]); ap.add_argument("--reel-top", type=int, default=4)
     ap.add_argument("--K", type=int, default=5, help="physics steps per frame (showcase)")
     a = ap.parse_args()
     ensure_gl()

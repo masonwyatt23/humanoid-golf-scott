@@ -1,6 +1,6 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `95e60a7e2ccf`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Env fingerprint `df95da5d35d6`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
 Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_left_an3_s1**; best overall incl. scripted baseline: **ppo_resid_v3_left_an3_s1**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
@@ -31,3 +31,7 @@ Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_lef
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | 150000 | left | stoch | 100% | 110.95 | 342.58 | 90.81 | 94% | 7.57 | 40% | 48% | 114.6 / 118.8 | 99.0% |
 | ppo_resid_v3_left_an3_s1 | 150000 | left | deter | 100% | 108.60 | 162.26 | 108.60 | 100% | 6.74 | 54% | 36% | 114.6 / 115.2 | 96.0% |
 | ppo_resid_v3_left_an3_s1 | 150000 | left | stoch | 100% | 116.68 | 334.78 | 97.21 | 94% | 7.49 | 54% | 36% | 114.0 / 118.7 | 99.0% |
+| ppo_resid_v3_left_an4_s2 | 150000 | left | deter | 100% | 96.13 | 115.77 | 96.13 | 100% | 6.68 | 48% | 44% | 111.7 / 112.4 | 93.6% |
+| ppo_resid_v3_left_an4_s2 | 150000 | left | stoch | 100% | 100.02 | 328.06 | 93.46 | 98% | 8.91 | 48% | 48% | 111.4 / 116.3 | 96.9% |
+| ppo_resid_v3_left_an5_s3 | 150000 | left | deter | 100% | 108.04 | 357.37 | 9.57 | 72% | 0.14 | 0% | 0% | 117.0 / 117.7 | 98.1% |
+| ppo_resid_v3_left_an5_s3 | 150000 | left | stoch | 100% | 133.61 | 359.56 | 14.49 | 66% | 1.58 | 22% | 12% | 116.3 / 120.3 | 100.3% |

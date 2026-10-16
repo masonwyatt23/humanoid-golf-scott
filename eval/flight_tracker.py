@@ -15,6 +15,7 @@ Smash factor = peak ball speed (m/s over the episode) / impact club speed, per c
 Distance = final ball x (total/rolled), carry from env info (0 if never landed after flight).
 """
 from typing import Dict, Sequence
+import warnings
 import numpy as np
 
 LATERAL_THRESHOLD_M = 0.5
@@ -22,6 +23,7 @@ MPS_TO_MPH = 2.23694
 TARGET_MPH = 120.0
 TARGET_MS = 53.64     # 120 mph
 MAX_PLAUSIBLE_CLUB_SPEED = 100.0  # m/s; above this the MuJoCo sim blew up (unstable QACC), not a real speed
+FLAT_LAUNCH_DEG = 5.0   # launch elevation below this = flat/negative (flagged): mean < 5 deg or >= 50% of shots < 5 deg
 MIN_CLUB_SPEED = 0.05  # m/s; smash factor undefined below this
 
 
@@ -34,6 +36,7 @@ class FlightTracker:
         import mujoco
         self._mj, self._orig, self.peak_club = mujoco, mujoco.mj_step, 0.0
         self.n_nonphysical, self.raw_max, self.first_bad_t = 0, 0.0, None
+        self._sep, self._last_v, self.v_sep = False, None, None
         def wrapped(m, d, *a, **k):
             self._orig(m, d, *a, **k)
             v = self.env._club_speed()
@@ -43,6 +46,11 @@ class FlightTracker:
                 if self.first_bad_t is None: self.first_bad_t = float(d.time)
             else:
                 self.peak_club = max(self.peak_club, v)
+            # launch vector = ball velocity at the end of club-ball contact (first substep without contact after first true contact)
+            if self.env.true_contact and not self._sep:
+                bv = self.env._ball_lin_vel(); self._last_v = bv
+                if not self.env._check_contact():
+                    self._sep, self.v_sep = True, bv
         mujoco.mj_step = wrapped
         return self
 
@@ -52,10 +60,18 @@ class FlightTracker:
 
     def reset(self):
         self.peak_club, self.n_nonphysical, self.raw_max, self.first_bad_t = 0.0, 0, 0.0, None
+        self._sep, self._last_v, self.v_sep = False, None, None
         self.traj = [self.env.data.xpos[self.env._ball_id].copy()]
 
     def step(self):
         self.traj.append(self.env.data.xpos[self.env._ball_id].copy())
+
+    def launch_elev_deg(self) -> float:
+        """Elevation (deg) of the ball velocity right after contact (separation velocity); NaN if no contact."""
+        v = self.v_sep if self.v_sep is not None else self._last_v
+        if v is None:
+            return float("nan")
+        return float(np.degrees(np.arctan2(v[2], np.hypot(v[0], v[1]) + 1e-9)))
 
     def summary(self, info: Dict) -> Dict[str, float]:
         t = np.asarray(self.traj)
@@ -64,6 +80,8 @@ class FlightTracker:
                 "carry": float(info.get("carry", 0.0)), "true_contact": bool(info.get("true_contact", False)),
                 "peak_ball_speed": float(info.get("peak_ball_speed", float("nan"))),
                 "impact_club_speed": float(info.get("impact_club_speed", float("nan"))),
+                "launch_elev_deg": self.launch_elev_deg(),
+                "launch_elev_env_peakspeed_deg": float(np.degrees(info.get("launch_elevation", float("nan")))),
                 "peak_club_speed": float(getattr(self, "peak_club", float("nan"))),
                 "nonphysical_substeps": int(getattr(self, "n_nonphysical", 0)),
                 "raw_max_club_speed": float(getattr(self, "raw_max", 0.0)),
@@ -88,7 +106,14 @@ def dispersion(shots: Sequence[Dict], thr: float = LATERAL_THRESHOLD_M) -> Dict[
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         pkm, pkx = np.nanmean(pk), (np.nanmax(pk) if (~np.isnan(pk)).any() else float("nan"))
-    return {"peak_club_unstable_episodes": n_unstable, "peak_club_raw_max_unstable": float(raw.max()) if bad.any() else None, "peak_club_speed_mean": float(pkm), "peak_club_speed_max": float(pkx),
+    le = np.array([s.get("launch_elev_deg", np.nan) for s in shots])
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        lem, les = (float(np.nanmean(le)), float(np.nanstd(le))) if (~np.isnan(le)).any() else (float("nan"),) * 2
+        leflat = float(np.mean(le[~np.isnan(le)] < FLAT_LAUNCH_DEG)) if (~np.isnan(le)).any() else float("nan")
+    return {"launch_elev_mean_deg": lem, "launch_elev_std_deg": les, "launch_flat_frac": leflat,
+            "launch_flat_flag": bool(lem == lem and (lem < FLAT_LAUNCH_DEG or leflat >= 0.5)),
+            "peak_club_unstable_episodes": n_unstable, "peak_club_raw_max_unstable": float(raw.max()) if bad.any() else None, "peak_club_speed_mean": float(pkm), "peak_club_speed_max": float(pkx),
             "peak_club_mph_mean": float(pkm * MPS_TO_MPH), "peak_club_mph_max": float(pkx * MPS_TO_MPH),
             "peak_club_pct_target_mean": float(pkm / TARGET_MS * 100), "peak_club_pct_target_max": float(pkx / TARGET_MS * 100),
             "impact_club_speed_mean": float(np.nanmean(cs[tc])) if tc.any() else float("nan"),

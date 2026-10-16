@@ -98,7 +98,7 @@ def main():
     hist = load(RES / "leaderboard_history.json", {"entries": SEED_HISTORY})
     groups = discover()
     for h, g in groups.items():
-        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s8"
+        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s9"
         if key in cache and not a.force:
             print("skip (cached)", g["names"]); continue
         if g.get("scripted"):
@@ -129,7 +129,7 @@ def main():
     (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
-    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s8"]],
+    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s9"]],
                  key=lambda c: c.get("mtime", 0))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []
@@ -144,6 +144,10 @@ def main():
                 v["best_prev_contact"], v["best_prev_model"] = best, who
                 if v["contact_rate"] < best - 1e-9:
                     flags.append(f"{'/'.join(c['names'])} [{m}]: contact {v['contact_rate']*100:.0f}% < best previous {best*100:.0f}% ({who})")
+    def v2m(v):
+        a = [v['dtw_mason_v2'][r]['all11']['mean'] for r in v['dtw_mason_v2']]; u = [v['dtw_mason_v2'][r]['upper5']['mean'] for r in v['dtw_mason_v2']]
+        return f"{sum(a)/len(a):.3f} / {sum(u)/len(u):.3f}"
+
     def score(c):
         ms = [v for v in c.get("modes", {}).values() if "contact_rate" in v]
         if not ms: return (-1, -1)
@@ -153,8 +157,21 @@ def main():
     best_line = ("**Current best model: " + " / ".join(ranked[0]["names"]) + f"** ({ranked[0]['steps']} steps) - mean true contact over det+stoch {score(ranked[0])[0]*100:.0f}%, mean carry {score(ranked[0])[1]:.3f} m."
                  if ranked else "No evaluated models.")
     left = [c for c in ranked if c.get("env_kwargs", {}).get("handedness") == "left"]
+    Q_CARRY, Q_LAT, Q_ELEV = 30.0, 2.73, 5.0
+    def qual(c):
+        v = c.get("modes", {}).get("deterministic", {})
+        if "contact_rate" not in v: return None
+        checks = {"contact==100% (det and stoch)": all(m.get("contact_rate", 0) >= 1.0 for m in c["modes"].values()),
+                  f"mean carry >= {Q_CARRY:g} m (det)": v["mean_carry"] >= Q_CARRY,
+                  f"lateral std <= {Q_LAT:g} m (det)": v["lateral_std"] <= Q_LAT,
+                  f"mean launch elev >= {Q_ELEV:g} deg, not flat (det)": not v["launch_flat_flag"]}
+        return checks
+    qrows = [(c, qual(c)) for c in ranked if qual(c)]
+    qualifying = [c for c, q in qrows if all(q.values())]
+    qualifying.sort(key=score, reverse=True)
     out = {"env_fingerprint": fp, "episodes": a.episodes, "seed_base": a.seed, "references": refs,
-           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked[0]["names"] if ranked else None), "best_overall": (ranked_all[0]["names"] if ranked_all else None), "best_left": (left[0]["names"] if left else None),
+           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked[0]["names"] if ranked else None), "best_overall": (ranked_all[0]["names"] if ranked_all else None), "best_left": (left[0]["names"] if left else None), "qualifying": [c["names"] for c in qualifying], "best_qualifying": (qualifying[0]["names"] if qualifying else None),
+           "qualify_criterion": {"carry_m_min": Q_CARRY, "lateral_std_m_max": Q_LAT, "launch_elev_deg_min": Q_ELEV, "contact": "100% in both modes", "mode": "deterministic for carry/lateral/launch"},
            "ranking": ["/".join(c["names"]) for c in ranked], "ranking_incl_scripted": ["/".join(c["names"]) for c in ranked_all],
            "history": hist["entries"]}
     (RES / "leaderboard.json").write_text(json.dumps(out, indent=1))
@@ -165,6 +182,8 @@ def main():
             best_line += (f" Peak club-head speed (best single swing over det+stoch): {mx:.2f} m/s = {mx*2.23694:.1f} mph = {mx/53.64*100:.1f}% of the 120 mph (53.64 m/s) target.")
     if left:
         best_line += f" **Best left-handed model: {' / '.join(left[0]['names'])}** (mean contact {score(left[0])[0]*100:.0f}%, mean carry {score(left[0])[1]:.2f} m, physics protocol)."
+    best_line += (f" **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): {' / '.join(qualifying[0]['names'])}.**"
+                  if qualifying else " **NO model meets the showcase criterion (carry >= %g m, lateral std <= %g m, launch elev >= %g deg, contact 100%%); see qualification table.**" % (Q_CARRY, Q_LAT, Q_ELEV))
     rank_txt = ("Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; "
                 "(2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.")
     rk = " > ".join("/".join(c["names"][:1]) for c in ranked_all)
@@ -178,29 +197,29 @@ def main():
          f"Current env fingerprint `{fp}` (env + XML hash). {a.episodes} episodes, seeds {a.seed}..{a.seed+a.episodes-1}. "
          "+y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). "
          "DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.", "",
-         "| Model(s) | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak ball spd (m/s) | Impact club spd (m/s) | Smash | Peak club spd mean/max (m/s) | Peak club mph mean/max | % of 120 mph mean/max | DTW Mason best (11j / upper5) | " + " | ".join(f"DTW {r}" for r in refs) + " |",
-         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|" + "---|" * len(refs)]
+         "| Model(s) | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak ball spd (m/s) | Impact club spd (m/s) | Smash | Peak club spd mean/max (m/s) | Peak club mph mean/max | % of 120 mph mean/max | Launch elev mean deg (std) [flat?] | DTW native Mason v2, mean of 11 refs (11j / upper5) | " + " | ".join(f"DTW {r}" for r in refs) + " |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|" + "---|" * len(refs)]
     for c in cur:
         for m, v in c.get("modes", {}).items():
             nm = "<br>".join(c["names"])
             if "error" in v:
                 L.append(f"| {nm} | {c['steps']} | {m} | ERROR: {v['error']} |"); continue
-            L.append(f"| {nm} | {c['steps']} | {m[:5]} | {v['contact_rate']*100:.0f}% | {v['mean_distance']:.2f} | {v['max_distance']:.2f} | {v['mean_carry']:.3f} | {v['landed_fraction']*100:.0f}% | {v['lateral_std']:.3f} | {v['left_miss_rate']*100:.0f}% | {v['right_miss_rate']*100:.0f}% | {v['mean_peak_ball_speed']:.2f} | {v['impact_club_speed_mean']:.2f} | {v['smash_factor_mean']:.2f} (n={v['smash_factor_n']}) | {'n/a' if v['peak_club_speed_mean'] != v['peak_club_speed_mean'] else format(v['peak_club_speed_mean'],'.2f') + ' / ' + format(v['peak_club_speed_max'],'.2f')} | {'n/a' if v['peak_club_mph_mean'] != v['peak_club_mph_mean'] else format(v['peak_club_mph_mean'],'.1f') + ' / ' + format(v['peak_club_mph_max'],'.1f')} | {'n/a' if v['peak_club_pct_target_mean'] != v['peak_club_pct_target_mean'] else format(v['peak_club_pct_target_mean'],'.1f') + '% / ' + format(v['peak_club_pct_target_max'],'.1f') + '%'}{' (' + str(v['peak_club_unstable_episodes']) + ' sim-unstable eps excluded; raw max ' + format(v['peak_club_raw_max_unstable'],'.3g') + ' m/s)' if v['peak_club_unstable_episodes'] else ''} | {v['dtw_mason'][dr.MASON_REFS[0]]['all11']['mean']:.3f} / {v['dtw_mason'][dr.MASON_REFS[0]]['upper5']['mean']:.3f} | "
+            L.append(f"| {nm} | {c['steps']} | {m[:5]} | {v['contact_rate']*100:.0f}% | {v['mean_distance']:.2f} | {v['max_distance']:.2f} | {v['mean_carry']:.3f} | {v['landed_fraction']*100:.0f}% | {v['lateral_std']:.3f} | {v['left_miss_rate']*100:.0f}% | {v['right_miss_rate']*100:.0f}% | {v['mean_peak_ball_speed']:.2f} | {v['impact_club_speed_mean']:.2f} | {v['smash_factor_mean']:.2f} (n={v['smash_factor_n']}) | {'n/a' if v['peak_club_speed_mean'] != v['peak_club_speed_mean'] else format(v['peak_club_speed_mean'],'.2f') + ' / ' + format(v['peak_club_speed_max'],'.2f')} | {'n/a' if v['peak_club_mph_mean'] != v['peak_club_mph_mean'] else format(v['peak_club_mph_mean'],'.1f') + ' / ' + format(v['peak_club_mph_max'],'.1f')} | {'n/a' if v['peak_club_pct_target_mean'] != v['peak_club_pct_target_mean'] else format(v['peak_club_pct_target_mean'],'.1f') + '% / ' + format(v['peak_club_pct_target_max'],'.1f') + '%'}{' (' + str(v['peak_club_unstable_episodes']) + ' sim-unstable eps excluded; raw max ' + format(v['peak_club_raw_max_unstable'],'.3g') + ' m/s)' if v['peak_club_unstable_episodes'] else ''} | {v['launch_elev_mean_deg']:.1f} ({v['launch_elev_std_deg']:.1f}){' FLAT' if v['launch_flat_flag'] else ''} | {v2m(v)} | "
                      + " | ".join(f"{v['dtw_to_reference_style_rad'][r]['mean']:.3f}" for r in refs) + " |")
     L += ["", "## Configs used (each model evaluated with its own)", ""]
     for c in cur:
         L.append(f"- **{'/'.join(c['names'])}** ({c['steps']} steps): {c['config_source']}; env = `{json.dumps(c['env_kwargs'])}`")
     for k, c in cache.items():
         if k.split(":")[1] == fp and c.get("config_source") == "UNKNOWN": L.append(f"- {c['names']}: training config UNKNOWN, not evaluated.")
-    L += ["", "## DTW vs MIRRORED Mason video references (mirrored=true copies of all 8 refs in docs/REFERENCE_PATHS.md; mean DTW rad: all 11 joints / upper-body 5 joints)", "",
-          "**CAVEAT: Mason references are 2D-proxy joint angles from MediaPipe landmarks of a single phone view (unknown angle), screen-recorded at ~30 fps (tempo +-15%), not retargeted to the MuJoCo humanoid, no club data, leg joints weak. Scores are INDICATIVE ONLY and say nothing about swing quality.**", "",
-          "Mapping: `*_mirrored.npz` (mirrored=True, left-handed-consistent per docs) `joints` (degrees, 11 cols = process_video.JOINT_NAMES) -> radians; only `valid_mask` frames kept; policy trajectory = those 11 joints read BY NAME from qpos each env step (works for both the original and v3 models; joint sign conventions between video angles and MuJoCo joints are NOT calibrated; right-handed policies vs left-handed-consistent refs may be penalised); length-normalised DTW (tempo-tolerant). 'upper5' = joint cols 0-4 only (leg cols 5-10 unreliable). q = reference quality_score from the docs.", "",
-          "| Model(s) | Mode | " + " | ".join(r.replace("mason_swing_", "").replace("_refined", "") + " (q=" + str(dr.MASON_QUALITY[r]) + ")" for r in dr.MASON_REFS) + " |",
-          "|---|---|" + "---|" * len(dr.MASON_REFS)]
-    for c in cur:
-        for m, v in c.get("modes", {}).items():
-            if "dtw_mason" not in v: continue
-            L.append("| " + "<br>".join(c["names"]) + " | " + m[:5] + " | " + " | ".join(format(v["dtw_mason"][r]["all11"]["mean"], ".3f") + " / " + format(v["dtw_mason"][r]["upper5"]["mean"], ".3f") for r in dr.MASON_REFS) + " |")
+    Qs = ["", "## Showcase qualification criterion", "",
+          f"A model qualifies only if ALL hold (deterministic mode unless stated, physics protocol, 50 eps): true contact 100% in both modes; mean carry >= {Q_CARRY:g} m (documented threshold; the scripted baseline carries ~38 m on this protocol); lateral std <= {Q_LAT:g} m (the trainer's gate baseline); mean launch elevation >= {Q_ELEV:g} deg (ball velocity at the end of club-ball contact; rules out the flat/negative-launch exploit). Among qualifiers: highest mean carry over det+stoch.", "",
+          "| Model | " + " | ".join(next(iter([q for _, q in qrows])).keys()) + " | Qualifies |", "|---|" + "---|" * (len(next(iter([q for _, q in qrows])))+1)]
+    for c, q in qrows:
+        Qs.append(f"| {'/'.join(c['names'])} | " + " | ".join('yes' if x else 'NO' for x in q.values()) + f" | {'**YES**' if all(q.values()) else 'no'} |")
+    Qs += ["", ("Qualifying: " + ", ".join('/'.join(c['names']) for c in qualifying)) if qualifying else "**None qualifies.**"]
+    flat = [c for c in cur if any(v.get("launch_flat_flag") for v in c.get("modes", {}).values())]
+    Qs += ["", "Flat/negative-launch flag (mean elevation < %g deg or >= 50%% of shots below it): " % Q_ELEV + (", ".join('/'.join(c['names']) + " [" + ", ".join(f"{m[:3]} {v['launch_elev_mean_deg']:.1f} deg" for m, v in c['modes'].items() if v.get('launch_flat_flag')) + "]" for c in flat) or "none")]
+    L += Qs
     # trainer gate numbers next to verified ones (left-handed models)
     G = ["", "## Left-handed models: trainer gate JSON vs verified (this leaderboard, same protocol: MuJoCo physics, flight tracker, 450-step horizon, deterministic, 50 eps, seeds 4000+)", "",
          "Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`; gate: carry > 11.98 m AND lateral std < 2.73 m AND contact >= 99%). Trainer 'analytic' = `results/<name>.json` policy block (100 eps, analytic flight from the MuJoCo launch vector with ASSUMED backspin, episode ends 3 steps after contact) - NOT re-verified here, different protocol.", "",
@@ -237,18 +256,18 @@ def main():
         f = lambda m: "n/a" if e["modes"].get(m, {}).get("contact_rate") is None else f"{e['modes'][m]['contact_rate']*100:.0f}%"
         L.append(f"| {', '.join(e['names'])} | {e['steps']} | {e['env_fingerprint']} | {f('deterministic')} | {f('stochastic')} |")
     # dispersion detail for the ladder model and the scripted baseline
-    det_rows = [c for c in cur if c.get("scripted") or "ppo_resid_v3_ladder_s0" in c["names"]]
-    D = ["# Dispersion detail: ladder model and scripted baseline", "",
+    det_rows = [c for c in cur if c.get("scripted") or "ppo_resid_v3_ladder_s0" in c["names"] or c.get("env_kwargs", {}).get("handedness") == "left"]
+    D = ["# Dispersion detail: scripted baseline, ladder model and all left-handed models", "",
          f"{a.episodes} episodes/mode, seeds {a.seed}..{a.seed+a.episodes-1}; flight_tracker definitions (+y left, miss |y|>0.5 m; distance = final ball x at episode end (episode ends on landing/stop); max_ball_x = furthest x reached; carry = x at first landing after flight, mean over all episodes, 'landed' = fraction that landed). Peak club speed validated (>100 m/s or non-finite excluded and counted).", "",
-         "| Model | Mode | Contact | Mean final x (m) | Std | Max | Mean max ball x (m) | Mean carry (m) | Landed | Lateral std (m) | Mean y | Left miss | Right miss | Peak club mean/max (m/s) | Peak club mph mean/max | % of 120 mph (max) | unstable eps |",
-         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+         "| Model | Mode | Contact | Mean final x (m) | Std | Max | Mean max ball x (m) | Mean carry (m) | Landed | Lateral std (m) | Mean y | Left miss | Right miss | Peak club mean/max (m/s) | Peak club mph mean/max | % of 120 mph (max) | unstable eps | Launch elev mean deg (std) | flat? |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for c in det_rows:
         for m, v in c["modes"].items():
-            D.append(f"| {'/'.join(c['names'])} | {m} | {v['contact_rate']*100:.0f}% | {v['mean_distance']:.2f} | {v['std_distance']:.2f} | {v['max_distance']:.2f} | {v['mean_max_ball_x']:.2f} | {v['mean_carry']:.3f} | {v['landed_fraction']*100:.0f}% | {v['lateral_std']:.3f} | {v['mean_y']:+.3f} | {v['left_miss_rate']*100:.0f}% | {v['right_miss_rate']*100:.0f}% | {v['peak_club_speed_mean']:.2f} / {v['peak_club_speed_max']:.2f} | {v['peak_club_mph_mean']:.1f} / {v['peak_club_mph_max']:.1f} | {v['peak_club_pct_target_max']:.1f}% | {v['peak_club_unstable_episodes']} |")
-    D += ["", "DTW to mirrored Mason refs (mean rad, all11 / upper5):", "", "| Model | Mode | " + " | ".join(dr.MASON_REFS) + " |", "|---|---|" + "---|" * len(dr.MASON_REFS)]
+            D.append(f"| {'/'.join(c['names'])} | {m} | {v['contact_rate']*100:.0f}% | {v['mean_distance']:.2f} | {v['std_distance']:.2f} | {v['max_distance']:.2f} | {v['mean_max_ball_x']:.2f} | {v['mean_carry']:.3f} | {v['landed_fraction']*100:.0f}% | {v['lateral_std']:.3f} | {v['mean_y']:+.3f} | {v['left_miss_rate']*100:.0f}% | {v['right_miss_rate']*100:.0f}% | {v['peak_club_speed_mean']:.2f} / {v['peak_club_speed_max']:.2f} | {v['peak_club_mph_mean']:.1f} / {v['peak_club_mph_max']:.1f} | {v['peak_club_pct_target_max']:.1f}% | {v['peak_club_unstable_episodes']} | {v['launch_elev_mean_deg']:.1f} ({v['launch_elev_std_deg']:.1f}) | {'FLAT' if v['launch_flat_flag'] else 'no'} |")
+    D += ["", "DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboard.md for caveats): mean over the 11 refs", "", "| Model | Mode | mean of 11 refs |", "|---|---|---|"]
     for c in det_rows:
         for m, v in c["modes"].items():
-            D.append(f"| {'/'.join(c['names'])} | {m} | " + " | ".join(format(v['dtw_mason'][r]['all11']['mean'], '.3f') + " / " + format(v['dtw_mason'][r]['upper5']['mean'], '.3f') for r in dr.MASON_REFS) + " |")
+            D.append(f"| {'/'.join(c['names'])} | {m} | {v2m(v)} |")
     (RES / "dispersion_ladder_scripted.md").write_text("\n".join(D) + "\n")
     (RES / "dispersion_ladder_scripted.json").write_text(json.dumps([{k: c[k] for k in ("names", "steps", "config_source", "env_kwargs", "modes")} for c in det_rows], indent=1))
     (RES / "leaderboard.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
