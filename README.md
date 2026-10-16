@@ -4,10 +4,24 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 
 ## Current Performance
 
-- **Contact:** reliable (100%) contact rate is achievable with the dense approach + contact rewards.
-- **Distance:** still modest; the ball-velocity (cvel) fix and post-contact velocity bonus (see `ROADMAP.md`) are expected to improve carry, but no post-fix numbers are committed yet.
+Numbers below are copied from the committed `results/leaderboard.md` / `results/leaderboard.json` (50 episodes, seeds 4000-4049, env fingerprint `25d5c5608c4d`, v2 physics). Contact = true club-ball contact. Distance = final ball x in metres (total, including roll); carry = x at landing (0 if the ball never landed).
 
-> No results/metrics files are committed to this repo, so no exact distance figures are quoted here. Reproduce them with `python -m eval.evaluate` (mean distance, contact rate) and `python -m eval.compare_styles`.
+| Model | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) |
+|---|---|---|---|---|---|---|
+| ppo_scott_baseline | 30000 | deterministic | 0% | 0.30 | 0.30 | 0.000 |
+| ppo_scott_baseline | 30000 | stochastic | 0% | 0.56 | 7.90 | 0.000 |
+| ppo_scott_curr | 30000 | deterministic | 100% | 3.01 | 3.01 | 0.000 |
+| ppo_scott_curr | 30000 | stochastic | 34% | 5.04 | 13.90 | 0.062 |
+| ppo_scott_prev_backup | 30000 | deterministic | 100% | 2.76 | 2.76 | 0.000 |
+| ppo_scott_prev_backup | 30000 | stochastic | 38% | 4.86 | 13.62 | 0.021 |
+| ppo_scott_final2 | 60000 | deterministic | 48% | 1.80 | 9.80 | 0.091 |
+| ppo_scott_final2 | 60000 | stochastic | 60% | 1.96 | 10.37 | 0.128 |
+| ppo_scott / ppo_scott_carry1 (best by leaderboard) | 100000 | deterministic | 98% | 0.47 | 0.59 | 0.102 |
+| ppo_scott / ppo_scott_carry1 (best by leaderboard) | 100000 | stochastic | 66% | 0.88 | 5.93 | 0.237 |
+
+Takeaways: 100% contact has been reached by some models in deterministic mode, but not together with distance. Carry is still tiny (best mean 0.24 m) and the leaderboard ranks by contact, then carry. Peak club-speed columns in `results/leaderboard.md` include implausible values for early models and should not be trusted.
+
+> **Reproducibility caveat:** these results were produced with v2-physics environment and evaluation code (`env/`, `eval/leaderboard.py`, etc.) and model checkpoints that are not yet pushed to this repo, so they cannot be reproduced from this commit alone. Other files in `results/` (dispersion reports, per-model eval JSONs, training logs) are included as raw outputs.
 
 See [ROADMAP.md](ROADMAP.md) for next steps.
 
@@ -48,7 +62,15 @@ python -m eval.compare_styles
 3. Run `python -m data.process_video [--capture-fps 250]` (resumable, gap-filling, smoothing).
 4. For production quality use WHAM or GVHMR, see `docs/WHAM_GVHMR.md`; save `.npz` to `data/references/`.
 
-See `docs/NEXT_DATA_SOURCES.md` for the ranked list of real data sources. Tests: `pytest tests`.
 5. The ReferenceDataset automatically loads them.
+
+See `docs/NEXT_DATA_SOURCES.md` for the ranked list of real data sources. Tests: `pytest tests`.
+
+### Data licensing notes
+
+- **GolfDB videos are not licensed for commercial use** (research/non-commercial only). Use GolfDB-derived data only for non-commercial research; see `docs/GOLFDB_PLAN.md`.
+- **CMU mocap-derived files** (`data/references/cmu_*.npz`) require acknowledgment of the CMU Graphics Lab Motion Capture Database, and may not be resold as a standalone dataset. See `docs/CMU_MOCAP_GOLF.md`.
+- Every reference `.npz` carries `license_class` / `commercial_ok` tags; the per-file license column is in `docs/REFERENCE_PATHS.md`.
+- Raw videos and footage (including Mason's self-filmed swings) are never committed: `*.mp4`, `*.mov`, `*.avi`, `*.mkv`, `*.webm` and `data/raw_videos/` are gitignored.
 
 Created as part of AshlrAI agentic engineering experiments.

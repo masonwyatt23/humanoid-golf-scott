@@ -22,3 +22,12 @@ data/references/mason_ingest_report.json
 
 # CMU mocap raw BVH (re-downloadable, see docs/CMU_MOCAP_GOLF.md); derived data/references/cmu_*.npz are tracked
 data/raw_mocap/cmu/*.bvh
+results/videos/
+
+# raw frames / large data
+*.m4v
+*.MP4
+*.AVI
+frames/
+data/raw_frames/
+results/leaderboard_cache.json
