@@ -45,12 +45,13 @@ def solve(fixed, head_t, face_w=2.0, shaft_w=2.0, q0=None, seeds=6):
 
 if __name__ == "__main__":
     out = {}
-    head_addr = BALL + np.array([0.0, -0.066, 0.0])
+    head_addr = BALL + np.array([0.0, -0.10, 0.0])     # 4 cm gap between face and ball at address
+    head_imp = BALL + np.array([0.0, -0.066, 0.0])     # face touching the ball at impact
     qa, ea = solve({"pelvis_yaw": 0.0, "waist_yaw_joint": 0.0}, head_addr)
     out["address"] = dict(zip(free, qa.tolist()), pelvis_yaw=0.0, waist_yaw_joint=0.0); print("address", ea)
     # impact: body already rotated toward target (pelvis +0.5, waist +0.6): arms adapt
     for py, wy in [(0.5, 0.6), (0.3, 0.4)]:
-        qi, ei = solve({"pelvis_yaw": py, "waist_yaw_joint": wy}, head_addr, q0=qa)
+        qi, ei = solve({"pelvis_yaw": py, "waist_yaw_joint": wy}, head_imp, q0=qa)
         print("impact", py, wy, ei)
         out[f"impact_{py}_{wy}"] = dict(zip(free, qi.tolist()), pelvis_yaw=py, waist_yaw_joint=wy, **{"_err": ei})
     # top of backswing: body turned away (pelvis -0.7, waist -0.9), head behind/above right shoulder
