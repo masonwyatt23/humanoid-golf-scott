@@ -33,6 +33,7 @@ class HumanoidGolfEnv(gym.Env):
         model_xml: str = "humanoid_golf.xml",
         flight_model: bool = False,
         tee_height: float = 0.0,
+        loft_deg: float = None,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -87,6 +88,9 @@ class HumanoidGolfEnv(gym.Env):
         self.episode_steps = 0
         self.max_steps = 200
         self._ball_id = self.model.body("ball").id
+        if loft_deg is not None:  # club face loft: rotation of the head box about y (positive = face tilts up)
+            a = np.deg2rad(loft_deg)
+            self.model.geom_quat[self.model.geom("club_head").id] = [np.cos(a / 2), 0.0, np.sin(a / 2), 0.0]
         self._q_sp = int(self.model.jnt_qposadr[self.model.joint('right_shoulder_pitch').id])
         self._q_el = int(self.model.jnt_qposadr[self.model.joint('right_elbow').id])
         self._club_geom = self.model.geom("club_head").id
@@ -150,6 +154,13 @@ class HumanoidGolfEnv(gym.Env):
             f = f + cl * q * np.cross(w / wn, v)
         d.xfrc_applied[self._ball_id, :3] = f
 
+    def _ground_contact(self) -> bool:
+        d = self.data; g = self.model.geom("ground").id
+        for i in range(d.ncon):
+            if {d.contact[i].geom1, d.contact[i].geom2} == {g, self._ball_geom}:
+                return True
+        return False
+
     def _club_speed(self) -> float:
         v = np.zeros(6)
         mujoco.mj_objectVelocity(self.model, self.data, mujoco.mjtObj.mjOBJ_GEOM,
@@ -165,7 +176,7 @@ class HumanoidGolfEnv(gym.Env):
         data = np.load(path)
         self.reference = {
             "joints": data["joints"],
-            "club_head": data["club_head"],
+            "club_head": data["club_head"] if "club_head" in data.files else None,  # CMU mocap has no club target
             "dt": float(data["dt"]) if "dt" in data else 0.01,
         }
 
@@ -272,11 +283,12 @@ class HumanoidGolfEnv(gym.Env):
             joint_err = np.mean((current_joints - target_joints) ** 2)
             reward += 2.0 * np.exp(-joint_err / 200.0)
 
-            target_club = self.reference["club_head"][self.ref_idx]
-            club_id = self.model.geom("club_head").id
-            current_club = self.data.geom_xpos[club_id]
-            club_err = np.sum((current_club - target_club) ** 2)
-            reward += 1.5 * np.exp(-club_err / 0.5)
+            if self.reference.get("club_head") is not None:
+                target_club = self.reference["club_head"][self.ref_idx]
+                club_id = self.model.geom("club_head").id
+                current_club = self.data.geom_xpos[club_id]
+                club_err = np.sum((current_club - target_club) ** 2)
+                reward += 1.5 * np.exp(-club_err / 0.5)
 
         ball_pos = self.data.xpos[self.model.body("ball").id]
         ball_vel = self.data.cvel[self.model.body("ball").id][3:6]
@@ -426,7 +438,10 @@ class HumanoidGolfEnv(gym.Env):
             self.peak_ball_vx = max(self.peak_ball_vx, float(self._ball_lin_vel()[0]))
             if bp[2] > 0.06:
                 self._airborne = True
-            if self._airborne and not self._landed and bp[2] < 0.03:
+            if self.tee_height > 0 and not self._landed and self._ground_contact():
+                self._landed = True
+                self.carry = float(bp[0])  # tee mode: first ground touch after the strike
+            if self.tee_height <= 0 and self._airborne and not self._landed and bp[2] < 0.03:
                 self._landed = True
                 self.carry = float(bp[0])
 

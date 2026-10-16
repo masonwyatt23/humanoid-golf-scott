@@ -24,7 +24,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -44,8 +44,15 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._act = {m.actuator(i).name: i for i in range(m.nu)}
         self._gear = m.actuator_gear[:, 0]
         self._hold = [n for n in self._act if n not in self._jn and n != "left_shoulder_pitch"]
+        self.style = None
+        if style_prior:
+            from env.style_prior import StylePrior
+            self.style = StylePrior()
+        self.yaw_amp, self.wrist_amp, self.yaw_sign, self.wrist_sign = yaw_amp, wrist_amp, yaw_sign, wrist_sign
+        self.style_lead = style_lead  # seconds: yaw/wrist targets are read this far ahead to offset PD lag
         self.clock = 0.0
         self._tgt = np.zeros(4)
+        self._contact_step = None
         self.grip = grip
         if force_scale != 1.0:
             self.model.actuator_forcerange[:] *= force_scale
@@ -70,6 +77,21 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 wr = s["wrist_cock"] * (1 - min(u * 1.5, 1.0)); yaw = s["yaw_back"] + (s["yaw_fin"] - s["yaw_back"]) * u
             else:
                 sh, el, wr, yaw = s["q_fin"], el0, 0.0, s["yaw_fin"]
+        if self.style is not None:
+            t = t + self.style_lead
+            # CMU sequencing prior: thorax-yaw and wrist-hinge curve shapes
+            if t < t1:
+                seg, u = "back", 0.0
+            elif t < t2:
+                seg, u = "back", (t - t1) / s["t_back"]
+            elif t < t3:
+                seg, u = "back", 1.0
+            elif t < t4:
+                seg, u = "down", (t - t3) / s["t_down"]
+            else:
+                seg, u = "follow", (t - t4) / s["t_follow"]
+            yaw = self.yaw_sign * self.yaw_amp * self.style.value("thorax", seg, u)
+            wr = self.wrist_sign * self.wrist_amp * self.style.value("wrist", seg, u)
         return np.array([sh, el, wr, yaw])
 
     def _pd(self):
@@ -100,10 +122,28 @@ class ResidualGolfEnv(HumanoidGolfEnv):
     def _phase_value(self):
         return float(min(1.0, self.clock / self.T))
 
+    def _compute_reward(self):
+        # speed-gated, carry-driven reward (contact bonus only pays for a real strike)
+        r = 0.003 * min(self._club_speed(), 60.0)
+        if self.true_contact and not getattr(self, "_paid_contact", False):
+            self._paid_contact = True
+            r += 1.0 + 5.0 * self._gate()
+        if self.true_contact:
+            if self._contact_step is None:
+                self._contact_step = self.episode_steps
+            r += 0.02 * self._gate() * min(float(np.linalg.norm(self._ball_lin_vel())), 60.0)
+            if self.episode_steps - self._contact_step == 3:  # launch quality shortly after separation: ~15 deg elevation, on-target azimuth
+                v = self._ball_lin_vel(); sp = float(np.linalg.norm(v))
+                if sp > 5.0:
+                    elev = np.arctan2(v[2], np.hypot(v[0], v[1])); az = np.arctan2(v[1], max(v[0], 1e-6))
+                    r += self._gate() * (2.0 * np.exp(-((elev - 0.26) ** 2) / 0.04) + 2.0 * np.exp(-(az ** 2) / 0.01))
+        return float(r)
+
     def reset(self, seed=None, options=None):
         obs, info = super().reset(seed=seed, options=options)
         self.clock = 0.0
         self.phase = 0.0
+        self._contact_step = None
         return obs, info
 
     def step(self, action):
@@ -113,4 +153,12 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             term = True
         if (not self.true_contact) and self.clock > self.T + 0.3:
             term = True
+        if term or trunc:
+            g = self._gate()
+            if self.true_contact:
+                r += g * min(self.carry, 150.0) / 5.0 - 0.2 * min(abs(self.ball_lateral), 20.0)
+                if not self._landed:
+                    r -= 1.0
+            else:
+                r -= 2.0
         return obs, r, term, trunc, info
