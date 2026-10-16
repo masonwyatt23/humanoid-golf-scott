@@ -42,10 +42,12 @@ python -m eval.compare_styles
 
 ## Extending with Real PureGolf Content
 
-1. Download reels from @puregolf__ or public Adam Scott slow-mo videos.
-2. Place in `data/raw_videos/`.
-3. Run `python -m data.process_video` (planned; not yet implemented in this repo).
-4. For production quality use WHAM or GVHMR and save `.npz` to `data/references/`.
+1. See `python -m data.download_puregolf_proxy` (lists sources + licensing notes; downloads need `--download --i-have-reviewed-tos`; most footage is copyrighted).
+2. Place permitted videos in `data/raw_videos/` (gitignored).
+3. Run `python -m data.process_video [--capture-fps 250]` (resumable, gap-filling, smoothing).
+4. For production quality use WHAM or GVHMR, see `docs/WHAM_GVHMR.md`; save `.npz` to `data/references/`.
+
+See `docs/NEXT_DATA_SOURCES.md` for the ranked list of real data sources. Tests: `pytest tests`.
 5. The ReferenceDataset automatically loads them.
 
 Created as part of AshlrAI agentic engineering experiments.
