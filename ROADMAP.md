@@ -19,3 +19,8 @@ Highest-value next steps for the humanoid golf system:
 Note: the earlier "0.74 m" carry figure (commit 6adb62d message) predates the cvel fix, and no results files are committed, so it has not been re-measured. Re-run `python -m eval.evaluate` and commit the output to confirm current numbers.
 
 Current milestone: **100% contact rate** reported, with distance still modest and expected to improve after the cvel fix.
+
+## Status notes
+
+- `data/process_video.py` now exists (MediaPipe pipeline). WHAM/GVHMR extraction is still only documented in `docs/WHAM_GVHMR.md`, not implemented.
+- No `results/*.json` or trained models are committed yet. Add them (via `python -m eval.evaluate` output) before publishing a results table in the README.

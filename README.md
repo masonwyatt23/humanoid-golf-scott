@@ -28,6 +28,7 @@ See [ROADMAP.md](ROADMAP.md) for next steps.
 pip install -r requirements.txt
 python -m data.generate_synthetic_scott
 python -m train.train_ppo --style scott --timesteps 50000
+# train_ppo writes models/ppo_scott.zip (models/ is created by training; no trained model is committed)
 python -m eval.evaluate --model models/ppo_scott --episodes 5
 python -m eval.compare_styles
 ```
