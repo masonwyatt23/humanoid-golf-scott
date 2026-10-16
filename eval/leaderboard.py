@@ -54,11 +54,14 @@ def discover():
     j = RES / f"{SCRIPTED_SRC}.json"
     if j.exists():
         groups["scripted-" + SCRIPTED_SRC] = {"names": [SCRIPTED], "mtime": j.stat().st_mtime - 1, "scripted": True}
+    if (RES / "ppo_resid_v3_left_an10_s8.json").exists():   # trainer's scripted config (TRAINING_NOTES: ball_x 0.422, noise 0.005, loft 7, left; eval/eval_scripted_cfg.py base)
+        groups["scripted-bx0422"] = {"names": [SCRIPTED_BX], "mtime": j.stat().st_mtime - 0.5, "scripted": True, "scripted_cfg": "bx0422"}
     return groups
 
 
-SCRIPTED = "scripted_baseline"   # pseudo-checkpoint: ResidualGolfEnv with the LADDER run's exact config and a ZERO residual action
+SCRIPTED = "scripted_baseline[ladder cfg: right, loft 6, default ball_x]"   # pseudo-checkpoint: ResidualGolfEnv with the LADDER run's exact config and a ZERO residual action
 SCRIPTED_SRC = "ppo_resid_v3_ladder_s0"
+SCRIPTED_BX = "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]"
 
 
 def config_for(names):
@@ -98,10 +101,13 @@ def main():
     hist = load(RES / "leaderboard_history.json", {"entries": SEED_HISTORY})
     groups = discover()
     for h, g in groups.items():
-        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s9"
+        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s10"
         if key in cache and not a.force:
             print("skip (cached)", g["names"]); continue
-        if g.get("scripted"):
+        if g.get("scripted_cfg") == "bx0422":
+            import eval.eval_scripted_cfg as esc
+            steps, kw, src = 0, dict(esc.base, ball_x=0.422, ball_x_noise=0.005, loft_deg=7.0), "zero-residual action; trainer config from TRAINING_NOTES / eval/eval_scripted_cfg.py base + ball_x 0.422, ball_x_noise 0.005, loft 7, left"
+        elif g.get("scripted"):
             from eval.env_factory import resid_kw_from_args
             steps, kw, src = 0, resid_kw_from_args(json.loads((RES / f"{SCRIPTED_SRC}.json").read_text())["args"]), f"zero-residual action with results/{SCRIPTED_SRC}.json args"
         else:
@@ -129,7 +135,7 @@ def main():
     (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
-    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s9"]],
+    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s10"]],
                  key=lambda c: c.get("mtime", 0))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []

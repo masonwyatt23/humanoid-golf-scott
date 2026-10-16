@@ -1,6 +1,6 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `df95da5d35d6`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Env fingerprint `7a2ffa104b56`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
 Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_left_an3_s1**; best overall incl. scripted baseline: **ppo_resid_v3_left_an3_s1**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
@@ -23,8 +23,10 @@ Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_lef
 | ppo_resid_v3_r3_s0 | 100000 | right | stoch | 100% | 143.19 | 343.53 | 66.37 | 76% | 11.25 | 40% | 52% | 109.1 / 117.1 | 97.6% |
 | ppo_resid_v3_ladder_s0 | 150000 | right | deter | 100% | 101.91 | 148.16 | 101.91 | 100% | 8.28 | 44% | 50% | 111.1 / 111.7 | 93.1% |
 | ppo_resid_v3_ladder_s0 | 150000 | right | stoch | 100% | 108.18 | 342.09 | 69.47 | 88% | 11.58 | 48% | 32% | 111.3 / 122.9 | 102.4% |
-| scripted_baseline (scripted) | 0 | right | deter | 100% | 178.15 | 328.02 | 38.07 | 56% | 2.94 | 8% | 22% | 107.9 / 108.1 | 90.1% |
-| scripted_baseline (scripted) | 0 | right | stoch | 100% | 178.15 | 328.02 | 38.07 | 56% | 2.94 | 8% | 22% | 107.9 / 108.1 | 90.1% |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | deter | 100% | 178.15 | 328.02 | 38.07 | 56% | 2.94 | 8% | 22% | 107.9 / 108.1 | 90.1% |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | stoch | 100% | 178.15 | 328.02 | 38.07 | 56% | 2.94 | 8% | 22% | 107.9 / 108.1 | 90.1% |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | deter | 100% | 117.44 | 326.09 | 53.06 | 80% | 1.98 | 4% | 12% | 107.8 / 108.0 | 90.0% |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | stoch | 100% | 117.44 | 326.09 | 53.06 | 80% | 1.98 | 4% | 12% | 107.8 / 108.0 | 90.0% |
 | ppo_resid_v3_left_an1_s0 | 150000 | left | deter | 100% | 110.28 | 162.27 | 110.28 | 100% | 7.53 | 52% | 46% | 114.5 / 115.4 | 96.2% |
 | ppo_resid_v3_left_an1_s0 | 150000 | left | stoch | 100% | 105.46 | 344.17 | 84.94 | 94% | 12.43 | 44% | 46% | 113.3 / 119.4 | 99.5% |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | 150000 | left | deter | 100% | 114.29 | 160.27 | 114.29 | 100% | 7.42 | 46% | 46% | 114.7 / 115.5 | 96.2% |
@@ -35,3 +37,13 @@ Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_lef
 | ppo_resid_v3_left_an4_s2 | 150000 | left | stoch | 100% | 100.02 | 328.06 | 93.46 | 98% | 8.91 | 48% | 48% | 111.4 / 116.3 | 96.9% |
 | ppo_resid_v3_left_an5_s3 | 150000 | left | deter | 100% | 108.04 | 357.37 | 9.57 | 72% | 0.14 | 0% | 0% | 117.0 / 117.7 | 98.1% |
 | ppo_resid_v3_left_an5_s3 | 150000 | left | stoch | 100% | 133.61 | 359.56 | 14.49 | 66% | 1.58 | 22% | 12% | 116.3 / 120.3 | 100.3% |
+| ppo_resid_v3_left_an6_s4 | 150000 | left | deter | 100% | 106.50 | 335.10 | 99.80 | 98% | 6.95 | 48% | 40% | 113.0 / 115.0 | 95.8% |
+| ppo_resid_v3_left_an6_s4 | 150000 | left | stoch | 100% | 131.66 | 346.83 | 84.55 | 86% | 7.70 | 48% | 36% | 114.0 / 118.3 | 98.6% |
+| ppo_resid_v3_left_an7_s5 | 120000 | left | deter | 100% | 127.22 | 355.37 | 8.98 | 66% | 0.26 | 0% | 34% | 115.3 / 116.9 | 97.4% |
+| ppo_resid_v3_left_an7_s5 | 120000 | left | stoch | 100% | 141.36 | 357.35 | 8.54 | 62% | 0.47 | 0% | 20% | 115.7 / 119.1 | 99.2% |
+| ppo_resid_v3_left_an8_s6 | 120000 | left | deter | 100% | 75.60 | 359.26 | 11.43 | 82% | 0.10 | 0% | 0% | 118.5 / 119.2 | 99.3% |
+| ppo_resid_v3_left_an8_s6 | 120000 | left | stoch | 100% | 82.61 | 366.34 | 11.50 | 80% | 0.85 | 6% | 10% | 118.2 / 121.0 | 100.8% |
+| ppo_resid_v3_left_an9_s7 | 120000 | left | deter | 100% | 103.03 | 143.64 | 103.03 | 100% | 7.11 | 58% | 42% | 110.5 / 111.8 | 93.2% |
+| ppo_resid_v3_left_an9_s7 | 120000 | left | stoch | 100% | 126.63 | 345.37 | 81.20 | 86% | 8.19 | 46% | 42% | 110.2 / 116.5 | 97.1% |
+| ppo_resid_v3_left_an10_s8 | 120000 | left | deter | 100% | 128.80 | 324.46 | 109.97 | 94% | 5.67 | 50% | 32% | 107.0 / 108.4 | 90.3% |
+| ppo_resid_v3_left_an10_s8 | 120000 | left | stoch | 100% | 126.19 | 334.03 | 57.13 | 78% | 6.40 | 38% | 24% | 107.4 / 112.8 | 94.0% |

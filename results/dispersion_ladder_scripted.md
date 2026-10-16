@@ -6,8 +6,10 @@
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | ppo_resid_v3_ladder_s0 | deterministic | 100% | 101.91 | 13.01 | 148.16 | 101.91 | 101.908 | 100% | 8.277 | -0.136 | 44% | 50% | 49.65 / 49.94 | 111.1 / 111.7 | 93.1% | 0 | 32.4 (4.6) | no |
 | ppo_resid_v3_ladder_s0 | stochastic | 100% | 108.18 | 86.11 | 342.09 | 108.18 | 69.468 | 88% | 11.577 | +0.242 | 48% | 32% | 49.76 / 54.95 | 111.3 / 122.9 | 102.4% | 0 | 25.3 (18.7) | no |
-| scripted_baseline | deterministic | 100% | 178.15 | 128.88 | 328.02 | 178.15 | 38.065 | 56% | 2.945 | -0.635 | 8% | 22% | 48.22 / 48.33 | 107.9 / 108.1 | 90.1% | 0 | 9.1 (13.2) | FLAT |
-| scripted_baseline | stochastic | 100% | 178.15 | 128.88 | 328.02 | 178.15 | 38.065 | 56% | 2.945 | -0.635 | 8% | 22% | 48.22 / 48.33 | 107.9 / 108.1 | 90.1% | 0 | 9.1 (13.2) | FLAT |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | deterministic | 100% | 178.15 | 128.88 | 328.02 | 178.15 | 38.065 | 56% | 2.945 | -0.635 | 8% | 22% | 48.22 / 48.33 | 107.9 / 108.1 | 90.1% | 0 | 9.1 (13.2) | FLAT |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | stochastic | 100% | 178.15 | 128.88 | 328.02 | 178.15 | 38.065 | 56% | 2.945 | -0.635 | 8% | 22% | 48.22 / 48.33 | 107.9 / 108.1 | 90.1% | 0 | 9.1 (13.2) | FLAT |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | deterministic | 100% | 117.44 | 110.71 | 326.09 | 117.44 | 53.056 | 80% | 1.980 | -0.204 | 4% | 12% | 48.21 / 48.27 | 107.8 / 108.0 | 90.0% | 0 | 11.0 (11.3) | no |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | stochastic | 100% | 117.44 | 110.71 | 326.09 | 117.44 | 53.056 | 80% | 1.980 | -0.204 | 4% | 12% | 48.21 / 48.27 | 107.8 / 108.0 | 90.0% | 0 | 11.0 (11.3) | no |
 | ppo_resid_v3_left_an1_s0 | deterministic | 100% | 110.28 | 14.50 | 162.27 | 110.28 | 110.280 | 100% | 7.530 | +0.425 | 52% | 46% | 51.20 / 51.59 | 114.5 / 115.4 | 96.2% | 0 | 32.0 (3.6) | no |
 | ppo_resid_v3_left_an1_s0 | stochastic | 100% | 105.46 | 66.91 | 344.17 | 105.46 | 84.943 | 94% | 12.430 | -2.190 | 44% | 46% | 50.65 / 53.38 | 113.3 / 119.4 | 99.5% | 0 | 30.3 (15.8) | no |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | deterministic | 100% | 114.29 | 17.54 | 160.27 | 114.29 | 114.289 | 100% | 7.420 | -0.081 | 46% | 46% | 51.25 / 51.62 | 114.7 / 115.5 | 96.2% | 0 | 31.7 (4.1) | no |
@@ -18,6 +20,16 @@
 | ppo_resid_v3_left_an4_s2 | stochastic | 100% | 100.02 | 37.15 | 328.06 | 100.02 | 93.456 | 98% | 8.905 | -0.109 | 48% | 48% | 49.82 / 51.99 | 111.4 / 116.3 | 96.9% | 0 | 34.3 (7.7) | no |
 | ppo_resid_v3_left_an5_s3 | deterministic | 100% | 108.04 | 152.00 | 357.37 | 108.04 | 9.572 | 72% | 0.143 | +0.098 | 0% | 0% | 52.30 / 52.62 | 117.0 / 117.7 | 98.1% | 0 | -3.4 (2.1) | FLAT |
 | ppo_resid_v3_left_an5_s3 | stochastic | 100% | 133.61 | 157.32 | 359.56 | 133.61 | 14.490 | 66% | 1.583 | +0.029 | 22% | 12% | 51.99 / 53.79 | 116.3 / 120.3 | 100.3% | 0 | -1.6 (7.8) | FLAT |
+| ppo_resid_v3_left_an6_s4 | deterministic | 100% | 106.50 | 37.70 | 335.10 | 106.50 | 99.802 | 98% | 6.947 | -0.002 | 48% | 40% | 50.50 / 51.41 | 113.0 / 115.0 | 95.8% | 0 | 29.4 (8.4) | no |
+| ppo_resid_v3_left_an6_s4 | stochastic | 100% | 131.66 | 87.19 | 346.83 | 131.66 | 84.548 | 86% | 7.703 | +0.731 | 48% | 36% | 50.94 / 52.90 | 114.0 / 118.3 | 98.6% | 0 | 24.2 (13.7) | no |
+| ppo_resid_v3_left_an7_s5 | deterministic | 100% | 127.22 | 158.32 | 355.37 | 127.22 | 8.983 | 66% | 0.262 | -0.213 | 0% | 34% | 51.53 / 52.24 | 115.3 / 116.9 | 97.4% | 0 | -3.2 (2.1) | FLAT |
+| ppo_resid_v3_left_an7_s5 | stochastic | 100% | 141.36 | 163.01 | 357.35 | 141.36 | 8.538 | 62% | 0.469 | -0.234 | 0% | 20% | 51.73 / 53.23 | 115.7 / 119.1 | 99.2% | 0 | -2.9 (2.1) | FLAT |
+| ppo_resid_v3_left_an8_s6 | deterministic | 100% | 75.60 | 131.64 | 359.26 | 75.60 | 11.427 | 82% | 0.096 | -0.050 | 0% | 0% | 52.97 / 53.27 | 118.5 / 119.2 | 99.3% | 0 | -5.2 (2.8) | FLAT |
+| ppo_resid_v3_left_an8_s6 | stochastic | 100% | 82.61 | 136.51 | 366.34 | 82.61 | 11.504 | 80% | 0.853 | -0.174 | 6% | 10% | 52.83 / 54.08 | 118.2 / 121.0 | 100.8% | 0 | -4.6 (2.4) | FLAT |
+| ppo_resid_v3_left_an9_s7 | deterministic | 100% | 103.03 | 10.64 | 143.64 | 103.03 | 103.032 | 100% | 7.113 | +1.052 | 58% | 42% | 49.39 / 49.97 | 110.5 / 111.8 | 93.2% | 0 | 32.8 (4.0) | no |
+| ppo_resid_v3_left_an9_s7 | stochastic | 100% | 126.63 | 83.41 | 345.37 | 126.63 | 81.200 | 86% | 8.189 | +0.147 | 46% | 42% | 49.28 / 52.10 | 110.2 / 116.5 | 97.1% | 0 | 28.3 (14.3) | no |
+| ppo_resid_v3_left_an10_s8 | deterministic | 100% | 128.80 | 53.58 | 324.46 | 128.80 | 109.967 | 94% | 5.670 | +0.786 | 50% | 32% | 47.82 / 48.45 | 107.0 / 108.4 | 90.3% | 0 | 24.7 (8.9) | no |
+| ppo_resid_v3_left_an10_s8 | stochastic | 100% | 126.19 | 106.94 | 334.03 | 126.19 | 57.133 | 78% | 6.396 | +1.591 | 38% | 24% | 48.00 / 50.41 | 107.4 / 112.8 | 94.0% | 0 | 14.5 (15.7) | no |
 
 DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboard.md for caveats): mean over the 11 refs
 
@@ -25,8 +37,10 @@ DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboa
 |---|---|---|
 | ppo_resid_v3_ladder_s0 | deterministic | 2.106 / 1.560 |
 | ppo_resid_v3_ladder_s0 | stochastic | 2.136 / 1.607 |
-| scripted_baseline | deterministic | 2.103 / 1.569 |
-| scripted_baseline | stochastic | 2.103 / 1.569 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | deterministic | 2.103 / 1.569 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | stochastic | 2.103 / 1.569 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | deterministic | 2.222 / 1.738 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | stochastic | 2.222 / 1.738 |
 | ppo_resid_v3_left_an1_s0 | deterministic | 2.093 / 1.533 |
 | ppo_resid_v3_left_an1_s0 | stochastic | 2.112 / 1.566 |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | deterministic | 2.084 / 1.520 |
@@ -37,3 +51,13 @@ DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboa
 | ppo_resid_v3_left_an4_s2 | stochastic | 2.116 / 1.571 |
 | ppo_resid_v3_left_an5_s3 | deterministic | 2.240 / 1.784 |
 | ppo_resid_v3_left_an5_s3 | stochastic | 2.194 / 1.715 |
+| ppo_resid_v3_left_an6_s4 | deterministic | 2.122 / 1.578 |
+| ppo_resid_v3_left_an6_s4 | stochastic | 2.102 / 1.554 |
+| ppo_resid_v3_left_an7_s5 | deterministic | 2.217 / 1.749 |
+| ppo_resid_v3_left_an7_s5 | stochastic | 2.198 / 1.719 |
+| ppo_resid_v3_left_an8_s6 | deterministic | 2.295 / 1.863 |
+| ppo_resid_v3_left_an8_s6 | stochastic | 2.285 / 1.847 |
+| ppo_resid_v3_left_an9_s7 | deterministic | 2.109 / 1.562 |
+| ppo_resid_v3_left_an9_s7 | stochastic | 2.099 / 1.547 |
+| ppo_resid_v3_left_an10_s8 | deterministic | 2.095 / 1.544 |
+| ppo_resid_v3_left_an10_s8 | stochastic | 2.144 / 1.629 |

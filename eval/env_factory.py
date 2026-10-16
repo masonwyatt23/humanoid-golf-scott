@@ -19,7 +19,8 @@ def resid_kw_from_args(args: dict, ball_dz_if_absent: float = 0.0) -> dict:
     script = dict(q_back=a["q_back"], t_down=a["t_down"], t_back=0.6)
     if a["yaw"]:
         script.update(yaw_back=-0.35, yaw_fin=0.35)
-    return dict(_env="residual", script=script, residual_scale=list(a["res_scale"]), model_xml=a["model_xml"], flight_model=a["flight_model"],
+    extra = {k: a[k] for k in ("ball_x", "ball_x_noise") if k in a}   # address-position args (an8+); absent -> env defaults (0.43 / 0.03)
+    return dict(**extra, _env="residual", script=script, residual_scale=list(a["res_scale"]), model_xml=a["model_xml"], flight_model=a["flight_model"],
                 tee_height=0.04, force_scale=a["force_scale"], kp=700.0, kd=700.0 / 30, loft_deg=a["loft"], curriculum=True, carry_reward=True,
                 forward_reward=True, randomize_reset=True, ball_dz=ball_dz, handedness=a["handedness"], gate_lo=a["gate_lo"], gate_hi=a["gate_hi"],
                 seq_weight=a["seq_weight"], style_prior=a["style_prior"], yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
