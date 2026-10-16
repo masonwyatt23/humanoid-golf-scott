@@ -1,7 +1,6 @@
 data/raw_videos/
 __pycache__/
 *.pyc
-__pycache__/
 MUJOCO_LOG.TXT
 
 # Mason's raw self-filmed swing videos: never commit (docs/MASON_SWINGS.md)
@@ -25,7 +24,6 @@ data/raw_mocap/cmu/*.bvh
 results/videos/
 
 # raw frames / large data
-*.m4v
 *.MP4
 *.AVI
 frames/
