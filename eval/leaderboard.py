@@ -40,7 +40,8 @@ def md5(p):
 
 def env_fingerprint():
     h = hashlib.md5()
-    for p in [ROOT / "env/humanoid_golf_env.py", *sorted((ROOT / "env/models").glob("*.xml"))]:
+    for p in [ROOT / "env/humanoid_golf_env.py", ROOT / "env/residual_golf_env.py", ROOT / "env/ball_flight_analytic.py", *sorted((ROOT / "env/models").glob("*.xml"))]:
+        if not p.exists(): continue
         h.update(p.read_bytes())
     return h.hexdigest()[:12]
 
