@@ -24,7 +24,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -57,6 +57,12 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._seq = []
         self._contact_step = None
         self.grip = grip
+        self.analytic_ball = analytic_ball  # score carry from analytic flight (drag+Magnus) of the MuJoCo launch vector, end episode 3 steps after contact
+        self.elev_target = np.deg2rad(elev_target_deg)
+        self._an = None
+        self.style_weight = style_weight
+        self._qtraj = []
+        self._ref_shape = self._load_style_ref(style_ref) if (style_ref and style_weight > 0) else None
         if force_scale != 1.0:
             self.model.actuator_forcerange[:] *= force_scale
         self.model.eq_active0[:] = 1 if grip else 0
@@ -112,6 +118,36 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             ctrl[i] = (kp * (0.0 - q) - kd * qd) / self._gear[i]
         return ctrl
 
+    @staticmethod
+    def _resamp(x, n=25):
+        x = np.asarray(x, float)
+        if len(x) < 3: return np.zeros(n)
+        y = np.interp(np.linspace(0, len(x) - 1, n), np.arange(len(x)), x)
+        r = y.max() - y.min()
+        return (y - y.min()) / r if r > 1e-6 else np.zeros(n)
+
+    def _load_style_ref(self, path):
+        """Mason reference -> normalised trail-shoulder-pitch shapes for backswing (start->top) and downswing (top->impact).
+        STYLE ONLY: 2D-proxy angles from single-view video; tempo/speed from the reference are never used.
+        Ref pitch is 0 with arm hanging and negative going up, so it is negated to match this env's sign."""
+        d = np.load(path, allow_pickle=True)
+        col = -np.asarray(d["joints"][:, 0], float); t = np.asarray(d["time"], float)
+        t0 = float(d["t_start_in_video"]); i_top = int(np.argmin(abs(t - (float(d["t_top"]) - t0)))); i_imp = int(np.argmin(abs(t - (float(d["t_impact"]) - t0))))
+        mov = np.where(abs(col - col[0]) > np.deg2rad(0) + 5.0)[0]; i0 = max(int(mov[0]) - 3, 0) if len(mov) else 0
+        return dict(back=self._resamp(col[i0:i_top + 1]), down=self._resamp(col[i_top:i_imp + 1]), mirrored=bool(d["mirrored"]) if "mirrored" in d.files else False)
+
+    def _style_score(self):
+        s = self.script; q = np.array(self._qtraj)  # columns: clock, shoulder pitch
+        if len(q) < 10 or self._ref_shape is None: return 0.0
+        t_top = s["t_hold"] + s["t_back"] + s["t_pause"]
+        b = q[(q[:, 0] >= s["t_hold"]) & (q[:, 0] <= t_top), 1]; dn = q[q[:, 0] >= t_top, 1]
+        e = np.mean((self._resamp(b) - self._ref_shape["back"]) ** 2) + np.mean((self._resamp(dn) - self._ref_shape["down"]) ** 2)
+        return float(np.exp(-e / 0.1))
+
+    def _lockout(self):
+        sc = self.script
+        return self.clock < sc["t_hold"] + sc["t_back"] + sc["t_pause"] - 0.02
+
     def _substep_ctrl(self):
         return self._pd()  # PD evaluated at the physics rate (zero-order hold at 50 Hz is unstable)
 
@@ -160,7 +196,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 v = self._ball_lin_vel(); sp = float(np.linalg.norm(v))
                 if sp > 5.0:
                     elev = np.arctan2(v[2], np.hypot(v[0], v[1])); az = np.arctan2(v[1], max(v[0], 1e-6))
-                    r += self._gate() * (2.0 * np.exp(-((elev - 0.26) ** 2) / 0.04) + 2.0 * np.exp(-(az ** 2) / 0.01))
+                    r += self._gate() * (2.0 * np.exp(-((elev - self.elev_target) ** 2) / 0.04) + 2.0 * np.exp(-(az ** 2) / 0.01))
         return float(r)
 
     def reset(self, seed=None, options=None):
@@ -169,15 +205,34 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.phase = 0.0
         self._contact_step = None
         self._seq = []
+        self._an = None
+        self._qtraj = []
         return obs, info
 
     def step(self, action):
         obs, r, term, trunc, info = super().step(action)
         info["phase"] = self.phase
         d = self.data
+        self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]])])
         self._seq.append([self.clock, abs(d.qvel[self._da["chest_yaw"]]), abs(d.qvel[self._da["right_shoulder_pitch"]]),
                           float(np.linalg.norm(d.cvel[self._club_body_id][:3]))])
-        if self.true_contact and (self._landed or (self.episode_steps > 10 and np.linalg.norm(self._ball_lin_vel()) < 0.2)):
+        if self.analytic_ball and self.true_contact and self._an is None and self._contact_step is not None \
+                and self.episode_steps - self._contact_step >= 3:
+            from env.ball_flight_analytic import simulate
+            v = self._ball_lin_vel().copy(); sp = float(np.linalg.norm(v))
+            elev = np.degrees(np.arctan2(v[2], np.hypot(v[0], v[1])))
+            rpm = float(np.clip(1500.0 + 70.0 * elev, 1000.0, 5000.0))  # ASSUMED backspin from launch elevation (no measured spin)
+            w0 = np.array([0.0, -rpm * 2 * np.pi / 60.0, 0.0])
+            if sp > 1.0 and v[0] > 0:
+                res = simulate([0, 0, 0.07], v, w0, dt=0.005, t_max=12.0)
+                c = res["carry"] if res["carry"] is not None else 0.0
+                self._an = dict(carry=float(c), lat=float(res["lat_carry"] or 0.0), apex=float(res["apex"]), spin=rpm, launch=float(res["launch"]), hang=float(res["hang"] or 0.0))
+            else:
+                self._an = dict(carry=0.0, lat=0.0, apex=0.0, spin=rpm, launch=float(elev), hang=0.0)
+            self.carry = self._an["carry"]; self.ball_lateral = self._an["lat"]; self._landed = self._an["carry"] > 0
+            info["carry"] = self.carry; info["ball_lateral"] = self.ball_lateral; info["carry_analytic"] = self.carry; info["apex_analytic"] = self._an["apex"]; info["spin_rpm_assumed"] = rpm
+            term = True
+        if (not self.analytic_ball) and self.true_contact and (self._landed or (self.episode_steps > 10 and np.linalg.norm(self._ball_lin_vel()) < 0.2)):
             term = True
         if (not self.true_contact) and self.clock > self.T + 0.3:
             term = True
@@ -190,6 +245,8 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 ok = 0.5 * st["seq_order_thorax_before_arm"] + 0.5 * st["seq_order_arm_before_club"]
                 lead = np.exp(-((st["arm_lead_ms"] - 65.0) ** 2) / (2 * 30.0 ** 2))
                 r += self.seq_weight * g * (ok + lead)
+            if self.true_contact and self._ref_shape is not None:
+                sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:
                 r += g * min(self.carry, 150.0) / 5.0 - 0.2 * min(abs(self.ball_lateral), 20.0)
                 if not self._landed:

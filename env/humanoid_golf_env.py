@@ -409,6 +409,10 @@ class HumanoidGolfEnv(gym.Env):
     def _action_to_ctrl(self, action):
         return np.clip(action, -1, 1) * self.torque_scale
 
+    def _lockout(self):
+        """True while contact must be ignored (ball stays pinned on the tee): address/backswing touches are not strikes."""
+        return False
+
     def step(self, action):
         ctrl = self._action_to_ctrl(action)
         if self.action_smoothing > 0:
@@ -431,7 +435,7 @@ class HumanoidGolfEnv(gym.Env):
             self.peak_club_speed = max(self.peak_club_speed, self._club_speed())
             if not self.true_contact:
                 cs_now = self._club_speed()
-                if self._check_contact():
+                if (not self._lockout()) and self._check_contact():
                     self.true_contact = True
                     # speed just before/at first contact (post-contact speed is already reduced)
                     self.impact_club_speed = max(self._prev_club_speed, cs_now)

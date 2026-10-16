@@ -64,6 +64,7 @@ def run_eval(policy_fn, make_env, n=100, seed0=5000):
             "seq_thorax_before_arm_frac": float(np.mean([r["seq_order_thorax_before_arm"] for r in seq])) if seq else None,
             "seq_arm_before_club_frac": float(np.mean([r["seq_order_arm_before_club"] for r in seq])) if seq else None,
             "seq_arm_lead_ms_mean": float(np.mean([r["arm_lead_ms"] for r in seq])) if seq else None,
+            "mean_style_score": float(np.mean([r["style_score"] for r in rows if "style_score" in r])) if any("style_score" in r for r in rows) else None,
             "mean_launch_elev_deg": float(np.degrees(g("launch_elevation")[ok]).mean()) if ok.any() else 0.0}
 
 
@@ -89,6 +90,10 @@ def main():
     ap.add_argument("--style_prior", action="store_true")
     ap.add_argument("--ball_dz", type=float, default=0.008)
     ap.add_argument("--handedness", default="right")
+    ap.add_argument("--analytic_ball", action="store_true")
+    ap.add_argument("--elev_target", type=float, default=12.5)
+    ap.add_argument("--style_ref", default=None)
+    ap.add_argument("--style_weight", type=float, default=0.0)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--log_std_init", type=float, default=-1.5)
     ap.add_argument("--ent", type=float, default=0.0)
@@ -98,9 +103,11 @@ def main():
     kw = dict(script=script, residual_scale=tuple(a.res_scale), model_xml=a.model_xml, flight_model=a.flight_model, tee_height=0.04,
               force_scale=a.force_scale, kp=700.0, kd=700.0 / 30, loft_deg=a.loft, curriculum=True, carry_reward=True, forward_reward=True,
               randomize_reset=True, ball_dz=a.ball_dz, handedness=a.handedness, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
+              analytic_ball=a.analytic_ball, elev_target_deg=a.elev_target, style_ref=a.style_ref, style_weight=a.style_weight,
               style_prior=a.style_prior, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
     make_env = lambda: ResidualGolfEnv(**kw)
-    out = {"args": vars(a)}
+    import subprocess
+    out = {"args": vars(a), "git_head": subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=str(ROOT)).stdout.strip()}
     out["scripted_only"] = run_eval(lambda o: np.zeros(5), make_env, a.eval_episodes)
     print("SCRIPTED", json.dumps(out["scripted_only"]), flush=True)
     env = make_vec_env(make_env, n_envs=a.n_envs, seed=a.seed, vec_env_cls=SubprocVecEnv)

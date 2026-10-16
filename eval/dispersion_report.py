@@ -13,29 +13,36 @@ CURR60 = dict(CURR, randomize_reset=True, forward_reward=True)  # 60k-step runs 
 MODELS = {"ppo_scott": CURR60, "ppo_scott_final2": CURR60, "ppo_scott_prev_backup": CURR}
 REFS = ["scott", "rory", "scheffler", "average"]
 # Mason video refs in docs/REFERENCE_PATHS.md rank order (best first); low-quality part3 files excluded per that doc
-MASON_REFS = ["mason_swing_part1_s05_refined", "mason_swing_part2_s01_refined", "mason_swing_part1_s02_refined",
+MASON_REFS_ORIG = ["mason_swing_part1_s05_refined", "mason_swing_part2_s01_refined", "mason_swing_part1_s02_refined",
               "mason_swing_part1_s06_refined", "mason_swing_part1_s03_refined", "mason_swing_part1_s04_refined",
               "mason_swing_part2_s05_refined", "mason_swing_part2_s02_refined"]
-MASON_QUALITY = {"mason_swing_part1_s05_refined": 0.86, "mason_swing_part2_s01_refined": 0.80, "mason_swing_part1_s02_refined": 0.79,
+MASON_QUALITY_ORIG = {"mason_swing_part1_s05_refined": 0.86, "mason_swing_part2_s01_refined": 0.80, "mason_swing_part1_s02_refined": 0.79,
                  "mason_swing_part1_s06_refined": 0.78, "mason_swing_part1_s03_refined": 0.78, "mason_swing_part1_s04_refined": 0.78,
                  "mason_swing_part2_s05_refined": 0.77, "mason_swing_part2_s02_refined": 0.75}  # quality_score per docs/REFERENCE_PATHS.md
 
 
-def run(name, kw, episodes, seed, det):
+def run(name, kw, episodes, seed, det, scripted=False):
+    """name = models/<name>.zip (ignored if scripted=True: zero-residual action on the residual env)."""
     import numpy as np
     from eval.style_match import style_match_stats
-    ref = ROOT / "data/references/scott_swing.npz"
-    env = HumanoidGolfEnv(reference_path=str(ref), **kw)
-    model = PPO.load(str(ROOT / "models" / name))
+    from eval.env_factory import make_env, joint_qpos_idx
+    env = make_env(kw)
+    zero = np.zeros(env.action_space.shape, dtype=np.float32)
+    model = None if scripted else PPO.load(str(ROOT / "models" / name))
+    qi = joint_qpos_idx(env)
     ft, shots, jt = FlightTracker(env).install(), [], []
-    for ep in range(episodes):
-        obs, _ = env.reset(seed=seed + ep); ft.reset(); done = False; info = {}; tr_ = [env.data.qpos[14:25].copy()]
-        while not done:
-            a, _ = model.predict(obs, deterministic=det)
-            obs, _, te, tr, info = env.step(a); ft.step(); tr_.append(env.data.qpos[14:25].copy()); done = te or tr
-        shots.append(ft.summary(info)); jt.append(np.array(tr_))
-    ft.close()
+    try:
+        for ep in range(episodes):
+            obs, _ = env.reset(seed=seed + ep); ft.reset(); done = False; info = {}; tr_ = [env.data.qpos[qi].copy()]
+            while not done:
+                a = zero if scripted else model.predict(obs, deterministic=det)[0]
+                obs, _, te, tr, info = env.step(a); ft.step(); tr_.append(env.data.qpos[qi].copy()); done = te or tr
+            sh = ft.summary(info); sh["max_ball_x"] = float(info.get("max_ball_x", sh["final_x"]))
+            shots.append(sh); jt.append(np.array(tr_))
+    finally:
+        ft.close()
     d = dispersion(shots)
+    d["mean_max_ball_x"] = float(np.mean([s["max_ball_x"] for s in shots]))
     d['dtw_to_reference_style_rad'] = {r: style_match_stats(jt, r) for r in REFS}
     from eval.style_match import UPPER_COLS
     d['dtw_mason'] = {r: {"all11": style_match_stats(jt, r), "upper5": style_match_stats(jt, r, UPPER_COLS)} for r in MASON_REFS}
@@ -67,3 +74,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Mirrored Mason references (docs/REFERENCE_PATHS.md: filter on mirrored=True): the same 8 swings, mirrored files only.
+def _mirrored(names):
+    import numpy as np
+    out = []
+    for n in names:
+        f = ROOT / "data/references" / f"{n}_mirrored.npz"
+        if f.exists() and bool(np.load(f, allow_pickle=True)["mirrored"]):
+            out.append(n + "_mirrored")
+    return out
+
+MASON_REFS = _mirrored(MASON_REFS_ORIG)
+MASON_QUALITY = {n + "_mirrored": q for n, q in MASON_QUALITY_ORIG.items()}

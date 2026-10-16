@@ -18,21 +18,37 @@ import numpy as np
 REF_DIR = Path(__file__).resolve().parent.parent / "data" / "references"
 
 
+try:
+    from numba import njit
+except Exception:  # numba optional: slow pure-python fallback
+    def njit(f=None, **k):
+        return f if f is not None else (lambda g: g)
+
+
+@njit(cache=True)
+def _dtw(cost):
+    n, m = cost.shape
+    acc = np.full((n + 1, m + 1), np.inf); acc[0, 0] = 0.0
+    steps = np.zeros((n + 1, m + 1), np.int64)
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            a, b, c = acc[i - 1, j - 1], acc[i - 1, j], acc[i, j - 1]
+            if a <= b and a <= c:
+                best, bs = a, steps[i - 1, j - 1]
+            elif b <= c:
+                best, bs = b, steps[i - 1, j]
+            else:
+                best, bs = c, steps[i, j - 1]
+            acc[i, j] = cost[i - 1, j - 1] + best
+            steps[i, j] = bs + 1
+    return acc[n, m] / steps[n, m]
+
+
 def dtw_distance(a: np.ndarray, b: np.ndarray) -> float:
     """Length-normalized DTW distance between (Ta, D) and (Tb, D) sequences."""
     a = np.atleast_2d(np.asarray(a, float)); b = np.atleast_2d(np.asarray(b, float))
-    cost = np.linalg.norm(a[:, None, :] - b[None, :, :], axis=-1)
-    n, m = cost.shape
-    acc = np.full((n + 1, m + 1), np.inf); acc[0, 0] = 0.0
-    steps = np.zeros((n + 1, m + 1), int)
-    for i in range(1, n + 1):
-        for j in range(1, m + 1):
-            prev = [(acc[i - 1, j - 1], steps[i - 1, j - 1]), (acc[i - 1, j], steps[i - 1, j]),
-                    (acc[i, j - 1], steps[i, j - 1])]
-            best, bs = min(prev, key=lambda t: t[0])
-            acc[i, j] = cost[i - 1, j - 1] + best
-            steps[i, j] = bs + 1
-    return float(acc[n, m] / steps[n, m])
+    cost = np.ascontiguousarray(np.linalg.norm(a[:, None, :] - b[None, :, :], axis=-1))
+    return float(_dtw(cost))
 
 
 UPPER_COLS = slice(0, 5)   # joint cols 0-4 (shoulder/elbow block); cols 5-10 = legs (unreliable in Mason refs)

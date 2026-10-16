@@ -45,8 +45,8 @@ def pick_model(name):
     if name:
         m = next(m for m in ms if name in m["names"])
     else:
-        best = lb["ranking"][0]
-        m = next(m for m in ms if "/".join(m["names"]) == best)
+        best = lb["best_model"]   # best TRAINED checkpoint (scripted baseline excluded)
+        m = next(m for m in ms if m["names"] == best)
     return m, lb
 
 
@@ -101,6 +101,8 @@ class Recorder:
                      carry=e.carry if e._landed else 0.0, y=float(bp[1]))
         panels = []
         for name, cam in self.cams:
+            # follow the ball when it travels far (residual models fly tens of metres)
+            cam.lookat[0] = 0.9 + 0.5 * max(0.0, bp[0] - 0.9); cam.distance = min(3.4 + 0.5 * max(0.0, bp[0] - 0.9), 60.0)
             self.r.update_scene(e.data, camera=cam)
             sc = self.r.scene
             for p in self.trail:
@@ -167,7 +169,8 @@ def main():
     from env.humanoid_golf_env import HumanoidGolfEnv
     m, lb = pick_model(a.model)
     name = m["names"][0]
-    env = HumanoidGolfEnv(reference_path=str(ROOT / "data/references/scott_swing.npz"), **m["env_kwargs"])
+    from eval.env_factory import make_env
+    env = make_env(m["env_kwargs"])
     pol = PPO.load(str(ROOT / "models" / name))
     sel = []
     for i in range(a.swings):
