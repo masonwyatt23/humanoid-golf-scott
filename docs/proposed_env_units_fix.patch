@@ -1,0 +1,16 @@
+--- a/env/humanoid_golf_env.py
++++ b/env/humanoid_golf_env.py
+@@ -169,10 +169,11 @@
+         reward = 0.0
+ 
+         if self.reference is not None and self.ref_idx < len(self.reference["joints"]):
+-            target_joints = self.reference["joints"][self.ref_idx]
++            # reference joints are stored in degrees; qpos[14:] is radians
++            target_joints = np.deg2rad(self.reference["joints"][self.ref_idx])
+             current_joints = self.data.qpos[14:14+len(target_joints)]
+             joint_err = np.mean((current_joints - target_joints) ** 2)
+-            reward += 2.0 * np.exp(-joint_err / 200.0)
++            reward += 2.0 * np.exp(-joint_err / 0.5)  # same scale as curriculum reward
+ 
+             target_club = self.reference["club_head"][self.ref_idx]
+             club_id = self.model.geom("club_head").id
