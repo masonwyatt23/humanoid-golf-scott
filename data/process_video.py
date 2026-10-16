@@ -181,8 +181,8 @@ def resample(x: np.ndarray, src_dt: float, out_dt: float) -> Tuple[np.ndarray, n
 
 
 def process_landmarks(lm: np.ndarray, fps: float, *, min_visibility: float = 0.5,
-                      max_gap: int = 5, min_valid_frac: float = 0.6, out_dt: float = 0.01
-                      ) -> Dict[str, np.ndarray]:
+                      max_gap: int = 5, min_valid_frac: float = 0.6, out_dt: float = 0.01,
+                      key: Optional[List[int]] = None) -> Dict[str, np.ndarray]:
     """Core pipeline: raw landmarks (n,33,4) with NaN rows for missed frames -> reference dict.
     Raises ValueError if the clip is unusable."""
     if lm.ndim != 3 or lm.shape[1] != N_LM or lm.shape[2] < 4:
@@ -195,7 +195,7 @@ def process_landmarks(lm: np.ndarray, fps: float, *, min_visibility: float = 0.5
     lm = mask_low_visibility(lm, min_visibility)
     flat = fill_gaps(lm[..., :3].reshape(n, -1), max_gap).reshape(n, N_LM, 3)
     lm_f = np.concatenate([flat, lm[..., 3:]], axis=-1)
-    key = [R_SH, R_EL, R_WR, R_HIP, R_KNEE, R_ANK, L_SH, L_HIP]
+    key = key or [R_SH, R_EL, R_WR, R_HIP, R_KNEE, R_ANK, L_SH, L_HIP]  # `key`: custom validity set
     valid = np.all(np.isfinite(lm_f[:, key, :3]), axis=(1, 2))
     frac = float(valid.mean())
     if frac < min_valid_frac:
@@ -203,6 +203,13 @@ def process_landmarks(lm: np.ndarray, fps: float, *, min_visibility: float = 0.5
     # Smooth landmark coordinates, then derive angles, then smooth angles lightly.
     sm = smooth(lm_f[..., :3].reshape(n, -1), fps).reshape(n, N_LM, 3)
     joints = landmarks_to_joints(sm)
+    # signed image-plane angles wrap at +-180; smoothing across the wrap makes +-200 artefacts.
+    for c in (0, 4):
+        m = np.isfinite(joints[:, c])
+        if m.sum() > 2:
+            u = np.degrees(np.unwrap(np.radians(joints[m, c])))
+            # arm hanging along the torso is 180 deg apart -> report 0 there (neutral posture)
+            joints[m, c] = u - 360.0 * np.round((np.median(u) - 180.0) / 360.0) - 180.0
     joints = smooth(joints, fps, window_s=0.08)
     # Trim leading/trailing invalid frames, fill remaining NaN by interpolation for training.
     first, last = np.argmax(valid), n - 1 - np.argmax(valid[::-1])
