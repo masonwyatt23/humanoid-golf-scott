@@ -1,18 +1,20 @@
 # PureGolf / Adam Scott Humanoid Training System
 
-Autonomous pipeline for training a simulated humanoid to swing a golf club in the style of Adam Scott and other pure/textbook swings (PureGolf Instagram content or public slow-mo videos).
+Autonomous pipeline for training a simulated humanoid to swing a golf club in the style of Adam Scott and other pure/textbook swings.
 
-**Current status**: ~40k-step training achieves **100% contact rate**. Ball distance is still developing; longer runs and curriculum improve carry.
+## Current Performance
+
+Reliable **100% contact rate** is achievable with the dense approach + contact rewards. Ball distance is still modest (typically 0.2–3 m depending on training length and reward balance). Longer runs and curriculum progression improve carry.
 
 ## Features
 
-- MuJoCo humanoid + club + ball environment with proper address initialization
-- Synthetic Adam Scott / Scheffler / Rory / average style reference generators
+- MuJoCo humanoid + club + ball with proper address initialization
+- Synthetic Adam Scott / Scheffler / Rory / average style references
 - Multi-swing reference dataset loader
-- Curriculum learning (Address → Contact → Style → Ball flight)
+- Curriculum scaffolding (Address → Contact → Style → Ball flight)
 - Dense approach + contact + imitation + ball-flight rewards
-- PPO training via Stable-Baselines3
-- Evaluation and open-loop tracking baselines
+- PPO training (Stable-Baselines3)
+- Style comparison script (`eval/compare_styles.py`)
 - Public video proxy for Adam Scott pure swing footage
 
 ## Quick Start
@@ -20,8 +22,9 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 ```bash
 pip install -r requirements.txt
 python -m data.generate_synthetic_scott
-python -m train.train_ppo --style scott --timesteps 100000
+python -m train.train_ppo --style scott --timesteps 50000
 python -m eval.evaluate --model models/ppo_scott --episodes 5
+python -m eval.compare_styles
 ```
 
 ## Project Structure
@@ -30,21 +33,14 @@ python -m eval.evaluate --model models/ppo_scott --episodes 5
 - `env/` — MuJoCo environment and model
 - `imitation/` — reference dataset and curriculum
 - `train/` — PPO training
-- `eval/` — evaluation and rendering
+- `eval/` — evaluation, rendering, style comparison
 
 ## Extending with Real PureGolf Content
 
 1. Download reels from @puregolf__ or public Adam Scott slow-mo videos.
 2. Place in `data/raw_videos/`.
-3. Run `python -m data.process_video` (MediaPipe baseline).
+3. Run `python -m data.process_video`.
 4. For production quality use WHAM or GVHMR and save `.npz` to `data/references/`.
 5. The ReferenceDataset automatically loads them.
-
-## Next Steps
-
-- Replace simplified humanoid with Unitree G1/H1 MJCF
-- Stronger 3D reconstruction (WHAM/GVHMR)
-- Longer curriculum training on GPU
-- Ball spin / launch metrics
 
 Created as part of AshlrAI agentic engineering experiments.
