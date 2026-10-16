@@ -221,3 +221,67 @@ python -m data.remine_feed_v2 --stage track  --model /workspace/golf_scratch/pos
 python -m data.remine_feed_v2 --stage track --only part3 --chunks 16,17 --enhance                         # night re-track
 python -m data.remine_feed_v2 --stage swings                                                               # seconds, from cache
 ```
+
+## v3: effective frame rate, slow-motion clips, face-on (2026-10-16)
+Question: does any part of the three recordings have a higher effective fps (more unique frames per second, or slowed motion) that
+would pin down the downswing better than the ~5 frames of the v2 swings?
+
+### 1. Cadence audit (`python -m data.audit_feed_cadence` -> `data/references/mason_cadence_audit.json`)
+Method: decode every frame (media band, 236x394 gray), unique frame = mean abs diff to previous >= 0.1 grey levels (duplicates measure
+0.00-0.05, real frames >= 0.5; histogram is cleanly bimodal). Per swing window: unique fps, median unique interval, unique frames in
+backswing / downswing.
+- All three are 60 fps containers of a **30 fps** player: overall unique-frame fraction 0.57 / 0.52 / 0.52 (the rest is scroll/transition).
+  Every swing window is **29-31 fps unique** (strictly alternating unique/duplicate, median interval 33 ms); a few windows read 34-38 fps
+  only because a scroll/transition animation (17 ms steps) overlaps the window edge (p2_s03, p1_s07, p1_s10_partial). `p3_s09` (the
+  caption-flipped edit) is 15 fps (67 ms interval). **No segment has more than ~30 true unique fps; nothing at 60.** Sliding 1 s windows
+  confirm: max 34 unique/s in part1, 40-45 only at scroll animations in parts 2/3.
+- v2 normal-speed swings: median **5 unique frames** in the downswing (range 4-9), 14-25 in the backswing. That is all the footage has
+  at normal speed.
+- Unique-frame rate is NOT a slow-motion signal here (the player always shows 30 fps); slow motion shows up as swing phases lasting 3-8x
+  longer in video time.
+
+### 2. Slow-motion clips (`python -m data.remine_slowmo_v3`, tracks from the v2 cache; `data/references/mason_v3_report.json`)
+The v2 detector missed them because its hand-speed threshold (3.5 torso/s) is never reached when the swing is slowed. A slow-motion
+detector (hand height above shoulders, takeaway = last still frame, impact proxy = peak hand speed after the top, one swing per return
+to address) found 34 swings; 10 had backswing >= 1.2 s. I viewed contact sheets for each: **4 are confirmed slow motion** and were written
+(`VERIFIED_SLOW` in the script); the other 6 candidates are NOT written because they were either merged normal swings (p3 night clip, finish
+bump picked as top), moderately slower normal swings, or had < 50 % valid upper-body frames.
+
+| File | video t (s) | view | backswing / downswing (video s) | unique frames back / down | tempo | est. slowdown k (range) | est. real down (s) | valid | recommended |
+|---|---|---|---|---|---|---|---|---|---|
+| mason_v3_p1_s01_slowmo | 44.5-48.7 | down-the-line | 3.47 / 0.80 | 106 / 25 | 4.33 | 4.6 (2.7-7.2) | 0.17 | 0.59 | no (valid < 0.6) |
+| mason_v3_p2_s02_slowmo | 1.1-5.3 (dusk) | down-the-line | 3.00 / 1.20 | 93 / 38 | 2.50 | 5.3 (3.3-7.2) | 0.23 | 0.49 | no (valid < 0.5) |
+| mason_v3_p2_s03_slowmo | 57.8-61.8 | oblique | 3.07 / 0.97 | 93 / 30 | 3.17 | 4.8 (3.2-6.4) | 0.20 | 0.65 | **yes** |
+| mason_v3_p2_s04_slowmo | 62.8-65.0 | down-the-line | 1.83 / 0.40 | 56 / 13 | 4.58 | 2.4 (1.3-3.8) | 0.17 | 0.59 | no (handedness unverified: detector said right at conf 0.32) |
+
+All four: `native_footage`, handedness `left` (stated; footage cues agree for s01/s02/s03, s04 inconclusive), license `self_owned`
+/ `commercial_ok=True` via `data/provenance.py` (same caveat as v2: confirm no third-party content). Extra keys: `slow_motion`,
+`slowdown_factor_est/min/max`, `slowdown_method`, `effective_fps_est`, `unique_fps`, `downswing_unique_frames`,
+`backswing_unique_frames`, `time_real_est` (= (time - time[0]) / k; `time` itself stays in VIDEO seconds), `real_backswing_s_est`,
+`real_downswing_s_est`, `remine_version='v3'`.
+
+**Slowdown factor, method and honesty.** Uniform time stretch is assumed. k = slow phase duration / normal-speed phase duration, for backswing
+and downswing, with two anchors: (A) the median of Mason's 10 normal-speed recommended v2 swings (0.48 s / 0.17 s; these look short for a
+real swing, so A over-estimates k); (B) a rule-of-thumb real swing of a fast golfer, backswing 0.7-0.9 s, downswing 0.22-0.30 s (not
+measured here, no citation checked). Central k = geometric mean of the four ratios, range = min/max over anchors and anchor ranges. The
+two anchors differ by ~1.7x, so **k is only good to about 2x** (e.g. 3-7 for p1_s01); the implied effective capture rate is 30*k = roughly
+90-240 fps, not a measurement. What is robust: (a) these clips sample the downswing with **13-38 unique frames instead of ~5**; (b) the
+backswing:downswing ratio is scale-free, and the +-1-frame uncertainty on it is only 4-10 % (vs 14-32 % at normal speed). What is still
+not pinned down: the event definitions (the impact proxy is the hand-speed peak, which is slightly before impact; "top" is the hand-height
+maximum), so the systematic error of the ratio is probably larger than the frame error. The four ratios span 2.5-4.6 (median 3.75, n=4),
+which includes the normal-speed v2 median 2.9 and the 3.0 target; the data does not show a different tempo, only that single-swing
+tempo is noisy. Do not tighten the tempo band on the strength of these four clips.
+
+### 3. Face-on
+No new face-on clips beyond the 5 already in v2 (`p1_s10_partial`, `p1_s11`, `p2_s07_partial`, `p2_s08`, `p3_s08`); none of the
+confirmed slow-motion clips is face-on (3 down-the-line, 1 oblique). The only recommended face-on clip stays `mason_v2_p1_s11`
+(normal speed, 5 downswing frames).
+
+### Not done / limits
+- No clip has more than 30 unique fps; there is no 120/240 fps footage. The slow clips are 30 fps playback of something slowed, so the
+  downswing is sampled by 13-38 frames but the underlying capture rate (and the true k) is unknown.
+- Candidates not written: p2 c00 swing B (tracking gap before the top), p3 c02/c05/c07/c10 (moderate slowdown or < 50 % valid), p3 c16
+  (merged normal + slow swing), p3 c08 (4 downswing frames). A manual per-clip pass could recover one or two more.
+- Joints are 2D-proxy angles from MediaPipe, as in v2; slow clips do not add pelvis/thorax turn or club data.
+- Tempo from slow clips is not merged into `mason.aggregate` (different detector); it is a separate `mason_slowmo_v3` block in
+  `data/references/mason_target_features.json`.

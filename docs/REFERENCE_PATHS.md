@@ -99,3 +99,19 @@ swapped; sagittal flexion angles unchanged; pelvis/thorax rotation, x_factor, la
 exist here (nothing to mirror); unmeasured wrist/ankle columns (3, 7, 10) stay zero, but the leg swap moves the ankle zeros between cols 7 and 10 consistently;
 `joint_columns` names are unchanged, and for the mirrored left-hander `right_*` arm columns mean the lead (anatomical right) arm, as in Mason's v2 files;
 col 4 (left shoulder pitch) has no partner and stays. Mirroring twice returns the original (tested). Filter on `mirrored` to avoid double counting.
+
+## Mason v3: slow-motion clips (2026-10-16)
+`data/references/mason_v3_p1_s01_slowmo.npz`, `mason_v3_p2_s02_slowmo.npz`, `mason_v3_p2_s03_slowmo.npz` (the only `recommended=True`),
+`mason_v3_p2_s04_slowmo.npz`; report `data/references/mason_v3_report.json` (all 34 swings found by the slow-motion detector, with the
+10 slow candidates, 4 written); cadence audit `data/references/mason_cadence_audit.json`. Native left (stated; footage cues in 3 of 4),
+tags `self_owned` / `commercial_ok=True`, `mirrored=False`, same 11-column layout and keys as v2 plus slow-motion keys
+(`slow_motion`, `slowdown_factor_est/min/max`, `unique_fps`, `downswing_unique_frames`, `time_real_est`, `real_*_s_est`).
+**`time` is in VIDEO seconds (slowed 3-7x, order-of-magnitude estimate); use `time_real_est` for real-time-equivalent seconds, or
+better, only use the ratios.** Do not feed these to a trainer as real-time trajectories without rescaling time; the files are for
+downswing shape/timing (13-38 unique frames in the downswing). Pattern `mason_v3_*.npz` selects them; `mason_v2_*` is unchanged.
+`data/references/mason_target_features.json` gained a `mason_slowmo_v3` block (existing keys unchanged).
+
+## Non-npz open data (2026-10-16)
+`data/references/caddieset_driver_event_features.json`: CaddieSet (MIT repo licence) driver event-level 2D joint-feature summary
+(median/IQR, all vs fastest-quartile ball speed, face-on and down-the-line). Not a trajectory, not loadable as a reference; diagnostic only.
+Details and caveats in `docs/research_open_data_v3.md`.

@@ -3685,5 +3685,206 @@
    "wrist hinge"
   ]
  },
+ "mason_slowmo_v3": {
+  "aggregate_all": {
+   "backswing_video_s": {
+    "iqr": [
+     2.7083,
+     3.1679
+    ],
+    "iqr_width": 0.4596,
+    "max": 3.4667,
+    "median": 3.0342,
+    "min": 1.8333,
+    "n": 4
+   },
+   "downswing_video_s": {
+    "iqr": [
+     0.7,
+     1.0254
+    ],
+    "iqr_width": 0.3254,
+    "max": 1.2017,
+    "median": 0.8833,
+    "min": 0.4,
+    "n": 4
+   },
+   "real_downswing_s_est": {
+    "iqr": [
+     0.1716,
+     0.2084
+    ],
+    "iqr_width": 0.0367,
+    "max": 0.2277,
+    "median": 0.1874,
+    "min": 0.1681,
+    "n": 4
+   },
+   "slowdown_factor_est": {
+    "iqr": [
+     4.0666,
+     4.9095
+    ],
+    "iqr_width": 0.8429,
+    "max": 5.2773,
+    "median": 4.7078,
+    "min": 2.3802,
+    "n": 4
+   },
+   "tempo_ratio": {
+    "iqr": [
+     3.0047,
+     4.3958
+    ],
+    "iqr_width": 1.3911,
+    "max": 4.5833,
+    "median": 3.7537,
+    "min": 2.4965,
+    "n": 4
+   }
+  },
+  "aggregate_recommended": {
+   "backswing_video_s": {
+    "iqr": [
+     3.0683,
+     3.0683
+    ],
+    "iqr_width": 0.0,
+    "max": 3.0683,
+    "median": 3.0683,
+    "min": 3.0683,
+    "n": 1
+   },
+   "downswing_video_s": {
+    "iqr": [
+     0.9667,
+     0.9667
+    ],
+    "iqr_width": 0.0,
+    "max": 0.9667,
+    "median": 0.9667,
+    "min": 0.9667,
+    "n": 1
+   },
+   "real_downswing_s_est": {
+    "iqr": [
+     0.2019,
+     0.2019
+    ],
+    "iqr_width": 0.0,
+    "max": 0.2019,
+    "median": 0.2019,
+    "min": 0.2019,
+    "n": 1
+   },
+   "slowdown_factor_est": {
+    "iqr": [
+     4.7869,
+     4.7869
+    ],
+    "iqr_width": 0.0,
+    "max": 4.7869,
+    "median": 4.7869,
+    "min": 4.7869,
+    "n": 1
+   },
+   "tempo_ratio": {
+    "iqr": [
+     3.1741,
+     3.1741
+    ],
+    "iqr_width": 0.0,
+    "max": 3.1741,
+    "median": 3.1741,
+    "min": 3.1741,
+    "n": 1
+   }
+  },
+  "caveat": "Slow factor k is an order-of-magnitude estimate (anchors disagree by ~2x); only tempo_ratio and unique-frame counts are scale-free. Event detector differs from the v2 one, so tempo values are not directly comparable with mason.aggregate (v2).",
+  "n_swings": 4,
+  "per_swing": [
+   {
+    "backswing_unique_frames": 105,
+    "backswing_video_s": 3.4667,
+    "downswing_unique_frames": 25,
+    "downswing_video_s": 0.8,
+    "file": "mason_v3_p1_s01_slowmo.npz",
+    "handedness_verified": true,
+    "quality_score": 0.6299,
+    "real_backswing_s_est": 0.7489,
+    "real_downswing_s_est": 0.1728,
+    "recommended": false,
+    "slowdown_factor_est": 4.6287,
+    "slowdown_factor_range": [
+     2.6667,
+     7.1724
+    ],
+    "tempo_ratio": 4.3333,
+    "tempo_rel_uncertainty_1frame": 0.0513,
+    "view": "down_the_line"
+   },
+   {
+    "backswing_unique_frames": 93,
+    "backswing_video_s": 3.0,
+    "downswing_unique_frames": 37,
+    "downswing_video_s": 1.2017,
+    "file": "mason_v3_p2_s02_slowmo.npz",
+    "handedness_verified": true,
+    "quality_score": 0.6525,
+    "real_backswing_s_est": 0.5685,
+    "real_downswing_s_est": 0.2277,
+    "recommended": false,
+    "slowdown_factor_est": 5.2773,
+    "slowdown_factor_range": [
+     3.3333,
+     7.21
+    ],
+    "tempo_ratio": 2.4965,
+    "tempo_rel_uncertainty_1frame": 0.0389,
+    "view": "down_the_line"
+   },
+   {
+    "backswing_unique_frames": 93,
+    "backswing_video_s": 3.0683,
+    "downswing_unique_frames": 30,
+    "downswing_video_s": 0.9667,
+    "file": "mason_v3_p2_s03_slowmo.npz",
+    "handedness_verified": false,
+    "quality_score": 0.6761,
+    "real_backswing_s_est": 0.641,
+    "real_downswing_s_est": 0.2019,
+    "recommended": true,
+    "slowdown_factor_est": 4.7869,
+    "slowdown_factor_range": [
+     3.2222,
+     6.3483
+    ],
+    "tempo_ratio": 3.1741,
+    "tempo_rel_uncertainty_1frame": 0.0453,
+    "view": "oblique"
+   },
+   {
+    "backswing_unique_frames": 56,
+    "backswing_video_s": 1.8333,
+    "downswing_unique_frames": 13,
+    "downswing_video_s": 0.4,
+    "file": "mason_v3_p2_s04_slowmo.npz",
+    "handedness_verified": false,
+    "quality_score": 0.5321,
+    "real_backswing_s_est": 0.7702,
+    "real_downswing_s_est": 0.1681,
+    "recommended": false,
+    "slowdown_factor_est": 2.3802,
+    "slowdown_factor_range": [
+     1.3333,
+     3.7931
+    ],
+    "tempo_ratio": 4.5833,
+    "tempo_rel_uncertainty_1frame": 0.1015,
+    "view": "down_the_line"
+   }
+  ],
+  "schema_note": "see docs/MASON_VIDEO_REPORT.md section v3"
+ },
  "schema": "mason_target_features/v1"
 }

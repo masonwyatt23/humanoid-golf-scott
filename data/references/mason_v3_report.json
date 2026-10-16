@@ -1,0 +1,816 @@
+{
+ "n_slow": 4,
+ "n_slow_candidates_unverified": 6,
+ "n_swings_found": 34,
+ "reference_normal": {
+  "anchor_B": {
+   "backswing_s": [
+    0.7,
+    0.9
+   ],
+   "downswing_s": [
+    0.22,
+    0.3
+   ]
+  },
+  "feed_backswing_s": 0.48333333333333334,
+  "feed_downswing_s": 0.16666666666666666,
+  "n_feed": 10
+ },
+ "swings": [
+  {
+   "backswing_s": 0.967,
+   "chunk": "00",
+   "downswing_s": 0.133,
+   "impact": 3.6,
+   "n_back_frames": 31,
+   "n_down_frames": 5,
+   "part": 1,
+   "peak_speed": 1.65,
+   "seg": [
+    1.55,
+    4.8
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 2.5,
+   "top": 3.467,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 1.0,
+   "chunk": "02",
+   "downswing_s": 0.0,
+   "impact": 14.337,
+   "n_back_frames": 31,
+   "n_down_frames": 1,
+   "part": 1,
+   "peak_speed": 1.762,
+   "seg": [
+    10.8,
+    17.34
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 13.337,
+   "top": 14.337,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 1.102,
+   "chunk": "03",
+   "downswing_s": 1.167,
+   "impact": 21.538,
+   "n_back_frames": 35,
+   "n_down_frames": 37,
+   "part": 1,
+   "peak_speed": 2.651,
+   "seg": [
+    18.34,
+    23.57
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 19.27,
+   "top": 20.372,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 1.1,
+   "chunk": "04",
+   "downswing_s": 1.085,
+   "impact": 28.957,
+   "n_back_frames": 34,
+   "n_down_frames": 24,
+   "part": 1,
+   "peak_speed": 2.376,
+   "seg": [
+    23.94,
+    29.41
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 26.772,
+   "top": 27.872,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 1.0,
+   "chunk": "05",
+   "downswing_s": 0.367,
+   "impact": 39.275,
+   "n_back_frames": 31,
+   "n_down_frames": 12,
+   "part": 1,
+   "peak_speed": 2.402,
+   "seg": [
+    36.29,
+    40.81
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 37.908,
+   "top": 38.908,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 3.467,
+   "chunk": "06",
+   "downswing_s": 0.8,
+   "effective_fps_est": 138.862,
+   "file": "mason_v3_p1_s01_slowmo.npz",
+   "handedness": "left",
+   "impact": 48.743,
+   "n_back_frames": 105,
+   "n_down_frames": 25,
+   "part": 1,
+   "peak_speed": 2.685,
+   "quality_score": 0.63,
+   "recommended": false,
+   "seg": [
+    41.76,
+    55.48
+   ],
+   "slow_candidate": true,
+   "slow_motion": true,
+   "slowdown_estimates": {
+    "backswing_A": 7.17,
+    "backswing_B": 4.33,
+    "downswing_A": 4.8,
+    "downswing_B": 3.08
+   },
+   "slowdown_median": 4.629,
+   "slowdown_range": [
+    2.67,
+    7.17
+   ],
+   "takeaway": 44.477,
+   "top": 47.943,
+   "unique_fps": 30.0,
+   "verified_slow": true,
+   "video": "mason_swing_part1.mov",
+   "written_view": "down_the_line"
+  },
+  {
+   "backswing_s": 0.933,
+   "chunk": "08",
+   "downswing_s": 1.7,
+   "impact": 64.147,
+   "n_back_frames": 29,
+   "n_down_frames": 52,
+   "part": 1,
+   "peak_speed": 8.795,
+   "seg": [
+    59.13,
+    64.21
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 61.513,
+   "top": 62.447,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 1.0,
+   "chunk": "09",
+   "downswing_s": 0.0,
+   "impact": 69.565,
+   "n_back_frames": 31,
+   "n_down_frames": 1,
+   "part": 1,
+   "peak_speed": 6.043,
+   "seg": [
+    64.35,
+    70.93
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 68.565,
+   "top": 69.565,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part1.mov"
+  },
+  {
+   "backswing_s": 3.0,
+   "chunk": "00",
+   "downswing_s": 1.202,
+   "effective_fps_est": 158.319,
+   "file": "mason_v3_p2_s02_slowmo.npz",
+   "handedness": "left",
+   "impact": 5.285,
+   "n_back_frames": 93,
+   "n_down_frames": 37,
+   "part": 2,
+   "peak_speed": 1.602,
+   "quality_score": 0.653,
+   "recommended": false,
+   "seg": [
+    0.0,
+    12.19
+   ],
+   "slow_candidate": true,
+   "slow_motion": true,
+   "slowdown_estimates": {
+    "backswing_A": 6.21,
+    "backswing_B": 3.75,
+    "downswing_A": 7.21,
+    "downswing_B": 4.62
+   },
+   "slowdown_median": 5.277,
+   "slowdown_range": [
+    3.33,
+    7.21
+   ],
+   "takeaway": 1.083,
+   "top": 4.083,
+   "unique_fps": 30.0,
+   "verified_slow": true,
+   "video": "mason_swing_part2.mov",
+   "written_view": "down_the_line"
+  },
+  {
+   "backswing_s": 1.0,
+   "chunk": "01",
+   "downswing_s": 0.133,
+   "impact": 16.403,
+   "n_back_frames": 31,
+   "n_down_frames": 5,
+   "part": 2,
+   "peak_speed": 2.762,
+   "seg": [
+    13.3,
+    18.6
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 15.27,
+   "top": 16.27,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 0.868,
+   "chunk": "02",
+   "downswing_s": 0.033,
+   "impact": 21.172,
+   "n_back_frames": 27,
+   "n_down_frames": 2,
+   "part": 2,
+   "peak_speed": 3.783,
+   "seg": [
+    19.24,
+    22.47
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 20.27,
+   "top": 21.138,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 0.933,
+   "chunk": "03",
+   "downswing_s": 0.0,
+   "impact": 24.922,
+   "n_back_frames": 29,
+   "n_down_frames": 1,
+   "part": 2,
+   "peak_speed": 2.53,
+   "seg": [
+    23.47,
+    27.16
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 23.988,
+   "top": 24.922,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 0.333,
+   "chunk": "04",
+   "downswing_s": 0.167,
+   "impact": 30.273,
+   "n_back_frames": 11,
+   "n_down_frames": 6,
+   "part": 2,
+   "peak_speed": 2.62,
+   "seg": [
+    27.74,
+    30.27
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 29.773,
+   "top": 30.107,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 1.068,
+   "chunk": "07",
+   "downswing_s": 0.0,
+   "impact": 45.377,
+   "n_back_frames": 34,
+   "n_down_frames": 1,
+   "part": 2,
+   "peak_speed": 2.408,
+   "seg": [
+    43.49,
+    47.24
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 44.308,
+   "top": 45.377,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 3.068,
+   "chunk": "09",
+   "downswing_s": 0.967,
+   "effective_fps_est": 143.606,
+   "file": "mason_v3_p2_s03_slowmo.npz",
+   "handedness": "left",
+   "impact": 61.847,
+   "n_back_frames": 93,
+   "n_down_frames": 30,
+   "part": 2,
+   "peak_speed": 3.597,
+   "quality_score": 0.676,
+   "recommended": true,
+   "seg": [
+    53.56,
+    70.35
+   ],
+   "slow_candidate": true,
+   "slow_motion": true,
+   "slowdown_estimates": {
+    "backswing_A": 6.35,
+    "backswing_B": 3.84,
+    "downswing_A": 5.8,
+    "downswing_B": 3.72
+   },
+   "slowdown_median": 4.787,
+   "slowdown_range": [
+    3.22,
+    6.35
+   ],
+   "takeaway": 57.812,
+   "top": 60.88,
+   "unique_fps": 30.0,
+   "verified_slow": true,
+   "video": "mason_swing_part2.mov",
+   "written_view": "oblique"
+  },
+  {
+   "backswing_s": 1.833,
+   "chunk": "09",
+   "downswing_s": 0.4,
+   "effective_fps_est": 71.406,
+   "file": "mason_v3_p2_s04_slowmo.npz",
+   "handedness": "left",
+   "impact": 65.047,
+   "n_back_frames": 56,
+   "n_down_frames": 13,
+   "part": 2,
+   "peak_speed": 1.438,
+   "quality_score": 0.532,
+   "recommended": false,
+   "seg": [
+    53.56,
+    70.35
+   ],
+   "slow_candidate": true,
+   "slow_motion": true,
+   "slowdown_estimates": {
+    "backswing_A": 3.79,
+    "backswing_B": 2.29,
+    "downswing_A": 2.4,
+    "downswing_B": 1.54
+   },
+   "slowdown_median": 2.38,
+   "slowdown_range": [
+    1.33,
+    3.79
+   ],
+   "takeaway": 62.813,
+   "top": 64.647,
+   "unique_fps": 30.0,
+   "verified_slow": true,
+   "video": "mason_swing_part2.mov",
+   "written_view": "down_the_line"
+  },
+  {
+   "backswing_s": 0.967,
+   "chunk": "10",
+   "downswing_s": 0.0,
+   "impact": 73.748,
+   "n_back_frames": 30,
+   "n_down_frames": 1,
+   "part": 2,
+   "peak_speed": 2.179,
+   "seg": [
+    71.38,
+    75.32
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 72.782,
+   "top": 73.748,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 0.967,
+   "chunk": "10",
+   "downswing_s": 0.0,
+   "impact": 78.0,
+   "n_back_frames": 30,
+   "n_down_frames": 1,
+   "part": 2,
+   "peak_speed": 2.193,
+   "seg": [
+    75.38,
+    78.23
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 77.033,
+   "top": 78.0,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 0.967,
+   "chunk": "11",
+   "downswing_s": 2.568,
+   "impact": 85.535,
+   "n_back_frames": 31,
+   "n_down_frames": 75,
+   "part": 2,
+   "peak_speed": 2.208,
+   "seg": [
+    79.0,
+    85.65
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 82.0,
+   "top": 82.967,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part2.mov"
+  },
+  {
+   "backswing_s": 0.967,
+   "chunk": "00",
+   "downswing_s": 0.167,
+   "impact": 2.383,
+   "n_back_frames": 30,
+   "n_down_frames": 6,
+   "part": 3,
+   "peak_speed": 2.506,
+   "seg": [
+    0.3,
+    4.77
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 1.25,
+   "top": 2.217,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.4,
+   "chunk": "02",
+   "downswing_s": 0.667,
+   "impact": 14.687,
+   "n_back_frames": 42,
+   "n_down_frames": 21,
+   "note": "unverified slow-motion candidate (not confirmed by eye; some are merged normal swings); not written",
+   "part": 3,
+   "peak_speed": 2.411,
+   "seg": [
+    11.8,
+    17.89
+   ],
+   "slow_candidate": true,
+   "slow_motion": false,
+   "takeaway": 12.62,
+   "top": 14.02,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.567,
+   "chunk": "05",
+   "downswing_s": 0.5,
+   "impact": 24.572,
+   "n_back_frames": 47,
+   "n_down_frames": 17,
+   "note": "unverified slow-motion candidate (not confirmed by eye; some are merged normal swings); not written",
+   "part": 3,
+   "peak_speed": 2.662,
+   "seg": [
+    21.34,
+    28.14
+   ],
+   "slow_candidate": true,
+   "slow_motion": false,
+   "takeaway": 22.505,
+   "top": 24.072,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 0.433,
+   "chunk": "06",
+   "downswing_s": 0.133,
+   "impact": 29.923,
+   "n_back_frames": 14,
+   "n_down_frames": 5,
+   "part": 3,
+   "peak_speed": 10.966,
+   "seg": [
+    28.27,
+    31.66
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 29.357,
+   "top": 29.79,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 2.0,
+   "chunk": "07",
+   "downswing_s": 0.5,
+   "impact": 35.707,
+   "n_back_frames": 60,
+   "n_down_frames": 16,
+   "note": "unverified slow-motion candidate (not confirmed by eye; some are merged normal swings); not written",
+   "part": 3,
+   "peak_speed": 4.957,
+   "seg": [
+    32.17,
+    41.16
+   ],
+   "slow_candidate": true,
+   "slow_motion": false,
+   "takeaway": 33.207,
+   "top": 35.207,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.602,
+   "chunk": "08",
+   "downswing_s": 0.1,
+   "impact": 44.227,
+   "n_back_frames": 47,
+   "n_down_frames": 4,
+   "note": "unverified slow-motion candidate (not confirmed by eye; some are merged normal swings); not written",
+   "part": 3,
+   "peak_speed": 1.404,
+   "seg": [
+    41.91,
+    48.36
+   ],
+   "slow_candidate": true,
+   "slow_motion": false,
+   "takeaway": 42.525,
+   "top": 44.127,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 0.367,
+   "chunk": "09",
+   "downswing_s": 1.867,
+   "impact": 51.727,
+   "n_back_frames": 12,
+   "n_down_frames": 57,
+   "part": 3,
+   "peak_speed": 1.587,
+   "seg": [
+    48.56,
+    52.26
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 49.493,
+   "top": 49.86,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.633,
+   "chunk": "10",
+   "downswing_s": 0.5,
+   "impact": 56.362,
+   "n_back_frames": 52,
+   "n_down_frames": 16,
+   "note": "unverified slow-motion candidate (not confirmed by eye; some are merged normal swings); not written",
+   "part": 3,
+   "peak_speed": 4.003,
+   "seg": [
+    53.1,
+    60.8
+   ],
+   "slow_candidate": true,
+   "slow_motion": false,
+   "takeaway": 54.228,
+   "top": 55.862,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.0,
+   "chunk": "11",
+   "downswing_s": 0.033,
+   "impact": 63.163,
+   "n_back_frames": 31,
+   "n_down_frames": 2,
+   "part": 3,
+   "peak_speed": 2.005,
+   "seg": [
+    60.98,
+    64.13
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 62.13,
+   "top": 63.13,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 0.468,
+   "chunk": "12",
+   "downswing_s": 0.333,
+   "impact": 68.398,
+   "n_back_frames": 15,
+   "n_down_frames": 11,
+   "part": 3,
+   "peak_speed": 11.824,
+   "seg": [
+    64.48,
+    69.97
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 67.597,
+   "top": 68.065,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 0.4,
+   "chunk": "13",
+   "downswing_s": 0.233,
+   "impact": 73.948,
+   "n_back_frames": 13,
+   "n_down_frames": 8,
+   "part": 3,
+   "peak_speed": 8.375,
+   "seg": [
+    70.13,
+    75.02
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 73.315,
+   "top": 73.715,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.133,
+   "chunk": "14",
+   "downswing_s": 0.0,
+   "impact": 79.517,
+   "n_back_frames": 35,
+   "n_down_frames": 1,
+   "part": 3,
+   "peak_speed": 1.404,
+   "seg": [
+    75.97,
+    80.62
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 78.383,
+   "top": 79.517,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 0.933,
+   "chunk": "15",
+   "downswing_s": 0.267,
+   "impact": 88.685,
+   "n_back_frames": 16,
+   "n_down_frames": 5,
+   "part": 3,
+   "peak_speed": 5.342,
+   "seg": [
+    81.72,
+    90.62
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 87.485,
+   "top": 88.418,
+   "unique_fps": 15.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 2.067,
+   "chunk": "16",
+   "downswing_s": 1.8,
+   "impact": 104.355,
+   "n_back_frames": 32,
+   "n_down_frames": 28,
+   "note": "unverified slow-motion candidate (not confirmed by eye; some are merged normal swings); not written",
+   "part": 3,
+   "peak_speed": 0.935,
+   "seg": [
+    91.0,
+    105.09
+   ],
+   "slow_candidate": true,
+   "slow_motion": false,
+   "takeaway": 100.488,
+   "top": 102.555,
+   "unique_fps": 15.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  },
+  {
+   "backswing_s": 1.1,
+   "chunk": "17",
+   "downswing_s": 0.0,
+   "impact": 111.123,
+   "n_back_frames": 34,
+   "n_down_frames": 1,
+   "part": 3,
+   "peak_speed": 1.2,
+   "seg": [
+    105.25,
+    111.96
+   ],
+   "slow_candidate": false,
+   "slow_motion": false,
+   "takeaway": 110.023,
+   "top": 111.123,
+   "unique_fps": 30.0,
+   "verified_slow": false,
+   "video": "mason_swing_part3.mov"
+  }
+ ],
+ "written": [
+  "mason_v3_p1_s01_slowmo.npz",
+  "mason_v3_p2_s02_slowmo.npz",
+  "mason_v3_p2_s03_slowmo.npz",
+  "mason_v3_p2_s04_slowmo.npz"
+ ]
+}

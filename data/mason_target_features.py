@@ -158,6 +158,35 @@ def select_mason(refs):
     return sel
 
 
+def slowmo_block(refs):
+    """Scale-invariant timing from verified slow-motion clips (mason_v3_*.npz). Kept OUT of the main aggregate:
+    event definitions come from a slow-motion detector and absolute seconds are slowed (video time). tempo_ratio is
+    unaffected by a uniform slowdown; the uncertainty is +-1 unique frame (30 fps) per phase."""
+    per = []
+    for p in sorted(glob.glob(os.path.join(refs, "mason_v3_*_slowmo.npz"))):
+        d = np.load(p, allow_pickle=True)
+        if not (bool(d["commercial_ok"]) and str(d["handedness"]) == "left" and bool(d["slow_motion"])):
+            continue
+        bs, ds = float(d["backswing_s"]), float(d["downswing_s"])
+        q = 1.0 / SRC_FPS
+        per.append({"file": os.path.basename(p), "view": str(d["view"]), "recommended": bool(d["recommended"]),
+                    "handedness_verified": bool(d["handedness_verified"]), "quality_score": float(d["quality_score"]),
+                    "backswing_video_s": bs, "downswing_video_s": ds, "tempo_ratio": bs / ds,
+                    "tempo_rel_uncertainty_1frame": q / bs + q / ds,
+                    "backswing_unique_frames": int(d["backswing_unique_frames"]),
+                    "downswing_unique_frames": int(d["downswing_unique_frames"]),
+                    "slowdown_factor_est": float(d["slowdown_factor_est"]),
+                    "slowdown_factor_range": [float(d["slowdown_factor_min"]), float(d["slowdown_factor_max"])],
+                    "real_backswing_s_est": float(d["real_backswing_s_est"]),
+                    "real_downswing_s_est": float(d["real_downswing_s_est"])})
+    keys = ("tempo_ratio", "backswing_video_s", "downswing_video_s", "slowdown_factor_est", "real_downswing_s_est")
+    return {"n_swings": len(per), "schema_note": "see docs/MASON_VIDEO_REPORT.md section v3",
+            "aggregate_all": {k: _stat([f[k] for f in per]) for k in keys},
+            "aggregate_recommended": {k: _stat([f[k] for f in per if f["recommended"]]) for k in keys},
+            "per_swing": per,
+            "caveat": "Slow factor k is an order-of-magnitude estimate (anchors disagree by ~2x); only tempo_ratio and unique-frame counts are scale-free. Event detector differs from the v2 one, so tempo values are not directly comparable with mason.aggregate (v2)."}
+
+
 def build(refs="data/references"):
     sel = select_mason(refs)
     per, qs, rels = [], [], []
@@ -204,6 +233,7 @@ def build(refs="data/references"):
             "unavailable_fields": ["pelvis_turn_top_deg", "thorax_turn_top_deg", "x_factor_top_deg", "x_factor_max_deg",
                                    "pelvis/thorax peak-velocity timing", "club head / club speed", "lateral sway", "wrist hinge"],
         },
+        "mason_slowmo_v3": slowmo_block(refs),
         "comparison": {
             "cmu_subject64": {"n_swings": len(cmu), "license_class": "cmu_permissive", "commercial_ok": True,
                               "note": "Recreational lab volunteer; slow (tempo ~1.7). Acknowledgment text required (docs/CMU_MOCAP_GOLF.md). Do not redistribute as a dataset.",
