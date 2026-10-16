@@ -24,7 +24,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -33,7 +33,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         s = self.script
         self.T = s["t_hold"] + s["t_back"] + s["t_pause"] + s["t_down"] + s["t_follow"]
         self.swing_steps = int(np.ceil(self.T / 0.02))
-        self.max_steps = self.swing_steps + 200  # extra time for the ball to fly and land (episode ends earlier on landing)
+        self.max_steps = self.swing_steps + flight_steps  # extra time for the ball to fly and land (episode ends earlier on landing)
         self.res_scale = np.array(residual_scale)
         self.kp, self.kd = kp, kd
         self.action_space = spaces.Box(-1.0, 1.0, shape=(5,), dtype=np.float32)
@@ -57,6 +57,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._seq = []
         self._contact_step = None
         self.grip = grip
+        self.lat_weight, self.elev_weight, self.az_weight = lat_weight, elev_weight, az_weight
         self.analytic_ball = analytic_ball  # score carry from analytic flight (drag+Magnus) of the MuJoCo launch vector, end episode 3 steps after contact
         self.elev_target = np.deg2rad(elev_target_deg)
         self._an = None
@@ -144,6 +145,11 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         e = np.mean((self._resamp(b) - self._ref_shape["back"]) ** 2) + np.mean((self._resamp(dn) - self._ref_shape["down"]) ** 2)
         return float(np.exp(-e / 0.1))
 
+    def _elev_pen(self):
+        v = self._ball_lin_vel() if self._an is None else None
+        e = self._an["launch"] if self._an is not None else float(np.degrees(self.launch_elevation))
+        return min(abs(e - np.degrees(self.elev_target)), 40.0) / 10.0
+
     def _lockout(self):
         sc = self.script
         return self.clock < sc["t_hold"] + sc["t_back"] + sc["t_pause"] - 0.02
@@ -196,7 +202,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 v = self._ball_lin_vel(); sp = float(np.linalg.norm(v))
                 if sp > 5.0:
                     elev = np.arctan2(v[2], np.hypot(v[0], v[1])); az = np.arctan2(v[1], max(v[0], 1e-6))
-                    r += self._gate() * (2.0 * np.exp(-((elev - self.elev_target) ** 2) / 0.04) + 2.0 * np.exp(-(az ** 2) / 0.01))
+                    r += self._gate() * (2.0 * np.exp(-((elev - self.elev_target) ** 2) / 0.04) + self.az_weight * np.exp(-(az ** 2) / (0.01 if self.az_weight <= 2.0 else 0.003)))
         return float(r)
 
     def reset(self, seed=None, options=None):
