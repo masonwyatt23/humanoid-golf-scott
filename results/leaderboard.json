@@ -1,5 +1,5 @@
 {
- "env_fingerprint": "25d5c5608c4d",
+ "env_fingerprint": "59bc5ea99d60",
  "episodes": 50,
  "seed_base": 4000,
  "references": [
@@ -42,18 +42,20 @@
    "steps": 30000,
    "env_kwargs": {},
    "config_source": "launch cmd `--timesteps 30000 --tag _baseline` (default env); no train JSON",
-   "env_fingerprint": "25d5c5608c4d",
+   "env_fingerprint": "59bc5ea99d60",
    "episodes": 50,
    "seed_base": 4000,
    "mtime": 1792122694.7120755,
    "modes": {
     "deterministic": {
-     "peak_club_speed_mean": 706966.4940531178,
-     "peak_club_speed_max": 706966.4940531178,
-     "peak_club_mph_mean": 1581441.6292071815,
-     "peak_club_mph_max": 1581441.6292071815,
-     "peak_club_pct_target_mean": 1317983.7696739705,
-     "peak_club_pct_target_max": 1317983.7696739705,
+     "peak_club_unstable_episodes": 50,
+     "peak_club_raw_max_unstable": 706966.4940531178,
+     "peak_club_speed_mean": NaN,
+     "peak_club_speed_max": NaN,
+     "peak_club_mph_mean": NaN,
+     "peak_club_mph_max": NaN,
+     "peak_club_pct_target_mean": NaN,
+     "peak_club_pct_target_max": NaN,
      "impact_club_speed_mean": NaN,
      "impact_club_speed_max": NaN,
      "smash_factor_mean": NaN,
@@ -222,12 +224,14 @@
      "best_prev_model": "ppo_scott(30k, old)"
     },
     "stochastic": {
-     "peak_club_speed_mean": 88276.730162318,
-     "peak_club_speed_max": 1051297.7861351587,
-     "peak_club_mph_mean": 197469.74876929563,
-     "peak_club_mph_max": 2351690.0697171823,
-     "peak_club_pct_target_mean": 164572.57673810216,
-     "peak_club_pct_target_max": 1959913.8443981335,
+     "peak_club_unstable_episodes": 50,
+     "peak_club_raw_max_unstable": 1051297.7861351587,
+     "peak_club_speed_mean": NaN,
+     "peak_club_speed_max": NaN,
+     "peak_club_mph_mean": NaN,
+     "peak_club_mph_max": NaN,
+     "peak_club_pct_target_mean": NaN,
+     "peak_club_pct_target_max": NaN,
      "impact_club_speed_mean": NaN,
      "impact_club_speed_max": NaN,
      "smash_factor_mean": NaN,
@@ -396,7 +400,7 @@
      "best_prev_model": "ppo_scott_final2"
     }
    },
-   "evaluated_at": "2026-10-16 01:46:38"
+   "evaluated_at": "2026-10-16 01:59:23"
   },
   {
    "md5": "bba2ad3eee917dfa02ed5f66f6af816b",
@@ -411,12 +415,14 @@
     "torque_scale": 3.0
    },
    "config_source": "launch cmd `--curriculum --pin_torso --address_pose fixed --torque_scale 3 --tag _curr`; no train JSON",
-   "env_fingerprint": "25d5c5608c4d",
+   "env_fingerprint": "59bc5ea99d60",
    "episodes": 50,
    "seed_base": 4000,
    "mtime": 1792122695.2560754,
    "modes": {
     "deterministic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 6.413578832045036,
      "peak_club_speed_max": 6.413578832045035,
      "peak_club_mph_mean": 14.346791032554822,
@@ -591,6 +597,8 @@
      "best_prev_model": "ppo_scott(30k, old)"
     },
     "stochastic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 23.855122750940897,
      "peak_club_speed_max": 37.97298524279221,
      "peak_club_mph_mean": 53.36247828648973,
@@ -765,7 +773,7 @@
      "best_prev_model": "ppo_scott_final2"
     }
    },
-   "evaluated_at": "2026-10-16 01:48:01"
+   "evaluated_at": "2026-10-16 02:00:47"
   },
   {
    "md5": "79f83863b227a1267fbdcab08642473f",
@@ -780,12 +788,14 @@
     "torque_scale": 3.0
    },
    "config_source": "results/train_scott_prev_backup.json",
-   "env_fingerprint": "25d5c5608c4d",
+   "env_fingerprint": "59bc5ea99d60",
    "episodes": 50,
    "seed_base": 4000,
    "mtime": 1792123007.5400755,
    "modes": {
     "deterministic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 0.9954979695828851,
      "peak_club_speed_max": 0.9954979695828851,
      "peak_club_mph_mean": 2.226869228078739,
@@ -960,6 +970,8 @@
      "best_prev_model": "ppo_scott_curr"
     },
     "stochastic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 23.372816865587858,
      "peak_club_speed_max": 42.55362208272865,
      "peak_club_mph_mean": 52.283588959308105,
@@ -1134,7 +1146,7 @@
      "best_prev_model": "ppo_scott_final2"
     }
    },
-   "evaluated_at": "2026-10-16 01:49:26"
+   "evaluated_at": "2026-10-16 02:02:11"
   },
   {
    "md5": "90b069adbd3d5c4693692032d49806a3",
@@ -1152,12 +1164,14 @@
     "forward_reward": true
    },
    "config_source": "results/train_scott_final2.json",
-   "env_fingerprint": "25d5c5608c4d",
+   "env_fingerprint": "59bc5ea99d60",
    "episodes": 50,
    "seed_base": 4000,
    "mtime": 1792123335.9971635,
    "modes": {
     "deterministic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 3.4506117115342816,
      "peak_club_speed_max": 12.636861428817033,
      "peak_club_mph_mean": 7.718811361999497,
@@ -1332,6 +1346,8 @@
      "best_prev_model": "ppo_scott_prev_backup"
     },
     "stochastic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 22.70497716315689,
      "peak_club_speed_max": 33.43412281071894,
      "peak_club_mph_mean": 50.78967161535218,
@@ -1506,7 +1522,7 @@
      "best_prev_model": "ppo_scott_prev_backup"
     }
    },
-   "evaluated_at": "2026-10-16 01:50:49"
+   "evaluated_at": "2026-10-16 02:03:43"
   },
   {
    "md5": "a909af5e2bef360579192d32409e7e5b",
@@ -1528,12 +1544,14 @@
     "shoulder_range_deg": 150.0
    },
    "config_source": "results/train_scott.json",
-   "env_fingerprint": "25d5c5608c4d",
+   "env_fingerprint": "59bc5ea99d60",
    "episodes": 50,
    "seed_base": 4000,
    "mtime": 1792127390.8379014,
    "modes": {
     "deterministic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 0.3471430025009855,
      "peak_club_speed_max": 0.5775974877475074,
      "peak_club_mph_mean": 0.7765380680145546,
@@ -1708,6 +1726,8 @@
      "best_prev_model": "ppo_scott_prev_backup"
     },
     "stochastic": {
+     "peak_club_unstable_episodes": 0,
+     "peak_club_raw_max_unstable": null,
      "peak_club_speed_mean": 25.77782043101583,
      "peak_club_speed_max": 40.73625766446315,
      "peak_club_mph_mean": 57.66343763495655,
@@ -1882,7 +1902,7 @@
      "best_prev_model": "ppo_scott_final2"
     }
    },
-   "evaluated_at": "2026-10-16 01:52:11"
+   "evaluated_at": "2026-10-16 02:05:14"
   }
  ],
  "contact_regressions": [
@@ -2422,6 +2442,103 @@
    "steps": 100000,
    "order": 1792127390.8379014,
    "env_fingerprint": "25d5c5608c4d",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 0.98,
+     "mean_distance": 0.47010309506658
+    },
+    "stochastic": {
+     "contact_rate": 0.66,
+     "mean_distance": 0.8783016453752857
+    }
+   }
+  },
+  {
+   "md5": "89d71c894dde72bec1d6309cbefe1580",
+   "names": [
+    "ppo_scott_baseline"
+   ],
+   "steps": 30000,
+   "order": 1792122694.7120755,
+   "env_fingerprint": "59bc5ea99d60",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 0.0,
+     "mean_distance": 0.30000000000000004
+    },
+    "stochastic": {
+     "contact_rate": 0.0,
+     "mean_distance": 0.5580871403798396
+    }
+   }
+  },
+  {
+   "md5": "bba2ad3eee917dfa02ed5f66f6af816b",
+   "names": [
+    "ppo_scott_curr"
+   ],
+   "steps": 30000,
+   "order": 1792122695.2560754,
+   "env_fingerprint": "59bc5ea99d60",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 3.0146815966448473
+    },
+    "stochastic": {
+     "contact_rate": 0.34,
+     "mean_distance": 5.040623408026429
+    }
+   }
+  },
+  {
+   "md5": "79f83863b227a1267fbdcab08642473f",
+   "names": [
+    "ppo_scott_prev_backup"
+   ],
+   "steps": 30000,
+   "order": 1792123007.5400755,
+   "env_fingerprint": "59bc5ea99d60",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 2.756874840410041
+    },
+    "stochastic": {
+     "contact_rate": 0.38,
+     "mean_distance": 4.862438145352904
+    }
+   }
+  },
+  {
+   "md5": "90b069adbd3d5c4693692032d49806a3",
+   "names": [
+    "ppo_scott_final2",
+    "ppo_scott_prev2_backup"
+   ],
+   "steps": 60000,
+   "order": 1792123335.9971635,
+   "env_fingerprint": "59bc5ea99d60",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 0.48,
+     "mean_distance": 1.8003032488718498
+    },
+    "stochastic": {
+     "contact_rate": 0.6,
+     "mean_distance": 1.959559212846043
+    }
+   }
+  },
+  {
+   "md5": "a909af5e2bef360579192d32409e7e5b",
+   "names": [
+    "ppo_scott",
+    "ppo_scott_carry1"
+   ],
+   "steps": 100000,
+   "order": 1792127390.8379014,
+   "env_fingerprint": "59bc5ea99d60",
    "modes": {
     "deterministic": {
      "contact_rate": 0.98,

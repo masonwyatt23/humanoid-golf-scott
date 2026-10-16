@@ -8,12 +8,12 @@ Full ranking: ppo_scott > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_fin
 
 Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).
 
-Current env fingerprint `25d5c5608c4d` (v2 physics). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
+Current env fingerprint `59bc5ea99d60` (v2 physics). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
 
 | Model(s) | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak ball spd (m/s) | Impact club spd (m/s) | Smash | Peak club spd mean/max (m/s) | Peak club mph mean/max | % of 120 mph mean/max | DTW Mason best (11j / upper5) | DTW average | DTW rory | DTW scheffler | DTW scott |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| ppo_scott_baseline | 30000 | deter | 0% | 0.30 | 0.30 | 0.000 | 0% | 0.000 | 0% | 0% | 0.71 | nan | nan (n=0) | 706966.49 / 706966.49 | 1581441.6 / 1581441.6 | 1317983.8% / 1317983.8% | 2.913 / 2.468 | 2.777 | 2.797 | 2.832 | 2.733 |
-| ppo_scott_baseline | 30000 | stoch | 0% | 0.56 | 7.90 | 0.000 | 0% | 0.395 | 2% | 4% | 0.94 | nan | nan (n=0) | 88276.73 / 1051297.79 | 197469.7 / 2351690.1 | 164572.6% / 1959913.8% | 8.203 / 6.609 | 11.003 | 11.026 | 11.398 | 10.701 |
+| ppo_scott_baseline | 30000 | deter | 0% | 0.30 | 0.30 | 0.000 | 0% | 0.000 | 0% | 0% | 0.71 | nan | nan (n=0) | n/a | n/a | n/a (50 sim-unstable eps excluded; raw max 7.07e+05 m/s) | 2.913 / 2.468 | 2.777 | 2.797 | 2.832 | 2.733 |
+| ppo_scott_baseline | 30000 | stoch | 0% | 0.56 | 7.90 | 0.000 | 0% | 0.395 | 2% | 4% | 0.94 | nan | nan (n=0) | n/a | n/a | n/a (50 sim-unstable eps excluded; raw max 1.05e+06 m/s) | 8.203 / 6.609 | 11.003 | 11.026 | 11.398 | 10.701 |
 | ppo_scott_curr | 30000 | deter | 100% | 3.01 | 3.01 | 0.000 | 0% | 0.000 | 0% | 0% | 0.77 | 0.58 | 1.32 (n=50) | 6.41 / 6.41 | 14.3 / 14.3 | 12.0% / 12.0% | 3.514 / 3.023 | 2.743 | 2.774 | 2.939 | 2.689 |
 | ppo_scott_curr | 30000 | stoch | 34% | 5.04 | 13.90 | 0.062 | 6% | 2.628 | 18% | 18% | 2.83 | 2.65 | 0.96 (n=17) | 23.86 / 37.97 | 53.4 / 84.9 | 44.5% / 70.8% | 3.313 / 2.572 | 2.947 | 2.953 | 2.967 | 2.938 |
 | ppo_scott_prev_backup | 30000 | deter | 100% | 2.76 | 2.76 | 0.000 | 0% | 0.000 | 0% | 0% | 0.94 | 0.95 | 0.99 (n=50) | 1.00 / 1.00 | 2.2 / 2.2 | 1.9% / 1.9% | 2.544 / 2.165 | 1.812 | 1.845 | 1.851 | 1.840 |
@@ -26,6 +26,12 @@ Current env fingerprint `25d5c5608c4d` (v2 physics). 50 episodes, seeds 4000..40
 - ['ppo_resid_v3_s0']: training config UNKNOWN, not evaluated.
 
 - ['ppo_resid_v3_r2_s0']: training config UNKNOWN, not evaluated.
+
+- ['ppo_resid_v3_s0']: training config UNKNOWN, not evaluated.
+
+- ['ppo_resid_v3_r2_s0']: training config UNKNOWN, not evaluated.
+
+- ['ppo_resid_v3_r3_s0']: training config UNKNOWN, not evaluated.
 
 - ['ppo_resid_v3_s0']: training config UNKNOWN, not evaluated.
 
@@ -72,23 +78,28 @@ Mapping: reference `joints` (degrees, 11 cols in the same order as env qpos[14:2
 | ppo_scott_baseline | 30000 | e9a0050d94b6 | 0% | 0% |
 | ppo_scott_baseline | 30000 | 9145629439d4 | 0% | 0% |
 | ppo_scott_baseline | 30000 | 25d5c5608c4d | 0% | 0% |
+| ppo_scott_baseline | 30000 | 59bc5ea99d60 | 0% | 0% |
 | ppo_scott_curr | 30000 | f0a3f737fc77 | 100% | 34% |
 | ppo_scott_curr | 30000 | ae180bdc10a3 | 100% | 34% |
 | ppo_scott_curr | 30000 | e9a0050d94b6 | 100% | 34% |
 | ppo_scott_curr | 30000 | 9145629439d4 | 100% | 34% |
 | ppo_scott_curr | 30000 | 25d5c5608c4d | 100% | 34% |
+| ppo_scott_curr | 30000 | 59bc5ea99d60 | 100% | 34% |
 | ppo_scott_prev_backup | 30000 | f0a3f737fc77 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | ae180bdc10a3 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | e9a0050d94b6 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | 9145629439d4 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | 25d5c5608c4d | 100% | 38% |
+| ppo_scott_prev_backup | 30000 | 59bc5ea99d60 | 100% | 38% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | f0a3f737fc77 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | ae180bdc10a3 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | e9a0050d94b6 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 9145629439d4 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 25d5c5608c4d | 48% | 60% |
+| ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 59bc5ea99d60 | 48% | 60% |
 | ppo_scott, ppo_scott_carry1 | 100000 | f0a3f737fc77 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | ae180bdc10a3 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | e9a0050d94b6 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | 9145629439d4 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | 25d5c5608c4d | 98% | 66% |
+| ppo_scott, ppo_scott_carry1 | 100000 | 59bc5ea99d60 | 98% | 66% |
