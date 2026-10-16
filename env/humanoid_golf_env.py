@@ -34,6 +34,7 @@ class HumanoidGolfEnv(gym.Env):
         flight_model: bool = False,
         tee_height: float = 0.0,
         loft_deg: float = None,
+        handedness: str = "right",
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -48,6 +49,9 @@ class HumanoidGolfEnv(gym.Env):
         self.target_distance = target_distance
         self.curriculum = curriculum
         self.pin_torso = pin_torso
+        assert handedness in ("right", "left")
+        self.handedness = handedness
+        self.hand_sign = 1.0 if handedness == "right" else -1.0  # left-handed = mirror about the x-z plane (y -> -y); see docs/HANDEDNESS.md
         self.tee_height = tee_height  # ball centre raised by this much and held (invisible tee) until first club contact; torso raised equally
         self.flight_model = flight_model  # drag + Magnus on the airborne ball (Cd .26, Cl=min(1.7 S,.3), rho 1.19)
         # carry_reward: ball-flight reward = carry (first landing) + launch elevation + ball speed,
@@ -114,6 +118,7 @@ class HumanoidGolfEnv(gym.Env):
         self.impact_club_speed = 0.0
         self.peak_ball_speed = 0.0
         self.peak_ball_vx = 0.0
+        self.peak_club_speed = 0.0   # max club-head speed over the episode (m/s), pre- or post-contact
         self.ball_speed = 0.0          # post-contact peak speed (alias of peak_ball_speed once in contact)
         self.ball_lateral = 0.0        # ball y at episode end/latest (m), + = left of target line
         self.launch_direction = 0.0    # azimuth of peak-speed ball velocity, atan2(vy,vx) rad (0 = on target line)
@@ -343,7 +348,7 @@ class HumanoidGolfEnv(gym.Env):
             self.data.qpos[16] = 60.0
         if self.randomize_reset:
             self.data.qpos[0] += self.np_random.uniform(-0.03, 0.03)      # ball x
-            self.data.qpos[1] += self.np_random.uniform(-0.02, 0.02)      # ball y
+            self.data.qpos[1] += self.hand_sign * self.np_random.uniform(-0.02, 0.02)      # ball y (mirrored for left-handers)
             self.data.qpos[self._q_sp] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
             self.data.qpos[self._q_el] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
         self._ctrl_prev = np.zeros(self.model.nu if hasattr(self,'model') else 11)
@@ -417,6 +422,7 @@ class HumanoidGolfEnv(gym.Env):
                 self.data.qpos[7:14] = self._root_pin
                 self.data.qvel[6:12] = 0.0
             mujoco.mj_step(self.model, self.data)
+            self.peak_club_speed = max(self.peak_club_speed, self._club_speed())
             if not self.true_contact:
                 cs_now = self._club_speed()
                 if self._check_contact():
@@ -470,10 +476,11 @@ class HumanoidGolfEnv(gym.Env):
             "impact_club_speed": self.impact_club_speed,
             "peak_ball_speed": self.peak_ball_speed,
             "ball_speed": self.ball_speed,
-            "ball_lateral": self.ball_lateral,
-            "launch_direction": self.launch_direction,
+            "ball_lateral": self.ball_lateral * self.hand_sign,   # golfer frame: sign flipped for left-handers
+            "launch_direction": self.launch_direction * self.hand_sign,
             "launch_elevation": self.launch_elevation,
             "carry_gate": self.carry_gate,
+            "peak_club_speed": self.peak_club_speed,
             "phase": self.phase,
         }
 

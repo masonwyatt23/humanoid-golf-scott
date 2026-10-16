@@ -24,7 +24,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -114,13 +114,34 @@ class ResidualGolfEnv(HumanoidGolfEnv):
 
     def _action_to_ctrl(self, action):
         a = np.clip(np.asarray(action, dtype=float), -1, 1)
-        self._tgt = self.targets(self.clock) + self.res_scale * a[:4]
+        tg = self.targets(self.clock) + self.res_scale * a[:4]
+        tg[3] *= self.hand_sign  # chest yaw is a vertical-axis rotation: mirrored for left-handers
+        self._tgt = tg
         self.clock += 0.02 * (1.0 + 0.3 * a[4])
         self.phase = float(min(1.0, self.clock / self.T))
         return self._pd()
 
     def _phase_value(self):
         return float(min(1.0, self.clock / self.T))
+
+    def set_rung(self, v):
+        """club-speed ladder: gate opens linearly(smoothstep) between v-15 and v m/s."""
+        self.gate_hi = float(v); self.gate_lo = float(v) - 15.0
+
+    def _seq_stats(self):
+        """Kinematic-sequence features from per-step |angular speed| of thorax (chest yaw), arm (shoulder pitch), club body.
+        Pelvis has no DOF in this model so it is not scored. Reference (Cheetham 2008 via docs/research_data_sources.md):
+        peak order pelvis<thorax<arm<club, thorax/arm lead ~68/65 ms before the club peak; ratios club/arm ~2.3."""
+        if len(self._seq) < 5:
+            return {}
+        a = np.array(self._seq)  # columns: t, thorax, arm, club
+        i0 = int(np.argmax(a[:, 2]))  # restrict to window ending at the club peak
+        ic = int(np.argmax(a[:, 3])); ia = int(np.argmax(a[:, 2])); it = int(np.argmax(a[:, 1]))
+        t = a[:, 0]
+        return {"seq_order_arm_before_club": bool(t[ia] <= t[ic]), "seq_order_thorax_before_arm": bool(t[it] <= t[ia]),
+                "arm_lead_ms": float((t[ic] - t[ia]) * 1000), "thorax_lead_ms": float((t[ic] - t[it]) * 1000),
+                "club_over_arm_peak_ratio": float(a[ic, 3] / max(a[ia, 2], 1e-6)),
+                "peak_club_angvel_degs": float(np.degrees(a[ic, 3]))}
 
     def _compute_reward(self):
         # speed-gated, carry-driven reward (contact bonus only pays for a real strike)
@@ -144,17 +165,28 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.clock = 0.0
         self.phase = 0.0
         self._contact_step = None
+        self._seq = []
         return obs, info
 
     def step(self, action):
         obs, r, term, trunc, info = super().step(action)
         info["phase"] = self.phase
+        d = self.data
+        self._seq.append([self.clock, abs(d.qvel[self._da["chest_yaw"]]), abs(d.qvel[self._da["right_shoulder_pitch"]]),
+                          float(np.linalg.norm(d.cvel[self._club_body_id][:3]))])
         if self.true_contact and (self._landed or (self.episode_steps > 10 and np.linalg.norm(self._ball_lin_vel()) < 0.2)):
             term = True
         if (not self.true_contact) and self.clock > self.T + 0.3:
             term = True
         if term or trunc:
             g = self._gate()
+            st = self._seq_stats()
+            info.update(st)
+            if self.seq_weight > 0 and st and self.true_contact:
+                # sequencing bonus (gated on a real strike): thorax peaks before arm, arm before club, arm lead near 65 ms (+-30)
+                ok = 0.5 * st["seq_order_thorax_before_arm"] + 0.5 * st["seq_order_arm_before_club"]
+                lead = np.exp(-((st["arm_lead_ms"] - 65.0) ** 2) / (2 * 30.0 ** 2))
+                r += self.seq_weight * g * (ok + lead)
             if self.true_contact:
                 r += g * min(self.carry, 150.0) / 5.0 - 0.2 * min(abs(self.ball_lateral), 20.0)
                 if not self._landed:
