@@ -17,7 +17,7 @@ from env.humanoid_golf_env import HumanoidGolfEnv
 
 DEFAULT_SCRIPT = dict(q_back=2.0, elbow_back=0.5, t_hold=0.10, t_back=0.55, t_pause=0.05, t_down=0.22,
                       q_fin=-1.2, t_follow=0.25, wrist_cock=0.0, yaw_back=0.0, yaw_fin=0.0,
-                      wr_rel_start=0.0, wr_rel_end=0.667, wr_end=0.0, el_end=None)  # wrist release window (fraction of downswing), wrist angle after release, elbow at end of downswing (None = 20 deg)
+                      yaw_ff=0.0, wr_rel_start=0.0, wr_rel_end=0.667, wr_end=0.0, el_end=None)  # wrist release window (fraction of downswing), wrist angle after release, elbow at end of downswing (None = 20 deg)
 
 
 def _smooth(x):
@@ -66,6 +66,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.analytic_ball = analytic_ball  # score carry from analytic flight (drag+Magnus) of the MuJoCo launch vector, end episode 3 steps after contact
         self.elev_target = np.deg2rad(elev_target_deg)
         self._an = None
+        self._y_off = 0.0
         self.style_weight = style_weight
         self._qtraj = []
         self._ref_shape = self._load_style_ref(style_ref) if (style_ref and style_weight > 0) else None
@@ -109,6 +110,8 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 seg, u = "follow", (t - t4) / s["t_follow"]
             yaw = self.yaw_sign * self.yaw_amp * self.style.value("thorax", seg, u)
             wr = self.wrist_sign * self.wrist_amp * self.style.value("wrist", seg, u)
+        if s["yaw_ff"] != 0.0:  # feed-forward face-angle correction from the observed ball y offset (launch azimuth was 0.93-correlated with it)
+            yaw = yaw + s["yaw_ff"] * self._y_off * _smooth((t - t1) / s["t_back"])
         return np.array([sh, el, wr, yaw])
 
     def _pd(self):
@@ -246,6 +249,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._an = None
         self._launch_paid = False
         self._qtraj = []
+        self._y_off = float(self.data.qpos[1])
         return obs, info
 
     def step(self, action):
