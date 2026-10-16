@@ -18,7 +18,6 @@ are unreliable when `leg_valid_frame_ratio` < 0.6. Not Adam Scott style data: th
 | 4 | `data/references/mason_swing_part1_s06_refined.npz` | 187 | 0.78 | 2.5 | part1 @56-58 s, little address before takeaway |
 | 5 | `data/references/mason_swing_part1_s03_refined.npz` | 187 | 0.78 | 2.2 | part1 @18.6-21 s |
 | 6 | `data/references/mason_swing_part1_s04_refined.npz` | 194 | 0.78 | 3.0 | part1 @26-28.6 s |
-
 | 7 | `data/references/mason_swing_part2_s05_refined.npz` | 177 | 0.77 | 3.1 | part2 @81-84 s |
 | 8 | `data/references/mason_swing_part2_s02_refined.npz` | 232 | 0.75 | 3.3 | part2 @19.6-22.5 s, trimmed at a loop jump |
 | low | `mason_swing_part3_s02/s03_refined.npz` | 132/154 | 0.51/0.61 | none | close-up, legs cut off, no tempo - not recommended |
