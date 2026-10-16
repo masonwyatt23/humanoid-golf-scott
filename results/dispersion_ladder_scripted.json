@@ -1,0 +1,792 @@
+[
+ {
+  "names": [
+   "ppo_resid_v3_ladder_s0"
+  ],
+  "steps": 150000,
+  "config_source": "results/ppo_resid_v3_ladder_s0.json args",
+  "env_kwargs": {
+   "_env": "residual",
+   "script": {
+    "q_back": 2.2,
+    "t_down": 0.12,
+    "t_back": 0.6
+   },
+   "residual_scale": [
+    0.2,
+    0.2,
+    0.2,
+    0.1
+   ],
+   "model_xml": "humanoid_golf_v3.xml",
+   "flight_model": true,
+   "tee_height": 0.04,
+   "force_scale": 2.0,
+   "kp": 700.0,
+   "kd": 23.333333333333332,
+   "loft_deg": 6.0,
+   "curriculum": true,
+   "carry_reward": true,
+   "forward_reward": true,
+   "randomize_reset": true,
+   "ball_dz": 0.008,
+   "handedness": "right",
+   "gate_lo": 15.0,
+   "gate_hi": 35.0,
+   "seq_weight": 1.0,
+   "style_prior": false,
+   "yaw_amp": 0.1,
+   "wrist_amp": 0.0,
+   "style_lead": 0.05
+  },
+  "modes": {
+   "deterministic": {
+    "peak_club_unstable_episodes": 0,
+    "peak_club_raw_max_unstable": null,
+    "peak_club_speed_mean": 49.6469894707735,
+    "peak_club_speed_max": 49.94413900217436,
+    "peak_club_mph_mean": 111.05733662675208,
+    "peak_club_mph_max": 111.72204229952392,
+    "peak_club_pct_target_mean": 92.55590878220265,
+    "peak_club_pct_target_max": 93.1098788258284,
+    "impact_club_speed_mean": 49.6469894707735,
+    "impact_club_speed_max": 49.94413900217436,
+    "smash_factor_mean": 0.7234409062572604,
+    "smash_factor_median": 0.7091469575428406,
+    "smash_factor_n": 50,
+    "episodes": 50,
+    "contact_rate": 1.0,
+    "mean_distance": 88.56488700227752,
+    "std_distance": 8.848205256130354,
+    "median_distance": 88.92498471159844,
+    "max_distance": 111.93124640113237,
+    "mean_y": -0.10961490968005698,
+    "lateral_std": 7.096116042058519,
+    "mean_abs_y": 6.288617511928079,
+    "max_abs_y": 14.344852132930942,
+    "left_miss_rate": 0.44,
+    "right_miss_rate": 0.52,
+    "in_corridor_rate": 0.040000000000000036,
+    "left_miss_rate_contact_only": 0.44,
+    "right_miss_rate_contact_only": 0.52,
+    "mean_carry": 0.0,
+    "landed_fraction": 0.0,
+    "mean_peak_ball_speed": 35.91665826102372,
+    "lateral_threshold_m": 0.5,
+    "mean_max_ball_x": 88.56488700227752,
+    "dtw_to_reference_style_rad": {
+     "average": {
+      "mean": 1.2442364919778273,
+      "std": 0.010759924161560954,
+      "min": 1.2164678826269997,
+      "max": 1.2864349708148346
+     },
+     "rory": {
+      "mean": 1.2415488428366905,
+      "std": 0.010544637613568006,
+      "min": 1.214361127727063,
+      "max": 1.2833154724026579
+     },
+     "scheffler": {
+      "mean": 1.2315899382227733,
+      "std": 0.01228333196202703,
+      "min": 1.2014109172320615,
+      "max": 1.2809524829835444
+     },
+     "scott": {
+      "mean": 1.2494090090110779,
+      "std": 0.009460935996841228,
+      "min": 1.2238605359082597,
+      "max": 1.2856393487829099
+     }
+    },
+    "dtw_mason": {
+     "mason_swing_part1_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.2355239635717665,
+       "std": 0.015147808176873178,
+       "min": 2.2021625496214696,
+       "max": 2.276764255928183
+      },
+      "upper5": {
+       "mean": 1.8934067393993,
+       "std": 0.020693944914008906,
+       "min": 1.7660535083748594,
+       "max": 1.9222811182160748
+      }
+     },
+     "mason_swing_part2_s01_refined_mirrored": {
+      "all11": {
+       "mean": 2.482121229206086,
+       "std": 0.01553533006286355,
+       "min": 2.451100608824379,
+       "max": 2.524340510751944
+      },
+      "upper5": {
+       "mean": 1.909953443859275,
+       "std": 0.01878614506097462,
+       "min": 1.8735892762339497,
+       "max": 1.9620673725783015
+      }
+     },
+     "mason_swing_part1_s02_refined_mirrored": {
+      "all11": {
+       "mean": 1.923424946491432,
+       "std": 0.009859400200125306,
+       "min": 1.8957266059893647,
+       "max": 1.936638092521376
+      },
+      "upper5": {
+       "mean": 1.4121279850064457,
+       "std": 0.009896906976017313,
+       "min": 1.379305796376056,
+       "max": 1.4392543669055484
+      }
+     },
+     "mason_swing_part1_s06_refined_mirrored": {
+      "all11": {
+       "mean": 2.110907215119688,
+       "std": 0.015892273856735948,
+       "min": 2.0848540965821805,
+       "max": 2.1584071988368216
+      },
+      "upper5": {
+       "mean": 1.613178180226802,
+       "std": 0.026874195727649656,
+       "min": 1.5605084462235732,
+       "max": 1.6911357339100552
+      }
+     },
+     "mason_swing_part1_s03_refined_mirrored": {
+      "all11": {
+       "mean": 2.1242979602779553,
+       "std": 0.0037850080540416634,
+       "min": 2.110729411104369,
+       "max": 2.129914402782195
+      },
+      "upper5": {
+       "mean": 1.5005181559281167,
+       "std": 0.01971893334551662,
+       "min": 1.4665257962325131,
+       "max": 1.558437537866525
+      }
+     },
+     "mason_swing_part1_s04_refined_mirrored": {
+      "all11": {
+       "mean": 2.0644619986524133,
+       "std": 0.022171392650722266,
+       "min": 2.0124722737680276,
+       "max": 2.112925183360167
+      },
+      "upper5": {
+       "mean": 1.52928584154781,
+       "std": 0.01187586315332741,
+       "min": 1.5021849972901855,
+       "max": 1.5650724267850886
+      }
+     },
+     "mason_swing_part2_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.0671560386897236,
+       "std": 0.03029132167194069,
+       "min": 2.0092148979594304,
+       "max": 2.1527734731029664
+      },
+      "upper5": {
+       "mean": 1.4516611449288834,
+       "std": 0.049749931509640646,
+       "min": 1.3533853194287828,
+       "max": 1.5916145905641317
+      }
+     },
+     "mason_swing_part2_s02_refined_mirrored": {
+      "all11": {
+       "mean": 2.44677877251879,
+       "std": 0.012941767744389125,
+       "min": 2.4225066114898457,
+       "max": 2.4830796708608562
+      },
+      "upper5": {
+       "mean": 1.842669313482915,
+       "std": 0.011499727234324924,
+       "min": 1.8176369387486362,
+       "max": 1.8772481315195961
+      }
+     }
+    },
+    "best_prev_contact": 1.0,
+    "best_prev_model": "ppo_scott_prev_backup"
+   },
+   "stochastic": {
+    "peak_club_unstable_episodes": 0,
+    "peak_club_raw_max_unstable": null,
+    "peak_club_speed_mean": 49.976964261438845,
+    "peak_club_speed_max": 53.10833732098948,
+    "peak_club_mph_mean": 111.79547043498302,
+    "peak_club_mph_max": 118.8001640868142,
+    "peak_club_pct_target_mean": 93.17107431289867,
+    "peak_club_pct_target_max": 99.00883169461126,
+    "impact_club_speed_mean": 49.976964261438845,
+    "impact_club_speed_max": 53.10833732098948,
+    "smash_factor_mean": 0.7518007173038066,
+    "smash_factor_median": 0.7016972477127702,
+    "smash_factor_n": 50,
+    "episodes": 50,
+    "contact_rate": 1.0,
+    "mean_distance": 78.45168454229892,
+    "std_distance": 40.50239910488104,
+    "median_distance": 74.04259887133549,
+    "max_distance": 155.59910947614003,
+    "mean_y": -0.2078272557373152,
+    "lateral_std": 13.502416600633449,
+    "mean_abs_y": 8.77320385689677,
+    "max_abs_y": 37.17979191803055,
+    "left_miss_rate": 0.46,
+    "right_miss_rate": 0.32,
+    "in_corridor_rate": 0.22000000000000003,
+    "left_miss_rate_contact_only": 0.46,
+    "right_miss_rate_contact_only": 0.32,
+    "mean_carry": 2.361486449077626,
+    "landed_fraction": 0.16,
+    "mean_peak_ball_speed": 37.50364091378779,
+    "lateral_threshold_m": 0.5,
+    "mean_max_ball_x": 78.45168454229892,
+    "dtw_to_reference_style_rad": {
+     "average": {
+      "mean": 1.3022274103433842,
+      "std": 0.13539327772971213,
+      "min": 1.2186594046869488,
+      "max": 1.635564632361202
+     },
+     "rory": {
+      "mean": 1.3002406452991133,
+      "std": 0.13685807995532823,
+      "min": 1.2180587540137056,
+      "max": 1.6395088817025485
+     },
+     "scheffler": {
+      "mean": 1.2914828725986303,
+      "std": 0.13992820280710272,
+      "min": 1.2028481838362945,
+      "max": 1.695747445302959
+     },
+     "scott": {
+      "mean": 1.3063892089962739,
+      "std": 0.13325817707514395,
+      "min": 1.2288709084687781,
+      "max": 1.64378061136737
+     }
+    },
+    "dtw_mason": {
+     "mason_swing_part1_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.215556039053764,
+       "std": 0.05439264697395302,
+       "min": 2.0748261464886664,
+       "max": 2.2887595658049165
+      },
+      "upper5": {
+       "mean": 1.879386431414095,
+       "std": 0.04124939797036185,
+       "min": 1.7853529445483196,
+       "max": 1.9359902862531477
+      }
+     },
+     "mason_swing_part2_s01_refined_mirrored": {
+      "all11": {
+       "mean": 2.486751239619843,
+       "std": 0.017089062544362352,
+       "min": 2.448197134475158,
+       "max": 2.5398287363326024
+      },
+      "upper5": {
+       "mean": 1.9169859074864335,
+       "std": 0.022003626164033025,
+       "min": 1.869797895115544,
+       "max": 1.9821497391619762
+      }
+     },
+     "mason_swing_part1_s02_refined_mirrored": {
+      "all11": {
+       "mean": 1.9444107642076494,
+       "std": 0.04582461707108452,
+       "min": 1.8934111221784033,
+       "max": 2.0689925567509806
+      },
+      "upper5": {
+       "mean": 1.450665311282347,
+       "std": 0.08780631694422647,
+       "min": 1.3954600293284416,
+       "max": 1.6784914554084973
+      }
+     },
+     "mason_swing_part1_s06_refined_mirrored": {
+      "all11": {
+       "mean": 2.154138401910484,
+       "std": 0.10031692497347765,
+       "min": 2.0889397709423383,
+       "max": 2.3956044730368937
+      },
+      "upper5": {
+       "mean": 1.6815900459897108,
+       "std": 0.15950239548784723,
+       "min": 1.5701457107101986,
+       "max": 2.0805435441547018
+      }
+     },
+     "mason_swing_part1_s03_refined_mirrored": {
+      "all11": {
+       "mean": 2.1600580397072697,
+       "std": 0.0781619582534434,
+       "min": 2.114613269421001,
+       "max": 2.347408972374266
+      },
+      "upper5": {
+       "mean": 1.554913867403695,
+       "std": 0.12623955262282707,
+       "min": 1.4710928622082189,
+       "max": 1.8821541696781374
+      }
+     },
+     "mason_swing_part1_s04_refined_mirrored": {
+      "all11": {
+       "mean": 2.099832908600781,
+       "std": 0.0729469711351091,
+       "min": 2.0142726069112222,
+       "max": 2.2822008770433078
+      },
+      "upper5": {
+       "mean": 1.574962647037375,
+       "std": 0.10278509102375243,
+       "min": 1.51147734945896,
+       "max": 1.8344489730158597
+      }
+     },
+     "mason_swing_part2_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.1264357735308645,
+       "std": 0.14137281217636088,
+       "min": 2.0129299533172174,
+       "max": 2.504336928133559
+      },
+      "upper5": {
+       "mean": 1.532099396364616,
+       "std": 0.1944268942961206,
+       "min": 1.3613390675826564,
+       "max": 2.047609731311758
+      }
+     },
+     "mason_swing_part2_s02_refined_mirrored": {
+      "all11": {
+       "mean": 2.4556027340495437,
+       "std": 0.020066865314552106,
+       "min": 2.421356494097171,
+       "max": 2.514801334533804
+      },
+      "upper5": {
+       "mean": 1.8626392695532863,
+       "std": 0.04097833342431243,
+       "min": 1.8254504072970419,
+       "max": 1.9793073574548057
+      }
+     }
+    },
+    "best_prev_contact": 0.66,
+    "best_prev_model": "ppo_scott"
+   }
+  }
+ },
+ {
+  "names": [
+   "scripted_baseline"
+  ],
+  "steps": 0,
+  "config_source": "zero-residual action with results/ppo_resid_v3_ladder_s0.json args",
+  "env_kwargs": {
+   "_env": "residual",
+   "script": {
+    "q_back": 2.2,
+    "t_down": 0.12,
+    "t_back": 0.6
+   },
+   "residual_scale": [
+    0.2,
+    0.2,
+    0.2,
+    0.1
+   ],
+   "model_xml": "humanoid_golf_v3.xml",
+   "flight_model": true,
+   "tee_height": 0.04,
+   "force_scale": 2.0,
+   "kp": 700.0,
+   "kd": 23.333333333333332,
+   "loft_deg": 6.0,
+   "curriculum": true,
+   "carry_reward": true,
+   "forward_reward": true,
+   "randomize_reset": true,
+   "ball_dz": 0.008,
+   "handedness": "right",
+   "gate_lo": 15.0,
+   "gate_hi": 35.0,
+   "seq_weight": 1.0,
+   "style_prior": false,
+   "yaw_amp": 0.1,
+   "wrist_amp": 0.0,
+   "style_lead": 0.05
+  },
+  "modes": {
+   "deterministic": {
+    "peak_club_unstable_episodes": 0,
+    "peak_club_raw_max_unstable": null,
+    "peak_club_speed_mean": 48.22188640415979,
+    "peak_club_speed_max": 48.33189373947641,
+    "peak_club_mph_mean": 107.86946657292121,
+    "peak_club_mph_max": 108.11554638158438,
+    "peak_club_pct_target_mean": 89.89911708456336,
+    "peak_club_pct_target_max": 90.10420160230503,
+    "impact_club_speed_mean": 48.22188640415979,
+    "impact_club_speed_max": 48.33189373947641,
+    "smash_factor_mean": 0.8778434183330383,
+    "smash_factor_median": 0.9050035476466968,
+    "smash_factor_n": 50,
+    "episodes": 50,
+    "contact_rate": 1.0,
+    "mean_distance": 99.84526885452975,
+    "std_distance": 51.342601171575026,
+    "median_distance": 112.69892457817099,
+    "max_distance": 152.06666151431904,
+    "mean_y": -0.5779104886668389,
+    "lateral_std": 2.7346725073792357,
+    "mean_abs_y": 1.4046680822023319,
+    "max_abs_y": 8.959801905694748,
+    "left_miss_rate": 0.08,
+    "right_miss_rate": 0.22,
+    "in_corridor_rate": 0.7000000000000001,
+    "left_miss_rate_contact_only": 0.08,
+    "right_miss_rate_contact_only": 0.22,
+    "mean_carry": 11.978142016970668,
+    "landed_fraction": 0.32,
+    "mean_peak_ball_speed": 42.336176757247486,
+    "lateral_threshold_m": 0.5,
+    "mean_max_ball_x": 99.84526885452975,
+    "dtw_to_reference_style_rad": {
+     "average": {
+      "mean": 1.3351872784087342,
+      "std": 0.16880860244236737,
+      "min": 1.2271685268770653,
+      "max": 1.6339183447054868
+     },
+     "rory": {
+      "mean": 1.3339480018819478,
+      "std": 0.17051577434935739,
+      "min": 1.224997657951422,
+      "max": 1.6357342969047495
+     },
+     "scheffler": {
+      "mean": 1.3214020541450515,
+      "std": 0.1681453499178917,
+      "min": 1.2129428789957253,
+      "max": 1.6175295953022266
+     },
+     "scott": {
+      "mean": 1.337863044420544,
+      "std": 0.1622045076388023,
+      "min": 1.2346270931696435,
+      "max": 1.6251722543260596
+     }
+    },
+    "dtw_mason": {
+     "mason_swing_part1_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.1972068607891084,
+       "std": 0.05923591562509769,
+       "min": 2.092268514408782,
+       "max": 2.275037897538724
+      },
+      "upper5": {
+       "mean": 1.870094363124574,
+       "std": 0.04266585383988588,
+       "min": 1.7975951868125848,
+       "max": 1.9333846634493244
+      }
+     },
+     "mason_swing_part2_s01_refined_mirrored": {
+      "all11": {
+       "mean": 2.4844537727003866,
+       "std": 0.015891414915223605,
+       "min": 2.4550041244870418,
+       "max": 2.5259744588433812
+      },
+      "upper5": {
+       "mean": 1.9134665668896387,
+       "std": 0.01954169838083921,
+       "min": 1.8776653666310699,
+       "max": 1.964364080007479
+      }
+     },
+     "mason_swing_part1_s02_refined_mirrored": {
+      "all11": {
+       "mean": 1.9594112532501595,
+       "std": 0.05790397296977585,
+       "min": 1.9041367558766171,
+       "max": 2.0678825137155883
+      },
+      "upper5": {
+       "mean": 1.4772438010397777,
+       "std": 0.10585818535956298,
+       "min": 1.4101206497212488,
+       "max": 1.6670549779742327
+      }
+     },
+     "mason_swing_part1_s06_refined_mirrored": {
+      "all11": {
+       "mean": 2.188092644672438,
+       "std": 0.11857727449382759,
+       "min": 2.095932449510152,
+       "max": 2.3954524472287955
+      },
+      "upper5": {
+       "mean": 1.7343646761243476,
+       "std": 0.18583073543935216,
+       "min": 1.5779660914551312,
+       "max": 2.050928866042547
+      }
+     },
+     "mason_swing_part1_s03_refined_mirrored": {
+      "all11": {
+       "mean": 2.1832458803360204,
+       "std": 0.09591552413435078,
+       "min": 2.1234269871768747,
+       "max": 2.351780674303607
+      },
+      "upper5": {
+       "mean": 1.591731090698986,
+       "std": 0.14197425385127768,
+       "min": 1.4781157985823745,
+       "max": 1.8390199230019615
+      }
+     },
+     "mason_swing_part1_s04_refined_mirrored": {
+      "all11": {
+       "mean": 2.115542719981022,
+       "std": 0.09079991027190505,
+       "min": 2.0238474717622004,
+       "max": 2.2750393200722954
+      },
+      "upper5": {
+       "mean": 1.6073999540778083,
+       "std": 0.12216284973912454,
+       "min": 1.5271668706557333,
+       "max": 1.8226849970996992
+      }
+     },
+     "mason_swing_part2_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.1705193931453635,
+       "std": 0.1587948069491352,
+       "min": 2.0204394111158894,
+       "max": 2.4591376912702594
+      },
+      "upper5": {
+       "mean": 1.5931283123472864,
+       "std": 0.21352928757206147,
+       "min": 1.3715053489702145,
+       "max": 1.9990711146244526
+      }
+     },
+     "mason_swing_part2_s02_refined_mirrored": {
+      "all11": {
+       "mean": 2.457794607690587,
+       "std": 0.023524207917714583,
+       "min": 2.4256151845491503,
+       "max": 2.504592252793435
+      },
+      "upper5": {
+       "mean": 1.8715621516861882,
+       "std": 0.048671660418598786,
+       "min": 1.830489787656505,
+       "max": 1.9647752069831625
+      }
+     }
+    }
+   },
+   "stochastic": {
+    "peak_club_unstable_episodes": 0,
+    "peak_club_raw_max_unstable": null,
+    "peak_club_speed_mean": 48.22188640415979,
+    "peak_club_speed_max": 48.33189373947641,
+    "peak_club_mph_mean": 107.86946657292121,
+    "peak_club_mph_max": 108.11554638158438,
+    "peak_club_pct_target_mean": 89.89911708456336,
+    "peak_club_pct_target_max": 90.10420160230503,
+    "impact_club_speed_mean": 48.22188640415979,
+    "impact_club_speed_max": 48.33189373947641,
+    "smash_factor_mean": 0.8778434183330383,
+    "smash_factor_median": 0.9050035476466968,
+    "smash_factor_n": 50,
+    "episodes": 50,
+    "contact_rate": 1.0,
+    "mean_distance": 99.84526885452975,
+    "std_distance": 51.342601171575026,
+    "median_distance": 112.69892457817099,
+    "max_distance": 152.06666151431904,
+    "mean_y": -0.5779104886668389,
+    "lateral_std": 2.7346725073792357,
+    "mean_abs_y": 1.4046680822023319,
+    "max_abs_y": 8.959801905694748,
+    "left_miss_rate": 0.08,
+    "right_miss_rate": 0.22,
+    "in_corridor_rate": 0.7000000000000001,
+    "left_miss_rate_contact_only": 0.08,
+    "right_miss_rate_contact_only": 0.22,
+    "mean_carry": 11.978142016970668,
+    "landed_fraction": 0.32,
+    "mean_peak_ball_speed": 42.336176757247486,
+    "lateral_threshold_m": 0.5,
+    "mean_max_ball_x": 99.84526885452975,
+    "dtw_to_reference_style_rad": {
+     "average": {
+      "mean": 1.3351872784087342,
+      "std": 0.16880860244236737,
+      "min": 1.2271685268770653,
+      "max": 1.6339183447054868
+     },
+     "rory": {
+      "mean": 1.3339480018819478,
+      "std": 0.17051577434935739,
+      "min": 1.224997657951422,
+      "max": 1.6357342969047495
+     },
+     "scheffler": {
+      "mean": 1.3214020541450515,
+      "std": 0.1681453499178917,
+      "min": 1.2129428789957253,
+      "max": 1.6175295953022266
+     },
+     "scott": {
+      "mean": 1.337863044420544,
+      "std": 0.1622045076388023,
+      "min": 1.2346270931696435,
+      "max": 1.6251722543260596
+     }
+    },
+    "dtw_mason": {
+     "mason_swing_part1_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.1972068607891084,
+       "std": 0.05923591562509769,
+       "min": 2.092268514408782,
+       "max": 2.275037897538724
+      },
+      "upper5": {
+       "mean": 1.870094363124574,
+       "std": 0.04266585383988588,
+       "min": 1.7975951868125848,
+       "max": 1.9333846634493244
+      }
+     },
+     "mason_swing_part2_s01_refined_mirrored": {
+      "all11": {
+       "mean": 2.4844537727003866,
+       "std": 0.015891414915223605,
+       "min": 2.4550041244870418,
+       "max": 2.5259744588433812
+      },
+      "upper5": {
+       "mean": 1.9134665668896387,
+       "std": 0.01954169838083921,
+       "min": 1.8776653666310699,
+       "max": 1.964364080007479
+      }
+     },
+     "mason_swing_part1_s02_refined_mirrored": {
+      "all11": {
+       "mean": 1.9594112532501595,
+       "std": 0.05790397296977585,
+       "min": 1.9041367558766171,
+       "max": 2.0678825137155883
+      },
+      "upper5": {
+       "mean": 1.4772438010397777,
+       "std": 0.10585818535956298,
+       "min": 1.4101206497212488,
+       "max": 1.6670549779742327
+      }
+     },
+     "mason_swing_part1_s06_refined_mirrored": {
+      "all11": {
+       "mean": 2.188092644672438,
+       "std": 0.11857727449382759,
+       "min": 2.095932449510152,
+       "max": 2.3954524472287955
+      },
+      "upper5": {
+       "mean": 1.7343646761243476,
+       "std": 0.18583073543935216,
+       "min": 1.5779660914551312,
+       "max": 2.050928866042547
+      }
+     },
+     "mason_swing_part1_s03_refined_mirrored": {
+      "all11": {
+       "mean": 2.1832458803360204,
+       "std": 0.09591552413435078,
+       "min": 2.1234269871768747,
+       "max": 2.351780674303607
+      },
+      "upper5": {
+       "mean": 1.591731090698986,
+       "std": 0.14197425385127768,
+       "min": 1.4781157985823745,
+       "max": 1.8390199230019615
+      }
+     },
+     "mason_swing_part1_s04_refined_mirrored": {
+      "all11": {
+       "mean": 2.115542719981022,
+       "std": 0.09079991027190505,
+       "min": 2.0238474717622004,
+       "max": 2.2750393200722954
+      },
+      "upper5": {
+       "mean": 1.6073999540778083,
+       "std": 0.12216284973912454,
+       "min": 1.5271668706557333,
+       "max": 1.8226849970996992
+      }
+     },
+     "mason_swing_part2_s05_refined_mirrored": {
+      "all11": {
+       "mean": 2.1705193931453635,
+       "std": 0.1587948069491352,
+       "min": 2.0204394111158894,
+       "max": 2.4591376912702594
+      },
+      "upper5": {
+       "mean": 1.5931283123472864,
+       "std": 0.21352928757206147,
+       "min": 1.3715053489702145,
+       "max": 1.9990711146244526
+      }
+     },
+     "mason_swing_part2_s02_refined_mirrored": {
+      "all11": {
+       "mean": 2.457794607690587,
+       "std": 0.023524207917714583,
+       "min": 2.4256151845491503,
+       "max": 2.504592252793435
+      },
+      "upper5": {
+       "mean": 1.8715621516861882,
+       "std": 0.048671660418598786,
+       "min": 1.830489787656505,
+       "max": 1.9647752069831625
+      }
+     }
+    }
+   }
+  }
+ }
+]

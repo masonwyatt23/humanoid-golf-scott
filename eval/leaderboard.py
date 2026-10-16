@@ -52,7 +52,7 @@ def discover():
         g["names"].append(z.stem)
     j = RES / f"{SCRIPTED_SRC}.json"
     if j.exists():
-        groups["scripted:" + SCRIPTED_SRC] = {"names": [SCRIPTED], "mtime": j.stat().st_mtime - 1, "scripted": True}
+        groups["scripted-" + SCRIPTED_SRC] = {"names": [SCRIPTED], "mtime": j.stat().st_mtime - 1, "scripted": True}
     return groups
 
 
@@ -116,6 +116,8 @@ def main():
             except Exception as e:
                 d = {"error": f"{type(e).__name__}: {e}"}
             modes["deterministic" if det else "stochastic"] = d
+        if any("error" in v for v in modes.values()):
+            print("ERROR (not cached):", g["names"], {m: v.get("error") for m, v in modes.items()}); continue
         cache[key] = {"md5": h, "names": g["names"], "steps": steps, "env_kwargs": kw, "config_source": src,
                       "env_fingerprint": fp, "episodes": a.episodes, "seed_base": a.seed, "mtime": g["mtime"], "modes": modes, "scripted": bool(g.get("scripted")),
                       "evaluated_at": time.strftime("%Y-%m-%d %H:%M:%S")}
