@@ -24,6 +24,14 @@ class HumanoidGolfEnv(gym.Env):
         torque_scale: float = 10.0,
         randomize_reset: bool = False,
         forward_reward: bool = False,
+        carry_reward: bool = False,
+        ball_damping: float = 0.0,
+        action_smoothing: float = 0.0,
+        shoulder_range_deg: float = 0.0,
+        gate_lo: float = 2.0,
+        gate_hi: float = 8.0,
+        model_xml: str = "humanoid_golf.xml",
+        flight_model: bool = False,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -38,15 +46,29 @@ class HumanoidGolfEnv(gym.Env):
         self.target_distance = target_distance
         self.curriculum = curriculum
         self.pin_torso = pin_torso
+        self.flight_model = flight_model  # drag + Magnus on the airborne ball (Cd .26, Cl=min(1.7 S,.3), rho 1.19)
+        # carry_reward: ball-flight reward = carry (first landing) + launch elevation + ball speed,
+        #   all scaled by a smooth club-speed gate at impact (0 below gate_lo m/s, 1 above gate_hi m/s).
+        self.carry_reward = carry_reward
+        self.gate_lo, self.gate_hi = gate_lo, gate_hi
+        self.action_smoothing = action_smoothing  # ctrl = s*prev_ctrl + (1-s)*new (0 = off)
+        self._ctrl_prev = np.zeros(11)
         self.randomize_reset = randomize_reset  # small ball-x / pose noise on reset (fixed pose only)
         self.forward_reward = forward_reward    # contact-gated forward-direction reward + lateral penalty
         self.torque_scale = torque_scale  # ctrl = action * torque_scale (legacy 10 -> up to 500Nm at shoulder)
         self.address_pose = address_pose
         self.progress = 0.0  # 0..1 training progress, set via set_progress()
 
-        model_path = Path(__file__).parent / "models" / "humanoid_golf.xml"
+        model_path = Path(__file__).parent / "models" / model_xml
         self.model = mujoco.MjModel.from_xml_path(str(model_path))
         self.data = mujoco.MjData(self.model)
+        self.substeps = int(round(0.02 / self.model.opt.timestep))  # control dt fixed at 20 ms
+        if ball_damping > 0:  # linear+angular drag on the ball's freejoint so rolling does not dominate
+            self.model.dof_damping[0:6] = ball_damping
+        if shoulder_range_deg > 0:  # limit right shoulder pitch to +-range
+            jid = self.model.joint("right_shoulder_pitch").id
+            r = np.deg2rad(shoulder_range_deg)
+            self.model.jnt_range[jid] = [-r, r]
 
         self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(11,), dtype=np.float32)
 
@@ -89,6 +111,9 @@ class HumanoidGolfEnv(gym.Env):
         self.launch_direction = 0.0    # azimuth of peak-speed ball velocity, atan2(vy,vx) rad (0 = on target line)
         self.launch_elevation = 0.0
         self._best_v = 0.0
+        self._prev_club_speed = 0.0
+        self._carry_paid = False
+        self.carry_gate = 0.0
         self.max_ball_x = 0.0
         self.carry = 0.0
         self._airborne = False
@@ -101,6 +126,25 @@ class HumanoidGolfEnv(gym.Env):
             if {g1, g2} == {self._club_geom, self._ball_geom}:
                 return True
         return False
+
+    def _apply_aero(self):
+        d = self.data
+        d.xfrc_applied[self._ball_id, :] = 0.0
+        v = d.qvel[0:3]
+        sp = float(np.linalg.norm(v))
+        if sp < 0.5 or d.xpos[self._ball_id][2] < 0.03:
+            return
+        rho, r = 1.19, 0.02135
+        A = np.pi * r * r
+        w = d.cvel[self._ball_id][:3]  # angular velocity
+        S = float(np.linalg.norm(w)) * r / sp
+        cl = min(1.7 * S, 0.30)
+        q = 0.5 * rho * A * sp
+        f = -0.26 * q * v
+        wn = np.linalg.norm(w)
+        if wn > 1e-6:
+            f = f + cl * q * np.cross(w / wn, v)
+        d.xfrc_applied[self._ball_id, :3] = f
 
     def _club_speed(self) -> float:
         v = np.zeros(6)
@@ -161,7 +205,7 @@ class HumanoidGolfEnv(gym.Env):
             cj = self.data.qpos[14:14 + len(tj)]
             r += w["imitation"] * 2.0 * np.exp(-np.mean((cj - tj) ** 2) / 0.5)
         # ball-flight terms (ramped): only after real contact; per-step, bounded
-        if self.true_contact:
+        if self.true_contact and not self.carry_reward:
             speed = np.linalg.norm(ball_v)
             fwd = max(0.0, ball_v[0])
             launch = np.arctan2(max(ball_v[2], 0.0), max(abs(ball_v[0]), 1e-6))
@@ -172,6 +216,8 @@ class HumanoidGolfEnv(gym.Env):
             # peak post-contact ball speed along the target (+x) direction, gated on contact
             r += w["ball"] * 0.5 * min(max(self.peak_ball_vx, 0.0), 30.0)
             # small penalty (once, at the end of the episode) for contact with a weak strike
+        if self.carry_reward:
+            r += self._carry_terms(w)
         if self.forward_reward and self.true_contact:
             bv = self._ball_lin_vel()
             sp = float(np.linalg.norm(bv[:2]))
@@ -183,6 +229,32 @@ class HumanoidGolfEnv(gym.Env):
             r -= 2.0 * max(w["ball"], 0.25)
         if self.data.xpos[self.model.body("torso").id][2] < 0.5 and not self.pin_torso:
             r -= 10.0
+        return float(r)
+
+    def _gate(self) -> float:
+        x = np.clip((self.impact_club_speed - self.gate_lo) / (self.gate_hi - self.gate_lo), 0.0, 1.0)
+        return float(x * x * (3 - 2 * x))  # smoothstep
+
+    def _carry_terms(self, w) -> float:
+        ramp = 0.3 + 0.7 * w["ball"]          # never fully off: contact-first, flight weight grows
+        club_pos = self.data.geom_xpos[self._club_geom]
+        ball_pos = self.data.xpos[self._ball_id]
+        r = 0.0
+        # dense pre-contact signal: club speed when near the ball (gives gradient toward a fast swing)
+        if not self.true_contact and np.linalg.norm(club_pos - ball_pos) < 0.35:
+            r += ramp * 0.05 * min(self._club_speed(), 15.0)
+        if self.true_contact:
+            g = self._gate()
+            self.carry_gate = g
+            bv = self._ball_lin_vel()
+            r += ramp * g * 0.1 * min(float(np.linalg.norm(bv)), 40.0)               # ball speed
+            if self._airborne and not self._landed:
+                r += ramp * g * 0.1 * min(max(bv[2], 0.0), 15.0)                      # vz while airborne
+            elev = self.launch_elevation
+            r += ramp * g * 0.2 * np.exp(-((elev - 0.35) ** 2) / 0.08) * (self.ball_speed > 1.0)  # ~20deg launch
+            if self._landed and not self._carry_paid:
+                self._carry_paid = True
+                r += ramp * g * 3.0 * min(self.carry, 60.0)                           # first-landing carry
         return float(r)
 
     def _compute_reward(self) -> float:
@@ -244,8 +316,8 @@ class HumanoidGolfEnv(gym.Env):
         self.data.qpos[10] = 1.0
 
         if self.address_pose == "fixed":
-            self.data.qpos[9] = 0.88   # torso lowered so club-head centre is ~2cm above ground (was 0.10m: club passed OVER the ball)
-            self.data.qpos[0] = 0.45   # ball ahead of club head (head front edge ~0.38) so address is not interpenetrating
+            self.data.qpos[9] = 0.86   # torso lowered so club-head centre is ~2cm above ground (was 0.10m: club passed OVER the ball)
+            self.data.qpos[0] = 0.43   # ball ahead of club head (head front edge ~0.38) so address is not interpenetrating
             self.data.qpos[14] = 0.0                  # shoulder pitch (rad)
             self.data.qpos[16] = np.deg2rad(20.0)     # elbow (rad)
         else:
@@ -258,6 +330,7 @@ class HumanoidGolfEnv(gym.Env):
             self.data.qpos[1] += self.np_random.uniform(-0.02, 0.02)      # ball y
             self.data.qpos[14] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
             self.data.qpos[16] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
+        self._ctrl_prev = np.zeros(11)
         self._root_pin = self.data.qpos[7:14].copy()
 
         mujoco.mj_forward(self.model, self.data)
@@ -272,16 +345,26 @@ class HumanoidGolfEnv(gym.Env):
         return self._get_obs(), {}
 
     def step(self, action):
-        self.data.ctrl[:] = np.clip(action, -1, 1) * self.torque_scale
+        ctrl = np.clip(action, -1, 1) * self.torque_scale
+        if self.action_smoothing > 0:
+            ctrl = self.action_smoothing * self._ctrl_prev + (1 - self.action_smoothing) * ctrl
+        self._ctrl_prev = ctrl.copy()
+        self.data.ctrl[:] = ctrl
 
-        for _ in range(10):
+        for _ in range(self.substeps):
+            if self.flight_model:
+                self._apply_aero()
             if self.pin_torso:
                 self.data.qpos[7:14] = self._root_pin
                 self.data.qvel[6:12] = 0.0
             mujoco.mj_step(self.model, self.data)
-            if not self.true_contact and self._check_contact():
-                self.true_contact = True
-                self.impact_club_speed = self._club_speed()
+            if not self.true_contact:
+                cs_now = self._club_speed()
+                if self._check_contact():
+                    self.true_contact = True
+                    # speed just before/at first contact (post-contact speed is already reduced)
+                    self.impact_club_speed = max(self._prev_club_speed, cs_now)
+                self._prev_club_speed = cs_now
         bp = self.data.xpos[self._ball_id]
         self.max_ball_x = max(self.max_ball_x, float(bp[0]))
         self.peak_ball_speed = max(self.peak_ball_speed, float(np.linalg.norm(self._ball_lin_vel())))
@@ -328,6 +411,7 @@ class HumanoidGolfEnv(gym.Env):
             "ball_lateral": self.ball_lateral,
             "launch_direction": self.launch_direction,
             "launch_elevation": self.launch_elevation,
+            "carry_gate": self.carry_gate,
             "phase": self.phase,
         }
 

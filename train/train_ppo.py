@@ -66,6 +66,7 @@ def evaluate(model, make_env, n=50):
             "mean_impact_club_speed": float(cs.mean()), "mean_peak_ball_speed": float(bs.mean()), "max_peak_ball_speed": float(bs.max()),
             "ball_lateral_mean": float(lat.mean()), "ball_lateral_std": float(lat.std()),
             "launch_direction_rad_mean": float(ld.mean()), "launch_direction_rad_std": float(ld.std()),
+            "landed_mean_carry_given_landed": float(cr[cr > 0].mean()) if (cr > 0).any() else 0.0, "mean_carry_gate": float(np.mean([r.get("carry_gate", 0) for r in rows])),
             "distance_std": float(mx.std()), "contact_episodes": int(c.sum())}
 
 
@@ -81,6 +82,10 @@ def main():
     parser.add_argument("--torque_scale", type=float, default=10.0)
     parser.add_argument("--randomize_reset", action="store_true")
     parser.add_argument("--forward_reward", action="store_true")
+    parser.add_argument("--carry_reward", action="store_true")
+    parser.add_argument("--ball_damping", type=float, default=0.0)
+    parser.add_argument("--action_smoothing", type=float, default=0.0)
+    parser.add_argument("--shoulder_range_deg", type=float, default=0.0)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--eval_episodes", type=int, default=50)
     parser.add_argument("--tag", default="")
@@ -97,7 +102,9 @@ def main():
     def make_env():
         return HumanoidGolfEnv(reference_path=str(ref_path), curriculum=args.curriculum, pin_torso=args.pin_torso,
                                address_pose=args.address_pose, torque_scale=args.torque_scale,
-                               randomize_reset=args.randomize_reset, forward_reward=args.forward_reward)
+                               randomize_reset=args.randomize_reset, forward_reward=args.forward_reward,
+                               carry_reward=args.carry_reward, ball_damping=args.ball_damping,
+                               action_smoothing=args.action_smoothing, shoulder_range_deg=args.shoulder_range_deg)
 
     env = make_vec_env(make_env, n_envs=args.n_envs, seed=args.seed)
 
