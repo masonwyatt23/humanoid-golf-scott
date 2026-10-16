@@ -1,0 +1,3369 @@
+{
+  "threshold_m": 0.5,
+  "episodes": 50,
+  "seed_base": 3000,
+  "runs": [
+    {
+      "model": "ppo_scott",
+      "mode": "deterministic",
+      "env_kwargs": {
+        "curriculum": true,
+        "pin_torso": true,
+        "address_pose": "fixed",
+        "torque_scale": 3.0,
+        "randomize_reset": true,
+        "forward_reward": true
+      },
+      "metrics": {
+        "episodes": 50,
+        "contact_rate": 0.98,
+        "mean_distance": 2.7069067271222322,
+        "std_distance": 3.1796130356753105,
+        "median_distance": 1.30534651240009,
+        "max_distance": 11.20248932508386,
+        "mean_y": -0.16917528895522793,
+        "lateral_std": 1.791433493566872,
+        "mean_abs_y": 1.3268508288393914,
+        "max_abs_y": 4.575154121484955,
+        "left_miss_rate": 0.22,
+        "right_miss_rate": 0.36,
+        "in_corridor_rate": 0.42000000000000004,
+        "left_miss_rate_contact_only": 0.22448979591836735,
+        "right_miss_rate_contact_only": 0.3673469387755102,
+        "mean_carry": 0.009894233303348982,
+        "landed_fraction": 0.02,
+        "mean_peak_ball_speed": 1.1816107284903887,
+        "lateral_threshold_m": 0.5,
+        "dtw_to_reference_style_rad": {
+          "scott": {
+            "mean": 2.44084371476214,
+            "std": 0.4245064156496788,
+            "min": 1.7112512822895236,
+            "max": 3.7047717792475248
+          },
+          "rory": {
+            "mean": 2.438013490112326,
+            "std": 0.4383983755084552,
+            "min": 1.6691752803319548,
+            "max": 3.736114424773274
+          },
+          "scheffler": {
+            "mean": 2.431788206713747,
+            "std": 0.46252054428127626,
+            "min": 1.610016363888054,
+            "max": 3.7949366642734024
+          },
+          "average": {
+            "mean": 2.422557253596977,
+            "std": 0.4402662218429778,
+            "min": 1.6450002420031826,
+            "max": 3.7387146787081753
+          }
+        }
+      },
+      "shots": [
+        {
+          "final_x": 3.930264089369392,
+          "final_y": -0.010517847648111806,
+          "final_z": 0.020783559537247698,
+          "max_height": 0.021,
+          "max_abs_y": 0.010517847648111806,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8730210701357811
+        },
+        {
+          "final_x": 2.65130115533128,
+          "final_y": -0.8832332318111333,
+          "final_z": 0.020783559537253162,
+          "max_height": 0.021,
+          "max_abs_y": 0.8832332318111333,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8914227773096776
+        },
+        {
+          "final_x": 7.144021767287687,
+          "final_y": -1.429285110897714,
+          "final_z": 0.02078355953585462,
+          "max_height": 0.02168863284481688,
+          "max_abs_y": 1.429285110897714,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.3870101330982387
+        },
+        {
+          "final_x": 1.2993936466592253,
+          "final_y": -0.4352433686643104,
+          "final_z": 0.02078355953728145,
+          "max_height": 0.021,
+          "max_abs_y": 0.4352433686643104,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.32847000349899136
+        },
+        {
+          "final_x": 5.054919855391337,
+          "final_y": 2.9899142094655566,
+          "final_z": 0.020783559538429832,
+          "max_height": 0.021337652833651237,
+          "max_abs_y": 2.9899142094655566,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.5498189328571823
+        },
+        {
+          "final_x": 8.822744990243683,
+          "final_y": 3.0625167864153346,
+          "final_z": 0.02078355953573658,
+          "max_height": 0.023509676648639944,
+          "max_abs_y": 3.0625167864153346,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.8367422325160487
+        },
+        {
+          "final_x": 10.155703188120771,
+          "final_y": 0.08527942126367423,
+          "final_z": 0.020783559537247816,
+          "max_height": 0.021,
+          "max_abs_y": 0.08527942126367423,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.288467106299461
+        },
+        {
+          "final_x": 1.4842946301947013,
+          "final_y": 0.005214690739078727,
+          "final_z": 0.020783559537302577,
+          "max_height": 0.021,
+          "max_abs_y": 0.018506993667127797,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.45282517673827255
+        },
+        {
+          "final_x": 7.891970410594562,
+          "final_y": 3.9778352690204044,
+          "final_z": 0.020783559534533553,
+          "max_height": 0.021388847025756975,
+          "max_abs_y": 3.9778352690204044,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.394535342428649
+        },
+        {
+          "final_x": 1.3755781852810318,
+          "final_y": -0.009473257884570534,
+          "final_z": 0.02078355953724567,
+          "max_height": 0.021,
+          "max_abs_y": 0.009473257884570534,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.226979798874416
+        },
+        {
+          "final_x": 0.7352389881005837,
+          "final_y": -1.8621837395854952,
+          "final_z": 0.020783559537249478,
+          "max_height": 0.021,
+          "max_abs_y": 1.8621837395854952,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5545549265968683
+        },
+        {
+          "final_x": 4.483634687121718,
+          "final_y": -1.261267371764982,
+          "final_z": 0.020783559537308437,
+          "max_height": 0.021252069196936157,
+          "max_abs_y": 1.261267371764982,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.633237869692047
+        },
+        {
+          "final_x": 2.8348934660341025,
+          "final_y": -0.10784303364970783,
+          "final_z": 0.020783559537241734,
+          "max_height": 0.021,
+          "max_abs_y": 0.10784303364970783,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8990713725604114
+        },
+        {
+          "final_x": -0.5372165292225785,
+          "final_y": -3.553469866759138,
+          "final_z": 0.02078355953724846,
+          "max_height": 0.10153373109883712,
+          "max_abs_y": 3.553469866759138,
+          "carry": 0.49471166516744913,
+          "true_contact": true,
+          "peak_ball_speed": 1.7188525338742593
+        },
+        {
+          "final_x": 2.4767736689252007,
+          "final_y": -4.575154121484955,
+          "final_z": 0.02078355953741941,
+          "max_height": 0.021862626823669358,
+          "max_abs_y": 4.575154121484955,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.3236868493935834
+        },
+        {
+          "final_x": 0.6270411755005515,
+          "final_y": -0.18371532311637112,
+          "final_z": 0.02078355953718935,
+          "max_height": 0.021,
+          "max_abs_y": 0.18371532311637112,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.08437272895689349
+        },
+        {
+          "final_x": 1.3636927732691804,
+          "final_y": -0.6835214658669808,
+          "final_z": 0.020783559537299427,
+          "max_height": 0.021,
+          "max_abs_y": 0.6835214658669808,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4837657419952731
+        },
+        {
+          "final_x": 3.0011436645533816,
+          "final_y": 0.009077408413254703,
+          "final_z": 0.020783559537247864,
+          "max_height": 0.021,
+          "max_abs_y": 0.012736784390427646,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6417047162466348
+        },
+        {
+          "final_x": 1.7428045832016879,
+          "final_y": 0.23528908138553478,
+          "final_z": 0.020783559537251587,
+          "max_height": 0.021,
+          "max_abs_y": 0.23528908138553478,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3496616740171495
+        },
+        {
+          "final_x": 0.893989271303722,
+          "final_y": -0.2853673771574795,
+          "final_z": 0.020783559537278982,
+          "max_height": 0.021,
+          "max_abs_y": 0.2853673771574795,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.17337080847989692
+        },
+        {
+          "final_x": -1.3918487377410838,
+          "final_y": 3.068300869565202,
+          "final_z": 0.020783559537247278,
+          "max_height": 0.021,
+          "max_abs_y": 3.068300869565202,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.9368707567065268
+        },
+        {
+          "final_x": 0.46850045630371623,
+          "final_y": -1.7030228031747014,
+          "final_z": 0.020783559537248458,
+          "max_height": 0.022157454994576185,
+          "max_abs_y": 1.7030228031747014,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.48423631207937146
+        },
+        {
+          "final_x": 0.4674212361398095,
+          "final_y": 2.5406125936650628,
+          "final_z": 0.020783559537247743,
+          "max_height": 0.021,
+          "max_abs_y": 2.5406125936650628,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.647304884927541
+        },
+        {
+          "final_x": 0.8125290654089103,
+          "final_y": -0.3070244551185347,
+          "final_z": 0.020783559537300805,
+          "max_height": 0.021,
+          "max_abs_y": 0.3070244551185347,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.16138535964383816
+        },
+        {
+          "final_x": 6.140644936564911,
+          "final_y": -1.2659816055992208,
+          "final_z": 0.020783559537658484,
+          "max_height": 0.02130197077035433,
+          "max_abs_y": 1.2659816055992208,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.9349458944153817
+        },
+        {
+          "final_x": 0.46840075206270415,
+          "final_y": -1.5592655808258618,
+          "final_z": 0.020783559537248246,
+          "max_height": 0.02128075758700741,
+          "max_abs_y": 1.5592655808258618,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4223000678636519
+        },
+        {
+          "final_x": 1.180935589750422,
+          "final_y": -1.968574999316071,
+          "final_z": 0.020783559537216733,
+          "max_height": 0.021284306809711998,
+          "max_abs_y": 1.968574999316071,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.9435541981596142
+        },
+        {
+          "final_x": 1.7647495302563585,
+          "final_y": -0.015274491397311218,
+          "final_z": 0.020783559537248364,
+          "max_height": 0.021,
+          "max_abs_y": 0.015274491397311218,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3424668373456839
+        },
+        {
+          "final_x": 0.6226278954121539,
+          "final_y": -2.5258548830774497,
+          "final_z": 0.02078355953724895,
+          "max_height": 0.021,
+          "max_abs_y": 2.5258548830774497,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6337271884828939
+        },
+        {
+          "final_x": 0.6863112776655309,
+          "final_y": -0.1804533152045731,
+          "final_z": 0.020783559537208694,
+          "max_height": 0.021,
+          "max_abs_y": 0.1804533152045731,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.08655318787995896
+        },
+        {
+          "final_x": 2.1314059107208063,
+          "final_y": 0.2657916193111222,
+          "final_z": 0.020783559537295552,
+          "max_height": 0.02116165065688385,
+          "max_abs_y": 0.2657916193111222,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6721784319706171
+        },
+        {
+          "final_x": 0.597676447307829,
+          "final_y": -0.16802302161072546,
+          "final_z": 0.02078355953718915,
+          "max_height": 0.021,
+          "max_abs_y": 0.16802302161072546,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.07116538960436648
+        },
+        {
+          "final_x": 1.2526047226846417,
+          "final_y": -2.7948748222966966,
+          "final_z": 0.02078355953733955,
+          "max_height": 0.02141177409237087,
+          "max_abs_y": 2.7948748222966966,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.373157428340833
+        },
+        {
+          "final_x": 0.6151656782963841,
+          "final_y": -0.20780021888533085,
+          "final_z": 0.02078355953717961,
+          "max_height": 0.021,
+          "max_abs_y": 0.20780021888533085,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.08406709721149108
+        },
+        {
+          "final_x": 6.46744277224905,
+          "final_y": 2.4163501239736793,
+          "final_z": 0.020783559534617732,
+          "max_height": 0.021628775187600147,
+          "max_abs_y": 2.4163501239736793,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.0916321458605815
+        },
+        {
+          "final_x": 0.6359136303040186,
+          "final_y": -0.20388025966707893,
+          "final_z": 0.020783559537323422,
+          "max_height": 0.021,
+          "max_abs_y": 0.20388025966707893,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.0914125261309887
+        },
+        {
+          "final_x": 9.268598242147224,
+          "final_y": 1.5063133750989053,
+          "final_z": 0.020783559537734062,
+          "max_height": 0.02733921092370117,
+          "max_abs_y": 1.5063133750989053,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.8726098981501846
+        },
+        {
+          "final_x": -1.3823733797785391,
+          "final_y": -0.8258945577137762,
+          "final_z": 0.02078355953725971,
+          "max_height": 0.021,
+          "max_abs_y": 0.8258945577137762,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5757238099971358
+        },
+        {
+          "final_x": 0.4764766592545262,
+          "final_y": -1.9893109258510813,
+          "final_z": 0.02078355953724811,
+          "max_height": 0.022120560255442328,
+          "max_abs_y": 1.9893109258510813,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6219683678354141
+        },
+        {
+          "final_x": 0.4055224318055267,
+          "final_y": 1.7302933861646375,
+          "final_z": 0.020783559537248187,
+          "max_height": 0.021261164215392515,
+          "max_abs_y": 1.7302933861646375,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.47618674681937256
+        },
+        {
+          "final_x": 0.45180443418223165,
+          "final_y": 1.9348550282997112,
+          "final_z": 0.020783559537248104,
+          "max_height": 0.02130948939465735,
+          "max_abs_y": 1.9348550282997112,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5802319472356561
+        },
+        {
+          "final_x": 11.20248932508386,
+          "final_y": -2.4977758493130495,
+          "final_z": 0.020783559539819908,
+          "max_height": 0.024113815622381466,
+          "max_abs_y": 2.4977758493130495,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.5781784677417727
+        },
+        {
+          "final_x": 4.295656817852023,
+          "final_y": 0.01652798868714239,
+          "final_z": 0.020783559537256545,
+          "max_height": 0.02105613833089431,
+          "max_abs_y": 0.016623566056396595,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8379094997717047
+        },
+        {
+          "final_x": 10.130277721114233,
+          "final_y": -1.021818258913765,
+          "final_z": 0.02078355953933715,
+          "max_height": 0.021,
+          "max_abs_y": 1.021818258913765,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.5539694802516517
+        },
+        {
+          "final_x": 0.473088451502805,
+          "final_y": -2.0281634869489698,
+          "final_z": 0.02078355953724803,
+          "max_height": 0.021730450010343783,
+          "max_abs_y": 2.0281634869489698,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6224335807956421
+        },
+        {
+          "final_x": 0.6761529684722823,
+          "final_y": 2.286736995889575,
+          "final_z": 0.020783559537248805,
+          "max_height": 0.021,
+          "max_abs_y": 2.286736995889575,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5753746634007091
+        },
+        {
+          "final_x": 0.6964314562569303,
+          "final_y": -0.25342817101906717,
+          "final_z": 0.020783559537310474,
+          "max_height": 0.021,
+          "max_abs_y": 0.25342817101906717,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.11977002011305492
+        },
+        {
+          "final_x": 0.6773768765640282,
+          "final_y": -0.41217704842134256,
+          "final_z": 0.020783559537305613,
+          "max_height": 0.021,
+          "max_abs_y": 0.41217704842134256,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.16622668757862297
+        },
+        {
+          "final_x": 6.309866142866147,
+          "final_y": 2.8109796497462085,
+          "final_z": 0.020783559535931778,
+          "max_height": 0.021924401092724404,
+          "max_abs_y": 2.8109796497462085,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.105288966155461
+        },
+        {
+          "final_x": 1.3112993781409548,
+          "final_y": -0.1917790742199259,
+          "final_z": 0.020783559537313763,
+          "max_height": 0.021,
+          "max_abs_y": 0.1917790742199259,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.32613478647997723
+        }
+      ]
+    },
+    {
+      "model": "ppo_scott",
+      "mode": "stochastic",
+      "env_kwargs": {
+        "curriculum": true,
+        "pin_torso": true,
+        "address_pose": "fixed",
+        "torque_scale": 3.0,
+        "randomize_reset": true,
+        "forward_reward": true
+      },
+      "metrics": {
+        "episodes": 50,
+        "contact_rate": 0.52,
+        "mean_distance": 2.740252248934823,
+        "std_distance": 3.3561835657238723,
+        "median_distance": 1.7357932086376655,
+        "max_distance": 13.412629895061041,
+        "mean_y": 0.0831338268243167,
+        "lateral_std": 2.3070809168971858,
+        "mean_abs_y": 1.2748587569073297,
+        "max_abs_y": 7.213168191070334,
+        "left_miss_rate": 0.18,
+        "right_miss_rate": 0.24,
+        "in_corridor_rate": 0.5800000000000001,
+        "left_miss_rate_contact_only": 0.34615384615384615,
+        "right_miss_rate_contact_only": 0.38461538461538464,
+        "mean_carry": 0.019028396516813775,
+        "landed_fraction": 0.02,
+        "mean_peak_ball_speed": 1.5049613888303517,
+        "lateral_threshold_m": 0.5,
+        "dtw_to_reference_style_rad": {
+          "scott": {
+            "mean": 2.8949665838660614,
+            "std": 0.32249708661293586,
+            "min": 2.3422193656800676,
+            "max": 3.5545738585190367
+          },
+          "rory": {
+            "mean": 2.917735772983396,
+            "std": 0.3162632805834051,
+            "min": 2.4003483963785035,
+            "max": 3.5450951382783553
+          },
+          "scheffler": {
+            "mean": 2.9438379930804497,
+            "std": 0.29892590648122713,
+            "min": 2.454598841732578,
+            "max": 3.533341742960619
+          },
+          "average": {
+            "mean": 2.9038617323445446,
+            "std": 0.3170078558836362,
+            "min": 2.418000285433353,
+            "max": 3.5450411349803495
+          }
+        }
+      },
+      "shots": [
+        {
+          "final_x": 6.090998435128888,
+          "final_y": -0.07809300883868843,
+          "final_z": 0.02078355953724724,
+          "max_height": 0.021367838931802396,
+          "max_abs_y": 0.07809300883868843,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.4774228099239246
+        },
+        {
+          "final_x": 9.245883315044562,
+          "final_y": -0.001241195505153838,
+          "final_z": 0.020783559537247264,
+          "max_height": 0.021,
+          "max_abs_y": 0.013198522301288191,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.4272125775409337
+        },
+        {
+          "final_x": 6.372393581903109,
+          "final_y": 2.614518215873951,
+          "final_z": 0.020783559537247222,
+          "max_height": 0.02115739847489617,
+          "max_abs_y": 2.614518215873951,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.7157181074376795
+        },
+        {
+          "final_x": 5.289992822369149,
+          "final_y": 0.02326968679845655,
+          "final_z": 0.02078355953724472,
+          "max_height": 0.021,
+          "max_abs_y": 0.02326968679845655,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.933609401343282
+        },
+        {
+          "final_x": 0.47108950103624403,
+          "final_y": 0.019650357591843495,
+          "final_z": 0.02078355953733588,
+          "max_height": 0.021,
+          "max_abs_y": 0.019650357591843495,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": -5.025330615509624,
+          "final_y": 0.16075481627100555,
+          "final_z": 0.020783559537247153,
+          "max_height": 0.021,
+          "max_abs_y": 0.16075481627100555,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8415504522640744
+        },
+        {
+          "final_x": 1.4300102579834229,
+          "final_y": -0.7269002498037633,
+          "final_z": 0.020783559537247018,
+          "max_height": 0.03254052505784644,
+          "max_abs_y": 0.7269002498037633,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.4766541219515672
+        },
+        {
+          "final_x": 1.9668875220991784,
+          "final_y": 0.02894569357223667,
+          "final_z": 0.020783559537250376,
+          "max_height": 0.02334528974571166,
+          "max_abs_y": 0.032702258141242196,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.6025535368672312
+        },
+        {
+          "final_x": 3.1127332776916945,
+          "final_y": 0.020691721526829607,
+          "final_z": 0.020783559537245876,
+          "max_height": 0.03784922248214285,
+          "max_abs_y": 0.020691721526829607,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.83410516459069
+        },
+        {
+          "final_x": 2.170577603342742,
+          "final_y": -2.9371092797022187,
+          "final_z": 0.020783559537247174,
+          "max_height": 0.02320204740617473,
+          "max_abs_y": 2.9371092797022187,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.0031070411736716
+        },
+        {
+          "final_x": 1.5662695078071636,
+          "final_y": -6.957629703686395,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.026988387324655947,
+          "max_abs_y": 6.957629703686395,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.8476227261182931
+        },
+        {
+          "final_x": 4.675424651082141,
+          "final_y": -0.16775768089056894,
+          "final_z": 0.020783559537247438,
+          "max_height": 0.021107309409731257,
+          "max_abs_y": 0.16775768089056894,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.3900444660079083
+        },
+        {
+          "final_x": -0.6167780985440734,
+          "final_y": -0.9849595978114039,
+          "final_z": 0.0207835595372472,
+          "max_height": 0.021,
+          "max_abs_y": 0.9849595978114039,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3583024661848564
+        },
+        {
+          "final_x": 6.0910391006458156,
+          "final_y": -3.896321494281813,
+          "final_z": 0.020783559537247365,
+          "max_height": 0.5215582727636084,
+          "max_abs_y": 3.896321494281813,
+          "carry": 0.9514198258406887,
+          "true_contact": true,
+          "peak_ball_speed": 3.7006398225682124
+        },
+        {
+          "final_x": 0.408750317173457,
+          "final_y": 1.6221369209560677,
+          "final_z": 0.020783559537247257,
+          "max_height": 0.022488741613168363,
+          "max_abs_y": 1.6221369209560677,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.44141677024124537
+        },
+        {
+          "final_x": 0.7829404012930518,
+          "final_y": 0.004619739215541003,
+          "final_z": 0.020783559537243385,
+          "max_height": 0.021,
+          "max_abs_y": 0.011450030556343926,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.3112299113506775
+        },
+        {
+          "final_x": 7.495208801891743,
+          "final_y": -0.04536630034899299,
+          "final_z": 0.020783559537246615,
+          "max_height": 0.021,
+          "max_abs_y": 0.04536630034899299,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 3.168969305867575
+        },
+        {
+          "final_x": 3.401327221265767,
+          "final_y": -0.023611772253435675,
+          "final_z": 0.02078355953724726,
+          "max_height": 0.021,
+          "max_abs_y": 0.023611772253435675,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.7419398235058043
+        },
+        {
+          "final_x": 0.9658760647282401,
+          "final_y": 0.7165331420982747,
+          "final_z": 0.02078355953724721,
+          "max_height": 0.021512271384228548,
+          "max_abs_y": 0.7165331420982747,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.39499575041625495
+        },
+        {
+          "final_x": 13.412629895061041,
+          "final_y": 4.72240512747098,
+          "final_z": 0.020783559537247316,
+          "max_height": 0.021,
+          "max_abs_y": 4.72240512747098,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.6050565155372474
+        },
+        {
+          "final_x": 9.122637182152708,
+          "final_y": 0.2472880986131159,
+          "final_z": 0.02078355953724723,
+          "max_height": 0.021,
+          "max_abs_y": 0.2472880986131159,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.176651952807563
+        },
+        {
+          "final_x": 0.45452813713598095,
+          "final_y": -0.709089082054684,
+          "final_z": 0.020783559537249245,
+          "max_height": 0.021423612054009267,
+          "max_abs_y": 0.709089082054684,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.18572236690020072
+        },
+        {
+          "final_x": 0.5691555445121798,
+          "final_y": 2.62379230470802,
+          "final_z": 0.020783559537247347,
+          "max_height": 0.029551459326453398,
+          "max_abs_y": 2.62379230470802,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6804961088985134
+        },
+        {
+          "final_x": 4.049796603838789,
+          "final_y": -0.04906721601412753,
+          "final_z": 0.020783559537247073,
+          "max_height": 0.022448048197399255,
+          "max_abs_y": 0.04906721601412753,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.1466154715613788
+        },
+        {
+          "final_x": -2.677697433894286,
+          "final_y": 7.213168191070334,
+          "final_z": 0.020783559537248846,
+          "max_height": 0.021,
+          "max_abs_y": 7.213168191070334,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.701583863600461
+        },
+        {
+          "final_x": 1.35760232216472,
+          "final_y": -3.237918586567795,
+          "final_z": 0.020783559537247257,
+          "max_height": 0.02551892722611938,
+          "max_abs_y": 3.237918586567795,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.9898303212445214
+        },
+        {
+          "final_x": 3.652927189640109,
+          "final_y": -0.041986572311895724,
+          "final_z": 0.020783559537247254,
+          "max_height": 0.021,
+          "max_abs_y": 0.041986572311895724,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.5723880521929792
+        },
+        {
+          "final_x": 1.6236477002489655,
+          "final_y": -0.0017044092811814683,
+          "final_z": 0.020783559537247205,
+          "max_height": 0.02176734705094895,
+          "max_abs_y": 0.015202103573917821,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.2990832222638555
+        },
+        {
+          "final_x": 3.3721937704953047,
+          "final_y": -0.01538350101719262,
+          "final_z": 0.020783559537247157,
+          "max_height": 0.021,
+          "max_abs_y": 0.01538350101719288,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8862265269197644
+        },
+        {
+          "final_x": 4.6071663246674435,
+          "final_y": -0.12678632333283957,
+          "final_z": 0.020783559537247264,
+          "max_height": 0.02317089418697725,
+          "max_abs_y": 0.12678632333283957,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.7185477125380346
+        },
+        {
+          "final_x": 2.031423246720747,
+          "final_y": 0.2841459702538699,
+          "final_z": 0.02078355953724732,
+          "max_height": 0.02104988233452012,
+          "max_abs_y": 0.2841459702538699,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.42833993557364525
+        },
+        {
+          "final_x": 6.669406571995443,
+          "final_y": -2.0072795099164886,
+          "final_z": 0.02078355953724723,
+          "max_height": 0.021,
+          "max_abs_y": 2.0072795099164886,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.7172408594832866
+        },
+        {
+          "final_x": 0.4557254519767839,
+          "final_y": -0.013116147066222529,
+          "final_z": 0.020783559537267175,
+          "max_height": 0.021,
+          "max_abs_y": 0.013116147066222529,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.4022109364497437,
+          "final_y": -0.005337023580482016,
+          "final_z": 0.013129349997701288,
+          "max_height": 0.021,
+          "max_abs_y": 0.005545045383319213,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8784749017857756
+        },
+        {
+          "final_x": 1.824304218194804,
+          "final_y": -0.0092655408360633,
+          "final_z": 0.020783559496725463,
+          "max_height": 0.0320225417508046,
+          "max_abs_y": 0.010090702879977802,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 3.2192702274034177
+        },
+        {
+          "final_x": 1.6472821990805273,
+          "final_y": 0.45384446236098475,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.021,
+          "max_abs_y": 0.45384446236098475,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.32741970643016866
+        },
+        {
+          "final_x": 0.4481088324523599,
+          "final_y": 0.01902944596944157,
+          "final_z": 0.0207835595370753,
+          "max_height": 0.021,
+          "max_abs_y": 0.01902944596944157,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 3.379978796936075,
+          "final_y": -1.0722761453242908,
+          "final_z": 0.020783559537247205,
+          "max_height": 0.026687964243450168,
+          "max_abs_y": 1.0722761453242908,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.970063898212622
+        },
+        {
+          "final_x": 1.9711740455115676,
+          "final_y": -1.0796476976322482,
+          "final_z": 0.020783559537247285,
+          "max_height": 0.023253018439006384,
+          "max_abs_y": 1.0796476976322482,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5431854539847307
+        },
+        {
+          "final_x": -1.3412620598233602,
+          "final_y": 5.896063268377278,
+          "final_z": 0.020783559537247115,
+          "max_height": 0.03692072227351495,
+          "max_abs_y": 5.896063268377278,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.9424368096564801
+        },
+        {
+          "final_x": 0.4656913735214245,
+          "final_y": 1.7893581712433073,
+          "final_z": 0.020783559537247264,
+          "max_height": 0.021169806445923537,
+          "max_abs_y": 1.7893581712433073,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5498149330546324
+        },
+        {
+          "final_x": 8.334389658100298,
+          "final_y": -3.7814122670407904,
+          "final_z": 0.02078355953724726,
+          "max_height": 0.1790446409587426,
+          "max_abs_y": 3.7814122670407904,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 4.16268349238002
+        },
+        {
+          "final_x": 5.524105569054075,
+          "final_y": 0.02718278919553262,
+          "final_z": 0.020783559537247216,
+          "max_height": 0.021172702602273913,
+          "max_abs_y": 0.02718278919553262,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.412670992986566
+        },
+        {
+          "final_x": -0.48676164667503,
+          "final_y": -0.009638125413735713,
+          "final_z": 0.02078355953840532,
+          "max_height": 0.026426534582689305,
+          "max_abs_y": 0.012692077291989536,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.07499856316255
+        },
+        {
+          "final_x": 0.31593465603314497,
+          "final_y": -1.8083275869010944,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.025135140061290445,
+          "max_abs_y": 1.8083275869010944,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5930958596155304
+        },
+        {
+          "final_x": 0.006200982546935143,
+          "final_y": 5.314841598393068,
+          "final_z": 0.02078355953722351,
+          "max_height": 0.0223400254584332,
+          "max_abs_y": 5.314841598393068,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.6099623972033683
+        },
+        {
+          "final_x": 0.4733733525174941,
+          "final_y": 0.0036689489555431602,
+          "final_z": 0.020783559534521982,
+          "max_height": 0.021,
+          "max_abs_y": 0.0036689489555431602,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 1.3858309526839327,
+          "final_y": -0.005897234661757653,
+          "final_z": 0.02078355953724724,
+          "max_height": 0.021,
+          "max_abs_y": 0.005897234661758832,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.4580783991477034
+        },
+        {
+          "final_x": 7.586007557799837,
+          "final_y": 0.13224331279394444,
+          "final_z": 0.02078355953724987,
+          "max_height": 0.021933765684502685,
+          "max_abs_y": 0.13224331279394444,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 4.711256804643163
+        },
+        {
+          "final_x": 0.47960684720875185,
+          "final_y": 0.011662609981533827,
+          "final_z": 0.020783559537280807,
+          "max_height": 0.021,
+          "max_abs_y": 0.011662609981533827,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        }
+      ]
+    },
+    {
+      "model": "ppo_scott_final2",
+      "mode": "deterministic",
+      "env_kwargs": {
+        "curriculum": true,
+        "pin_torso": true,
+        "address_pose": "fixed",
+        "torque_scale": 3.0,
+        "randomize_reset": true,
+        "forward_reward": true
+      },
+      "metrics": {
+        "episodes": 50,
+        "contact_rate": 0.98,
+        "mean_distance": 2.7069067271222322,
+        "std_distance": 3.1796130356753105,
+        "median_distance": 1.30534651240009,
+        "max_distance": 11.20248932508386,
+        "mean_y": -0.16917528895522793,
+        "lateral_std": 1.791433493566872,
+        "mean_abs_y": 1.3268508288393914,
+        "max_abs_y": 4.575154121484955,
+        "left_miss_rate": 0.22,
+        "right_miss_rate": 0.36,
+        "in_corridor_rate": 0.42000000000000004,
+        "left_miss_rate_contact_only": 0.22448979591836735,
+        "right_miss_rate_contact_only": 0.3673469387755102,
+        "mean_carry": 0.009894233303348982,
+        "landed_fraction": 0.02,
+        "mean_peak_ball_speed": 1.1816107284903887,
+        "lateral_threshold_m": 0.5,
+        "dtw_to_reference_style_rad": {
+          "scott": {
+            "mean": 2.44084371476214,
+            "std": 0.4245064156496788,
+            "min": 1.7112512822895236,
+            "max": 3.7047717792475248
+          },
+          "rory": {
+            "mean": 2.438013490112326,
+            "std": 0.4383983755084552,
+            "min": 1.6691752803319548,
+            "max": 3.736114424773274
+          },
+          "scheffler": {
+            "mean": 2.431788206713747,
+            "std": 0.46252054428127626,
+            "min": 1.610016363888054,
+            "max": 3.7949366642734024
+          },
+          "average": {
+            "mean": 2.422557253596977,
+            "std": 0.4402662218429778,
+            "min": 1.6450002420031826,
+            "max": 3.7387146787081753
+          }
+        }
+      },
+      "shots": [
+        {
+          "final_x": 3.930264089369392,
+          "final_y": -0.010517847648111806,
+          "final_z": 0.020783559537247698,
+          "max_height": 0.021,
+          "max_abs_y": 0.010517847648111806,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8730210701357811
+        },
+        {
+          "final_x": 2.65130115533128,
+          "final_y": -0.8832332318111333,
+          "final_z": 0.020783559537253162,
+          "max_height": 0.021,
+          "max_abs_y": 0.8832332318111333,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8914227773096776
+        },
+        {
+          "final_x": 7.144021767287687,
+          "final_y": -1.429285110897714,
+          "final_z": 0.02078355953585462,
+          "max_height": 0.02168863284481688,
+          "max_abs_y": 1.429285110897714,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.3870101330982387
+        },
+        {
+          "final_x": 1.2993936466592253,
+          "final_y": -0.4352433686643104,
+          "final_z": 0.02078355953728145,
+          "max_height": 0.021,
+          "max_abs_y": 0.4352433686643104,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.32847000349899136
+        },
+        {
+          "final_x": 5.054919855391337,
+          "final_y": 2.9899142094655566,
+          "final_z": 0.020783559538429832,
+          "max_height": 0.021337652833651237,
+          "max_abs_y": 2.9899142094655566,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.5498189328571823
+        },
+        {
+          "final_x": 8.822744990243683,
+          "final_y": 3.0625167864153346,
+          "final_z": 0.02078355953573658,
+          "max_height": 0.023509676648639944,
+          "max_abs_y": 3.0625167864153346,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.8367422325160487
+        },
+        {
+          "final_x": 10.155703188120771,
+          "final_y": 0.08527942126367423,
+          "final_z": 0.020783559537247816,
+          "max_height": 0.021,
+          "max_abs_y": 0.08527942126367423,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.288467106299461
+        },
+        {
+          "final_x": 1.4842946301947013,
+          "final_y": 0.005214690739078727,
+          "final_z": 0.020783559537302577,
+          "max_height": 0.021,
+          "max_abs_y": 0.018506993667127797,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.45282517673827255
+        },
+        {
+          "final_x": 7.891970410594562,
+          "final_y": 3.9778352690204044,
+          "final_z": 0.020783559534533553,
+          "max_height": 0.021388847025756975,
+          "max_abs_y": 3.9778352690204044,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.394535342428649
+        },
+        {
+          "final_x": 1.3755781852810318,
+          "final_y": -0.009473257884570534,
+          "final_z": 0.02078355953724567,
+          "max_height": 0.021,
+          "max_abs_y": 0.009473257884570534,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.226979798874416
+        },
+        {
+          "final_x": 0.7352389881005837,
+          "final_y": -1.8621837395854952,
+          "final_z": 0.020783559537249478,
+          "max_height": 0.021,
+          "max_abs_y": 1.8621837395854952,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5545549265968683
+        },
+        {
+          "final_x": 4.483634687121718,
+          "final_y": -1.261267371764982,
+          "final_z": 0.020783559537308437,
+          "max_height": 0.021252069196936157,
+          "max_abs_y": 1.261267371764982,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.633237869692047
+        },
+        {
+          "final_x": 2.8348934660341025,
+          "final_y": -0.10784303364970783,
+          "final_z": 0.020783559537241734,
+          "max_height": 0.021,
+          "max_abs_y": 0.10784303364970783,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8990713725604114
+        },
+        {
+          "final_x": -0.5372165292225785,
+          "final_y": -3.553469866759138,
+          "final_z": 0.02078355953724846,
+          "max_height": 0.10153373109883712,
+          "max_abs_y": 3.553469866759138,
+          "carry": 0.49471166516744913,
+          "true_contact": true,
+          "peak_ball_speed": 1.7188525338742593
+        },
+        {
+          "final_x": 2.4767736689252007,
+          "final_y": -4.575154121484955,
+          "final_z": 0.02078355953741941,
+          "max_height": 0.021862626823669358,
+          "max_abs_y": 4.575154121484955,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.3236868493935834
+        },
+        {
+          "final_x": 0.6270411755005515,
+          "final_y": -0.18371532311637112,
+          "final_z": 0.02078355953718935,
+          "max_height": 0.021,
+          "max_abs_y": 0.18371532311637112,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.08437272895689349
+        },
+        {
+          "final_x": 1.3636927732691804,
+          "final_y": -0.6835214658669808,
+          "final_z": 0.020783559537299427,
+          "max_height": 0.021,
+          "max_abs_y": 0.6835214658669808,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4837657419952731
+        },
+        {
+          "final_x": 3.0011436645533816,
+          "final_y": 0.009077408413254703,
+          "final_z": 0.020783559537247864,
+          "max_height": 0.021,
+          "max_abs_y": 0.012736784390427646,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6417047162466348
+        },
+        {
+          "final_x": 1.7428045832016879,
+          "final_y": 0.23528908138553478,
+          "final_z": 0.020783559537251587,
+          "max_height": 0.021,
+          "max_abs_y": 0.23528908138553478,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3496616740171495
+        },
+        {
+          "final_x": 0.893989271303722,
+          "final_y": -0.2853673771574795,
+          "final_z": 0.020783559537278982,
+          "max_height": 0.021,
+          "max_abs_y": 0.2853673771574795,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.17337080847989692
+        },
+        {
+          "final_x": -1.3918487377410838,
+          "final_y": 3.068300869565202,
+          "final_z": 0.020783559537247278,
+          "max_height": 0.021,
+          "max_abs_y": 3.068300869565202,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.9368707567065268
+        },
+        {
+          "final_x": 0.46850045630371623,
+          "final_y": -1.7030228031747014,
+          "final_z": 0.020783559537248458,
+          "max_height": 0.022157454994576185,
+          "max_abs_y": 1.7030228031747014,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.48423631207937146
+        },
+        {
+          "final_x": 0.4674212361398095,
+          "final_y": 2.5406125936650628,
+          "final_z": 0.020783559537247743,
+          "max_height": 0.021,
+          "max_abs_y": 2.5406125936650628,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.647304884927541
+        },
+        {
+          "final_x": 0.8125290654089103,
+          "final_y": -0.3070244551185347,
+          "final_z": 0.020783559537300805,
+          "max_height": 0.021,
+          "max_abs_y": 0.3070244551185347,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.16138535964383816
+        },
+        {
+          "final_x": 6.140644936564911,
+          "final_y": -1.2659816055992208,
+          "final_z": 0.020783559537658484,
+          "max_height": 0.02130197077035433,
+          "max_abs_y": 1.2659816055992208,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.9349458944153817
+        },
+        {
+          "final_x": 0.46840075206270415,
+          "final_y": -1.5592655808258618,
+          "final_z": 0.020783559537248246,
+          "max_height": 0.02128075758700741,
+          "max_abs_y": 1.5592655808258618,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4223000678636519
+        },
+        {
+          "final_x": 1.180935589750422,
+          "final_y": -1.968574999316071,
+          "final_z": 0.020783559537216733,
+          "max_height": 0.021284306809711998,
+          "max_abs_y": 1.968574999316071,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.9435541981596142
+        },
+        {
+          "final_x": 1.7647495302563585,
+          "final_y": -0.015274491397311218,
+          "final_z": 0.020783559537248364,
+          "max_height": 0.021,
+          "max_abs_y": 0.015274491397311218,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3424668373456839
+        },
+        {
+          "final_x": 0.6226278954121539,
+          "final_y": -2.5258548830774497,
+          "final_z": 0.02078355953724895,
+          "max_height": 0.021,
+          "max_abs_y": 2.5258548830774497,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6337271884828939
+        },
+        {
+          "final_x": 0.6863112776655309,
+          "final_y": -0.1804533152045731,
+          "final_z": 0.020783559537208694,
+          "max_height": 0.021,
+          "max_abs_y": 0.1804533152045731,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.08655318787995896
+        },
+        {
+          "final_x": 2.1314059107208063,
+          "final_y": 0.2657916193111222,
+          "final_z": 0.020783559537295552,
+          "max_height": 0.02116165065688385,
+          "max_abs_y": 0.2657916193111222,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6721784319706171
+        },
+        {
+          "final_x": 0.597676447307829,
+          "final_y": -0.16802302161072546,
+          "final_z": 0.02078355953718915,
+          "max_height": 0.021,
+          "max_abs_y": 0.16802302161072546,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.07116538960436648
+        },
+        {
+          "final_x": 1.2526047226846417,
+          "final_y": -2.7948748222966966,
+          "final_z": 0.02078355953733955,
+          "max_height": 0.02141177409237087,
+          "max_abs_y": 2.7948748222966966,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.373157428340833
+        },
+        {
+          "final_x": 0.6151656782963841,
+          "final_y": -0.20780021888533085,
+          "final_z": 0.02078355953717961,
+          "max_height": 0.021,
+          "max_abs_y": 0.20780021888533085,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.08406709721149108
+        },
+        {
+          "final_x": 6.46744277224905,
+          "final_y": 2.4163501239736793,
+          "final_z": 0.020783559534617732,
+          "max_height": 0.021628775187600147,
+          "max_abs_y": 2.4163501239736793,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.0916321458605815
+        },
+        {
+          "final_x": 0.6359136303040186,
+          "final_y": -0.20388025966707893,
+          "final_z": 0.020783559537323422,
+          "max_height": 0.021,
+          "max_abs_y": 0.20388025966707893,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.0914125261309887
+        },
+        {
+          "final_x": 9.268598242147224,
+          "final_y": 1.5063133750989053,
+          "final_z": 0.020783559537734062,
+          "max_height": 0.02733921092370117,
+          "max_abs_y": 1.5063133750989053,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.8726098981501846
+        },
+        {
+          "final_x": -1.3823733797785391,
+          "final_y": -0.8258945577137762,
+          "final_z": 0.02078355953725971,
+          "max_height": 0.021,
+          "max_abs_y": 0.8258945577137762,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5757238099971358
+        },
+        {
+          "final_x": 0.4764766592545262,
+          "final_y": -1.9893109258510813,
+          "final_z": 0.02078355953724811,
+          "max_height": 0.022120560255442328,
+          "max_abs_y": 1.9893109258510813,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6219683678354141
+        },
+        {
+          "final_x": 0.4055224318055267,
+          "final_y": 1.7302933861646375,
+          "final_z": 0.020783559537248187,
+          "max_height": 0.021261164215392515,
+          "max_abs_y": 1.7302933861646375,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.47618674681937256
+        },
+        {
+          "final_x": 0.45180443418223165,
+          "final_y": 1.9348550282997112,
+          "final_z": 0.020783559537248104,
+          "max_height": 0.02130948939465735,
+          "max_abs_y": 1.9348550282997112,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5802319472356561
+        },
+        {
+          "final_x": 11.20248932508386,
+          "final_y": -2.4977758493130495,
+          "final_z": 0.020783559539819908,
+          "max_height": 0.024113815622381466,
+          "max_abs_y": 2.4977758493130495,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.5781784677417727
+        },
+        {
+          "final_x": 4.295656817852023,
+          "final_y": 0.01652798868714239,
+          "final_z": 0.020783559537256545,
+          "max_height": 0.02105613833089431,
+          "max_abs_y": 0.016623566056396595,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8379094997717047
+        },
+        {
+          "final_x": 10.130277721114233,
+          "final_y": -1.021818258913765,
+          "final_z": 0.02078355953933715,
+          "max_height": 0.021,
+          "max_abs_y": 1.021818258913765,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.5539694802516517
+        },
+        {
+          "final_x": 0.473088451502805,
+          "final_y": -2.0281634869489698,
+          "final_z": 0.02078355953724803,
+          "max_height": 0.021730450010343783,
+          "max_abs_y": 2.0281634869489698,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6224335807956421
+        },
+        {
+          "final_x": 0.6761529684722823,
+          "final_y": 2.286736995889575,
+          "final_z": 0.020783559537248805,
+          "max_height": 0.021,
+          "max_abs_y": 2.286736995889575,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5753746634007091
+        },
+        {
+          "final_x": 0.6964314562569303,
+          "final_y": -0.25342817101906717,
+          "final_z": 0.020783559537310474,
+          "max_height": 0.021,
+          "max_abs_y": 0.25342817101906717,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.11977002011305492
+        },
+        {
+          "final_x": 0.6773768765640282,
+          "final_y": -0.41217704842134256,
+          "final_z": 0.020783559537305613,
+          "max_height": 0.021,
+          "max_abs_y": 0.41217704842134256,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.16622668757862297
+        },
+        {
+          "final_x": 6.309866142866147,
+          "final_y": 2.8109796497462085,
+          "final_z": 0.020783559535931778,
+          "max_height": 0.021924401092724404,
+          "max_abs_y": 2.8109796497462085,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.105288966155461
+        },
+        {
+          "final_x": 1.3112993781409548,
+          "final_y": -0.1917790742199259,
+          "final_z": 0.020783559537313763,
+          "max_height": 0.021,
+          "max_abs_y": 0.1917790742199259,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.32613478647997723
+        }
+      ]
+    },
+    {
+      "model": "ppo_scott_final2",
+      "mode": "stochastic",
+      "env_kwargs": {
+        "curriculum": true,
+        "pin_torso": true,
+        "address_pose": "fixed",
+        "torque_scale": 3.0,
+        "randomize_reset": true,
+        "forward_reward": true
+      },
+      "metrics": {
+        "episodes": 50,
+        "contact_rate": 0.52,
+        "mean_distance": 2.740252248934823,
+        "std_distance": 3.3561835657238723,
+        "median_distance": 1.7357932086376655,
+        "max_distance": 13.412629895061041,
+        "mean_y": 0.0831338268243167,
+        "lateral_std": 2.3070809168971858,
+        "mean_abs_y": 1.2748587569073297,
+        "max_abs_y": 7.213168191070334,
+        "left_miss_rate": 0.18,
+        "right_miss_rate": 0.24,
+        "in_corridor_rate": 0.5800000000000001,
+        "left_miss_rate_contact_only": 0.34615384615384615,
+        "right_miss_rate_contact_only": 0.38461538461538464,
+        "mean_carry": 0.019028396516813775,
+        "landed_fraction": 0.02,
+        "mean_peak_ball_speed": 1.5049613888303517,
+        "lateral_threshold_m": 0.5,
+        "dtw_to_reference_style_rad": {
+          "scott": {
+            "mean": 2.8949665838660614,
+            "std": 0.32249708661293586,
+            "min": 2.3422193656800676,
+            "max": 3.5545738585190367
+          },
+          "rory": {
+            "mean": 2.917735772983396,
+            "std": 0.3162632805834051,
+            "min": 2.4003483963785035,
+            "max": 3.5450951382783553
+          },
+          "scheffler": {
+            "mean": 2.9438379930804497,
+            "std": 0.29892590648122713,
+            "min": 2.454598841732578,
+            "max": 3.533341742960619
+          },
+          "average": {
+            "mean": 2.9038617323445446,
+            "std": 0.3170078558836362,
+            "min": 2.418000285433353,
+            "max": 3.5450411349803495
+          }
+        }
+      },
+      "shots": [
+        {
+          "final_x": 6.090998435128888,
+          "final_y": -0.07809300883868843,
+          "final_z": 0.02078355953724724,
+          "max_height": 0.021367838931802396,
+          "max_abs_y": 0.07809300883868843,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.4774228099239246
+        },
+        {
+          "final_x": 9.245883315044562,
+          "final_y": -0.001241195505153838,
+          "final_z": 0.020783559537247264,
+          "max_height": 0.021,
+          "max_abs_y": 0.013198522301288191,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.4272125775409337
+        },
+        {
+          "final_x": 6.372393581903109,
+          "final_y": 2.614518215873951,
+          "final_z": 0.020783559537247222,
+          "max_height": 0.02115739847489617,
+          "max_abs_y": 2.614518215873951,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.7157181074376795
+        },
+        {
+          "final_x": 5.289992822369149,
+          "final_y": 0.02326968679845655,
+          "final_z": 0.02078355953724472,
+          "max_height": 0.021,
+          "max_abs_y": 0.02326968679845655,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.933609401343282
+        },
+        {
+          "final_x": 0.47108950103624403,
+          "final_y": 0.019650357591843495,
+          "final_z": 0.02078355953733588,
+          "max_height": 0.021,
+          "max_abs_y": 0.019650357591843495,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": -5.025330615509624,
+          "final_y": 0.16075481627100555,
+          "final_z": 0.020783559537247153,
+          "max_height": 0.021,
+          "max_abs_y": 0.16075481627100555,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8415504522640744
+        },
+        {
+          "final_x": 1.4300102579834229,
+          "final_y": -0.7269002498037633,
+          "final_z": 0.020783559537247018,
+          "max_height": 0.03254052505784644,
+          "max_abs_y": 0.7269002498037633,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.4766541219515672
+        },
+        {
+          "final_x": 1.9668875220991784,
+          "final_y": 0.02894569357223667,
+          "final_z": 0.020783559537250376,
+          "max_height": 0.02334528974571166,
+          "max_abs_y": 0.032702258141242196,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.6025535368672312
+        },
+        {
+          "final_x": 3.1127332776916945,
+          "final_y": 0.020691721526829607,
+          "final_z": 0.020783559537245876,
+          "max_height": 0.03784922248214285,
+          "max_abs_y": 0.020691721526829607,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.83410516459069
+        },
+        {
+          "final_x": 2.170577603342742,
+          "final_y": -2.9371092797022187,
+          "final_z": 0.020783559537247174,
+          "max_height": 0.02320204740617473,
+          "max_abs_y": 2.9371092797022187,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.0031070411736716
+        },
+        {
+          "final_x": 1.5662695078071636,
+          "final_y": -6.957629703686395,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.026988387324655947,
+          "max_abs_y": 6.957629703686395,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.8476227261182931
+        },
+        {
+          "final_x": 4.675424651082141,
+          "final_y": -0.16775768089056894,
+          "final_z": 0.020783559537247438,
+          "max_height": 0.021107309409731257,
+          "max_abs_y": 0.16775768089056894,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.3900444660079083
+        },
+        {
+          "final_x": -0.6167780985440734,
+          "final_y": -0.9849595978114039,
+          "final_z": 0.0207835595372472,
+          "max_height": 0.021,
+          "max_abs_y": 0.9849595978114039,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3583024661848564
+        },
+        {
+          "final_x": 6.0910391006458156,
+          "final_y": -3.896321494281813,
+          "final_z": 0.020783559537247365,
+          "max_height": 0.5215582727636084,
+          "max_abs_y": 3.896321494281813,
+          "carry": 0.9514198258406887,
+          "true_contact": true,
+          "peak_ball_speed": 3.7006398225682124
+        },
+        {
+          "final_x": 0.408750317173457,
+          "final_y": 1.6221369209560677,
+          "final_z": 0.020783559537247257,
+          "max_height": 0.022488741613168363,
+          "max_abs_y": 1.6221369209560677,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.44141677024124537
+        },
+        {
+          "final_x": 0.7829404012930518,
+          "final_y": 0.004619739215541003,
+          "final_z": 0.020783559537243385,
+          "max_height": 0.021,
+          "max_abs_y": 0.011450030556343926,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.3112299113506775
+        },
+        {
+          "final_x": 7.495208801891743,
+          "final_y": -0.04536630034899299,
+          "final_z": 0.020783559537246615,
+          "max_height": 0.021,
+          "max_abs_y": 0.04536630034899299,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 3.168969305867575
+        },
+        {
+          "final_x": 3.401327221265767,
+          "final_y": -0.023611772253435675,
+          "final_z": 0.02078355953724726,
+          "max_height": 0.021,
+          "max_abs_y": 0.023611772253435675,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.7419398235058043
+        },
+        {
+          "final_x": 0.9658760647282401,
+          "final_y": 0.7165331420982747,
+          "final_z": 0.02078355953724721,
+          "max_height": 0.021512271384228548,
+          "max_abs_y": 0.7165331420982747,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.39499575041625495
+        },
+        {
+          "final_x": 13.412629895061041,
+          "final_y": 4.72240512747098,
+          "final_z": 0.020783559537247316,
+          "max_height": 0.021,
+          "max_abs_y": 4.72240512747098,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.6050565155372474
+        },
+        {
+          "final_x": 9.122637182152708,
+          "final_y": 0.2472880986131159,
+          "final_z": 0.02078355953724723,
+          "max_height": 0.021,
+          "max_abs_y": 0.2472880986131159,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.176651952807563
+        },
+        {
+          "final_x": 0.45452813713598095,
+          "final_y": -0.709089082054684,
+          "final_z": 0.020783559537249245,
+          "max_height": 0.021423612054009267,
+          "max_abs_y": 0.709089082054684,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.18572236690020072
+        },
+        {
+          "final_x": 0.5691555445121798,
+          "final_y": 2.62379230470802,
+          "final_z": 0.020783559537247347,
+          "max_height": 0.029551459326453398,
+          "max_abs_y": 2.62379230470802,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.6804961088985134
+        },
+        {
+          "final_x": 4.049796603838789,
+          "final_y": -0.04906721601412753,
+          "final_z": 0.020783559537247073,
+          "max_height": 0.022448048197399255,
+          "max_abs_y": 0.04906721601412753,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.1466154715613788
+        },
+        {
+          "final_x": -2.677697433894286,
+          "final_y": 7.213168191070334,
+          "final_z": 0.020783559537248846,
+          "max_height": 0.021,
+          "max_abs_y": 7.213168191070334,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.701583863600461
+        },
+        {
+          "final_x": 1.35760232216472,
+          "final_y": -3.237918586567795,
+          "final_z": 0.020783559537247257,
+          "max_height": 0.02551892722611938,
+          "max_abs_y": 3.237918586567795,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.9898303212445214
+        },
+        {
+          "final_x": 3.652927189640109,
+          "final_y": -0.041986572311895724,
+          "final_z": 0.020783559537247254,
+          "max_height": 0.021,
+          "max_abs_y": 0.041986572311895724,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.5723880521929792
+        },
+        {
+          "final_x": 1.6236477002489655,
+          "final_y": -0.0017044092811814683,
+          "final_z": 0.020783559537247205,
+          "max_height": 0.02176734705094895,
+          "max_abs_y": 0.015202103573917821,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.2990832222638555
+        },
+        {
+          "final_x": 3.3721937704953047,
+          "final_y": -0.01538350101719262,
+          "final_z": 0.020783559537247157,
+          "max_height": 0.021,
+          "max_abs_y": 0.01538350101719288,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.8862265269197644
+        },
+        {
+          "final_x": 4.6071663246674435,
+          "final_y": -0.12678632333283957,
+          "final_z": 0.020783559537247264,
+          "max_height": 0.02317089418697725,
+          "max_abs_y": 0.12678632333283957,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.7185477125380346
+        },
+        {
+          "final_x": 2.031423246720747,
+          "final_y": 0.2841459702538699,
+          "final_z": 0.02078355953724732,
+          "max_height": 0.02104988233452012,
+          "max_abs_y": 0.2841459702538699,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.42833993557364525
+        },
+        {
+          "final_x": 6.669406571995443,
+          "final_y": -2.0072795099164886,
+          "final_z": 0.02078355953724723,
+          "max_height": 0.021,
+          "max_abs_y": 2.0072795099164886,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.7172408594832866
+        },
+        {
+          "final_x": 0.4557254519767839,
+          "final_y": -0.013116147066222529,
+          "final_z": 0.020783559537267175,
+          "max_height": 0.021,
+          "max_abs_y": 0.013116147066222529,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.4022109364497437,
+          "final_y": -0.005337023580482016,
+          "final_z": 0.013129349997701288,
+          "max_height": 0.021,
+          "max_abs_y": 0.005545045383319213,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8784749017857756
+        },
+        {
+          "final_x": 1.824304218194804,
+          "final_y": -0.0092655408360633,
+          "final_z": 0.020783559496725463,
+          "max_height": 0.0320225417508046,
+          "max_abs_y": 0.010090702879977802,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 3.2192702274034177
+        },
+        {
+          "final_x": 1.6472821990805273,
+          "final_y": 0.45384446236098475,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.021,
+          "max_abs_y": 0.45384446236098475,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.32741970643016866
+        },
+        {
+          "final_x": 0.4481088324523599,
+          "final_y": 0.01902944596944157,
+          "final_z": 0.0207835595370753,
+          "max_height": 0.021,
+          "max_abs_y": 0.01902944596944157,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 3.379978796936075,
+          "final_y": -1.0722761453242908,
+          "final_z": 0.020783559537247205,
+          "max_height": 0.026687964243450168,
+          "max_abs_y": 1.0722761453242908,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.970063898212622
+        },
+        {
+          "final_x": 1.9711740455115676,
+          "final_y": -1.0796476976322482,
+          "final_z": 0.020783559537247285,
+          "max_height": 0.023253018439006384,
+          "max_abs_y": 1.0796476976322482,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5431854539847307
+        },
+        {
+          "final_x": -1.3412620598233602,
+          "final_y": 5.896063268377278,
+          "final_z": 0.020783559537247115,
+          "max_height": 0.03692072227351495,
+          "max_abs_y": 5.896063268377278,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.9424368096564801
+        },
+        {
+          "final_x": 0.4656913735214245,
+          "final_y": 1.7893581712433073,
+          "final_z": 0.020783559537247264,
+          "max_height": 0.021169806445923537,
+          "max_abs_y": 1.7893581712433073,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5498149330546324
+        },
+        {
+          "final_x": 8.334389658100298,
+          "final_y": -3.7814122670407904,
+          "final_z": 0.02078355953724726,
+          "max_height": 0.1790446409587426,
+          "max_abs_y": 3.7814122670407904,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 4.16268349238002
+        },
+        {
+          "final_x": 5.524105569054075,
+          "final_y": 0.02718278919553262,
+          "final_z": 0.020783559537247216,
+          "max_height": 0.021172702602273913,
+          "max_abs_y": 0.02718278919553262,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.412670992986566
+        },
+        {
+          "final_x": -0.48676164667503,
+          "final_y": -0.009638125413735713,
+          "final_z": 0.02078355953840532,
+          "max_height": 0.026426534582689305,
+          "max_abs_y": 0.012692077291989536,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.07499856316255
+        },
+        {
+          "final_x": 0.31593465603314497,
+          "final_y": -1.8083275869010944,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.025135140061290445,
+          "max_abs_y": 1.8083275869010944,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.5930958596155304
+        },
+        {
+          "final_x": 0.006200982546935143,
+          "final_y": 5.314841598393068,
+          "final_z": 0.02078355953722351,
+          "max_height": 0.0223400254584332,
+          "max_abs_y": 5.314841598393068,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.6099623972033683
+        },
+        {
+          "final_x": 0.4733733525174941,
+          "final_y": 0.0036689489555431602,
+          "final_z": 0.020783559534521982,
+          "max_height": 0.021,
+          "max_abs_y": 0.0036689489555431602,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 1.3858309526839327,
+          "final_y": -0.005897234661757653,
+          "final_z": 0.02078355953724724,
+          "max_height": 0.021,
+          "max_abs_y": 0.005897234661758832,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.4580783991477034
+        },
+        {
+          "final_x": 7.586007557799837,
+          "final_y": 0.13224331279394444,
+          "final_z": 0.02078355953724987,
+          "max_height": 0.021933765684502685,
+          "max_abs_y": 0.13224331279394444,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 4.711256804643163
+        },
+        {
+          "final_x": 0.47960684720875185,
+          "final_y": 0.011662609981533827,
+          "final_z": 0.020783559537280807,
+          "max_height": 0.021,
+          "max_abs_y": 0.011662609981533827,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        }
+      ]
+    },
+    {
+      "model": "ppo_scott_prev_backup",
+      "mode": "deterministic",
+      "env_kwargs": {
+        "curriculum": true,
+        "pin_torso": true,
+        "address_pose": "fixed",
+        "torque_scale": 3.0
+      },
+      "metrics": {
+        "episodes": 50,
+        "contact_rate": 1.0,
+        "mean_distance": 1.9239576475245135,
+        "std_distance": 2.220446049250313e-16,
+        "median_distance": 1.9239576475245133,
+        "max_distance": 1.9239576475245133,
+        "mean_y": 0.14920457831471168,
+        "lateral_std": 0.0,
+        "mean_abs_y": 0.14920457831471168,
+        "max_abs_y": 0.14920457831471168,
+        "left_miss_rate": 0.0,
+        "right_miss_rate": 0.0,
+        "in_corridor_rate": 1.0,
+        "left_miss_rate_contact_only": 0.0,
+        "right_miss_rate_contact_only": 0.0,
+        "mean_carry": 0.0,
+        "landed_fraction": 0.0,
+        "mean_peak_ball_speed": 0.4062204130144945,
+        "lateral_threshold_m": 0.5,
+        "dtw_to_reference_style_rad": {
+          "scott": {
+            "mean": 1.7586617043350605,
+            "std": 0.0,
+            "min": 1.7586617043350605,
+            "max": 1.7586617043350605
+          },
+          "rory": {
+            "mean": 1.756153913966812,
+            "std": 0.0,
+            "min": 1.756153913966812,
+            "max": 1.756153913966812
+          },
+          "scheffler": {
+            "mean": 1.7688366583287347,
+            "std": 2.220446049250313e-16,
+            "min": 1.768836658328735,
+            "max": 1.768836658328735
+          },
+          "average": {
+            "mean": 1.7238853702264898,
+            "std": 4.440892098500626e-16,
+            "min": 1.7238853702264902,
+            "max": 1.7238853702264902
+          }
+        }
+      },
+      "shots": [
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        },
+        {
+          "final_x": 1.9239576475245133,
+          "final_y": 0.14920457831471168,
+          "final_z": 0.020783559537249363,
+          "max_height": 0.021,
+          "max_abs_y": 0.14920457831471168,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.4062204130144945
+        }
+      ]
+    },
+    {
+      "model": "ppo_scott_prev_backup",
+      "mode": "stochastic",
+      "env_kwargs": {
+        "curriculum": true,
+        "pin_torso": true,
+        "address_pose": "fixed",
+        "torque_scale": 3.0
+      },
+      "metrics": {
+        "episodes": 50,
+        "contact_rate": 0.18,
+        "mean_distance": 2.6460398674579126,
+        "std_distance": 3.6548892105051283,
+        "median_distance": 1.3563932777664078,
+        "max_distance": 11.490178274458941,
+        "mean_y": -0.27710018484552684,
+        "lateral_std": 1.3013886830432353,
+        "mean_abs_y": 0.4285654201721569,
+        "max_abs_y": 7.349974893938972,
+        "left_miss_rate": 0.06,
+        "right_miss_rate": 0.1,
+        "in_corridor_rate": 0.84,
+        "left_miss_rate_contact_only": 0.1111111111111111,
+        "right_miss_rate_contact_only": 0.4444444444444444,
+        "mean_carry": 0.0,
+        "landed_fraction": 0.0,
+        "mean_peak_ball_speed": 1.3926790103826239,
+        "lateral_threshold_m": 0.5,
+        "dtw_to_reference_style_rad": {
+          "scott": {
+            "mean": 2.9919835126578764,
+            "std": 0.33697771851810404,
+            "min": 2.180298076734587,
+            "max": 3.8218531920944994
+          },
+          "rory": {
+            "mean": 3.0064745960761843,
+            "std": 0.33191258588964184,
+            "min": 2.193170607667056,
+            "max": 3.7982344056071886
+          },
+          "scheffler": {
+            "mean": 3.0193519580408776,
+            "std": 0.31334456172521147,
+            "min": 2.229550421458001,
+            "max": 3.760132236892317
+          },
+          "average": {
+            "mean": 2.9986862185350827,
+            "std": 0.3342703491269759,
+            "min": 2.1831774671198816,
+            "max": 3.791262252475431
+          }
+        }
+      },
+      "shots": [
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.02078355954005512,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 3.0739840523748843,
+          "final_y": -0.6678935752127694,
+          "final_z": 0.02078355953724735,
+          "max_height": 0.021,
+          "max_abs_y": 0.6678935752127694,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.7043080606026048
+        },
+        {
+          "final_x": 1.4177828798171754,
+          "final_y": 0.8153592976436687,
+          "final_z": 0.020783559537247386,
+          "max_height": 0.021,
+          "max_abs_y": 0.8153592976436687,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.3241139981654422
+        },
+        {
+          "final_x": 7.232537571794609,
+          "final_y": -0.22951439104631863,
+          "final_z": 0.020783559537247066,
+          "max_height": 0.021,
+          "max_abs_y": 0.22951439104631863,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.7190828150795152
+        },
+        {
+          "final_x": 8.237008371788294,
+          "final_y": 0.15888661482412608,
+          "final_z": 0.02078355953724734,
+          "max_height": 0.021,
+          "max_abs_y": 0.15888661482412608,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.1181731287066277
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559534531246,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 5.687451774145493,
+          "final_y": -0.06381660573532588,
+          "final_z": 0.020783559537247295,
+          "max_height": 0.021,
+          "max_abs_y": 0.06381660573532588,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.909905349423102
+        },
+        {
+          "final_x": 4.92455070261091,
+          "final_y": -0.10567554097973289,
+          "final_z": 0.020783559537247163,
+          "max_height": 0.022343615063431365,
+          "max_abs_y": 0.10567554097973289,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.609593979038925
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537428636,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537189526,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.18971240012474086,
+          "final_y": 0.0006565182834227519,
+          "final_z": 0.020779251783857016,
+          "max_height": 0.021,
+          "max_abs_y": 0.0009911812384831632,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.2926667882535827
+        },
+        {
+          "final_x": 5.121552819054284,
+          "final_y": -0.029369904064703252,
+          "final_z": 0.020783559537281622,
+          "max_height": 0.021,
+          "max_abs_y": 0.029369904064703252,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.605430775199473
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.02078355953717083,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537134455,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 3.5200943772764517,
+          "final_y": 0.07777182516232777,
+          "final_z": 0.020783559537247275,
+          "max_height": 0.030988625434578018,
+          "max_abs_y": 0.07777182516232777,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.3345868539931878
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559534499684,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.02078355953750726,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 1.2950036757156402,
+          "final_y": -0.22676371629343403,
+          "final_z": 0.020783559537247247,
+          "max_height": 0.021,
+          "max_abs_y": 0.22676371629343403,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.1252802299284759
+        },
+        {
+          "final_x": 4.147846469603385,
+          "final_y": -2.033935751187383,
+          "final_z": 0.02078355953724729,
+          "max_height": 0.021,
+          "max_abs_y": 2.033935751187383,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 1.094821573504288
+        },
+        {
+          "final_x": 3.027696321538723,
+          "final_y": -0.00025253278659987424,
+          "final_z": 0.02078355953726275,
+          "max_height": 0.021,
+          "max_abs_y": 0.00025253278659987424,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.8216162488904803
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537270953,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 4.397004516864827,
+          "final_y": 0.0700519098584225,
+          "final_z": 0.020783559537247098,
+          "max_height": 0.021,
+          "max_abs_y": 0.0700519098584225,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.649323897845927
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559539937088,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537433084,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 0.9495802789883648,
+          "final_y": 0.04737921313371606,
+          "final_z": 0.020783559537247243,
+          "max_height": 0.021,
+          "max_abs_y": 0.04737921313371606,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 0.1277258163706005
+        },
+        {
+          "final_x": 5.229544601392546,
+          "final_y": 0.031930521692738224,
+          "final_z": 0.02078355953724721,
+          "max_height": 0.021,
+          "max_abs_y": 0.031930521692738224,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.9786683227978266
+        },
+        {
+          "final_x": 4.2925896390641025,
+          "final_y": 0.02619588413204344,
+          "final_z": 0.020783559537247205,
+          "max_height": 0.021,
+          "max_abs_y": 0.02619588413204344,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.150654720271449
+        },
+        {
+          "final_x": 2.385540063609248,
+          "final_y": -0.04742324472024946,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.021,
+          "max_abs_y": 0.04742324472024946,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.6050821218559923
+        },
+        {
+          "final_x": 3.6023064924810346,
+          "final_y": 0.03922439899974718,
+          "final_z": 0.020783559537247646,
+          "max_height": 0.021,
+          "max_abs_y": 0.03922439899974718,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.7921801171318446
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537303566,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 1.9264541379342022,
+          "final_y": 2.8327992125955385e-15,
+          "final_z": 0.02078355953724724,
+          "max_height": 0.021527696257340988,
+          "max_abs_y": 1.2158583318899238e-14,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.106050030022168
+        },
+        {
+          "final_x": -10.016480541784317,
+          "final_y": 0.013006069942619807,
+          "final_z": 0.020783559537247316,
+          "max_height": 0.021,
+          "max_abs_y": 0.013006069942619807,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.9097369149113046
+        },
+        {
+          "final_x": 3.0131157407092313,
+          "final_y": -0.12841779446286894,
+          "final_z": 0.020783559537247153,
+          "max_height": 0.021,
+          "max_abs_y": 0.12841779446286894,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.162228055250013
+        },
+        {
+          "final_x": 9.762440151676397,
+          "final_y": -0.28537860474456567,
+          "final_z": 0.02078355953724725,
+          "max_height": 0.021470899382435297,
+          "max_abs_y": 0.28537860474456567,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 2.4845661846310207
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.02078355953718419,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 9.144322371191194,
+          "final_y": 0.7006873222406578,
+          "final_z": 0.020783559537246674,
+          "max_height": 0.8213526461376798,
+          "max_abs_y": 0.7006873222406578,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 5.969286328878097
+        },
+        {
+          "final_x": 0.7889175864577969,
+          "final_y": -0.09875717700672942,
+          "final_z": 0.02078355953724724,
+          "max_height": 0.021,
+          "max_abs_y": 0.09875717700672942,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.5888648179120537
+        },
+        {
+          "final_x": 4.4961288200672,
+          "final_y": 0.17000502179277496,
+          "final_z": 0.020783559538405934,
+          "max_height": 0.021,
+          "max_abs_y": 0.17000502179277496,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 2.788428009960912
+        },
+        {
+          "final_x": -1.1725153511607376,
+          "final_y": -1.2636489411929228,
+          "final_z": 0.020783559537437445,
+          "max_height": 0.914903519197707,
+          "max_abs_y": 1.2636489411929228,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 4.39525678121636
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559534546244,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 1.9559581367763845,
+          "final_y": -2.479801388387657e-15,
+          "final_z": 0.02078355953724731,
+          "max_height": 0.021,
+          "max_abs_y": 3.293492290484538e-15,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.4539424214219883
+        },
+        {
+          "final_x": 0.872503822901434,
+          "final_y": 0.0029160391769530746,
+          "final_z": 0.020783559537247295,
+          "max_height": 0.021,
+          "max_abs_y": 0.0029160391769530746,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.22989085158192873
+        },
+        {
+          "final_x": 9.186993721658693,
+          "final_y": -7.349974893938972,
+          "final_z": 0.020783559537246935,
+          "max_height": 0.02204150314517798,
+          "max_abs_y": 7.349974893938972,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.557307427295798
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537474114,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 11.490178274458941,
+          "final_y": -4.942561609043739,
+          "final_z": 0.020783559537247427,
+          "max_height": 0.021,
+          "max_abs_y": 4.942561609043739,
+          "carry": 0.0,
+          "true_contact": true,
+          "peak_ball_speed": 3.3233614186661637
+        },
+        {
+          "final_x": 7.348656425895664,
+          "final_y": 0.08436322022790756,
+          "final_z": 0.020783559537231613,
+          "max_height": 1.0592029128606613,
+          "max_abs_y": 0.08436322022790756,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 6.147984115209536
+        },
+        {
+          "final_x": -1.929240211668866,
+          "final_y": 1.5481970260546205,
+          "final_z": 0.02078355953724725,
+          "max_height": 0.024772509962918382,
+          "max_abs_y": 1.5481970260546205,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 1.185458780473504
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.020783559537159012,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        },
+        {
+          "final_x": 9.0527732795377,
+          "final_y": -0.16825584302577543,
+          "final_z": 0.020783559537247236,
+          "max_height": 0.15305961414927272,
+          "max_abs_y": 0.16825584302577543,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 4.301122138924184
+        },
+        {
+          "final_x": 0.45,
+          "final_y": 0.0,
+          "final_z": 0.02078355953719536,
+          "max_height": 0.021,
+          "max_abs_y": 0.0,
+          "carry": 0.0,
+          "true_contact": false,
+          "peak_ball_speed": 0.003955967395106837
+        }
+      ]
+    }
+  ]
+}

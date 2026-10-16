@@ -1,0 +1,63 @@
+{
+  "args": {
+    "timesteps": 60000,
+    "n_envs": 8,
+    "seed": 0,
+    "name": "ppo_resid_v3_s0",
+    "model_xml": "humanoid_golf_v3.xml",
+    "flight_model": true,
+    "gate_lo": 15.0,
+    "gate_hi": 35.0,
+    "loft": 6.0,
+    "q_back": 2.2,
+    "t_down": 0.12,
+    "res_scale": [
+      0.4,
+      0.4,
+      0.4,
+      0.25
+    ],
+    "yaw": false,
+    "force_scale": 2.0,
+    "eval_episodes": 100,
+    "lr": 0.0003,
+    "ent": 0.0
+  },
+  "scripted_only": {
+    "n_episodes": 100,
+    "true_contact_rate": 1.0,
+    "landed_fraction": 0.51,
+    "mean_total_distance_x": 43.21061362255293,
+    "max_total_distance_x": 109.93903762633752,
+    "mean_carry": 10.332591529335973,
+    "max_carry": 109.93903762633752,
+    "mean_carry_given_landed": 20.34194656920143,
+    "lateral_mean": -0.43612966658635266,
+    "lateral_std": 7.537326615365043,
+    "mean_impact_club_speed": 26.594047082598323,
+    "max_impact_club_speed": 48.3382244792589,
+    "mean_ball_speed": 23.069617414966064,
+    "max_ball_speed": 47.675723885239556,
+    "mean_smash": 1464.3064730479302,
+    "mean_launch_elev_deg": -3.3677753153500807
+  },
+  "train_seconds": 270.0177352428436,
+  "policy": {
+    "n_episodes": 100,
+    "true_contact_rate": 1.0,
+    "landed_fraction": 0.83,
+    "mean_total_distance_x": 1.202670739614843,
+    "max_total_distance_x": 9.2519674636336,
+    "mean_carry": 0.8405349077118592,
+    "max_carry": 8.524002259030066,
+    "mean_carry_given_landed": 1.0844585092546526,
+    "lateral_mean": 0.5450975986447105,
+    "lateral_std": 5.028630892733265,
+    "mean_impact_club_speed": 1.5293055427076765,
+    "max_impact_club_speed": 3.402610199696219,
+    "mean_ball_speed": 3.1481296057260395,
+    "max_ball_speed": 12.848667254440455,
+    "mean_smash": 1492.4801236824414,
+    "mean_launch_elev_deg": -23.803595486778967
+  }
+}
