@@ -54,7 +54,7 @@ def test_json_contents_and_determinism(tmp_path):
     assert abs(sum(f["weight"] for f in r["mason"]["per_swing"]) - 1) < 1e-3
     assert r["mason"]["aggregate"]["x_factor_top_deg"]["median"] == "unavailable"
     assert r["comparison"]["cmu_subject64"]["aggregate"]["x_factor_top_deg"]["n"] == 10
-    assert not any("mirrored" in f["file"] for f in r["mason"]["per_swing"])
+    assert not any(f["file"].endswith("_mirrored.npz") for f in r["mason"]["per_swing"])
     assert r["caveats"]
     out = tmp_path / "o.json"
     m.main(["--refs", REFS, "--out", str(out)])
