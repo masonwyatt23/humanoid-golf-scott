@@ -38,3 +38,27 @@ Model XML for B: original `env/models/humanoid_golf.xml` (the `--model_xml` flag
 
 ## C. Not models
 Physics probes: `results/physics_probe.json`. G1+club: scripted-swing core only, untuned (stock peak ≈ 17–28 m/s, elite ≈ 19–27 m/s head speed, contact rare); no G1 policy trained. Elite tier is hypothetical.
+
+## D. Stage 3 (2026-10-16 AM): lockout + analytic carry + left-handed + mirrored Mason style
+Code state: units patch applied (ae3cb82); contact lockout, analytic ball, style/lat/elev/az weights in e394f9f and later commits (each run's JSON stores `git_head` for runs after this stage began).
+### Diagnosis of "balls don't land / launch" (eval/diag_launch.py, eval/scan_loft.py)
+1. **Fake contacts**: with reset randomization the club touched the ball at address/backswing in most episodes (impact speed 0.0, ball pushed a few metres). That produced the old "100% contact" with ~0 impact and "carry" of a few m. Fix: `_lockout()` keeps the ball pinned and ignores contact until `t_hold+t_back+t_pause-0.02` s (default in ResidualGolfEnv). With it, every strike is a real hit: impact 48.2 m/s (108 mph) scripted.
+2. **Episode ended before landing**: max_steps was swing+200 steps (4 s); high launches (30–40°) were still airborne. Fixed: `flight_steps` default 450 (episode still ends on landing). NOTE this changes the evaluator's scripted baseline (see below).
+3. **Flat/low strikes** never exceed 0.10 m height, so the "landed after flight" rule counts them as carry 0 (they roll ~150 m). Launch is bimodal under randomization (≈0–3° vs 30–40°) depending on where in the arc the face meets the ball; loft barely moves the flat mode.
+4. Scripted loft scan (analytic carry, 40 eps, loft deg → mean carry m / mean launch elev): 6→26/7°, 10→66/24°, 14→89/34°, 18→91/33°, 22→99/31°.
+### Analytic ball (`analytic_ball=True`)
+At 3 steps after first true contact the MuJoCo ball velocity is passed to `env/ball_flight_analytic.py` (verbatim copy of teammate prototype /workspace/sim_proto/ball_flight.py; drag+Magnus, dt 0.005, t_max 12 s) with an ASSUMED backspin = clip(1500+70*elev_deg, 1000, 5000) rpm (not measured; no sidespin). Carry/lateral/apex come from that; the episode terminates there (short, fast episodes). Reported `carry`/`ball_lateral` in these runs are therefore ANALYTIC and not comparable to MuJoCo-landing carry. Lateral is in golfer frame (sign flipped for left-handers).
+### Runs (all: v3 XML, left-handed, loft 8°, q_back 2.2, t_down 0.12, 150k steps, 6 envs, lr 3e-4, log_std_init -1.5, seq_weight 1.0, style_ref = mason_swing_part1_s05_refined_mirrored.npz, style_weight 1.0, force_scale 2, gate 15→35, no speed ladder (scripted already 48 m/s))
+| model | seed | res_scale | lat_w | elev_w | az_w | policy (100 eps, analytic): contact / landed / carry mean (max) / lateral mean±std / impact m/s (mph) / launch elev / style | scripted zero-residual same env |
+|---|---|---|---|---|---|---|---|
+| ppo_resid_v3_left_an1_s0 | 0 | .2 .2 .2 .1 | 0.2 | 0 | 2 | 100% / 100% / 93.1 (142) / +0.63±6.61 / 51.0 (114.0) / 34.6° / 0.55 | carry 49.3, lat −0.20±5.11, 48.2 (107.9), elev 16.3°, style 0.62 |
+| ppo_resid_v3_left_an2_s0 | 0 | .1 .1 .1 .03 | 1.0 | 1.0 | 3 | 100% / 100% / 91.8 (141) / +0.12±6.53 / 51.3 (114.7) / 33.5° / 0.53 | same |
+(an3 below if finished.) Commands: `python -m train.train_residual --timesteps 150000 --flight_model --n_envs 6 --seq_weight 1.0 --name <name> --seed <s> --loft 8 --analytic_ball --elev_target 12.5 --handedness left --style_ref data/references/mason_swing_part1_s05_refined_mirrored.npz --style_weight 1.0 [--res_scale ... --lat_weight .. --elev_weight .. --az_weight ..]`
+### Evaluator-protocol gate (`python -m eval.eval_gate <name> 50 4000`, MuJoCo physics, flight tracker, flight horizon 450 steps, deterministic) 
+| model | contact | landed | carry m | lateral std m | peak club mph |
+|---|---|---|---|---|---|
+| scripted zero residual (loft 8, left) | 100% | 72% | 57.8 | 4.22 | 107.9 |
+| left_an1_s0 | 100% | 100% | 110.3 | 7.53 | 114.5 |
+| left_an2_s0 | 100% | 100% | 114.3 | 7.42 | 114.7 |
+Teammate gate (carry > 11.98 m AND lateral std < 2.73 m, from their 4-s-horizon, loft-6 evaluator): carry passes by ~10x, lateral std FAILS in absolute metres, but that gate compares across different horizons: with a 4-s horizon most balls never "land", so their carry/lateral were measured on ~1/3 of shots at ~12 m. Lateral std grows with distance; relative dispersion (lateral std / mean carry) is 0.073 (scripted, 4.22/57.8) vs 0.066 (an2, 7.42/114.3). `models/best_carry_analytic.zip` = left_an2_s0 (best carry; does NOT pass the absolute lateral gate).
+Caveats: launch elevation stays ~33° (policy prefers high launch; the analytic spin assumption rewards it) – not the 10–15° target; smash drops 0.90→0.73 (policy trades smash for loft). Mason style score (shape match of trail-shoulder-pitch, 2D proxy) is neutral/slightly lower (0.62→0.53–0.55).
