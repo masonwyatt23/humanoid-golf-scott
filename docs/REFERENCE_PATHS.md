@@ -94,7 +94,7 @@ License class `cc0` was added to `data/provenance.py` (`multisensegolf_cc0` pres
 `data/references/multisense_P{19,20,22}_sNN_mirrored.npz`, 28 files, made with
 `python -m data.mirror_references --pattern 'multisense_P*_s[0-9]*.npz'`. Tags: `mirrored=True`, `mirrored_from=<source file>`,
 `original_handedness=right`, `handedness=left`, `license_class=cc0`, `commercial_ok=True` (copied). `player_stated_handedness` is NOT set
-(only Mason's files get it). Same 11-col layout as the originals, so the Mason mirror rules apply: roll (col 1) negated; legs (5-7)<->(8-10)
+(not set for multisense/cmu sources). Same 11-col layout as the originals, so the Mason mirror rules apply: roll (col 1) negated; legs (5-7)<->(8-10)
 swapped; sagittal flexion angles unchanged; pelvis/thorax rotation, x_factor, lateral_sway negated. Assumptions: no landmarks or club_head
 exist here (nothing to mirror); unmeasured wrist/ankle columns (3, 7, 10) stay zero, but the leg swap moves the ankle zeros between cols 7 and 10 consistently;
 `joint_columns` names are unchanged, and for the mirrored left-hander `right_*` arm columns mean the lead (anatomical right) arm, as in Mason's v2 files;

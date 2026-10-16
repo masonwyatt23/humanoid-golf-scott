@@ -65,7 +65,7 @@ def mirror_dict(d, source_name=""):
         orig = str(d.get("handedness", "right"))
         out["original_handedness"] = np.array(orig)
         out["assumed_handedness"] = np.array(orig)
-        if str(source_name).startswith("mason") or "player_stated_handedness" in d:
+        if not str(source_name).startswith(("multisense", "cmu")):
             out["player_stated_handedness"] = np.array("left")  # only Mason's files; not other subjects
         out["handedness"] = np.array("left" if orig == "right" else "right")
     else:  # un-mirror: restore
