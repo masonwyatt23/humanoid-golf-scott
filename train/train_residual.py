@@ -92,11 +92,12 @@ def main():
     ap.add_argument("--handedness", default="right")
     ap.add_argument("--analytic_ball", action="store_true")
     ap.add_argument("--elev_target", type=float, default=12.5)
-    ap.add_argument("--style_ref", default=None)
+    ap.add_argument("--style_ref", default=None, nargs="+", help="file(s) or the keyword mason_v2_recommended")
     ap.add_argument("--style_weight", type=float, default=0.0)
     ap.add_argument("--lat_weight", type=float, default=0.2)
     ap.add_argument("--elev_weight", type=float, default=0.0)
     ap.add_argument("--az_weight", type=float, default=2.0)
+    ap.add_argument("--carry_cap", type=float, default=150.0)
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--log_std_init", type=float, default=-1.5)
     ap.add_argument("--ent", type=float, default=0.0)
@@ -106,7 +107,7 @@ def main():
     kw = dict(script=script, residual_scale=tuple(a.res_scale), model_xml=a.model_xml, flight_model=a.flight_model, tee_height=0.04,
               force_scale=a.force_scale, kp=700.0, kd=700.0 / 30, loft_deg=a.loft, curriculum=True, carry_reward=True, forward_reward=True,
               randomize_reset=True, ball_dz=a.ball_dz, handedness=a.handedness, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
-              analytic_ball=a.analytic_ball, lat_weight=a.lat_weight, elev_weight=a.elev_weight, az_weight=a.az_weight, elev_target_deg=a.elev_target, style_ref=a.style_ref, style_weight=a.style_weight,
+              analytic_ball=a.analytic_ball, lat_weight=a.lat_weight, elev_weight=a.elev_weight, az_weight=a.az_weight, carry_cap=a.carry_cap, elev_target_deg=a.elev_target, style_ref=(a.style_ref[0] if len(a.style_ref) == 1 else a.style_ref) if a.style_ref else None, style_weight=a.style_weight,
               style_prior=a.style_prior, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
     make_env = lambda: ResidualGolfEnv(**kw)
     import subprocess

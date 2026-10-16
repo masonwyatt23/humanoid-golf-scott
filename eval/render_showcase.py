@@ -39,13 +39,13 @@ def ensure_gl():
     os.execvpe("xvfb-run", ["xvfb-run", "-a", "-s", "-screen 0 1280x720x24", sys.executable, "-m", "eval.render_showcase", *sys.argv[1:]], env)
 
 
-def pick_model(name):
+def pick_model(name, pick="best"):
     lb = json.loads((ROOT / "results/leaderboard.json").read_text())
     ms = lb["models"]
     if name:
         m = next(m for m in ms if name in m["names"])
     else:
-        best = lb["best_model"]   # best TRAINED checkpoint (scripted baseline excluded)
+        best = lb["best_left"] if pick == "best_left" else lb["best_model"]   # best TRAINED checkpoint (scripted baseline excluded)
         m = next(m for m in ms if m["names"] == best)
     return m, lb
 
@@ -161,13 +161,13 @@ def render_swing(env, model, seed, K, label, writer, tail_s=1.5):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--swings", type=int, default=12); ap.add_argument("--seed", type=int, default=5000)
-    ap.add_argument("--model", default=None); ap.add_argument("--reel-top", type=int, default=4)
+    ap.add_argument("--model", default=None); ap.add_argument("--pick", default="best", choices=["best", "best_left"]); ap.add_argument("--reel-top", type=int, default=4)
     ap.add_argument("--K", type=int, default=5, help="physics steps per frame (showcase)")
     a = ap.parse_args()
     ensure_gl()
     from stable_baselines3 import PPO
     from env.humanoid_golf_env import HumanoidGolfEnv
-    m, lb = pick_model(a.model)
+    m, lb = pick_model(a.model, a.pick)
     name = m["names"][0]
     from eval.env_factory import make_env
     env = make_env(m["env_kwargs"])

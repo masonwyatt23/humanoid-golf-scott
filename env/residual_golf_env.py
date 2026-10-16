@@ -10,6 +10,7 @@ Action (5): [d_shoulder, d_elbow, d_wrist, d_chest_yaw, tempo] in [-1,1]
   residual_scale rad per unit (default 0.4 / 0.4 / 0.4 / 0.25), tempo -> clock speed 1 + 0.3*a.
 """
 import numpy as np
+from pathlib import Path
 import mujoco
 from gymnasium import spaces
 from env.humanoid_golf_env import HumanoidGolfEnv
@@ -24,7 +25,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -57,6 +58,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._seq = []
         self._contact_step = None
         self.grip = grip
+        self.carry_cap = carry_cap
         self.lat_weight, self.elev_weight, self.az_weight = lat_weight, elev_weight, az_weight
         self.analytic_ball = analytic_ball  # score carry from analytic flight (drag+Magnus) of the MuJoCo launch vector, end episode 3 steps after contact
         self.elev_target = np.deg2rad(elev_target_deg)
@@ -128,14 +130,31 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         return (y - y.min()) / r if r > 1e-6 else np.zeros(n)
 
     def _load_style_ref(self, path):
-        """Mason reference -> normalised trail-shoulder-pitch shapes for backswing (start->top) and downswing (top->impact).
+        """Mason reference(s) -> mean normalised trail-shoulder-pitch shapes for backswing (start->top) and downswing (top->impact).
         STYLE ONLY: 2D-proxy angles from single-view video; tempo/speed from the reference are never used.
-        Ref pitch is 0 with arm hanging and negative going up, so it is negated to match this env's sign."""
-        d = np.load(path, allow_pickle=True)
-        col = -np.asarray(d["joints"][:, 0], float); t = np.asarray(d["time"], float)
-        t0 = float(d["t_start_in_video"]); i_top = int(np.argmin(abs(t - (float(d["t_top"]) - t0)))); i_imp = int(np.argmin(abs(t - (float(d["t_impact"]) - t0))))
-        mov = np.where(abs(col - col[0]) > np.deg2rad(0) + 5.0)[0]; i0 = max(int(mov[0]) - 3, 0) if len(mov) else 0
-        return dict(back=self._resamp(col[i0:i_top + 1]), down=self._resamp(col[i_top:i_imp + 1]), mirrored=bool(d["mirrored"]) if "mirrored" in d.files else False)
+        path may be a file, a list of files, or "mason_v2_recommended" (native left-handed, recommended, not partial, not mirrored,
+        self_owned/commercial_ok, handedness left). v2 files use anatomical columns (right_* = LEAD arm for a lefty) so the trail
+        (club) arm is col 4; v1/mirrored files use trail/lead roles (col 0). Ref pitch is 0 hanging, negative going up -> negated."""
+        import glob
+        if isinstance(path, str) and path == "mason_v2_recommended":
+            files = []
+            for f in sorted(glob.glob(str(Path(__file__).resolve().parent.parent / "data/references/mason_v2_*.npz"))):
+                d = np.load(f, allow_pickle=True)
+                if (bool(d["recommended"]) and not bool(d["partial"]) and not bool(d["mirrored"]) and str(d["license_class"]) == "self_owned"
+                        and bool(d["commercial_ok"]) and str(d["handedness"]) == "left"):
+                    files.append(f)
+            path = files
+        paths = [path] if isinstance(path, (str, Path)) else list(path)
+        bs, ds = [], []
+        for f in paths:
+            d = np.load(f, allow_pickle=True)
+            anat = "joint_convention" in d.files and "anatomical" in str(d["joint_convention"])
+            col = -np.asarray(d["joints"][:, 4 if anat else 0], float); t = np.asarray(d["time"], float)
+            t0 = float(d["t_start_in_video"]); i_top = int(np.argmin(abs(t - (float(d["t_top"]) - t0)))); i_imp = int(np.argmin(abs(t - (float(d["t_impact"]) - t0))))
+            mov = np.where(abs(col - col[0]) > 5.0)[0]; i0 = max(int(mov[0]) - 3, 0) if len(mov) else 0
+            bs.append(self._resamp(col[i0:i_top + 1])); ds.append(self._resamp(col[i_top:i_imp + 1]))
+        self.style_files = [Path(f).name for f in paths]
+        return dict(back=np.mean(bs, 0), down=np.mean(ds, 0), n=len(paths))
 
     def _style_score(self):
         s = self.script; q = np.array(self._qtraj)  # columns: clock, shoulder pitch
@@ -254,7 +273,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             if self.true_contact and self._ref_shape is not None:
                 sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:
-                r += g * min(self.carry, 150.0) / 5.0 - 0.2 * min(abs(self.ball_lateral), 20.0)
+                r += g * min(self.carry, self.carry_cap) / 5.0 - 0.2 * min(abs(self.ball_lateral), 20.0)
                 if not self._landed:
                     r -= 1.0
             else:

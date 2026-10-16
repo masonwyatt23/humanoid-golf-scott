@@ -98,7 +98,7 @@ def main():
     hist = load(RES / "leaderboard_history.json", {"entries": SEED_HISTORY})
     groups = discover()
     for h, g in groups.items():
-        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s7"
+        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s8"
         if key in cache and not a.force:
             print("skip (cached)", g["names"]); continue
         if g.get("scripted"):
@@ -129,7 +129,7 @@ def main():
     (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
-    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s7"]],
+    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s8"]],
                  key=lambda c: c.get("mtime", 0))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []
@@ -152,8 +152,9 @@ def main():
     ranked = [c for c in ranked_all if not c.get("scripted")]   # trained checkpoints only
     best_line = ("**Current best model: " + " / ".join(ranked[0]["names"]) + f"** ({ranked[0]['steps']} steps) - mean true contact over det+stoch {score(ranked[0])[0]*100:.0f}%, mean carry {score(ranked[0])[1]:.3f} m."
                  if ranked else "No evaluated models.")
+    left = [c for c in ranked if c.get("env_kwargs", {}).get("handedness") == "left"]
     out = {"env_fingerprint": fp, "episodes": a.episodes, "seed_base": a.seed, "references": refs,
-           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked[0]["names"] if ranked else None), "best_overall": (ranked_all[0]["names"] if ranked_all else None),
+           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked[0]["names"] if ranked else None), "best_overall": (ranked_all[0]["names"] if ranked_all else None), "best_left": (left[0]["names"] if left else None),
            "ranking": ["/".join(c["names"]) for c in ranked], "ranking_incl_scripted": ["/".join(c["names"]) for c in ranked_all],
            "history": hist["entries"]}
     (RES / "leaderboard.json").write_text(json.dumps(out, indent=1))
@@ -162,6 +163,8 @@ def main():
         if bv:
             mx = max(v["peak_club_speed_max"] for v in bv)
             best_line += (f" Peak club-head speed (best single swing over det+stoch): {mx:.2f} m/s = {mx*2.23694:.1f} mph = {mx/53.64*100:.1f}% of the 120 mph (53.64 m/s) target.")
+    if left:
+        best_line += f" **Best left-handed model: {' / '.join(left[0]['names'])}** (mean contact {score(left[0])[0]*100:.0f}%, mean carry {score(left[0])[1]:.2f} m, physics protocol)."
     rank_txt = ("Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; "
                 "(2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.")
     rk = " > ".join("/".join(c["names"][:1]) for c in ranked_all)
@@ -198,6 +201,36 @@ def main():
         for m, v in c.get("modes", {}).items():
             if "dtw_mason" not in v: continue
             L.append("| " + "<br>".join(c["names"]) + " | " + m[:5] + " | " + " | ".join(format(v["dtw_mason"][r]["all11"]["mean"], ".3f") + " / " + format(v["dtw_mason"][r]["upper5"]["mean"], ".3f") for r in dr.MASON_REFS) + " |")
+    # trainer gate numbers next to verified ones (left-handed models)
+    G = ["", "## Left-handed models: trainer gate JSON vs verified (this leaderboard, same protocol: MuJoCo physics, flight tracker, 450-step horizon, deterministic, 50 eps, seeds 4000+)", "",
+         "Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`; gate: carry > 11.98 m AND lateral std < 2.73 m AND contact >= 99%). Trainer 'analytic' = `results/<name>.json` policy block (100 eps, analytic flight from the MuJoCo launch vector with ASSUMED backspin, episode ends 3 steps after contact) - NOT re-verified here, different protocol.", "",
+         "| Model | Source | Contact | Landed | Mean carry (m) | Lateral std (m) | Peak club mph mean | Gate pass |", "|---|---|---|---|---|---|---|---|"]
+    for c in cur:
+        if c.get("env_kwargs", {}).get("handedness") != "left" or c.get("scripted"): continue
+        nm = c["names"][0]; v = c["modes"].get("deterministic", {})
+        if "contact_rate" in v:
+            ok = v["mean_carry"] > 11.98 and v["lateral_std"] < 2.73 and v["contact_rate"] >= 0.99
+            G.append(f"| {nm} | verified (this run, det) | {v['contact_rate']*100:.0f}% | {v['landed_fraction']*100:.0f}% | {v['mean_carry']:.2f} | {v['lateral_std']:.2f} | {v['peak_club_mph_mean']:.1f} | {'PASS' if ok else 'FAIL'} |")
+        gj = RES / f"gate_{nm}.json"
+        if gj.exists():
+            g = json.loads(gj.read_text()).get("policy_det", {})
+            G.append(f"| {nm} | trainer gate JSON (det) | {g['contact_rate']*100:.0f}% | {g['landed_fraction']*100:.0f}% | {g['mean_carry']:.2f} | {g['lateral_std']:.2f} | {g['peak_club_mph_mean']:.1f} | {'PASS' if json.loads(gj.read_text()).get('gate_pass') else 'FAIL'} |")
+        tj = RES / f"{nm}.json"
+        if tj.exists():
+            t = json.loads(tj.read_text()).get("policy", {})
+            if t: G.append(f"| {nm} | trainer analytic (100 eps) | {t['true_contact_rate']*100:.0f}% | {t['landed_fraction']*100:.0f}% | {t['mean_carry']:.2f} | {t['lateral_std']:.2f} | {t['impact_club_speed_mean_mph']:.1f} (impact) | n/a |")
+    L += G
+    # native Mason v2 refs
+    V = ["", "## DTW vs NATIVE Mason v2 references (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)", "",
+         "**CAVEATS: 2D-proxy joint angles from single-view MediaPipe, screen-recorded ~30 fps (tempo +-15%), not retargeted to the MuJoCo humanoid, no club data, leg joints weak; native left-handed footage, `right_*` columns = anatomical right = LEAD arm of a left-hander, whereas the env's `right_*` joints are the swinging arm of its own model (mapping/sign conventions NOT calibrated). Indicative only. MultiSense (right-handed, CC0, different protocol) deliberately NOT scored here.**", "",
+         "Refs: " + ", ".join(f"`{r.replace('mason_v2_','')}` (q={dr.MASON_V2_INFO[r]['quality']}, {dr.MASON_V2_INFO[r]['view']}, mirrored={dr.MASON_V2_INFO[r]['mirrored']})" for r in dr.MASON_V2_REFS), "",
+         "| Model(s) | Mode | " + " | ".join(r.replace("mason_v2_", "") for r in dr.MASON_V2_REFS) + " | mean over refs |", "|---|---|" + "---|" * (len(dr.MASON_V2_REFS) + 1)]
+    for c in cur:
+        for m, v in c.get("modes", {}).items():
+            if "dtw_mason_v2" not in v: continue
+            a11 = [v["dtw_mason_v2"][r]["all11"]["mean"] for r in dr.MASON_V2_REFS]; u5 = [v["dtw_mason_v2"][r]["upper5"]["mean"] for r in dr.MASON_V2_REFS]
+            V.append("| " + "<br>".join(c["names"]) + " | " + m[:5] + " | " + " | ".join(f"{x:.3f} / {y:.3f}" for x, y in zip(a11, u5)) + f" | {sum(a11)/len(a11):.3f} / {sum(u5)/len(u5):.3f} |")
+    L += V
     L += ["", "## Contact regressions (vs best earlier-trained checkpoint, same mode)", ""] + ([f"- {f}" for f in flags] or ["- none"])
     L += ["", "## History (all evaluated checkpoints)", "", "| Checkpoint(s) | Steps | Env | Det contact | Stoch contact |", "|---|---|---|---|---|"]
     for e in sorted(hist["entries"], key=lambda e: e["order"]):
@@ -219,6 +252,8 @@ def main():
     (RES / "dispersion_ladder_scripted.md").write_text("\n".join(D) + "\n")
     (RES / "dispersion_ladder_scripted.json").write_text(json.dumps([{k: c[k] for k in ("names", "steps", "config_source", "env_kwargs", "modes")} for c in det_rows], indent=1))
     (RES / "leaderboard.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
+    from eval.compare_styles import from_leaderboard
+    from_leaderboard()
 
 if __name__ == "__main__":
     main()

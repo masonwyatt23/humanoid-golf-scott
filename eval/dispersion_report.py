@@ -45,6 +45,7 @@ def run(name, kw, episodes, seed, det, scripted=False):
     d["mean_max_ball_x"] = float(np.mean([s["max_ball_x"] for s in shots]))
     d['dtw_to_reference_style_rad'] = {r: style_match_stats(jt, r) for r in REFS}
     from eval.style_match import UPPER_COLS
+    d['dtw_mason_v2'] = {r: {"all11": style_match_stats(jt, r), "upper5": style_match_stats(jt, r, UPPER_COLS)} for r in MASON_V2_REFS}
     d['dtw_mason'] = {r: {"all11": style_match_stats(jt, r), "upper5": style_match_stats(jt, r, UPPER_COLS)} for r in MASON_REFS}
     return d, shots
 
@@ -88,3 +89,23 @@ def _mirrored(names):
 
 MASON_REFS = _mirrored(MASON_REFS_ORIG)
 MASON_QUALITY = {n + "_mirrored": q for n, q in MASON_QUALITY_ORIG.items()}
+
+
+# Native Mason v2 refs (docs/REFERENCE_PATHS.md "v2 additions"): filter on fields, never glob.
+def _v2_refs():
+    import numpy as np
+    order = "p1_s06 p1_s11 p2_s02 p2_s01 p1_s04 p1_s03 p2_s13 p2_s10 p1_s05 p2_s11 p3_s09_unmirrored".split()   # doc's recommended list order
+    ok, info = [], {}
+    for w in order:
+        n = f"mason_v2_{w}"; f = ROOT / "data/references" / f"{n}.npz"
+        if not f.exists(): continue
+        d = np.load(f, allow_pickle=True)
+        # recommended, not partial, license self_owned + commercial_ok; `mirrored` is recorded (p3_s09_unmirrored is the documented
+        # exception: it is the caption-flipped clip mirrored back, so mirrored=True is expected there)
+        if bool(d["recommended"]) and not bool(d["partial"]) and str(d["license_class"]) == "self_owned" and bool(d["commercial_ok"]):
+            ok.append(n)
+            info[n] = dict(quality=round(float(d["quality_score"]), 2), view=str(d["view"]), mirrored=bool(d["mirrored"]),
+                           handedness=str(d["handedness"]), tempo_ratio=round(float(d["tempo_ratio"]), 1))
+    return ok, info
+
+MASON_V2_REFS, MASON_V2_INFO = _v2_refs()

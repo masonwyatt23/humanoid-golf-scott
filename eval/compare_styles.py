@@ -55,39 +55,38 @@ def best(results: List[Dict]) -> str:
     return "\n".join(lines)
 
 
-def main(argv=None):
-    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--episodes", type=int, default=20)
-    p.add_argument("--styles", nargs="+", default=STYLES)
-    p.add_argument("--models-dir", default="models")
-    p.add_argument("--out-dir", default="eval/results")
-    p.add_argument("--seed", type=int, default=0)
-    p.add_argument("--stochastic", action="store_true")
-    args = p.parse_args(argv)
-    if args.episodes < 1:
-        p.error("--episodes must be >= 1")
-
-    results = []
-    for style in args.styles:
-        mp = Path(args.models_dir) / f"ppo_{style}"
-        if not mp.with_suffix(".zip").exists():
-            results.append({"style": style, "status": "no_model"})
-            continue
-        from eval.evaluate import evaluate_model
-        results.append(evaluate_model(str(mp), style, args.episodes, args.seed, not args.stochastic))
-
-    table = make_table(results)
-    md = (f"# Style comparison\n\nEpisodes per style: {args.episodes}, seed base {args.seed}, "
-          f"{'stochastic' if args.stochastic else 'deterministic'} actions.\n"
-          "Distance = final ball x (m), not true carry. Dist CV = std/mean. "
-          "Path dispersion = mean 3D std of club head across episodes.\n\n"
-          f"{table}\n\n{best(results)}\n")
-    print(md)
-    out = Path(args.out_dir)
+def from_leaderboard(lb_path="results/leaderboard.json", out_dir="eval/results"):
+    """Generate the multi-model comparison from the leaderboard results (so it cannot go stale). Called by eval.leaderboard."""
+    root = Path(__file__).resolve().parent.parent
+    lb = json.loads((root / lb_path).read_text())
+    rows = []
+    for c in lb["models"]:
+        for mode, v in c.get("modes", {}).items():
+            if "contact_rate" not in v:
+                continue
+            rows.append({"model": "/".join(c["names"]), "steps": c["steps"], "mode": mode, "handedness": c.get("env_kwargs", {}).get("handedness", "right"),
+                         "scripted": bool(c.get("scripted")), **{k: v[k] for k in ("episodes", "contact_rate", "mean_distance", "std_distance", "max_distance", "mean_carry",
+                         "landed_fraction", "lateral_std", "left_miss_rate", "right_miss_rate", "peak_club_mph_mean", "peak_club_mph_max", "peak_club_pct_target_max",
+                         "path_dispersion", "cv_distance") if k in v}})
+    f = lambda x, fmt: "n/a" if x is None or x != x else format(x, fmt)
+    L = ["# Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)", "",
+         f"Env fingerprint `{lb['env_fingerprint']}`, {lb['episodes']} episodes/mode, seeds {lb['seed_base']}+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > {lb['lateral_threshold_m']} m.",
+         f"Best trained: **{' / '.join(lb['best_model'])}**; best left-handed: **{' / '.join(lb['best_left']) if lb.get('best_left') else 'n/a'}**; best overall incl. scripted baseline: **{' / '.join(lb['best_overall'])}**.", "",
+         "| Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+    for r in rows:
+        L.append(f"| {r['model']}{' (scripted)' if r['scripted'] else ''} | {r['steps']} | {r['handedness']} | {r['mode'][:5]} | {r['contact_rate']*100:.0f}% | {f(r['mean_distance'], '.2f')} | {f(r['max_distance'], '.2f')} | {f(r['mean_carry'], '.2f')} | {r['landed_fraction']*100:.0f}% | {f(r['lateral_std'], '.2f')} | {r['left_miss_rate']*100:.0f}% | {r['right_miss_rate']*100:.0f}% | {f(r['peak_club_mph_mean'], '.1f')} / {f(r['peak_club_mph_max'], '.1f')} | {f(r['peak_club_pct_target_max'], '.1f')}% |")
+    out = root / out_dir
     out.mkdir(parents=True, exist_ok=True)
-    (out / "style_comparison.md").write_text(md)
-    (out / "style_comparison.json").write_text(json.dumps(results, indent=2))
-    print(f"Saved to {out}/style_comparison.md")
+    (out / "style_comparison.md").write_text("\n".join(L) + "\n")
+    (out / "style_comparison.json").write_text(json.dumps({"generated_from": lb_path, "env_fingerprint": lb["env_fingerprint"], "rows": rows}, indent=1))
+    return out / "style_comparison.md"
+
+
+def main(argv=None):
+    p = argparse.ArgumentParser(description="Regenerate eval/results/style_comparison.{md,json} from results/leaderboard.json "
+                                            "(run `python -m eval.leaderboard` first to refresh the leaderboard itself).")
+    p.parse_args(argv)
+    print("wrote", from_leaderboard())
 
 
 if __name__ == "__main__":
