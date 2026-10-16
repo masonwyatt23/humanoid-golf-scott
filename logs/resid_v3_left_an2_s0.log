@@ -1,0 +1,17 @@
+SCRIPTED {"n_episodes": 100, "true_contact_rate": 1.0, "landed_fraction": 1.0, "mean_total_distance_x": 2.8723737963916487, "max_total_distance_x": 3.3081066092135085, "mean_carry": 49.2732992775081, "max_carry": 131.59754726934787, "mean_carry_given_landed": 49.2732992775081, "lateral_mean": -0.19924572503920895, "lateral_std": 5.105517326294534, "mean_impact_club_speed": 48.23830375746164, "max_impact_club_speed": 48.338857463200455, "mean_ball_speed": 41.71042909978899, "max_ball_speed": 46.80377187140486, "median_smash": 0.9043205236526628, "peak_club_speed_mean_ms": 48.23830375746164, "peak_club_speed_max_ms": 48.338857463200455, "peak_club_speed_mean_mph": 107.90619120721624, "peak_club_speed_max_mph": 108.13112381373163, "impact_club_speed_mean_mph": 107.90619120721624, "seq_thorax_before_arm_frac": 0.12, "seq_arm_before_club_frac": 1.0, "seq_arm_lead_ms_mean": 0.20000000000000018, "mean_style_score": 0.6241460273068105, "mean_launch_elev_deg": 16.303075910695796}
+[progress 0.07] steps=10002 eps=204 contact=1.00 max_ball_x=3.02 carry=46.36
+[progress 0.13] steps=20004 eps=414 contact=1.00 max_ball_x=2.77 carry=60.26
+[progress 0.20] steps=30000 eps=624 contact=1.00 max_ball_x=2.55 carry=71.16
+[progress 0.27] steps=40002 eps=829 contact=1.00 max_ball_x=2.60 carry=74.54
+[progress 0.33] steps=50004 eps=1038 contact=1.00 max_ball_x=2.57 carry=71.78
+[progress 0.40] steps=60000 eps=1248 contact=1.00 max_ball_x=2.53 carry=73.57
+[progress 0.47] steps=70002 eps=1458 contact=1.00 max_ball_x=2.43 carry=79.67
+[progress 0.53] steps=80004 eps=1668 contact=1.00 max_ball_x=2.59 carry=76.36
+[progress 0.60] steps=90000 eps=1878 contact=1.00 max_ball_x=2.64 carry=76.56
+[progress 0.67] steps=100002 eps=2088 contact=1.00 max_ball_x=2.55 carry=76.42
+[progress 0.73] steps=110004 eps=2302 contact=1.00 max_ball_x=2.43 carry=79.15
+[progress 0.80] steps=120000 eps=2513 contact=1.00 max_ball_x=2.61 carry=74.09
+[progress 0.87] steps=130002 eps=2726 contact=1.00 max_ball_x=2.69 carry=76.66
+[progress 0.93] steps=140004 eps=2939 contact=1.00 max_ball_x=2.58 carry=81.66
+[progress 1.00] steps=150000 eps=3152 contact=1.00 max_ball_x=2.65 carry=81.32
+POLICY {"n_episodes": 100, "true_contact_rate": 1.0, "landed_fraction": 1.0, "mean_total_distance_x": 2.8193612493192086, "max_total_distance_x": 3.9739102174486396, "mean_carry": 91.79485850532812, "max_carry": 141.27922381116372, "mean_carry_given_landed": 91.79485850532812, "lateral_mean": 0.12207558074208343, "lateral_std": 6.527406527327929, "mean_impact_club_speed": 51.26353119679795, "max_impact_club_speed": 51.79429969823122, "mean_ball_speed": 39.658871531572004, "max_ball_speed": 49.34376722338556, "median_smash": 0.7282701022737177, "peak_club_speed_mean_ms": 51.26353119679795, "peak_club_speed_max_ms": 51.79429969823122, "peak_club_speed_mean_mph": 114.67344347536522, "peak_club_speed_max_mph": 115.86074076696136, "impact_club_speed_mean_mph": 114.67344347536522, "seq_thorax_before_arm_frac": 0.4, "seq_arm_before_club_frac": 1.0, "seq_arm_lead_ms_mean": 2.220291093923151, "mean_style_score": 0.5262751008595461, "mean_launch_elev_deg": 33.45938787915597}
