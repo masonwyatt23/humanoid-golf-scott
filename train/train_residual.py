@@ -102,6 +102,7 @@ def main():
     ap.add_argument("--ball_x", type=float, default=0.43)
     ap.add_argument("--ball_x_noise", type=float, default=0.03)
     ap.add_argument("--elev_low_mult", type=float, default=1.0)
+    ap.add_argument("--init_model", default=None, help="warm-start from models/<name>.zip (same obs/action spaces)")
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--log_std_init", type=float, default=-1.5)
     ap.add_argument("--ent", type=float, default=0.0)
@@ -121,6 +122,8 @@ def main():
     env = make_vec_env(make_env, n_envs=a.n_envs, seed=a.seed, vec_env_cls=SubprocVecEnv)
     model = PPO("MlpPolicy", env, verbose=0, learning_rate=a.lr, n_steps=512, batch_size=256, n_epochs=10, gamma=0.99,
                 ent_coef=a.ent, seed=a.seed, policy_kwargs=dict(log_std_init=a.log_std_init))
+    if a.init_model:
+        model = PPO.load(str(ROOT / "models" / a.init_model), env=env, learning_rate=a.lr, ent_coef=a.ent, seed=a.seed)
     t0 = time.time()
     cbs = [ProgressCallback(a.timesteps, log_every=10000)]
     lad = None
