@@ -1716,6 +1716,45 @@
      "mean_distance": 126.19464478795722
     }
    }
+  },
+  {
+   "md5": "41c212556a50b4b75ea951004fc32bfe",
+   "names": [
+    "ppo_resid_v3_left_fast1_s10"
+   ],
+   "steps": 100000,
+   "order": 1792157945.8833973,
+   "env_fingerprint": "7a2ffa104b56",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 22.544355826930296
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 18.576853562087408
+    }
+   }
+  },
+  {
+   "md5": "0fbd364c4ad9d411c2e72e98d55f55fb",
+   "names": [
+    "ppo_resid_v3_left_fast2_s11",
+    "best_gate_flat_123mph"
+   ],
+   "steps": 100000,
+   "order": 1792159269.2795079,
+   "env_fingerprint": "7a2ffa104b56",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 15.242426591541069
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 15.201265429390107
+    }
+   }
   }
  ]
 }

@@ -30,6 +30,10 @@
 | ppo_resid_v3_left_an9_s7 | stochastic | 100% | 126.63 | 83.41 | 345.37 | 126.63 | 81.200 | 86% | 8.189 | +0.147 | 46% | 42% | 49.28 / 52.10 | 110.2 / 116.5 | 97.1% | 0 | 28.3 (14.3) | no |
 | ppo_resid_v3_left_an10_s8 | deterministic | 100% | 128.80 | 53.58 | 324.46 | 128.80 | 109.967 | 94% | 5.670 | +0.786 | 50% | 32% | 47.82 / 48.45 | 107.0 / 108.4 | 90.3% | 0 | 24.7 (8.9) | no |
 | ppo_resid_v3_left_an10_s8 | stochastic | 100% | 126.19 | 106.94 | 334.03 | 126.19 | 57.133 | 78% | 6.396 | +1.591 | 38% | 24% | 48.00 / 50.41 | 107.4 / 112.8 | 94.0% | 0 | 14.5 (15.7) | no |
+| ppo_resid_v3_left_fast1_s10 | deterministic | 100% | 22.54 | 48.37 | 360.36 | 22.54 | 15.337 | 98% | 0.023 | +0.008 | 0% | 0% | 54.65 / 54.72 | 122.2 / 122.4 | 102.0% | 0 | -5.3 (1.5) | FLAT |
+| ppo_resid_v3_left_fast1_s10 | stochastic | 100% | 18.58 | 20.13 | 124.50 | 18.58 | 18.577 | 100% | 0.925 | +0.167 | 4% | 0% | 54.56 / 55.14 | 122.0 / 123.3 | 102.8% | 0 | -3.5 (6.8) | FLAT |
+| ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | deterministic | 100% | 15.24 | 2.68 | 22.08 | 15.24 | 15.242 | 100% | 0.017 | -0.011 | 0% | 0% | 55.24 / 55.34 | 123.6 / 123.8 | 103.2% | 0 | -5.8 (1.4) | FLAT |
+| ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | stochastic | 100% | 15.20 | 2.98 | 24.89 | 15.20 | 15.201 | 100% | 0.027 | -0.011 | 0% | 0% | 55.21 / 55.77 | 123.5 / 124.7 | 104.0% | 0 | -5.4 (1.4) | FLAT |
 
 DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboard.md for caveats): mean over the 11 refs
 
@@ -61,3 +65,7 @@ DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboa
 | ppo_resid_v3_left_an9_s7 | stochastic | 2.099 / 1.547 |
 | ppo_resid_v3_left_an10_s8 | deterministic | 2.095 / 1.544 |
 | ppo_resid_v3_left_an10_s8 | stochastic | 2.144 / 1.629 |
+| ppo_resid_v3_left_fast1_s10 | deterministic | 2.388 / 1.994 |
+| ppo_resid_v3_left_fast1_s10 | stochastic | 2.391 / 1.997 |
+| ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | deterministic | 2.390 / 2.001 |
+| ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | stochastic | 2.390 / 2.002 |

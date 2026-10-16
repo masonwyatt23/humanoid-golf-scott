@@ -47,3 +47,7 @@ Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_lef
 | ppo_resid_v3_left_an9_s7 | 120000 | left | stoch | 100% | 126.63 | 345.37 | 81.20 | 86% | 8.19 | 46% | 42% | 110.2 / 116.5 | 97.1% |
 | ppo_resid_v3_left_an10_s8 | 120000 | left | deter | 100% | 128.80 | 324.46 | 109.97 | 94% | 5.67 | 50% | 32% | 107.0 / 108.4 | 90.3% |
 | ppo_resid_v3_left_an10_s8 | 120000 | left | stoch | 100% | 126.19 | 334.03 | 57.13 | 78% | 6.40 | 38% | 24% | 107.4 / 112.8 | 94.0% |
+| ppo_resid_v3_left_fast1_s10 | 100000 | left | deter | 100% | 22.54 | 360.36 | 15.34 | 98% | 0.02 | 0% | 0% | 122.2 / 122.4 | 102.0% |
+| ppo_resid_v3_left_fast1_s10 | 100000 | left | stoch | 100% | 18.58 | 124.50 | 18.58 | 100% | 0.92 | 4% | 0% | 122.0 / 123.3 | 102.8% |
+| ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | 100000 | left | deter | 100% | 15.24 | 22.08 | 15.24 | 100% | 0.02 | 0% | 0% | 123.6 / 123.8 | 103.2% |
+| ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | 100000 | left | stoch | 100% | 15.20 | 24.89 | 15.20 | 100% | 0.03 | 0% | 0% | 123.5 / 124.7 | 104.0% |
