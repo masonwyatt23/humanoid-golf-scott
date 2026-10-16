@@ -27,6 +27,10 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
+try:
+    from data import provenance as _prov
+except ImportError:  # run as a script
+    import provenance as _prov
 
 try:
     from data import ingest_feed_recordings as fr
@@ -192,6 +196,7 @@ def refine_swing(video: Path, sw: Dict, span: Dict, lander, args, debug_dir: Opt
                                 "(not retargeted/IK-solved); no club; leg joints unreliable if leg_valid_frame_ratio<0.6"))
     out = Path(args.out) / f"{name}.npz"
     if not args.dry_run:
+        _prov.tag(data, "mason_self_filmed")
         tmp = out.with_name(out.stem + ".tmp.npz")
         np.savez(tmp, **data)
         tmp.replace(out)

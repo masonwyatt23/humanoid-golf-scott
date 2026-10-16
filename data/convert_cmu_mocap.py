@@ -31,6 +31,10 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
+try:
+    from data import provenance as _prov
+except ImportError:  # run as a script
+    import provenance as _prov
 
 ASF_TO_M = (1.0 / 0.45) * 2.54 / 100.0      # CMU FAQ: 0.056444
 SRC_FPS = 120.0                              # CMU capture rate (FAQ); BVH Frame Time .0083333
@@ -368,6 +372,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             if not f.exists():
                 raise CmuConvertError(f"{f} missing (see docs/CMU_MOCAP_GOLF.md for download)")
             d = convert_bvh(f, handedness=args.handedness)
+            _prov.tag(d, "cmu_mocap")
             np.savez(args.out_dir / f"cmu_{tr}.npz", **d)
             s = summarize(d); report.append(s)
             print(f"[ok] {tr}: {s['frames']} frames, tempo {s['tempo']}, flags {s['qc_flags']}")

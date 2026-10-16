@@ -35,6 +35,10 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
+try:
+    from data import provenance as _prov
+except ImportError:  # run as a script
+    import provenance as _prov
 
 try:
     from data import process_video as pv
@@ -356,6 +360,7 @@ def process_video(video: Path, out_dir: Path, lander, args, debug_dir: Optional[
             sigs.append((name, sig))
             if not args.dry_run:
                 out = out_dir / f"{name}.npz"
+                _prov.tag(data, "mason_self_filmed")
                 tmp = out.with_name(out.stem + ".tmp.npz")
                 np.savez(tmp, **data)
                 tmp.replace(out)

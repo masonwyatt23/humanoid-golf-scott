@@ -29,6 +29,10 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 import numpy as np
+try:
+    from data import provenance as _prov
+except ImportError:  # run as a script
+    import provenance as _prov
 
 try:  # works as `python -m data.ingest_mason_swings` and `python data/ingest_mason_swings.py`
     from data import process_video as pv
@@ -247,6 +251,7 @@ def ingest_one(video: Path, out_dir: Path, backend, meta: Dict, args) -> Dict:
                 handedness=np.array(meta["handedness"]),
                 capture_fps=np.array(float(meta.get("capture_fps") or 0.0)),
                 effective_fps=np.array(float(eff)), detect_frac=np.array(det_frac))
+    _prov.tag(data, "mason_self_filmed")
     tmp = out.with_name(out.stem + ".tmp.npz")
     np.savez(tmp, **data)
     tmp.replace(out)

@@ -42,6 +42,10 @@ from pathlib import Path
 from typing import Dict, Optional
 
 import numpy as np
+try:
+    from data import provenance as _prov
+except ImportError:  # run as a script
+    import provenance as _prov
 
 # --------------------------------------------------------------------------------------
 # Style parameters
@@ -332,6 +336,7 @@ def save_reference(data: Dict, path: Path):
     arrays = {k: v for k, v in data.items() if isinstance(v, np.ndarray)}
     arrays["style"] = np.array(str(data.get("style", "")))
     arrays["dt"] = np.array(float(data["dt"]))
+    _prov.tag(arrays, "synthetic")
     np.savez(path, **arrays)
     print(f"Saved reference motion to {path}")
 

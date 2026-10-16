@@ -43,6 +43,10 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple
 
 import numpy as np
+try:
+    from data import provenance as _prov
+except ImportError:  # run as a script
+    import provenance as _prov
 
 try:  # scipy is in requirements.txt but keep a fallback
     from scipy.signal import savgol_filter
@@ -329,6 +333,7 @@ def process_video(video: Path, out_dir: Path, backend: PoseBackend, *, capture_f
     data["source"] = np.array(str(video.name))
     data["style"] = np.array("video")
     out = out_dir / f"{video.stem}_processed.npz"
+    _prov.tag(data, "unknown")  # origin of arbitrary video unknown; retag via tag_provenance --force
     np.savez(out, **data)
     return out
 

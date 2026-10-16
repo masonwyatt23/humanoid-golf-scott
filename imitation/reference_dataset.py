@@ -13,7 +13,8 @@ from typing import List, Dict, Optional
 
 
 class ReferenceDataset:
-    def __init__(self, reference_dir: Path, styles: Optional[List[str]] = None):
+    def __init__(self, reference_dir: Path, styles: Optional[List[str]] = None,
+                 commercial_only: bool = False):
         self.references: List[Dict] = []
         ref_dir = Path(reference_dir)
         
@@ -24,6 +25,10 @@ class ReferenceDataset:
         for pattern in patterns:
             for path in ref_dir.glob(pattern):
                 try:
+                    if commercial_only:
+                        from data.provenance import read_tags
+                        if not read_tags(path)["commercial_ok"]:
+                            continue
                     data = np.load(path)
                     self.references.append({
                         "path": str(path),
@@ -31,6 +36,8 @@ class ReferenceDataset:
                         "club_head": data["club_head"] if "club_head" in data else None,
                         "dt": float(data["dt"]) if "dt" in data else 0.01,
                         "name": path.stem,
+                        "license_class": str(data["license_class"]) if "license_class" in data else "unknown",
+                        "commercial_ok": bool(data["commercial_ok"]) if "commercial_ok" in data else False,
                     })
                     print(f"Loaded reference: {path.name} ({len(data['joints'])} frames)")
                 except Exception as e:
