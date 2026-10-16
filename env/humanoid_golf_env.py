@@ -55,7 +55,7 @@ class HumanoidGolfEnv(gym.Env):
         qvel = self.data.qvel.copy()
 
         ball_pos = self.data.xpos[self.model.body("ball").id]
-        ball_vel = self.data.cvel[self.model.body("ball").id][:3]
+        ball_vel = self.data.cvel[self.model.body("ball").id][3:6]  # linear velocity
 
         club_id = self.model.geom("club_head").id
         club_pos = self.data.geom_xpos[club_id]
@@ -86,25 +86,22 @@ class HumanoidGolfEnv(gym.Env):
             reward += 1.5 * np.exp(-club_err / 0.5)
 
         ball_pos = self.data.xpos[self.model.body("ball").id]
-        ball_vel = self.data.cvel[self.model.body("ball").id][:3]
+        ball_vel = self.data.cvel[self.model.body("ball").id][3:6]  # linear velocity
 
         club_id = self.model.geom("club_head").id
         club_pos = self.data.geom_xpos[club_id]
         club_ball_dist = np.linalg.norm(club_pos - ball_pos)
-        reward += 1.5 * np.exp(-club_ball_dist * 3.0)
+        reward += 2.5 * np.exp(-club_ball_dist * 4.0)
 
-        if club_ball_dist < 0.2:
-            reward += 3.0 * (1.0 - club_ball_dist / 0.2)
+        if club_ball_dist < 0.25:
+            reward += 4.0 * (1.0 - club_ball_dist / 0.25)
 
-        if not self.contacted and np.linalg.norm(ball_vel) > 0.5:
+        if not self.contacted and np.linalg.norm(ball_vel) > 0.3:
             self.contacted = True
-            reward += 10.0
+            reward += 15.0
 
-        dist_to_target = abs(ball_pos[0] - self.target_distance)
-        reward += 0.1 * max(0, 20 - dist_to_target)
-
-        if ball_vel[0] > 0:
-            reward += 0.05 * ball_vel[0]
+        if self.contacted and ball_vel[0] > 1.0:
+            reward += 0.5 * ball_vel[0]
 
         torso_height = self.data.xpos[self.model.body("torso").id][2]
         if torso_height < 0.5:
