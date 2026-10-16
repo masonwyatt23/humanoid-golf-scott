@@ -16,7 +16,8 @@ from gymnasium import spaces
 from env.humanoid_golf_env import HumanoidGolfEnv
 
 DEFAULT_SCRIPT = dict(q_back=2.0, elbow_back=0.5, t_hold=0.10, t_back=0.55, t_pause=0.05, t_down=0.22,
-                      q_fin=-1.2, t_follow=0.25, wrist_cock=0.0, yaw_back=0.0, yaw_fin=0.0)
+                      q_fin=-1.2, t_follow=0.25, wrist_cock=0.0, yaw_back=0.0, yaw_fin=0.0,
+                      wr_rel_start=0.0, wr_rel_end=0.667, wr_end=0.0, el_end=None)  # wrist release window (fraction of downswing), wrist angle after release, elbow at end of downswing (None = 20 deg)
 
 
 def _smooth(x):
@@ -87,10 +88,12 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             u = np.clip((t - t3) / s["t_down"], 0.0, 1.0) ** 1.5 if t < t4 else 1.0
             if t < t4:
                 sh = s["q_back"] + (s["q_fin"] - s["q_back"]) * u * 1.0
-                el = s["elbow_back"] + (el0 - s["elbow_back"]) * min(u * 1.5, 1.0)
-                wr = s["wrist_cock"] * (1 - min(u * 1.5, 1.0)); yaw = s["yaw_back"] + (s["yaw_fin"] - s["yaw_back"]) * u
+                el1 = el0 if s["el_end"] is None else s["el_end"]
+                el = s["elbow_back"] + (el1 - s["elbow_back"]) * min(u * 1.5, 1.0)
+                rr = np.clip((u - s["wr_rel_start"]) / max(s["wr_rel_end"] - s["wr_rel_start"], 1e-3), 0.0, 1.0)
+                wr = s["wrist_cock"] + (s["wr_end"] - s["wrist_cock"]) * rr; yaw = s["yaw_back"] + (s["yaw_fin"] - s["yaw_back"]) * u
             else:
-                sh, el, wr, yaw = s["q_fin"], el0, 0.0, s["yaw_fin"]
+                sh, el, wr, yaw = s["q_fin"], (el0 if s["el_end"] is None else s["el_end"]), s["wr_end"], s["yaw_fin"]
         if self.style is not None:
             t = t + self.style_lead
             # CMU sequencing prior: thorax-yaw and wrist-hinge curve shapes
@@ -226,8 +229,9 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             if self._contact_step is None:
                 self._contact_step = self.episode_steps
             r += 0.02 * self._gate() * min(float(np.linalg.norm(self._ball_lin_vel())), 60.0)
-            if self.episode_steps - self._contact_step == 3:  # launch quality shortly after separation: ~15 deg elevation, on-target azimuth
-                v = self._ball_lin_vel(); sp = float(np.linalg.norm(v))
+            if self._sep_v is not None and not getattr(self, "_launch_paid", False):  # launch quality AT SEPARATION (substep-level), target elevation / on-target azimuth
+                self._launch_paid = True
+                v = self._sep_v; sp = float(np.linalg.norm(v))
                 if sp > 5.0:
                     elev = np.arctan2(v[2], np.hypot(v[0], v[1])); az = np.arctan2(v[1], max(v[0], 1e-6))
                     r += self._gate() * (2.0 * np.exp(-((elev - self.elev_target) ** 2) / 0.04) + self.az_weight * np.exp(-(az ** 2) / (0.01 if self.az_weight <= 2.0 else 0.003)))
@@ -240,6 +244,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._contact_step = None
         self._seq = []
         self._an = None
+        self._launch_paid = False
         self._qtraj = []
         return obs, info
 
@@ -250,10 +255,9 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]])])
         self._seq.append([self.clock, abs(d.qvel[self._da["chest_yaw"]]), abs(d.qvel[self._da["right_shoulder_pitch"]]),
                           float(np.linalg.norm(d.cvel[self._club_body_id][:3]))])
-        if self.analytic_ball and self.true_contact and self._an is None and self._contact_step is not None \
-                and self.episode_steps - self._contact_step >= 3:
+        if self.analytic_ball and self.true_contact and self._an is None and self._sep_v is not None:
             from env.ball_flight_analytic import simulate
-            v = self._ball_lin_vel().copy(); sp = float(np.linalg.norm(v))
+            v = self._sep_v.copy(); sp = float(np.linalg.norm(v))
             elev = np.degrees(np.arctan2(v[2], np.hypot(v[0], v[1])))
             rpm = float(np.clip(1500.0 + 70.0 * elev, 1000.0, 5000.0))  # ASSUMED backspin from launch elevation (no measured spin)
             w0 = np.array([0.0, -rpm * 2 * np.pi / 60.0, 0.0])
@@ -264,7 +268,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             else:
                 self._an = dict(carry=0.0, lat=0.0, apex=0.0, spin=rpm, launch=float(elev), hang=0.0)
             self.carry = self._an["carry"]; self.ball_lateral = self._an["lat"]; self._landed = self._an["carry"] > 0
-            info["carry"] = self.carry; info["ball_lateral"] = self.ball_lateral; info["carry_analytic"] = self.carry; info["apex_analytic"] = self._an["apex"]; info["spin_rpm_assumed"] = rpm
+            self.launch_elevation = float(np.radians(elev)); info["launch_elevation"] = self.launch_elevation; info["sep_speed"] = sp; info["carry"] = self.carry; info["ball_lateral"] = self.ball_lateral; info["carry_analytic"] = self.carry; info["apex_analytic"] = self._an["apex"]; info["spin_rpm_assumed"] = rpm
             term = True
         if (not self.analytic_ball) and self.true_contact and (self._landed or (self.episode_steps > 10 and np.linalg.norm(self._ball_lin_vel()) < 0.2)):
             term = True

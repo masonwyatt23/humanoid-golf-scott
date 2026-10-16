@@ -121,6 +121,7 @@ class HumanoidGolfEnv(gym.Env):
 
     def _reset_metrics(self):
         self.true_contact = False
+        self._sep_v = None
         self.impact_club_speed = 0.0
         self.peak_ball_speed = 0.0
         self.peak_ball_vx = 0.0
@@ -435,6 +436,8 @@ class HumanoidGolfEnv(gym.Env):
                 self.data.qvel[6:12] = 0.0
             mujoco.mj_step(self.model, self.data)
             self.peak_club_speed = max(self.peak_club_speed, self._club_speed())
+            if self.true_contact and self._sep_v is None and not self._check_contact():
+                self._sep_v = self._ball_lin_vel().copy()   # ball velocity at the first substep after club-face separation (what the evaluator calls separation velocity)
             if not self.true_contact:
                 cs_now = self._club_speed()
                 if (not self._lockout()) and self._check_contact():
