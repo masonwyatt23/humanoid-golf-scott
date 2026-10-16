@@ -4,7 +4,12 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 
 ## Current Performance
 
-Reliable **100% contact rate** is achievable with the dense approach + contact rewards. Ball distance is still modest (typically 0.2–3 m depending on training length and reward balance). Longer runs and curriculum progression improve carry.
+- **Contact:** reliable (100%) contact rate is achievable with the dense approach + contact rewards.
+- **Distance:** still modest; longer training and curriculum progression are expected to improve carry.
+
+> No results/metrics files are committed to this repo, so no exact distance figures are quoted here. Reproduce them with `python -m eval.evaluate` (mean distance, contact rate) and `python -m eval.compare_styles`.
+
+See [ROADMAP.md](ROADMAP.md) for next steps.
 
 ## Features
 
@@ -39,7 +44,7 @@ python -m eval.compare_styles
 
 1. Download reels from @puregolf__ or public Adam Scott slow-mo videos.
 2. Place in `data/raw_videos/`.
-3. Run `python -m data.process_video`.
+3. Run `python -m data.process_video` (planned; not yet implemented in this repo).
 4. For production quality use WHAM or GVHMR and save `.npz` to `data/references/`.
 5. The ReferenceDataset automatically loads them.
 
