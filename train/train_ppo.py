@@ -53,15 +53,20 @@ def evaluate(model, make_env, n=50):
     cr = np.array([r["carry"] for r in rows])
     cs = np.array([r["impact_club_speed"] for r in rows])
     bs = np.array([r["peak_ball_speed"] for r in rows])
+    lat = np.array([r["ball_lateral"] for r in rows])
+    ld = np.array([r["launch_direction"] for r in rows])
     legacy = np.mean([r["contacted"] for r in rows])
-    print(f"EVAL n={n} true_contact_rate={c.mean():.2f} legacy_contacted_rate={legacy:.2f} "
+    print(f"EVAL n={n} true_contact_rate={c.mean():.2f} lateral={lat.mean():.2f}+-{lat.std():.2f} legacy_contacted_rate={legacy:.2f} "
           f"mean_ball_x={mx.mean():.2f} max_ball_x={mx.max():.2f} mean_ball_x_given_contact={(mx[c>0].mean() if c.any() else 0):.2f} "
           f"mean_carry={cr.mean():.2f} max_carry={cr.max():.2f} mean_impact_club_speed={cs.mean():.1f} mean_peak_ball_speed={bs.mean():.2f}")
     return {"n_episodes": n, "true_contact_rate": float(c.mean()), "legacy_contacted_rate": float(legacy),
             "mean_total_distance_x": float(mx.mean()), "max_total_distance_x": float(mx.max()),
             "mean_total_distance_x_given_contact": float(mx[c > 0].mean()) if c.any() else 0.0,
             "mean_carry": float(cr.mean()), "max_carry": float(cr.max()), "landed_fraction": float((cr > 0).mean()),
-            "mean_impact_club_speed": float(cs.mean()), "mean_peak_ball_speed": float(bs.mean()), "max_peak_ball_speed": float(bs.max())}
+            "mean_impact_club_speed": float(cs.mean()), "mean_peak_ball_speed": float(bs.mean()), "max_peak_ball_speed": float(bs.max()),
+            "ball_lateral_mean": float(lat.mean()), "ball_lateral_std": float(lat.std()),
+            "launch_direction_rad_mean": float(ld.mean()), "launch_direction_rad_std": float(ld.std()),
+            "distance_std": float(mx.std()), "contact_episodes": int(c.sum())}
 
 
 
@@ -74,6 +79,8 @@ def main():
     parser.add_argument("--pin_torso", action="store_true")
     parser.add_argument("--address_pose", default="legacy", choices=["legacy", "fixed"])
     parser.add_argument("--torque_scale", type=float, default=10.0)
+    parser.add_argument("--randomize_reset", action="store_true")
+    parser.add_argument("--forward_reward", action="store_true")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--eval_episodes", type=int, default=50)
     parser.add_argument("--tag", default="")
@@ -89,7 +96,8 @@ def main():
 
     def make_env():
         return HumanoidGolfEnv(reference_path=str(ref_path), curriculum=args.curriculum, pin_torso=args.pin_torso,
-                               address_pose=args.address_pose, torque_scale=args.torque_scale)
+                               address_pose=args.address_pose, torque_scale=args.torque_scale,
+                               randomize_reset=args.randomize_reset, forward_reward=args.forward_reward)
 
     env = make_vec_env(make_env, n_envs=args.n_envs, seed=args.seed)
 

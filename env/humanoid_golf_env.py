@@ -22,6 +22,8 @@ class HumanoidGolfEnv(gym.Env):
         pin_torso: bool = False,
         address_pose: str = "legacy",
         torque_scale: float = 10.0,
+        randomize_reset: bool = False,
+        forward_reward: bool = False,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -36,6 +38,8 @@ class HumanoidGolfEnv(gym.Env):
         self.target_distance = target_distance
         self.curriculum = curriculum
         self.pin_torso = pin_torso
+        self.randomize_reset = randomize_reset  # small ball-x / pose noise on reset (fixed pose only)
+        self.forward_reward = forward_reward    # contact-gated forward-direction reward + lateral penalty
         self.torque_scale = torque_scale  # ctrl = action * torque_scale (legacy 10 -> up to 500Nm at shoulder)
         self.address_pose = address_pose
         self.progress = 0.0  # 0..1 training progress, set via set_progress()
@@ -80,6 +84,11 @@ class HumanoidGolfEnv(gym.Env):
         self.impact_club_speed = 0.0
         self.peak_ball_speed = 0.0
         self.peak_ball_vx = 0.0
+        self.ball_speed = 0.0          # post-contact peak speed (alias of peak_ball_speed once in contact)
+        self.ball_lateral = 0.0        # ball y at episode end/latest (m), + = left of target line
+        self.launch_direction = 0.0    # azimuth of peak-speed ball velocity, atan2(vy,vx) rad (0 = on target line)
+        self.launch_elevation = 0.0
+        self._best_v = 0.0
         self.max_ball_x = 0.0
         self.carry = 0.0
         self._airborne = False
@@ -163,6 +172,13 @@ class HumanoidGolfEnv(gym.Env):
             # peak post-contact ball speed along the target (+x) direction, gated on contact
             r += w["ball"] * 0.5 * min(max(self.peak_ball_vx, 0.0), 30.0)
             # small penalty (once, at the end of the episode) for contact with a weak strike
+        if self.forward_reward and self.true_contact:
+            bv = self._ball_lin_vel()
+            sp = float(np.linalg.norm(bv[:2]))
+            direction_cos = bv[0] / (sp + 1e-6)          # 1 = straight down target line
+            r += 0.3 * min(max(bv[0], 0.0), 30.0) * max(direction_cos, 0.0)
+            r -= 0.5 * min(abs(self.data.xpos[self._ball_id][1]), 5.0)   # lateral deviation penalty
+            r -= 0.3 * min(sp, 30.0) * max(0.0, 1.0 - direction_cos)     # off-line speed
         if self.true_contact and self.episode_steps >= self.max_steps and self.peak_ball_vx < 3.0:
             r -= 2.0 * max(w["ball"], 0.25)
         if self.data.xpos[self.model.body("torso").id][2] < 0.5 and not self.pin_torso:
@@ -237,6 +253,11 @@ class HumanoidGolfEnv(gym.Env):
             # and are far outside the joint ranges.
             self.data.qpos[14] = -10.0
             self.data.qpos[16] = 60.0
+        if self.randomize_reset:
+            self.data.qpos[0] += self.np_random.uniform(-0.03, 0.03)      # ball x
+            self.data.qpos[1] += self.np_random.uniform(-0.02, 0.02)      # ball y
+            self.data.qpos[14] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
+            self.data.qpos[16] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
         self._root_pin = self.data.qpos[7:14].copy()
 
         mujoco.mj_forward(self.model, self.data)
@@ -264,6 +285,13 @@ class HumanoidGolfEnv(gym.Env):
         bp = self.data.xpos[self._ball_id]
         self.max_ball_x = max(self.max_ball_x, float(bp[0]))
         self.peak_ball_speed = max(self.peak_ball_speed, float(np.linalg.norm(self._ball_lin_vel())))
+        self.ball_lateral = float(bp[1])
+        bv = self._ball_lin_vel()
+        if self.true_contact and np.linalg.norm(bv) > self._best_v:
+            self._best_v = float(np.linalg.norm(bv))
+            self.ball_speed = self._best_v
+            self.launch_direction = float(np.arctan2(bv[1], max(abs(bv[0]), 1e-6) * np.sign(bv[0] if bv[0] != 0 else 1)))
+            self.launch_elevation = float(np.arctan2(bv[2], np.hypot(bv[0], bv[1]) + 1e-9))
         if self.true_contact:
             self.peak_ball_vx = max(self.peak_ball_vx, float(self._ball_lin_vel()[0]))
             if bp[2] > 0.06:
@@ -296,6 +324,10 @@ class HumanoidGolfEnv(gym.Env):
             "airborne": self._airborne,
             "impact_club_speed": self.impact_club_speed,
             "peak_ball_speed": self.peak_ball_speed,
+            "ball_speed": self.ball_speed,
+            "ball_lateral": self.ball_lateral,
+            "launch_direction": self.launch_direction,
+            "launch_elevation": self.launch_elevation,
             "phase": self.phase,
         }
 
