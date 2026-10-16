@@ -32,6 +32,7 @@ class HumanoidGolfEnv(gym.Env):
         gate_hi: float = 8.0,
         model_xml: str = "humanoid_golf.xml",
         flight_model: bool = False,
+        tee_height: float = 0.0,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -46,13 +47,14 @@ class HumanoidGolfEnv(gym.Env):
         self.target_distance = target_distance
         self.curriculum = curriculum
         self.pin_torso = pin_torso
+        self.tee_height = tee_height  # ball centre raised by this much and held (invisible tee) until first club contact; torso raised equally
         self.flight_model = flight_model  # drag + Magnus on the airborne ball (Cd .26, Cl=min(1.7 S,.3), rho 1.19)
         # carry_reward: ball-flight reward = carry (first landing) + launch elevation + ball speed,
         #   all scaled by a smooth club-speed gate at impact (0 below gate_lo m/s, 1 above gate_hi m/s).
         self.carry_reward = carry_reward
         self.gate_lo, self.gate_hi = gate_lo, gate_hi
         self.action_smoothing = action_smoothing  # ctrl = s*prev_ctrl + (1-s)*new (0 = off)
-        self._ctrl_prev = np.zeros(11)
+        self._ctrl_prev = np.zeros(self.model.nu if hasattr(self,'model') else 11)
         self.randomize_reset = randomize_reset  # small ball-x / pose noise on reset (fixed pose only)
         self.forward_reward = forward_reward    # contact-gated forward-direction reward + lateral penalty
         self.torque_scale = torque_scale  # ctrl = action * torque_scale (legacy 10 -> up to 500Nm at shoulder)
@@ -70,9 +72,9 @@ class HumanoidGolfEnv(gym.Env):
             r = np.deg2rad(shoulder_range_deg)
             self.model.jnt_range[jid] = [-r, r]
 
-        self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(11,), dtype=np.float32)
+        self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(self.model.nu,), dtype=np.float32)
 
-        obs_dim = 25 + 23 + 3 + 3 + 3 + 1
+        obs_dim = self.model.nq + self.model.nv + 3 + 3 + 3 + 1
         self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(obs_dim,), dtype=np.float32)
 
         self.reference = None
@@ -85,6 +87,8 @@ class HumanoidGolfEnv(gym.Env):
         self.episode_steps = 0
         self.max_steps = 200
         self._ball_id = self.model.body("ball").id
+        self._q_sp = int(self.model.jnt_qposadr[self.model.joint('right_shoulder_pitch').id])
+        self._q_el = int(self.model.jnt_qposadr[self.model.joint('right_elbow').id])
         self._club_geom = self.model.geom("club_head").id
         self._ball_geom = self.model.geom("ball_geom").id
         self._club_body = int(self.model.geom_bodyid[self._club_geom])
@@ -307,7 +311,7 @@ class HumanoidGolfEnv(gym.Env):
 
         self.data.qpos[0] = 0.35
         self.data.qpos[1] = 0.0
-        self.data.qpos[2] = 0.021
+        self.data.qpos[2] = 0.021 + self.tee_height
         self.data.qpos[3] = 1.0
 
         self.data.qpos[7] = 0.0
@@ -316,10 +320,10 @@ class HumanoidGolfEnv(gym.Env):
         self.data.qpos[10] = 1.0
 
         if self.address_pose == "fixed":
-            self.data.qpos[9] = 0.86   # torso lowered so club-head centre is ~2cm above ground (was 0.10m: club passed OVER the ball)
+            self.data.qpos[9] = 0.86 + self.tee_height   # torso lowered so club-head centre is ~2cm above ground (was 0.10m: club passed OVER the ball)
             self.data.qpos[0] = 0.43   # ball ahead of club head (head front edge ~0.38) so address is not interpenetrating
-            self.data.qpos[14] = 0.0                  # shoulder pitch (rad)
-            self.data.qpos[16] = np.deg2rad(20.0)     # elbow (rad)
+            self.data.qpos[self._q_sp] = 0.0                  # shoulder pitch (rad)
+            self.data.qpos[self._q_el] = np.deg2rad(20.0)     # elbow (rad)
         else:
             # legacy: values are interpreted as RADIANS by MuJoCo (-10 rad, 60 rad)
             # and are far outside the joint ranges.
@@ -328,9 +332,11 @@ class HumanoidGolfEnv(gym.Env):
         if self.randomize_reset:
             self.data.qpos[0] += self.np_random.uniform(-0.03, 0.03)      # ball x
             self.data.qpos[1] += self.np_random.uniform(-0.02, 0.02)      # ball y
-            self.data.qpos[14] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
-            self.data.qpos[16] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
-        self._ctrl_prev = np.zeros(11)
+            self.data.qpos[self._q_sp] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
+            self.data.qpos[self._q_el] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
+        self._ctrl_prev = np.zeros(self.model.nu if hasattr(self,'model') else 11)
+        self._ball_z0 = 0.021 + self.tee_height
+        self._place_left_arm()
         self._root_pin = self.data.qpos[7:14].copy()
 
         mujoco.mj_forward(self.model, self.data)
@@ -344,8 +350,44 @@ class HumanoidGolfEnv(gym.Env):
 
         return self._get_obs(), {}
 
+    def _place_left_arm(self):
+        """v3 two-handed grip: put the passive left arm where its hand meets the right wrist (once, cached)."""
+        m, d = self.model, self.data
+        try:
+            lp, le = m.joint('left_shoulder_pitch'), m.joint('left_elbow')
+        except KeyError:
+            return
+        if not hasattr(self, '_left_ik'):
+            mujoco.mj_forward(m, d)
+            tgt = d.xpos[m.body('right_wrist').id].copy()
+            hb = m.body('left_hand').id
+            qa, qe = int(m.jnt_qposadr[lp.id]), int(m.jnt_qposadr[le.id])
+            best = (1e9, 0.0, 0.0)
+            for a in np.linspace(-1.2, 1.2, 97):
+                for b in np.linspace(0.0, 2.0, 81):
+                    d.qpos[qa], d.qpos[qe] = a, b
+                    mujoco.mj_kinematics(m, d)
+                    err = np.linalg.norm(d.xpos[hb] - tgt)
+                    if err < best[0]:
+                        best = (err, a, b)
+            self._left_ik = best
+            d.qpos[qa], d.qpos[qe] = 0.0, 0.0
+        err, a, b = self._left_ik
+        d.qpos[int(m.jnt_qposadr[lp.id])] = a
+        d.qpos[int(m.jnt_qposadr[le.id])] = b
+        mujoco.mj_forward(m, d)
+
+    def _substep_ctrl(self):
+        return None  # hook: subclasses may recompute ctrl every physics substep (PD at sim rate)
+
+    def _phase_value(self):
+        return min(1.0, self.episode_steps / self.max_steps)
+
+    def _action_to_ctrl(self, action):
+        return np.clip(action, -1, 1) * self.torque_scale
+
     def step(self, action):
-        ctrl = np.clip(action, -1, 1) * self.torque_scale
+        ctrl = self._action_to_ctrl(action)
         if self.action_smoothing > 0:
             ctrl = self.action_smoothing * self._ctrl_prev + (1 - self.action_smoothing) * ctrl
         self._ctrl_prev = ctrl.copy()
@@ -354,6 +396,11 @@ class HumanoidGolfEnv(gym.Env):
         for _ in range(self.substeps):
             if self.flight_model:
                 self._apply_aero()
+            if self.tee_height > 0 and not self.true_contact:
+                self.data.qpos[2] = self._ball_z0; self.data.qvel[0:6] = 0.0
+            sc = self._substep_ctrl()
+            if sc is not None:
+                self.data.ctrl[:] = sc
             if self.pin_torso:
                 self.data.qpos[7:14] = self._root_pin
                 self.data.qvel[6:12] = 0.0
@@ -387,7 +434,7 @@ class HumanoidGolfEnv(gym.Env):
             return self._get_obs(), -100.0, True, False, {"ball_distance": 0.0, "contacted": False, "phase": self.phase}
 
         self.episode_steps += 1
-        self.phase = min(1.0, self.episode_steps / self.max_steps)
+        self.phase = self._phase_value()
         if self.reference is not None:
             self.ref_idx = min(len(self.reference["joints"]) - 1, self.episode_steps)
 
