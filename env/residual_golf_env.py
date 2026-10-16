@@ -273,7 +273,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             if self.true_contact and self._ref_shape is not None:
                 sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:
-                r += g * min(self.carry, self.carry_cap) / 5.0 - 0.2 * min(abs(self.ball_lateral), 20.0)
+                r += g * min(self.carry, self.carry_cap) / 5.0 - self.lat_weight * min(abs(self.ball_lateral), 20.0) - self.elev_weight * self._elev_pen()
                 if not self._landed:
                     r -= 1.0
             else:
