@@ -1,8 +1,13 @@
-# Roadmap
+# ROADMAP
 
-Highest-value next steps, in rough priority order:
+Highest-value next steps for the humanoid golf system:
 
-1. **Unitree G1 model** — replace the generic humanoid (`env/models/humanoid_golf.xml`) with a Unitree G1 MJCF for a realistic, transferable embodiment.
-2. **WHAM / GVHMR pose extraction** — extract real swing references from video (e.g. Adam Scott footage) into `.npz` files in `data/references/`; add the missing `data/process_video.py`.
-3. **Longer curriculum training** — run extended PPO training through the stages in `imitation/curriculum.py` (Address → Contact → Style → Ball flight) to raise carry distance while keeping contact at 100%.
-4. **Ball spin metrics** — track spin, launch angle and carry in the env and `eval/` scripts, and commit results files so README figures are verifiable.
+1. **Unitree G1 / H1 model** — Replace the simplified humanoid with a real humanoid MJCF for better morphology match and eventual sim-to-real.
+2. **WHAM / GVHMR reconstruction** — Swap MediaPipe for high-quality monocular 3D mesh recovery from PureGolf and Adam Scott videos.
+3. **Curriculum training at scale** — Run the staged curriculum (contact → style → ball flight) for 500k–2M steps on GPU with many parallel environments.
+4. **Ball spin and launch metrics** — Add clubface angle, path, and spin estimation so policies can be evaluated like Trackman data.
+5. **Proper IK retargeting** — Map reconstructed human motion onto the humanoid with contact-aware optimization.
+6. **Multi-style policies** — Train and compare Scott, Scheffler, and Rory styles side-by-side with the compare_styles script.
+7. **Transfer to ashlrai org** — Move the repository into the AshlrAI GitHub organization once admin access is available.
+
+Current reliable milestone: **100% contact rate** with improving carry (latest: 0.74 m). The system is ready for the next scaling steps.
