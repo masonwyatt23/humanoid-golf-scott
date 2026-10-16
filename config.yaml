@@ -1,0 +1,4 @@
+style: scott
+target_distance: 15.0
+timesteps: 100000
+n_envs: 4

@@ -1,0 +1,12 @@
+mujoco>=3.0
+torch
+gymnasium
+stable-baselines3
+numpy
+scipy
+tqdm
+pyyaml
+yt-dlp
+opencv-python-headless
+mediapipe
+imageio
