@@ -80,3 +80,15 @@ Common: v3 XML, left, loft 7, 150k steps, 6 envs, lr 3e-4, log_std_init -1.5, se
 | left_an5_s3 | 3 | 1.0 (m) | 3.0 | 70 | 19.4 / +0.02±0.01 / −2.8° / 52.4 (117.2) / 100% | 9.6 / 72% / 0.14 / 117.0 |
 | left_an6_s4 | 4 | 0.5 (% angular, `--lat_angular`) | 2.0 | 100 | 89.1 / +0.55±6.63 / 34.0° / 50.5 (112.9) / 100% | 99.8 / 98% / 6.95 / 113.0 |
 Reading: an5 found a degenerate flat/negative-launch optimum (lateral metres penalty is ~0 for short flat shots, i.e. the metre-based lateral penalty can be gamed by not flying). an6's angular penalty removed that exploit but the policy returned to the high-launch mode (34°, smash 0.73) with lateral std ~6.6. Neither passes the gate (an5 fails carry>11.98 under evaluator protocol and launch ≥5°; an6 fails lateral). Launch is bimodal: clean strike (scripted: 14°, smash 0.90) vs heel/toe-like high strike (30–40°, smash ~0.7) that the carry reward prefers.
+
+### Address-geometry finding (08:40 ET; scripted zero-residual, loft 7, left, tee 0.04, ball_dz 0.008; 60 eps analytic unless noted)
+Launch elevation and dispersion are governed by WHERE along the swing arc the face meets the ball (ball_x), not by loft or tee height (tee_height also raises the torso, so elevation is identical for tee 0.04 and 0.06):
+| ball_x (m) | x-noise | carry (analytic) | elev | lateral std | smash |
+|---|---|---|---|---|---|
+| 0.36–0.415 (20 eps, ±3 mm) | | 83–93 | 27–38° | 5–9.4 | 0.71–0.93 | (high, erratic mode)
+| 0.42 | ±5 mm | 70.5 | 20.3° | 3.65 | 0.92 |
+| 0.422 | ±5 mm | 60.5 | 14.7° | 2.09 | 0.91 |
+| 0.425 (20 eps, ±3 mm) | | 25.1 | 2.8° | 0.0 | 0.91 | (flat mode)
+| 0.43–0.44 (20 eps, ±3 mm) | | 2–9 | 0–0.5° | 0.0 | 0.89–0.92 |
+The transition from 15° to ~0° happens within ~5 mm of ball position, i.e. the swing arc's low point is just past the ball and the head is descending steeply at contact — with the default ±3 cm x-noise the strike lands in different regimes, which is the dispersion source (and why policies flatten to the stable flat mode). A physically sensible fix is ball placement (a slightly more rearward/consistent ball position, ~1 cm tolerance is unrealistic for a human but plausible for a robot with a placement guide) and ultimately a shallower arc (more wrist release / lower shaft lean), not tee height. Loft 9 at 0.42 gives 35° (too high).
+Evaluator-protocol check of scripted zero-residual at `ball_x=0.422, ball_x_noise=0.005, loft 7` (`python -m eval.eval_scripted_cfg '{"ball_x":0.422,"ball_x_noise":0.005}' 50 4000`, MuJoCo, 450-step horizon): contact 100%, carry 53.1 m, landed 80%, launch 11.0° mean (std 11.3, 42% flat), lateral mean −0.20 / std 1.98 m, peak club 48.2 m/s = 107.8 mph, smash median 0.92. This PASSES carry>11.98 & lat std<2.73 with zero learning (but not 120 mph, and noise is ±5 mm instead of ±3 cm).
