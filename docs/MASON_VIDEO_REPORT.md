@@ -132,3 +132,92 @@ python -m data.refine_swings --report data/references/mason_feed_report.json \
 ## Next
 Film 20-50 two-view 240 fps swings (docs/MASON_SWINGS.md) or export original files from the phone (not feed
 recordings): that fixes fps, view, tempo accuracy, and lets WHAM/GVHMR run properly.
+
+
+---
+# v2 re-mine (2026-10-16): dropped swings, camera view, handedness from the footage
+
+Code: `data/remine_feed_v2.py` (+ `tests/test_remine_feed_v2.py`). Outputs `data/references/mason_v2_*.npz`,
+report `data/references/mason_v2_report.json` (per chunk, per swing, every drop reason). Tracks cached in
+`/workspace/golf_scratch/cache_v2/` (scratch, not git).
+
+## What changed vs the first pass
+- **Layout-agnostic chunking.** The v1 tile finder is brightness-based and found a tile in only 46% of part3 frames.
+  v2 crops a fixed media band (y 9-86% of the frame), splits clips at hard cuts (frame-diff > 15) and runs pose on every
+  unique frame of every chunk >= 0.8 s (part1 10 chunks, part2 13, part3 18; 41 chunks). Pose detected in >= 93% of frames
+  in every chunk.
+- **Relaxed detector** (`peak_speed 3.5` vs 5, hands need only reach the shoulder line, min phase 0.08 s) plus rolling-median
+  outlier rejection on the raw tracks, `min_valid_frac 0.5` (swings 0.5-0.6 are written with flag
+  `upper_valid_frac_below_0.6` and never `recommended`).
+- **Partial swings** (loop restarts / clips that start at the downswing) are kept as `*_partial.npz`: window = 1.2 s before to
+  1.0 s after the hand-speed peak, no tempo, quality capped at 0.5, never recommended.
+- **Dark section of part3 (~92-112 s):** re-tracked with gamma+CLAHE enhancement (`--enhance`). Pose is found (detect 0.93-0.96) but
+  the silhouettes are too poor: all three night swing candidates (99.9-102.2 s, 109.6-111.1 s, partial at 105.3 s) still fail the
+  validity gate (34-47% of frames have the upper body at visibility >= 0.3). **Night swings are not recoverable with this model.**
+- Result: 28 full swings + 5 partials written (v1: 15 first-pass). 13 of the full swings overlap a v1 swing (same swing, re-cut,
+  recorded in `v1_overlap`); the rest are new or previously rejected (`low_valid_frames`, `no_backswing`).
+
+## Camera view per swing (`view`, `view_confidence`, `shoulder_width_ratio`, `stance_ratio`)
+Heuristic from the pose at address (0.6 s before takeaway): image distance between the shoulders divided by torso length.
+face-on >= 0.8, down-the-line <= 0.35, else `oblique`. Thresholds were set by looking at frames of 6 clips, not fitted to labels.
+Counts (33 swing files, excluding the un-mirrored copy): down-the-line 20, oblique 8, face-on 5. The only usable **face-on left-handed** swing is
+`mason_v2_p1_s11` (part1 68-70 s). Most of Mason's feed is down-the-line.
+
+## Handedness detected from the footage (`handedness`, `handedness_detected`, `handedness_confidence`, `handedness_verified`)
+Two voting cues using the pose model's anatomical left/right labels: (A) the *lead arm* at the top of the backswing is the
+straighter one (only when a real backswing exists), (C) at the finish the hands end nearer the *lead* shoulder. A third cue
+(face-on hand side at the top) is recorded but not voted: it contradicted the others when the torso turns away from the camera.
+Findings:
+- **18 clips are verified left-handed** (confidence >= 0.5, no cue in conflict; 11 of them have both cues, the rest only the lead-arm or only the finish cue; e.g. `p1_s03/04/06`, `p2_s01/02/11/13`): the footage independently
+  supports left-handed. Right arm straighter at the top (elbow ~125-140 deg vs left ~85-115 deg).
+- `handedness_verified=False` where cues conflict or only one cue exists (face-on `p1_s11`, `p2_s10`, night/close-up clips). For those
+  `handedness` falls back to the stated value `left`. I checked `p1_s11` by eye: the rear foot (heel up) is on the image right while
+  facing the camera, i.e. the target is image-left: left-handed.
+- **4 clips read right-handed** and carry no mirror caption: `p2_s05` (pink shirt), `p2_s08` (striped shirt), `p3_s08`
+  (gray tee, backyard), `p3_s01_partial`. They are either another golfer on Mason's feed or flipped edits. They are tagged
+  `license_class=unknown, commercial_ok=False` (not asserted self-owned) and `recommended=False`.
+- **`p3_s09` (87-89 s) reads right-handed with confidence 0.96, and the post carries the on-screen caption "What my swing would
+  look like if I was right handed"**: a mirror-flipped edit of a left-handed swing. The detector independently flagged it. I wrote
+  `mason_v2_p3_s09_unmirrored.npz` (mirrored back with `data/mirror_references.py`, `mirrored=True`, `handedness=left`,
+  `native_footage=False`). Quality 0.83 is the highest of the set (close-up, daylight, DTL) but legs are only 0.19 tracked.
+- Limits: a clip that was flipped by the camera app before posting (no caption) would read the opposite hand and cannot be told
+  apart by pose alone. I cannot verify the identity of the person in a clip; the feed is Mason's account and the clothes differ across
+  years (and some clips may be students/friends). v1 treated everything as Mason.
+
+## Joint-column convention (important for left-handed footage)
+`joints` columns are named `right_*` but are computed from the **anatomical** right arm/leg. For a left-handed golfer that is the
+**lead** arm (right-handed CMU / MultiSense files: `right_*` = trail arm, by the CMU converter's convention). Every v2 file carries
+`joint_convention`. Native-left v2 files need no mirroring to represent a left-handed swing; do not feed them to a loader that
+also mirrors them (`mirrored=False` for native, `True` only for `_unmirrored`).
+
+## Selection (`recommended=True`, 11 files, all full swings, quality >= 0.65, valid tempo, upper-valid >= 0.6, no handedness conflict)
+| File | Source @ s | View | Tempo | Quality | Legs tracked | Note |
+|---|---|---|---|---|---|---|
+| `mason_v2_p1_s06.npz` | part1 37.3-40.0 | oblique | 3.5 | 0.76 | 0.57 | = v1 `part1_s05` (best v1 swing) |
+| `mason_v2_p1_s11.npz` | part1 68.0-70.4 | **face-on** | 3.6 | 0.76 | 0.69 | new; address then cut to follow-through in the post, handedness unverified (cues conflict) |
+| `mason_v2_p2_s02.npz` | part2 19.8-22.5 | DTL | 3.6 | 0.75 | 0.53 | verified left, both cues |
+| `mason_v2_p2_s01.npz` | part2 14.8-17.7 | DTL | 2.9 | 0.70 | 0.22 | verified left |
+| `mason_v2_p1_s04.npz` | part1 18.8-20.9 | DTL | 2.2 | 0.69 | 0.37 | verified left |
+| `mason_v2_p1_s03.npz` | part1 12.9-14.8 | DTL | 3.2 | 0.69 | 0.49 | verified left |
+| `mason_v2_p2_s13.npz` | part2 86.6-88.2 | DTL | 3.8 | 0.68 | 0.31 | new, little address |
+| `mason_v2_p2_s10.npz` | part2 72.3-74.3 | DTL | 2.9 | 0.68 | 0.26 | new, handedness unverified |
+| `mason_v2_p1_s05.npz` | part1 26.3-28.6 | DTL | 2.9 | 0.66 | 0.24 | verified left |
+| `mason_v2_p2_s11.npz` | part2 76.6-78.2 | DTL | 2.8 | 0.66 | 0.34 | new, clipped follow-through |
+| `mason_v2_p3_s09_unmirrored.npz` | part3 87.1-89.3 | DTL | 2.9 | 0.83 | 0.19 | un-mirrored caption clip; highest quality score |
+The scores come from the same 0-1 heuristic as v1 (`refine_swings.quality_score`); the raw (unrefined-by-re-detection) v2 scores are
+a little lower than v1 `_refined` for the same swing because v2 does not run the best-of-3 re-detection. Use v1 `_refined` or v2
+interchangeably for overlapping swings; do not train on both (double counting).
+
+## Still wrong / not done
+- Tempo is still +-15% (30 fps or lower unique source frames); `p1_s01` (4.75) and `p2_s03` (4.88) are implausible.
+- No ground truth: view and handedness thresholds were checked by eye on ~10 clips, not on a labelled set.
+- Night swings not recoverable; 16 low-validity / duplicate candidates remain dropped (`mason_v2_report.json`).
+- Joints are still 2D-proxy angles, not retargeted/IK-fitted.
+
+## Reproduce
+```
+export LD_LIBRARY_PATH=/workspace/golf_scratch/libroot/usr/lib/x86_64-linux-gnu; source /workspace/golfvenv/bin/activate
+python -m data.remine_feed_v2 --stage track  --model /workspace/golf_scratch/pose_landmarker_heavy.task   # ~6 min per all 3 videos
+python -m data.remine_feed_v2 --stage track --only part3 --chunks 16,17 --enhance                         # night re-track
+python -m data.remine_feed_v2 --stage swings                                                               # seconds, from cache
+```

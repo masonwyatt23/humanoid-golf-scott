@@ -1,0 +1,1864 @@
+{
+ "videos": [
+  {
+   "video": "mason_swing_part1.mov",
+   "chunks": [
+    {
+     "chunk": "00",
+     "t0": 0.0,
+     "t1": 5.25,
+     "n_unique": 156,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0047,
+     "pose_jump_cuts": [
+      1.55,
+      4.87
+     ],
+     "torso_frac_of_tile_h": 0.092,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "01",
+     "t0": 5.85,
+     "t1": 9.94,
+     "n_unique": 124,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 1,
+     "outlier_frac": 0.0433,
+     "pose_jump_cuts": [
+      6.79,
+      7.5,
+      9.59
+     ],
+     "torso_frac_of_tile_h": 0.103,
+     "rejected": [
+      {
+       "t": 7.7,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "02",
+     "t0": 10.8,
+     "t1": 17.34,
+     "n_unique": 200,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0026,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.118,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "03",
+     "t0": 18.34,
+     "t1": 23.57,
+     "n_unique": 162,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0037,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.112,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "04",
+     "t0": 23.94,
+     "t1": 29.41,
+     "n_unique": 110,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.104,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "05",
+     "t0": 36.29,
+     "t1": 40.81,
+     "n_unique": 139,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.101,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "06",
+     "t0": 41.76,
+     "t1": 55.48,
+     "n_unique": 417,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 0,
+     "outlier_frac": 0.0047,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.127,
+     "rejected": [],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "07",
+     "t0": 56.23,
+     "t1": 58.61,
+     "n_unique": 84,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0036,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.106,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "08",
+     "t0": 59.13,
+     "t1": 64.21,
+     "n_unique": 155,
+     "detect_frac": 1.0,
+     "n_swings": 2,
+     "n_rejected": 0,
+     "outlier_frac": 0.0162,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.088,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "09",
+     "t0": 64.35,
+     "t1": 70.93,
+     "n_unique": 204,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0031,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.079,
+     "rejected": [
+      {
+       "t": 64.4,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    }
+   ],
+   "swings": [
+    {
+     "file": "mason_v2_p1_s01.npz",
+     "kind": "full",
+     "t": [
+      1.9,
+      4.45
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.17,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.7,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.32,
+     "elbL/R_top": [
+      98,
+      135
+     ],
+     "tempo": 4.75,
+     "quality": 0.627,
+     "recommended": false,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part1_s01.npz"
+     ],
+     "legs": 0.74,
+     "frames": 207
+    },
+    {
+     "file": "mason_v2_p1_s02_partial.npz",
+     "kind": "partial",
+     "t": [
+      6.5,
+      8.7
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.08,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 1.0,
+     "cues(lead_arm,finish)": [
+      null,
+      "right"
+     ],
+     "finish_r": -0.43,
+     "elbL/R_top": [
+      68,
+      124
+     ],
+     "tempo": null,
+     "quality": 0.448,
+     "recommended": false,
+     "flags": [
+      "partial_no_backswing"
+     ],
+     "v1_overlap": [],
+     "legs": 0.25,
+     "frames": 161
+    },
+    {
+     "file": "mason_v2_p1_s03.npz",
+     "kind": "full",
+     "t": [
+      12.89,
+      14.79
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.11,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.77,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.46,
+     "elbL/R_top": [
+      85,
+      117
+     ],
+     "tempo": 3.22,
+     "quality": 0.687,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part1_s02.npz"
+     ],
+     "legs": 0.49,
+     "frames": 147
+    },
+    {
+     "file": "mason_v2_p1_s04.npz",
+     "kind": "full",
+     "t": [
+      18.82,
+      20.92
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.06,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.75,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.45,
+     "elbL/R_top": [
+      111,
+      141
+     ],
+     "tempo": 2.21,
+     "quality": 0.693,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part1_s03.npz"
+     ],
+     "legs": 0.37,
+     "frames": 167
+    },
+    {
+     "file": "mason_v2_p1_s05.npz",
+     "kind": "full",
+     "t": [
+      26.32,
+      28.6
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.26,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.63,
+     "cues(lead_arm,finish)": [
+      "right",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      89,
+      127
+     ],
+     "tempo": 2.9,
+     "quality": 0.662,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part1_s04.npz"
+     ],
+     "legs": 0.24,
+     "frames": 187
+    },
+    {
+     "file": "mason_v2_p1_s06.npz",
+     "kind": "full",
+     "t": [
+      37.29,
+      40.02
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.48,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.65,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.47,
+     "elbL/R_top": [
+      116,
+      133
+     ],
+     "tempo": 3.5,
+     "quality": 0.756,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part1_s05.npz"
+     ],
+     "legs": 0.57,
+     "frames": 242
+    },
+    {
+     "file": "mason_v2_p1_s07.npz",
+     "kind": "full",
+     "t": [
+      56.23,
+      58.08
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.18,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.65,
+     "cues(lead_arm,finish)": [
+      "right",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      101,
+      139
+     ],
+     "tempo": 2.55,
+     "quality": 0.645,
+     "recommended": false,
+     "flags": [
+      "little_address_before_takeaway"
+     ],
+     "v1_overlap": [
+      "mason_swing_part1_s06.npz"
+     ],
+     "legs": 0.39,
+     "frames": 167
+    },
+    {
+     "file": "mason_v2_p1_s08.npz",
+     "kind": "full",
+     "t": [
+      60.93,
+      62.08
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.1,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.78,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.34,
+     "elbL/R_top": [
+      89,
+      132
+     ],
+     "tempo": 3.78,
+     "quality": 0.589,
+     "recommended": false,
+     "flags": [
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [],
+     "legs": 0.41,
+     "frames": 64
+    },
+    {
+     "file": "mason_v2_p1_s09.npz",
+     "kind": "full",
+     "t": [
+      61.7,
+      64.21
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.1,
+     "handedness": "left",
+     "detected": "unknown",
+     "hconf": 0.0,
+     "cues(lead_arm,finish)": [
+      null,
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      161,
+      95
+     ],
+     "tempo": null,
+     "quality": 0.642,
+     "recommended": false,
+     "flags": [
+      "tempo_out_of_range(0.74)",
+      "clipped_follow_through"
+     ],
+     "v1_overlap": [
+      "mason_swing_part1_s07.npz"
+     ],
+     "legs": 0.7,
+     "frames": 251
+    },
+    {
+     "file": "mason_v2_p1_s10_partial.npz",
+     "kind": "partial",
+     "t": [
+      64.35,
+      65.4
+     ],
+     "view": "face_on",
+     "shoulder_w": 0.92,
+     "handedness": "left",
+     "detected": "right",
+     "hconf": 0.26,
+     "cues(lead_arm,finish)": [
+      null,
+      "left"
+     ],
+     "finish_r": 0.1,
+     "elbL/R_top": [
+      166,
+      165
+     ],
+     "tempo": null,
+     "quality": 0.5,
+     "recommended": false,
+     "flags": [
+      "partial_no_backswing"
+     ],
+     "v1_overlap": [],
+     "legs": 1.0,
+     "frames": 104
+    },
+    {
+     "file": "mason_v2_p1_s11.npz",
+     "kind": "full",
+     "t": [
+      67.98,
+      70.38
+     ],
+     "view": "face_on",
+     "shoulder_w": 1.03,
+     "handedness": "left",
+     "detected": "right",
+     "hconf": 0.12,
+     "cues(lead_arm,finish)": [
+      "left",
+      "right"
+     ],
+     "finish_r": -0.13,
+     "elbL/R_top": [
+      161,
+      127
+     ],
+     "tempo": 3.6,
+     "quality": 0.756,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [],
+     "legs": 0.69,
+     "frames": 191
+    }
+   ]
+  },
+  {
+   "video": "mason_swing_part2.mov",
+   "chunks": [
+    {
+     "chunk": "00",
+     "t0": 0.0,
+     "t1": 12.34,
+     "n_unique": 377,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 0,
+     "outlier_frac": 0.001,
+     "pose_jump_cuts": [
+      12.25
+     ],
+     "torso_frac_of_tile_h": 0.139,
+     "rejected": [],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "01",
+     "t0": 13.3,
+     "t1": 18.6,
+     "n_unique": 134,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0034,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.125,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "02",
+     "t0": 19.24,
+     "t1": 22.82,
+     "n_unique": 111,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.003,
+     "pose_jump_cuts": [
+      22.54
+     ],
+     "torso_frac_of_tile_h": 0.085,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "03",
+     "t0": 23.47,
+     "t1": 27.16,
+     "n_unique": 122,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0037,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.121,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "04",
+     "t0": 27.74,
+     "t1": 32.49,
+     "n_unique": 152,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 3,
+     "outlier_frac": 0.0026,
+     "pose_jump_cuts": [
+      30.31,
+      32.01
+     ],
+     "torso_frac_of_tile_h": 0.122,
+     "rejected": [
+      {
+       "t": 29.89,
+       "reason": "no_backswing_before_peak"
+      },
+      {
+       "t": 27.79,
+       "reason": "no_backswing_before_peak"
+      },
+      {
+       "t": 30.49,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "05",
+     "t0": 32.67,
+     "t1": 39.51,
+     "n_unique": 218,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0017,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.101,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "06",
+     "t0": 42.14,
+     "t1": 42.83,
+     "n_unique": 9,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 0,
+     "outlier_frac": 0.0,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.116,
+     "rejected": [],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "07",
+     "t0": 43.49,
+     "t1": 47.24,
+     "n_unique": 108,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0034,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.116,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "08",
+     "t0": 47.49,
+     "t1": 52.83,
+     "n_unique": 121,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.01,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.115,
+     "rejected": [
+      {
+       "t": 47.54,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "09",
+     "t0": 53.56,
+     "t1": 70.35,
+     "n_unique": 450,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0005,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.131,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "10",
+     "t0": 71.38,
+     "t1": 78.23,
+     "n_unique": 209,
+     "detect_frac": 1.0,
+     "n_swings": 2,
+     "n_rejected": 0,
+     "outlier_frac": 0.0029,
+     "pose_jump_cuts": [
+      75.38
+     ],
+     "torso_frac_of_tile_h": 0.125,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "11",
+     "t0": 79.0,
+     "t1": 85.65,
+     "n_unique": 147,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0008,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.103,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "12",
+     "t0": 86.55,
+     "t1": 88.22,
+     "n_unique": 54,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0056,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.15,
+     "rejected": [],
+     "status": "swing"
+    }
+   ],
+   "swings": [
+    {
+     "file": "mason_v2_p2_s01.npz",
+     "kind": "full",
+     "t": [
+      14.82,
+      17.67
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.07,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.92,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.52,
+     "elbL/R_top": [
+      83,
+      134
+     ],
+     "tempo": 2.9,
+     "quality": 0.699,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part2_s01.npz"
+     ],
+     "legs": 0.22,
+     "frames": 239
+    },
+    {
+     "file": "mason_v2_p2_s02.npz",
+     "kind": "full",
+     "t": [
+      19.75,
+      22.47
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.16,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.89,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.43,
+     "elbL/R_top": [
+      84,
+      130
+     ],
+     "tempo": 3.62,
+     "quality": 0.746,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [
+      "mason_swing_part2_s02.npz"
+     ],
+     "legs": 0.53,
+     "frames": 227
+    },
+    {
+     "file": "mason_v2_p2_s03.npz",
+     "kind": "full",
+     "t": [
+      23.47,
+      24.9
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.23,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.63,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.54,
+     "elbL/R_top": [
+      110,
+      125
+     ],
+     "tempo": 4.88,
+     "quality": 0.411,
+     "recommended": false,
+     "flags": [
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [
+      "mason_swing_part2_s03.npz"
+     ],
+     "legs": 0.3,
+     "frames": 102
+    },
+    {
+     "kind": "partial",
+     "t": [
+      27.74,
+      28.79
+     ],
+     "dropped": "low_valid_frames: only 0% frames have all key landmarks (nee"
+    },
+    {
+     "kind": "partial",
+     "t": [
+      28.69,
+      30.89
+     ],
+     "dropped": "low_valid_frames: only 39% frames have all key landmarks (ne"
+    },
+    {
+     "file": "mason_v2_p2_s04_partial.npz",
+     "kind": "partial",
+     "t": [
+      29.29,
+      31.49
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.04,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.87,
+     "cues(lead_arm,finish)": [
+      null,
+      "right"
+     ],
+     "finish_r": -0.35,
+     "elbL/R_top": [
+      94,
+      122
+     ],
+     "tempo": null,
+     "quality": 0.45,
+     "recommended": false,
+     "flags": [
+      "partial_no_backswing"
+     ],
+     "v1_overlap": [],
+     "legs": 0.21,
+     "frames": 177
+    },
+    {
+     "file": "mason_v2_p2_s05.npz",
+     "kind": "full",
+     "t": [
+      37.74,
+      39.51
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.78,
+     "handedness": "right",
+     "detected": "right",
+     "hconf": 0.84,
+     "cues(lead_arm,finish)": [
+      "left",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      169,
+      119
+     ],
+     "tempo": 3.25,
+     "quality": 0.824,
+     "recommended": false,
+     "flags": [
+      "clipped_follow_through",
+      "detected_right_handed_possible_mirrored_edit_or_other_person"
+     ],
+     "v1_overlap": [],
+     "legs": 0.84,
+     "frames": 137
+    },
+    {
+     "file": "mason_v2_p2_s06.npz",
+     "kind": "full",
+     "t": [
+      43.86,
+      45.94
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.11,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.72,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.5,
+     "elbL/R_top": [
+      94,
+      120
+     ],
+     "tempo": 3.0,
+     "quality": 0.584,
+     "recommended": false,
+     "flags": [
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [],
+     "legs": 0.24,
+     "frames": 162
+    },
+    {
+     "file": "mason_v2_p2_s07_partial.npz",
+     "kind": "partial",
+     "t": [
+      47.49,
+      48.54
+     ],
+     "view": "face_on",
+     "shoulder_w": 0.85,
+     "handedness": "left",
+     "detected": "right",
+     "hconf": 0.32,
+     "cues(lead_arm,finish)": [
+      null,
+      "left"
+     ],
+     "finish_r": 0.13,
+     "elbL/R_top": [
+      170,
+      172
+     ],
+     "tempo": null,
+     "quality": 0.5,
+     "recommended": false,
+     "flags": [
+      "partial_no_backswing",
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [],
+     "legs": 1.0,
+     "frames": 54
+    },
+    {
+     "file": "mason_v2_p2_s08.npz",
+     "kind": "full",
+     "t": [
+      48.68,
+      50.73
+     ],
+     "view": "face_on",
+     "shoulder_w": 0.84,
+     "handedness": "right",
+     "detected": "right",
+     "hconf": 0.77,
+     "cues(lead_arm,finish)": [
+      "left",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      161,
+      115
+     ],
+     "tempo": 2.22,
+     "quality": 0.673,
+     "recommended": false,
+     "flags": [
+      "tracking_gaps_in_window",
+      "detected_right_handed_possible_mirrored_edit_or_other_person"
+     ],
+     "v1_overlap": [],
+     "legs": 0.6,
+     "frames": 127
+    },
+    {
+     "file": "mason_v2_p2_s09.npz",
+     "kind": "full",
+     "t": [
+      60.46,
+      62.66
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.57,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.34,
+     "cues(lead_arm,finish)": [
+      null,
+      "right"
+     ],
+     "finish_r": -0.14,
+     "elbL/R_top": [
+      97,
+      122
+     ],
+     "tempo": null,
+     "quality": 0.58,
+     "recommended": false,
+     "flags": [
+      "phase_too_short_for_tempo"
+     ],
+     "v1_overlap": [],
+     "legs": 0.67,
+     "frames": 187
+    },
+    {
+     "file": "mason_v2_p2_s10.npz",
+     "kind": "full",
+     "t": [
+      72.3,
+      74.33
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.1,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.12,
+     "cues(lead_arm,finish)": [
+      "right",
+      "left"
+     ],
+     "finish_r": 0.2,
+     "elbL/R_top": [
+      84,
+      128
+     ],
+     "tempo": 2.9,
+     "quality": 0.675,
+     "recommended": true,
+     "flags": [],
+     "v1_overlap": [],
+     "legs": 0.26,
+     "frames": 157
+    },
+    {
+     "file": "mason_v2_p2_s11.npz",
+     "kind": "full",
+     "t": [
+      76.56,
+      78.23
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.1,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.72,
+     "cues(lead_arm,finish)": [
+      "right",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      84,
+      127
+     ],
+     "tempo": 2.8,
+     "quality": 0.664,
+     "recommended": true,
+     "flags": [
+      "clipped_follow_through"
+     ],
+     "v1_overlap": [],
+     "legs": 0.34,
+     "frames": 124
+    },
+    {
+     "file": "mason_v2_p2_s12.npz",
+     "kind": "full",
+     "t": [
+      81.52,
+      83.5
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.11,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.79,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.37,
+     "elbL/R_top": [
+      95,
+      134
+     ],
+     "tempo": 2.9,
+     "quality": 0.647,
+     "recommended": false,
+     "flags": [
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [
+      "mason_swing_part2_s05.npz"
+     ],
+     "legs": 0.52,
+     "frames": 144
+    },
+    {
+     "file": "mason_v2_p2_s13.npz",
+     "kind": "full",
+     "t": [
+      86.55,
+      88.18
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.23,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.75,
+     "cues(lead_arm,finish)": [
+      "right",
+      "right"
+     ],
+     "finish_r": -0.39,
+     "elbL/R_top": [
+      99,
+      132
+     ],
+     "tempo": 3.78,
+     "quality": 0.676,
+     "recommended": true,
+     "flags": [
+      "little_address_before_takeaway"
+     ],
+     "v1_overlap": [],
+     "legs": 0.31,
+     "frames": 147
+    }
+   ]
+  },
+  {
+   "video": "mason_swing_part3.mov",
+   "chunks": [
+    {
+     "chunk": "00",
+     "t0": 0.3,
+     "t1": 4.77,
+     "n_unique": 138,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0031,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.22,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "01",
+     "t0": 5.55,
+     "t1": 11.55,
+     "n_unique": 182,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0027,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.133,
+     "rejected": [
+      {
+       "t": 5.95,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "02",
+     "t0": 11.8,
+     "t1": 17.89,
+     "n_unique": 189,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0021,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.143,
+     "rejected": [
+      {
+       "t": 11.85,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "03",
+     "t0": 17.94,
+     "t1": 18.9,
+     "n_unique": 30,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 0,
+     "outlier_frac": 0.0172,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.142,
+     "rejected": [],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "04",
+     "t0": 19.92,
+     "t1": 20.77,
+     "n_unique": 39,
+     "detect_frac": 1.0,
+     "n_swings": 0,
+     "n_rejected": 1,
+     "outlier_frac": 0.0,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.185,
+     "rejected": [
+      {
+       "t": 20.35,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "no_swing"
+    },
+    {
+     "chunk": "05",
+     "t0": 21.34,
+     "t1": 28.14,
+     "n_unique": 211,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0011,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.148,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "06",
+     "t0": 28.27,
+     "t1": 31.66,
+     "n_unique": 108,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0056,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.147,
+     "rejected": [
+      {
+       "t": 28.32,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "07",
+     "t0": 32.17,
+     "t1": 41.16,
+     "n_unique": 273,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0001,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.153,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "08",
+     "t0": 41.91,
+     "t1": 48.36,
+     "n_unique": 189,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0087,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.183,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "09",
+     "t0": 48.56,
+     "t1": 52.26,
+     "n_unique": 118,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0157,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.185,
+     "rejected": [
+      {
+       "t": 48.61,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "10",
+     "t0": 53.1,
+     "t1": 60.8,
+     "n_unique": 232,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0004,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.162,
+     "rejected": [
+      {
+       "t": 54.88,
+       "reason": "hands_not_above_shoulder_at_top"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "11",
+     "t0": 60.98,
+     "t1": 64.13,
+     "n_unique": 103,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0029,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.161,
+     "rejected": [
+      {
+       "t": 61.03,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "12",
+     "t0": 64.48,
+     "t1": 69.97,
+     "n_unique": 171,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0019,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.111,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "13",
+     "t0": 70.13,
+     "t1": 75.02,
+     "n_unique": 155,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0178,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.177,
+     "rejected": [
+      {
+       "t": 70.18,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "14",
+     "t0": 75.97,
+     "t1": 80.62,
+     "n_unique": 144,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0017,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.154,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "15",
+     "t0": 81.72,
+     "t1": 90.62,
+     "n_unique": 168,
+     "detect_frac": 1.0,
+     "n_swings": 1,
+     "n_rejected": 0,
+     "outlier_frac": 0.0032,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.198,
+     "rejected": [],
+     "status": "swing"
+    },
+    {
+     "chunk": "16",
+     "t0": 91.0,
+     "t1": 105.09,
+     "n_unique": 244,
+     "detect_frac": 0.926,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0009,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.132,
+     "rejected": [
+      {
+       "t": 91.53,
+       "reason": "hands_not_above_shoulder_at_top"
+      }
+     ],
+     "status": "swing"
+    },
+    {
+     "chunk": "17",
+     "t0": 105.25,
+     "t1": 111.96,
+     "n_unique": 225,
+     "detect_frac": 0.96,
+     "n_swings": 1,
+     "n_rejected": 1,
+     "outlier_frac": 0.0031,
+     "pose_jump_cuts": [],
+     "torso_frac_of_tile_h": 0.131,
+     "rejected": [
+      {
+       "t": 105.5,
+       "reason": "no_backswing_before_peak"
+      }
+     ],
+     "status": "swing"
+    }
+   ],
+   "swings": [
+    {
+     "kind": "full",
+     "t": [
+      0.78,
+      2.83
+     ],
+     "dropped": "low_valid_frames: only 42% frames have all key landmarks (ne"
+    },
+    {
+     "file": "mason_v2_p3_s01_partial.npz",
+     "kind": "partial",
+     "t": [
+      5.55,
+      6.95
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.53,
+     "handedness": "right",
+     "detected": "right",
+     "hconf": 1.0,
+     "cues(lead_arm,finish)": [
+      null,
+      "left"
+     ],
+     "finish_r": 0.49,
+     "elbL/R_top": [
+      138,
+      153
+     ],
+     "tempo": null,
+     "quality": 0.5,
+     "recommended": false,
+     "flags": [
+      "partial_no_backswing",
+      "detected_right_handed_possible_mirrored_edit_or_other_person"
+     ],
+     "v1_overlap": [],
+     "legs": 0.3,
+     "frames": 129
+    },
+    {
+     "file": "mason_v2_p3_s02.npz",
+     "kind": "full",
+     "t": [
+      6.63,
+      8.55
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.54,
+     "handedness": "left",
+     "detected": "unknown",
+     "hconf": 0.0,
+     "cues(lead_arm,finish)": [
+      null,
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      92,
+      139
+     ],
+     "tempo": null,
+     "quality": 0.467,
+     "recommended": false,
+     "flags": [
+      "phase_too_short_for_tempo"
+     ],
+     "v1_overlap": [],
+     "legs": 0.38,
+     "frames": 114
+    },
+    {
+     "kind": "partial",
+     "t": [
+      11.8,
+      12.85
+     ],
+     "dropped": "low_valid_frames: only 2% frames have all key landmarks (nee"
+    },
+    {
+     "file": "mason_v2_p3_s03.npz",
+     "kind": "full",
+     "t": [
+      13.65,
+      15.64
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.58,
+     "handedness": "left",
+     "detected": "unknown",
+     "hconf": 0.0,
+     "cues(lead_arm,finish)": [
+      null,
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      104,
+      140
+     ],
+     "tempo": null,
+     "quality": 0.339,
+     "recommended": false,
+     "flags": [
+      "phase_too_short_for_tempo",
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [],
+     "legs": 0.02,
+     "frames": 114
+    },
+    {
+     "file": "mason_v2_p3_s04.npz",
+     "kind": "full",
+     "t": [
+      23.64,
+      25.4
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.6,
+     "handedness": "left",
+     "detected": "unknown",
+     "hconf": 0.0,
+     "cues(lead_arm,finish)": [
+      null,
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      100,
+      139
+     ],
+     "tempo": null,
+     "quality": 0.432,
+     "recommended": false,
+     "flags": [
+      "phase_too_short_for_tempo"
+     ],
+     "v1_overlap": [
+      "mason_swing_part3_s01.npz"
+     ],
+     "legs": 0.17,
+     "frames": 106
+    },
+    {
+     "kind": "partial",
+     "t": [
+      28.27,
+      29.32
+     ],
+     "dropped": "low_valid_frames: only 0% frames have all key landmarks (nee"
+    },
+    {
+     "file": "mason_v2_p3_s05.npz",
+     "kind": "full",
+     "t": [
+      28.74,
+      31.02
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.16,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.74,
+     "cues(lead_arm,finish)": [
+      "right",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      98,
+      142
+     ],
+     "tempo": 3.45,
+     "quality": 0.584,
+     "recommended": false,
+     "flags": [
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [],
+     "legs": 0.16,
+     "frames": 164
+    },
+    {
+     "kind": "full",
+     "t": [
+      34.51,
+      36.49
+     ],
+     "dropped": "duplicate_of mason_v2_p3_s02"
+    },
+    {
+     "kind": "full",
+     "t": [
+      43.42,
+      45.29
+     ],
+     "dropped": "low_valid_frames: only 30% frames have all key landmarks (ne"
+    },
+    {
+     "kind": "partial",
+     "t": [
+      48.56,
+      49.61
+     ],
+     "dropped": "low_valid_frames: only 0% frames have all key landmarks (nee"
+    },
+    {
+     "kind": "full",
+     "t": [
+      48.99,
+      50.91
+     ],
+     "dropped": "low_valid_frames: only 36% frames have all key landmarks (ne"
+    },
+    {
+     "file": "mason_v2_p3_s06.npz",
+     "kind": "full",
+     "t": [
+      55.41,
+      57.06
+     ],
+     "view": "oblique",
+     "shoulder_w": 0.58,
+     "handedness": "left",
+     "detected": "unknown",
+     "hconf": 0.0,
+     "cues(lead_arm,finish)": [
+      null,
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      111,
+      140
+     ],
+     "tempo": null,
+     "quality": 0.451,
+     "recommended": false,
+     "flags": [
+      "phase_too_short_for_tempo",
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [
+      "mason_swing_part3_s03.npz"
+     ],
+     "legs": 0.5,
+     "frames": 97
+    },
+    {
+     "kind": "partial",
+     "t": [
+      60.98,
+      62.03
+     ],
+     "dropped": "low_valid_frames: only 0% frames have all key landmarks (nee"
+    },
+    {
+     "file": "mason_v2_p3_s07.npz",
+     "kind": "full",
+     "t": [
+      61.65,
+      63.63
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.05,
+     "handedness": "left",
+     "detected": "left",
+     "hconf": 0.57,
+     "cues(lead_arm,finish)": [
+      "right",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      106,
+      140
+     ],
+     "tempo": 2.55,
+     "quality": 0.583,
+     "recommended": false,
+     "flags": [
+      "upper_valid_frac_below_0.6"
+     ],
+     "v1_overlap": [],
+     "legs": 0.15,
+     "frames": 146
+    },
+    {
+     "file": "mason_v2_p3_s08.npz",
+     "kind": "full",
+     "t": [
+      66.98,
+      69.06
+     ],
+     "view": "face_on",
+     "shoulder_w": 1.05,
+     "handedness": "right",
+     "detected": "right",
+     "hconf": 0.7,
+     "cues(lead_arm,finish)": [
+      "left",
+      null
+     ],
+     "finish_r": null,
+     "elbL/R_top": [
+      163,
+      121
+     ],
+     "tempo": 2.16,
+     "quality": 0.82,
+     "recommended": false,
+     "flags": [
+      "detected_right_handed_possible_mirrored_edit_or_other_person"
+     ],
+     "v1_overlap": [],
+     "legs": 0.82,
+     "frames": 157
+    },
+    {
+     "kind": "partial",
+     "t": [
+      70.13,
+      71.18
+     ],
+     "dropped": "low_valid_frames: only 0% frames have all key landmarks (nee"
+    },
+    {
+     "kind": "full",
+     "t": [
+      72.85,
+      74.41
+     ],
+     "dropped": "low_valid_frames: only 29% frames have all key landmarks (ne"
+    },
+    {
+     "kind": "full",
+     "t": [
+      77.93,
+      79.43
+     ],
+     "dropped": "low_valid_frames: only 47% frames have all key landmarks (ne"
+    },
+    {
+     "file": "mason_v2_p3_s09.npz",
+     "kind": "full",
+     "t": [
+      87.05,
+      89.25
+     ],
+     "view": "down_the_line",
+     "shoulder_w": 0.12,
+     "handedness": "right",
+     "detected": "right",
+     "hconf": 0.96,
+     "cues(lead_arm,finish)": [
+      "left",
+      "left"
+     ],
+     "finish_r": 0.4,
+     "elbL/R_top": [
+      154,
+      99
+     ],
+     "tempo": 2.85,
+     "quality": 0.83,
+     "recommended": false,
+     "flags": [
+      "detected_right_handed_possible_mirrored_edit_or_other_person",
+      "mirrored_edit_caption_in_video"
+     ],
+     "v1_overlap": [],
+     "legs": 0.19,
+     "frames": 196,
+     "unmirrored_file": "mason_v2_p3_s09_unmirrored.npz"
+    },
+    {
+     "kind": "full",
+     "t": [
+      99.88,
+      102.2
+     ],
+     "dropped": "low_valid_frames: only 47% frames have all key landmarks (ne"
+    },
+    {
+     "kind": "partial",
+     "t": [
+      105.25,
+      106.5
+     ],
+     "dropped": "low_valid_frames: only 0% frames have all key landmarks (nee"
+    },
+    {
+     "kind": "full",
+     "t": [
+      109.55,
+      111.08
+     ],
+     "dropped": "low_valid_frames: only 34% frames have all key landmarks (ne"
+    }
+   ]
+  }
+ ],
+ "n_full": 28,
+ "n_partial": 5,
+ "clips": []
+}

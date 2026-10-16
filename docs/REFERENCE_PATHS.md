@@ -60,3 +60,32 @@ club_head x negated (when present), landmarks x negated with L/R indices swapped
 Handedness note: the originals assumed right-handed; Mason states he is left-handed, so the mirrored files are the
 likely-left-handed-consistent versions; verify against video. Mirroring is not applied in the env.
 Caution: globs like `mason_*.npz` now also match mirrored files (double counting); filter on `mirrored`.
+
+
+## v2 additions (2026-10-16): `mason_v2_*.npz` and `multisense_*.npz`
+
+**Pattern warning:** `mason_*.npz` now also matches `mason_v2_*`; v2 swings overlap v1 swings (`v1_overlap` field names the v1
+file). Filter on `recommended`, `mirrored`, `partial`, `handedness_verified`, `license_class` instead of globbing. Don't train on
+a v1 file and its v2 twin.
+
+### Mason v2 (native left-handed footage, no mirroring) - details in docs/MASON_VIDEO_REPORT.md
+Extra keys: `view` (face_on / down_the_line / oblique), `view_confidence`, `handedness` (detected if confident else stated `left`),
+`handedness_detected`, `handedness_confidence`, `handedness_verified`, `handedness_stated='left'`, `native_footage`, `mirrored`,
+`partial`, `recommended`, `quality_score`, `quality_flags`, `v1_overlap`, `joint_convention` (`right_*` = anatomical right = LEAD arm
+for a left-hander), `source_clip_note`. Tags via `data/provenance.py`: `self_owned`/`commercial_ok` (30 files); the 4 clips that read
+right-handed with no caption are `unknown`/`commercial_ok=False`.
+Recommended (11): `mason_v2_p1_s06, p1_s11 (face-on), p2_s02, p2_s01, p1_s04, p1_s03, p2_s13, p2_s10, p1_s05, p2_s11` and
+`mason_v2_p3_s09_unmirrored` (see table in the video report). Partials: `*_partial.npz` (5, never recommended). Right-handed-reading
+clips (not recommended): `p2_s05, p2_s08, p3_s08, p3_s01_partial`; `p3_s09` is the caption-flipped edit (use the `_unmirrored` file).
+Total 34 files: 28 full + 5 partial + 1 unmirrored.
+
+### MultiSenseGolf (CC0, inertial mocap, full body) - details in docs/research_open_data_v2.md
+`data/references/multisense_P{19,20,22}_sNN.npz`, 28 files (top club-speed swings >= 88 mph of 3 participants; P23 never reached
+88). Right-handed golfers (all 24 participants are). Tag: `license_class=cc0`, `commercial_ok=True`. Keys as CMU files plus
+`club_speed_mph_launch_monitor`, `ball_speed_mps`, `carry_m`, `skill_self_report_1to7`, `capture`, `view='3d'`. Fast swings:
+club speed 88.8-102.7 mph, tempo 2.1-3.6, hand peak 7.4-10.5 m/s. `wrist_hinge_deg` and joint cols 3, 7, 10 (wrist, ankles) are NOT measured
+(zeros, flag `wrist_ankle_not_measured`). No club-head trajectory. For a left-handed humanoid, mirror with
+`python -m data.mirror_references --pattern 'multisense_*.npz'` (not done; the mirror tool was written for the 11-col layout and works on
+these files but I left them unmirrored).
+
+License class `cc0` was added to `data/provenance.py` (`multisensegolf_cc0` preset; `infer_kind` maps names containing `multisense`).

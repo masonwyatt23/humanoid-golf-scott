@@ -2,7 +2,7 @@
 
 Keys written (0-d arrays): license_class, commercial_ok, provenance_source,
 provenance_note, acknowledgment_required (bool), acknowledgment_text (str).
-license_class in {synthetic, self_owned, cmu_permissive, noncommercial, unknown}.
+license_class in {synthetic, self_owned, cmu_permissive, cc0, noncommercial, unknown}.
 Unknown / unrecognised data is treated as NOT commercial-safe.
 Not legal advice. Files without tags are treated as unknown (commercial_ok False).
 """
@@ -14,7 +14,7 @@ from typing import Dict, Iterable, List, Optional
 
 import numpy as np
 
-LICENSE_CLASSES = ("synthetic", "self_owned", "cmu_permissive", "noncommercial", "unknown")
+LICENSE_CLASSES = ("synthetic", "self_owned", "cmu_permissive", "cc0", "noncommercial", "unknown")
 TAG_KEYS = ("license_class", "commercial_ok", "provenance_source", "provenance_note",
             "acknowledgment_required", "acknowledgment_text")
 
@@ -35,6 +35,14 @@ PRESETS: Dict[str, Dict] = {
                                       "commercial products; do NOT resell this data directly, even in converted "
                                       "form (no standalone dataset distribution).",
                       acknowledgment_required=True, acknowledgment_text=CMU_ACK),
+    "multisensegolf_cc0": dict(license_class="cc0", commercial_ok=True, provenance_source="multisensegolf_harvard_dataverse",
+                              provenance_note="MultiSenseGolf (Oh et al., Harvard Dataverse doi:10.7910/DVN/LCCLLW), "
+                                              "CC0 1.0 per the dataset record; inertial-mocap joint positions only "
+                                              "(no video/faces used). Participants consented to data disclosure. "
+                                              "IMU mocap, not optical: expect drift/noise.",
+                              acknowledgment_required=False,
+                              acknowledgment_text="Oh, Seong, Ko, Lim, Kim, Choi, DelPreto, Rus, Kim. MultiSenseGolf, "
+                                                  "Harvard Dataverse, doi:10.7910/DVN/LCCLLW (CC0; citation courtesy)."),
     "noncommercial": dict(license_class="noncommercial", commercial_ok=False, provenance_source="noncommercial_dataset",
                           provenance_note="Derived from a non-commercial/academic-only source (e.g. GolfDB, AMASS, "
                                           "SportsPose). Do not use for commercial training.",
@@ -71,6 +79,8 @@ def infer_kind(name: str, arrays: Optional[Dict] = None) -> str:
     low = f"{name} {src} {style}".lower()
     if any(w in low for w in ("golfdb", "amass", "sportspose", "rep3d", "golfpose", "caddieset")):
         return "noncommercial"
+    if "multisense" in low:
+        return "multisensegolf_cc0"
     if "cmu" in low:
         return "cmu_mocap"
     if "mason" in low:
