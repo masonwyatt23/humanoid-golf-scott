@@ -4,7 +4,7 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 
 ## Current Performance
 
-Numbers below are copied from the committed `results/leaderboard.md` / `results/leaderboard.json` (50 episodes, seeds 4000-4049, env fingerprint `25d5c5608c4d`, v2 physics). Contact = true club-ball contact. Distance = final ball x in metres (total, including roll); carry = x at landing (0 if the ball never landed).
+Numbers below are copied from the committed `results/leaderboard.md` / `results/leaderboard.json` (50 episodes, seeds 4000-4049, env fingerprint `59bc5ea99d60`, v2 physics). Contact = true club-ball contact. Distance = final ball x in metres (total, including roll); carry = x at landing (0 if the ball never landed).
 
 | Model | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) |
 |---|---|---|---|---|---|---|
@@ -19,9 +19,13 @@ Numbers below are copied from the committed `results/leaderboard.md` / `results/
 | ppo_scott / ppo_scott_carry1 (best by leaderboard) | 100000 | deterministic | 98% | 0.47 | 0.59 | 0.102 |
 | ppo_scott / ppo_scott_carry1 (best by leaderboard) | 100000 | stochastic | 66% | 0.88 | 5.93 | 0.237 |
 
-Takeaways: 100% contact has been reached by some models in deterministic mode, but not together with distance. Carry is still tiny (best mean 0.24 m) and the leaderboard ranks by contact, then carry. Peak club-speed columns in `results/leaderboard.md` include implausible values for early models and should not be trusted.
+Takeaways: 100% contact has been reached by some models in deterministic mode, but not together with distance. Carry is still tiny (best mean 0.24 m) and the leaderboard ranks by contact, then carry.
 
-> **Reproducibility caveat:** the v2/v3 environment code (`env/`), `eval/flight_tracker.py` and training scripts are now pushed, but the model checkpoints are not (trained models are not committed; they will be shared via a GitHub Releases note). `eval/leaderboard.py`, which produced `results/leaderboard.*`, is also not in the repo. So the table can't be re-run end to end from this repo yet; the `results/` files are raw outputs.
+Club speed (from `results/leaderboard.md`, peak club-head linear speed over all physics substeps; 120 mph = 53.64 m/s target): the best model `ppo_scott_carry1` reaches a mean peak of 25.78 m/s and a max of 40.74 m/s (91.1 mph, 75.9% of target) in stochastic mode, with a mean peak ball speed of only 2.45 m/s. In deterministic mode its peak club speed is 0.35 m/s mean / 0.58 m/s max. Single-swing peaks in stochastic mode are not a sustained, controlled swing.
+
+**Early-model club speeds:** the 706,966 m/s peak seen for `ppo_scott_baseline` was real output from an unstable legacy-config simulation (torque_scale 10, out-of-range legacy address pose) that diverged within ~0.05 s (MuJoCo "Nan, Inf or huge value in QACC"), not a metric bug. `eval/flight_tracker.py` now flags episodes with any substep above 100 m/s or non-finite and excludes them from peak stats (raw max is reported, never clipped); the leaderboard shows `ppo_scott_baseline` as n/a (50 sim-unstable episodes excluded).
+
+> **Reproducibility caveat:** the v2/v3 environment code (`env/`), `eval/flight_tracker.py`, `eval/leaderboard.py` and training scripts are pushed, but the model checkpoints are not (trained models are not committed; they will be shared via a GitHub Releases note). The leaderboard therefore can't be re-run end to end from this repo yet; the `results/` files are the recorded outputs.
 
 See [ROADMAP.md](ROADMAP.md) for next steps.
 
