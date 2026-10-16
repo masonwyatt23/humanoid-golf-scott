@@ -80,6 +80,8 @@ class Recorder:
         self.slow = (1.0 / FPS) / (K * env.model.opt.timestep)
         self.orig = None
         self.peak_club = 0.0
+        self.banner = None   # compare mode: list of header lines (drawn top strip)
+        self.ft = None       # compare mode: FlightTracker (launch elevation after contact)
 
     def install(self):
         self.orig = self.mj.mj_step
@@ -122,6 +124,9 @@ class Recorder:
                  f"Club speed @impact: {f(stats['club'], 'm/s')}   Ball speed (peak so far): {f(stats['ball'] if e.true_contact else None, 'm/s')}",
                  f"Carry: {'n/a' if stats['carry'] <= 0 else format(stats['carry'], '.2f') + ' m'}   Lateral y (+left): {stats['y']:+.2f} m   Slow-mo {self.slow:.1f}x",
                  "Measured in simulation (single swing); yellow dots = ball path"]
+        if self.ft is not None:
+            le = self.ft.launch_elev_deg() if e.true_contact else float("nan")
+            lines[3] = f"Launch elevation (ball velocity after contact): {'n/a' if le != le else format(le, '.1f') + ' deg'}   Left-handed setup   (measured; yellow = ball path)"
         pk_mph = self.peak_club * 2.23694; pct = min(100.0, self.peak_club / 53.64 * 100)
         ov = img.copy(); self.cv2.rectangle(ov, (0, 480 - 92), (1280, 480), (0, 0, 0), -1)
         img = self.cv2.addWeighted(ov, 0.6, img, 0.4, 0)
@@ -133,6 +138,11 @@ class Recorder:
         self.cv2.rectangle(img, (x0, y0), (x1, y0 + 18), (200, 200, 200), 1)
         self.cv2.rectangle(img, (x0, y0), (x0 + int((x1 - x0) * pct / 100), y0 + 18), (60, 200, 60), -1)
         self.cv2.putText(img, f"{pct:.1f}% of 120 mph target (53.64 m/s)", (x0, y0 + 38), self.cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, self.cv2.LINE_AA)
+        if self.banner:
+            ov = img.copy(); self.cv2.rectangle(ov, (0, 30), (1280, 30 + 24 * len(self.banner) + 6), (0, 0, 0), -1)
+            img = self.cv2.addWeighted(ov, 0.65, img, 0.35, 0)
+            for i, t in enumerate(self.banner):
+                self.cv2.putText(img, t, (10, 50 + 24 * i), self.cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 220, 255) if i == 0 else (255, 255, 255), 2 if i == 0 else 1, self.cv2.LINE_AA)
         for _ in range(hold): self.w.write(img)
         self.last = img
 
@@ -160,13 +170,78 @@ def render_swing(env, model, seed, K, label, writer, tail_s=1.5):
     return info, rec
 
 
+class ZeroPolicy:
+    """Zero-residual action = the pure scripted swing (same as eval.dispersion_report scripted=True)."""
+    def __init__(self, env):
+        import numpy as np; self.z = np.zeros(env.action_space.shape, dtype=np.float32)
+    def predict(self, obs, deterministic=True):
+        return self.z, None
+
+
+def compare(a):
+    """Back-to-back reel: LEARNED (an3_s1) then SCRIPTED (trainer cfg). Swing = median-by-carry of N deterministic swings (all contacted+landed)."""
+    from stable_baselines3 import PPO
+    from eval.env_factory import make_env
+    from eval.flight_tracker import FlightTracker
+    import numpy as np
+    lb = json.loads((ROOT / "results/leaderboard.json").read_text())
+    vd = ROOT / "results/videos"; w = Writer(vd / "showcase_compare.mp4"); meta = {}
+    specs = [("LEARNED (an3_s1)", "ppo_resid_v3_left_an3_s1", False), ("SCRIPTED (not learned)", "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]", True)]
+    for title, mname, scripted in specs:
+        m = next(x for x in lb["models"] if x["names"][0] == mname); d = m["modes"]["deterministic"]
+        env = make_env(m["env_kwargs"]); pol = ZeroPolicy(env) if scripted else PPO.load(str(ROOT / "models" / mname))
+        prev = json.loads((vd / "showcase_compare.json").read_text()) if (a.reuse and (vd / "showcase_compare.json").exists()) else {}
+        if title in prev:   # reuse swing/selection from a previous full pass (selection pass is slow)
+            res = [(x["seed"], dict(carry=x["carry"], final_y=x["y"], launch_elev_deg=x["launch"], true_contact=x["contact"])) for x in prev[title]["all_swings"]]
+            seed, sh = prev[title]["swing_seed"], next(r[1] for r in res if r[0] == prev[title]["swing_seed"])
+        else:
+            res = []
+            for i in range(a.swings):
+                ft = FlightTracker(env).install(); rec = Recorder(env, a.K, "", type("NullW", (), {"write": lambda self, img: None})()); rec.install()
+                try:
+                    obs, _ = env.reset(seed=a.seed + i); ft.reset(); done = False; info = {}
+                    while not done:
+                        obs, _, te, tr, info = env.step(pol.predict(obs)[0]); ft.step(); done = te or tr
+                finally:
+                    rec.uninstall(); ft.close(); rec.r.close()
+                res.append((a.seed + i, ft.summary(info)))
+            ok = sorted([r for r in res if r[1]["true_contact"] and r[1]["carry"] > 0], key=lambda r: r[1]["carry"])
+            seed, sh = ok[(len(ok) - 1) // 2]   # lower median by carry
+        board = (f"Leaderboard (det, 50 eps): carry {d['mean_carry']:.1f} m mean | lat std {d['lateral_std']:.2f} m | miss L/R {d['left_miss_rate']*100:.0f}%/{d['right_miss_rate']*100:.0f}% | "
+                 f"landed {d['landed_fraction']*100:.0f}% | peak club {d['peak_club_mph_mean']:.1f} mph | launch {d['launch_elev_mean_deg']:.1f} deg")
+        ban = [f"{title}  -  ONE swing (det., seed {seed}, median-by-carry of {a.swings}); overlay below = this swing; line 2 = all-episode stats", board]
+        ft = FlightTracker(env).install()
+        try:
+            rec = Recorder(env, a.K, "", w); rec.banner = ban; rec.ft = ft; rec.install()
+            try:
+                obs, _ = env.reset(seed=seed); ft.reset(); done = False; info = {}
+                while not done:
+                    obs, _, te, tr, info = env.step(pol.predict(obs)[0]); ft.step(); done = te or tr
+            finally:
+                rec.uninstall()
+            rec.frame(hold=int(3.0 * FPS)); rec.r.close()   # free GL context: a 2nd live Renderer on another model rendered garbage
+        finally:
+            ft.close()
+        sw = ft.summary(info)
+        meta[title] = dict(model=mname, swing_seed=seed, selection="lower median by carry among true-contact+landed swings of %d, seeds %d.." % (a.swings, a.seed),
+                           swing_carry=sw["carry"], swing_final_y=sw["final_y"], swing_launch_deg=sw["launch_elev_deg"], swing_peak_club_mph=rec.peak_club * 2.23694,
+                           swing_impact_club_speed=sw["impact_club_speed"], replay_carry_matches_selection=abs(sw["carry"] - sh["carry"]) < 1e-6,
+                           all_swings=[dict(seed=s_, carry=x["carry"], y=x["final_y"], launch=x["launch_elev_deg"], contact=x["true_contact"]) for s_, x in res],
+                           leaderboard_det={k: d[k] for k in ("mean_carry", "lateral_std", "left_miss_rate", "right_miss_rate", "landed_fraction", "peak_club_mph_mean", "launch_elev_mean_deg")})
+    w.close(); meta["frames"] = w.frames; meta["fps"] = FPS; meta["duration_s"] = w.frames / FPS; meta["slowdown"] = rec.slow
+    (vd / "showcase_compare.json").write_text(json.dumps(meta, indent=1)); print(json.dumps(meta, indent=1)[:3500])
+
+
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--reuse", action="store_true", help="compare mode: reuse swing seeds from existing showcase_compare.json"); ap.add_argument("--compare", action="store_true", help="write results/videos/showcase_compare.mp4 (learned an3_s1 vs scripted bx0.422)")
     ap.add_argument("--swings", type=int, default=12); ap.add_argument("--seed", type=int, default=5000)
     ap.add_argument("--model", default=None); ap.add_argument("--pick", default="best", choices=["best", "best_left", "best_qualifying"]); ap.add_argument("--reel-top", type=int, default=4)
     ap.add_argument("--K", type=int, default=5, help="physics steps per frame (showcase)")
     a = ap.parse_args()
     ensure_gl()
+    if a.compare:
+        return compare(a)
     from stable_baselines3 import PPO
     from env.humanoid_golf_env import HumanoidGolfEnv
     m, lb = pick_model(a.model, a.pick)
