@@ -35,6 +35,8 @@ class HumanoidGolfEnv(gym.Env):
         tee_height: float = 0.0,
         loft_deg: float = None,
         handedness: str = "right",
+        ball_x: float = 0.43,
+        ball_dz: float = 0.0,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -49,6 +51,8 @@ class HumanoidGolfEnv(gym.Env):
         self.target_distance = target_distance
         self.curriculum = curriculum
         self.pin_torso = pin_torso
+        self.ball_x0 = ball_x   # fixed-pose ball x (m)
+        self.ball_dz = ball_dz  # extra ball height above the tee-relative default (m): raises ball relative to the club arc
         assert handedness in ("right", "left")
         self.handedness = handedness
         self.hand_sign = 1.0 if handedness == "right" else -1.0  # left-handed = mirror about the x-z plane (y -> -y); see docs/HANDEDNESS.md
@@ -131,6 +135,7 @@ class HumanoidGolfEnv(gym.Env):
         self.carry = 0.0
         self._airborne = False
         self._landed = False
+        self._flew = False
 
     def _check_contact(self) -> bool:
         d = self.data
@@ -328,7 +333,7 @@ class HumanoidGolfEnv(gym.Env):
 
         self.data.qpos[0] = 0.35
         self.data.qpos[1] = 0.0
-        self.data.qpos[2] = 0.021 + self.tee_height
+        self.data.qpos[2] = 0.021 + self.tee_height + self.ball_dz
         self.data.qpos[3] = 1.0
 
         self.data.qpos[7] = 0.0
@@ -338,7 +343,7 @@ class HumanoidGolfEnv(gym.Env):
 
         if self.address_pose == "fixed":
             self.data.qpos[9] = 0.86 + self.tee_height   # torso lowered so club-head centre is ~2cm above ground (was 0.10m: club passed OVER the ball)
-            self.data.qpos[0] = 0.43   # ball ahead of club head (head front edge ~0.38) so address is not interpenetrating
+            self.data.qpos[0] = self.ball_x0   # ball ahead of club head (head front edge ~0.38) so address is not interpenetrating
             self.data.qpos[self._q_sp] = 0.0                  # shoulder pitch (rad)
             self.data.qpos[self._q_el] = np.deg2rad(20.0)     # elbow (rad)
         else:
@@ -352,7 +357,7 @@ class HumanoidGolfEnv(gym.Env):
             self.data.qpos[self._q_sp] += self.np_random.uniform(-0.05, 0.05)     # shoulder pitch (rad)
             self.data.qpos[self._q_el] += self.np_random.uniform(-0.1, 0.1)       # elbow (rad)
         self._ctrl_prev = np.zeros(self.model.nu if hasattr(self,'model') else 11)
-        self._ball_z0 = 0.021 + self.tee_height
+        self._ball_z0 = 0.021 + self.tee_height + self.ball_dz
         self._place_left_arm()
         self._root_pin = self.data.qpos[7:14].copy()
 
@@ -444,7 +449,9 @@ class HumanoidGolfEnv(gym.Env):
             self.peak_ball_vx = max(self.peak_ball_vx, float(self._ball_lin_vel()[0]))
             if bp[2] > 0.06:
                 self._airborne = True
-            if self.tee_height > 0 and not self._landed and self._ground_contact():
+            if self.tee_height > 0 and bp[2] > 0.10:
+                self._flew = True  # tee mode: only shots that get >10 cm high count as flights
+            if self.tee_height > 0 and getattr(self, "_flew", False) and not self._landed and self._ground_contact():
                 self._landed = True
                 self.carry = float(bp[0])  # tee mode: first ground touch after the strike
             if self.tee_height <= 0 and self._airborne and not self._landed and bp[2] < 0.03:

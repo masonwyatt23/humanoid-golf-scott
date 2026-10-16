@@ -69,7 +69,7 @@
               <joint name="right_wrist" type="hinge" axis="0 1 0" range="-120 120"/>
               <!-- Club -->
               <geom name="club_shaft" contype="2" conaffinity="2" type="capsule" fromto="0 0 0 0 0 -1.1" size="0.015" mass="0.10" rgba="0.2 0.2 0.2 1"/>
-              <geom name="club_head" contype="2" conaffinity="2" euler="0 3 0" type="box" size="0.05 0.02 0.02" pos="0 0 -1.12" mass="0.20" solref="0.002 1" solimp="0.95 0.99 0.001" friction="0.5 0.01 0.001" rgba="0.8 0.1 0.1 1"/>
+              <geom name="club_head" contype="2" conaffinity="2" euler="0 3 0" type="box" size="0.04 0.05 0.03" pos="0 0 -1.12" mass="0.20" solref="0.002 1" solimp="0.95 0.99 0.001" friction="0.5 0.01 0.001" rgba="0.8 0.1 0.1 1"/>
             </body>
           </body>
         </body>

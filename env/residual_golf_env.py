@@ -52,6 +52,9 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.style_lead = style_lead  # seconds: yaw/wrist targets are read this far ahead to offset PD lag
         self.clock = 0.0
         self._tgt = np.zeros(4)
+        self.seq_weight = seq_weight
+        self._club_body_id = int(self.model.geom_bodyid[self._club_geom])
+        self._seq = []
         self._contact_step = None
         self.grip = grip
         if force_scale != 1.0:

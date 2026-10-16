@@ -87,6 +87,8 @@ def main():
     ap.add_argument("--ladder", action="store_true", help="club-speed ladder 10..54 m/s in 5 m/s rungs, advance when clean-contact >=85% and mean impact >=85% of rung")
     ap.add_argument("--seq_weight", type=float, default=0.0)
     ap.add_argument("--style_prior", action="store_true")
+    ap.add_argument("--ball_dz", type=float, default=0.008)
+    ap.add_argument("--handedness", default="right")
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--log_std_init", type=float, default=-1.5)
     ap.add_argument("--ent", type=float, default=0.0)
@@ -95,7 +97,7 @@ def main():
     if a.yaw: script.update(yaw_back=-0.35, yaw_fin=0.35)
     kw = dict(script=script, residual_scale=tuple(a.res_scale), model_xml=a.model_xml, flight_model=a.flight_model, tee_height=0.04,
               force_scale=a.force_scale, kp=700.0, kd=700.0 / 30, loft_deg=a.loft, curriculum=True, carry_reward=True, forward_reward=True,
-              randomize_reset=True, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
+              randomize_reset=True, ball_dz=a.ball_dz, handedness=a.handedness, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
               style_prior=a.style_prior, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
     make_env = lambda: ResidualGolfEnv(**kw)
     out = {"args": vars(a)}
