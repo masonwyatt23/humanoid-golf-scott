@@ -124,6 +124,10 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             wr = self.wrist_sign * self.wrist_amp * self.style.value("wrist", seg, u)
         if s["yaw_ff"] != 0.0:  # feed-forward face-angle correction from the observed ball y offset (launch azimuth was 0.93-correlated with it)
             yaw = yaw + s["yaw_ff"] * self._y_off * _smooth((t - t1) / s["t_back"])
+        if s.get("wr_lead") and not getattr(self, "_in_lead", False):   # OPT-IN: command the wrist wr_lead seconds AHEAD (compensates PD lag)
+            self._in_lead = True
+            try: wr = float(self.targets(t + float(s["wr_lead"]))[2])
+            finally: self._in_lead = False
         return np.array([sh, el, wr, yaw])
 
     def _pd(self):

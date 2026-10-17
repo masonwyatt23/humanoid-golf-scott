@@ -1,0 +1,29 @@
+{
+ "description": "masonmapped teacher with full elbow range 0.40+-0.17 for BC",
+ "script": {
+  "q_back": 2.2,
+  "t_down": 0.08,
+  "t_back": 0.6,
+  "wr_end": -0.09,
+  "yaw_ff": 0.0,
+  "el_end": 0.853,
+  "elbow_back": 1.126,
+  "q_fin": -0.43,
+  "wrist_cock": -0.6,
+  "wr_rel_start": 0.6,
+  "wr_lead": 0.0
+ },
+ "ball_x": 0.396,
+ "ball_x_noise": 0.003,
+ "loft_deg": -38,
+ "ball_dz": 0.0,
+ "tee_height": 0.04,
+ "force_scale": 2.0,
+ "kp": 700,
+ "kd": 23.33,
+ "handedness": "left",
+ "model_xml": "humanoid_golf_v3.xml",
+ "sh_noise": 0.05,
+ "el_noise": 0.17,
+ "elbow_base": 0.4
+}
