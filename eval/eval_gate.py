@@ -12,7 +12,7 @@ if __name__ == "__main__":
     args = json.load(open(ROOT / "results" / f"{name}.json"))["args"]
     kw = resid_kw_from_args(args)
     out = {"name": name, "episodes": n, "seed": seed, "env_kwargs": kw}
-    for label, scripted, det in [("policy_det", False, True), ("scripted_zero_residual", True, True)]:
+    for label, scripted, det in [("policy_det", False, True), ("policy_stoch", False, False), ("scripted_zero_residual", True, True)]:
         d, _ = dr.run(name, kw, n, seed, det, scripted=scripted)
         out[label] = {k: d[k] for k in d if not k.startswith("dtw")}
         print(label, {k: round(v, 3) for k, v in out[label].items() if isinstance(v, float) and k in ("contact_rate", "mean_carry", "landed_fraction", "lateral_std", "mean_y", "peak_club_mph_mean", "mean_distance")}, flush=True)

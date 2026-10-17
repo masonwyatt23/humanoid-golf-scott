@@ -65,6 +65,7 @@ def run_eval(policy_fn, make_env, n=100, seed0=5000):
             "seq_arm_before_club_frac": float(np.mean([r["seq_order_arm_before_club"] for r in seq])) if seq else None,
             "seq_arm_lead_ms_mean": float(np.mean([r["arm_lead_ms"] for r in seq])) if seq else None,
             "mean_style_score": float(np.mean([r["style_score"] for r in rows if "style_score" in r])) if any("style_score" in r for r in rows) else None,
+            "launch_elev_p5_p50_p95_deg": [float(x) for x in np.percentile(np.degrees(g("launch_elevation")), [5, 50, 95])], "frac_launch_8_14": float(((np.degrees(g("launch_elevation")) >= 8) & (np.degrees(g("launch_elevation")) <= 14)).mean()), "frac_carry_ge30": float((cr >= 30).mean()),
             "mean_launch_elev_deg": float(np.degrees(g("launch_elevation")[ok]).mean()) if ok.any() else 0.0}
 
 
@@ -106,14 +107,19 @@ def main():
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--log_std_init", type=float, default=-1.5)
     ap.add_argument("--ent", type=float, default=0.0)
+    ap.add_argument("--script_extra", default="{}", help='JSON of extra script params, e.g. {"wr_end":-0.01,"yaw_ff":0}')
+    ap.add_argument("--sh_noise", type=float, default=0.05)
+    ap.add_argument("--el_noise", type=float, default=0.1)
     a = ap.parse_args()
     script = dict(q_back=a.q_back, t_down=a.t_down, t_back=0.6)
     if a.yaw: script.update(yaw_back=-0.35, yaw_fin=0.35)
+    script.update(json.loads(a.script_extra))
     kw = dict(script=script, residual_scale=tuple(a.res_scale), model_xml=a.model_xml, flight_model=a.flight_model, tee_height=0.04,
               force_scale=a.force_scale, kp=700.0, kd=700.0 / 30, loft_deg=a.loft, curriculum=True, carry_reward=True, forward_reward=True,
               randomize_reset=True, ball_dz=a.ball_dz, handedness=a.handedness, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
               analytic_ball=a.analytic_ball, lat_weight=a.lat_weight, elev_weight=a.elev_weight, az_weight=a.az_weight, carry_cap=a.carry_cap, elev_low_mult=a.elev_low_mult, ball_x=a.ball_x, ball_x_noise=a.ball_x_noise, lat_angular=a.lat_angular, elev_target_deg=a.elev_target, style_ref=(a.style_ref[0] if len(a.style_ref) == 1 else a.style_ref) if a.style_ref else None, style_weight=a.style_weight,
               style_prior=a.style_prior, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
+    kw.update(sh_noise=a.sh_noise, el_noise=a.el_noise)
     make_env = lambda: ResidualGolfEnv(**kw)
     import subprocess
     out = {"args": vars(a), "git_head": subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=str(ROOT)).stdout.strip()}
@@ -136,6 +142,8 @@ def main():
     model.save(ROOT / "models" / a.name)
     out["policy"] = run_eval(lambda o: model.predict(o, deterministic=True)[0], make_env, a.eval_episodes)
     print("POLICY", json.dumps(out["policy"]), flush=True)
+    out["policy_stochastic"] = run_eval(lambda o: model.predict(o, deterministic=False)[0], make_env, a.eval_episodes)
+    print("POLICY_STOCH", json.dumps(out["policy_stochastic"]), flush=True)
     json.dump(out, open(ROOT / "results" / f"{a.name}.json", "w"), indent=2)
 
 
