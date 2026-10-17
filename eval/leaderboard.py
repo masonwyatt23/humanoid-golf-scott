@@ -270,8 +270,8 @@ def main():
             best_line += (f" Peak club-head speed (best single swing over det+stoch): {mx:.2f} m/s = {mx*2.23694:.1f} mph = {mx/53.64*100:.1f}% of the 120 mph (53.64 m/s) target.")
     if left:
         best_line += f" **Best left-handed model: {' / '.join(left[0]['names'])}** (mean contact {score(left[0])[0]*100:.0f}%, mean carry {score(left[0])[1]:.2f} m, physics protocol)."
-    best_line += (f" **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): {' / '.join(qualifying[0]['names'])}.**"
-                  if qualifying else " **NO model meets the showcase criterion (carry >= %g m, lateral std <= %g m, launch elev >= %g deg, contact 100%%); see qualification table.**" % (Q_CARRY, Q_LAT, Q_ELEV))
+    best_line += (f" **Best model meeting the showcase criterion (hypothetical-strength actuators if force_scale>1; real carry AND tight lateral AND not-flat launch AND 100% contact; see below): {' / '.join(qualifying[0]['names'])}.**"
+                  if qualifying else " **NO model meets the showcase criterion (hypothetical-strength actuators if force_scale>1; carry >= %g m, lateral std <= %g m, launch elev >= %g deg, contact 100%%); see qualification table.**" % (Q_CARRY, Q_LAT, Q_ELEV))
     rank_txt = ("Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; "
                 "(2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.")
     rk = " > ".join("/".join(c["names"][:1]) for c in ranked_all)
