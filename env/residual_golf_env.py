@@ -27,7 +27,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, track_time_fix=False, key_weight=0.0, key_s=2.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, track_time_fix=False, strike_comp=None, key_weight=0.0, key_s=2.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -44,6 +44,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.script_weight, self.track_weight = float(script_weight), float(track_weight)
         self._lscale = None if learn_scale is None else np.asarray(learn_scale, float)
         self._opt_blend = (self.script_weight != 1.0) or (self._lscale is not None)
+        self.strike_comp = strike_comp   # OPT-IN physics change: dict(table=[[elbow_rad, face_dz_m],..], ref=m, k=gain): lowers/raises the BALL (+-~4 mm) by -k*(dz(el_start)-ref) to centre the strike (analytic baseline)
         self.track_time_fix, self.key_weight, self.key_s = bool(track_time_fix), float(key_weight), float(key_s)
         self._key = self._load_keyframes() if key_weight > 0 else None
         self._track = self._load_track_shapes(track_set) if (track_set and track_weight > 0) else None
@@ -88,7 +89,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
     def targets(self, t):
         s = self.script
         t1 = s["t_hold"]; t2 = t1 + s["t_back"]; t3 = t2 + s["t_pause"]; t4 = t3 + s["t_down"]; t5 = t4 + s["t_follow"]
-        el0 = np.deg2rad(20.0)
+        el0 = float(s.get("el0", np.deg2rad(20.0)))
         if t < t2:
             b = _smooth((t - t1) / s["t_back"])
             sh = s["q_back"] * b; el = el0 + (s["elbow_back"] - el0) * b; wr = s["wrist_cock"] * b; yaw = s["yaw_back"] * b
@@ -337,6 +338,15 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._st = np.zeros(4)
         self._qtraj = []
         self._y_off = float(self.data.qpos[1])
+        if self.strike_comp:
+            sc = self.strike_comp
+            if "points" in sc:   # 2-D Gaussian-kernel regression of measured face dz on (start elbow, start shoulder)
+                P = np.array(sc["points"], float); bw = sc.get("bw", [0.008, 0.012]); w = np.exp(-0.5 * (((P[:, 0] - self.data.qpos[self._q_el]) / bw[0]) ** 2 + ((P[:, 1] - self.data.qpos[self._q_sp]) / bw[1]) ** 2)) + 1e-12
+                dz = float(np.sum(w * P[:, 2]) / np.sum(w))
+            else:
+                tab = np.array(sc["table"], float); dz = float(np.interp(self.data.qpos[self._q_el], tab[:, 0], tab[:, 1]))
+            sh = -float(self.strike_comp.get("k", 1.16)) * (dz - float(self.strike_comp["ref"])); self.data.qpos[2] += sh; self._ball_z0 += sh; self._strike_shift = sh
+            mujoco.mj_forward(self.model, self.data); obs = self._get_obs()
         return obs, info
 
     def step(self, action):

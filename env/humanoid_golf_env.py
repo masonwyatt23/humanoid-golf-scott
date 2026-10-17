@@ -41,6 +41,7 @@ class HumanoidGolfEnv(gym.Env):
         ball_y_noise: float = 0.02,
         sh_noise: float = 0.05,
         el_noise: float = 0.1,
+        elbow_base: Optional[float] = None,
         contact_damp: float = None,
         ball_friction: float = None,
         impact_model: dict = None,
@@ -73,6 +74,7 @@ class HumanoidGolfEnv(gym.Env):
         self._ctrl_prev = np.zeros(self.model.nu if hasattr(self,'model') else 11)
         self.ball_x_noise = ball_x_noise
         self.ball_y_noise, self.sh_noise, self.el_noise = ball_y_noise, sh_noise, el_noise
+        self.elbow_base = elbow_base   # OPT-IN: address elbow base (rad); None = 20 deg (0.349) as before
         self.randomize_reset = randomize_reset  # small ball-x / pose noise on reset (fixed pose only)
         self.forward_reward = forward_reward    # contact-gated forward-direction reward + lateral penalty
         self.torque_scale = torque_scale  # ctrl = action * torque_scale (legacy 10 -> up to 500Nm at shoulder)
@@ -209,6 +211,16 @@ class HumanoidGolfEnv(gym.Env):
         # NOTE: data.cvel rows are [angular, linear]; cvel[3:6] is linear (MuJoCo: cvel = [rot:lin]).
         return self.data.qvel[0:3].copy()
 
+    REF_JOINTS = ("right_shoulder_pitch", "right_shoulder_roll", "right_elbow", "right_wrist", "left_shoulder_pitch", "right_hip_pitch", "right_knee", "right_ankle", "left_hip_pitch", "left_knee", "left_ankle")
+    LEGACY_REF_INDEX = False   # True restores the old positional qpos[14:14+n] lookup (only correct for humanoid_golf.xml; wrong for v2/v3/v4: e.g. v3 qpos[14:] starts with the hips)
+
+    def _ref_q(self, n):
+        """qpos for the reference columns, looked up BY JOINT NAME (fixes the positional qpos[14:25] assumption)."""
+        if self.LEGACY_REF_INDEX: return self.data.qpos[14:14 + n]
+        if getattr(self, "_ref_qidx", None) is None:
+            self._ref_qidx = np.array([int(self.model.jnt_qposadr[self.model.joint(j).id]) for j in self.REF_JOINTS])
+        return self.data.qpos[self._ref_qidx[:n]]
+
     def load_reference(self, path: str):
         data = np.load(path)
         self.reference = {
@@ -254,7 +266,7 @@ class HumanoidGolfEnv(gym.Env):
         # imitation (radians now; reference is stored in degrees)
         if self.reference is not None and self.ref_idx < len(self.reference["joints"]):
             tj = np.deg2rad(self.reference["joints"][self.ref_idx])
-            cj = self.data.qpos[14:14 + len(tj)]
+            cj = self._ref_q(len(tj))
             r += w["imitation"] * 2.0 * np.exp(-np.mean((cj - tj) ** 2) / 0.5)
         # ball-flight terms (ramped): only after real contact; per-step, bounded
         if self.true_contact and not self.carry_reward:
@@ -317,7 +329,7 @@ class HumanoidGolfEnv(gym.Env):
         if self.reference is not None and self.ref_idx < len(self.reference["joints"]):
             # reference joints are stored in degrees; qpos[14:] is radians
             target_joints = np.deg2rad(self.reference["joints"][self.ref_idx])
-            current_joints = self.data.qpos[14:14+len(target_joints)]
+            current_joints = self._ref_q(len(target_joints))
             joint_err = np.mean((current_joints - target_joints) ** 2)
             reward += 2.0 * np.exp(-joint_err / 0.5)
 
@@ -373,7 +385,7 @@ class HumanoidGolfEnv(gym.Env):
             self.data.qpos[9] = 0.86 + self.tee_height   # torso lowered so club-head centre is ~2cm above ground (was 0.10m: club passed OVER the ball)
             self.data.qpos[0] = self.ball_x0   # ball ahead of club head (head front edge ~0.38) so address is not interpenetrating
             self.data.qpos[self._q_sp] = 0.0                  # shoulder pitch (rad)
-            self.data.qpos[self._q_el] = np.deg2rad(20.0)     # elbow (rad)
+            self.data.qpos[self._q_el] = np.deg2rad(20.0) if self.elbow_base is None else float(self.elbow_base)     # elbow (rad)
         else:
             # legacy: values are interpreted as RADIANS by MuJoCo (-10 rad, 60 rad)
             # and are far outside the joint ranges.
