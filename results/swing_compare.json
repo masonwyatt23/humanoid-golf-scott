@@ -1,0 +1,2451 @@
+{
+ "generated": "2026-10-17 00:44",
+ "episodes": 20,
+ "seed": 4000,
+ "mason_profile": {
+  "tempo_ratio": {
+   "median": 2.9,
+   "iqr": [
+    2.875,
+    3.55
+   ],
+   "n": 11
+  },
+  "backswing_s": {
+   "median": 0.4833,
+   "iqr": [
+    0.4833,
+    0.575
+   ],
+   "n": 11
+  },
+  "downswing_s": {
+   "median": 0.1667,
+   "iqr": [
+    0.1583,
+    0.1667
+   ],
+   "n": 11
+  },
+  "wrist_minus_shoulder_s": {
+   "median": 0.05,
+   "iqr": [
+    0.035,
+    0.06
+   ],
+   "n": 11
+  }
+ },
+ "published_profiles": {
+  "pga_tour_driver": {
+   "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+   "features": {
+    "peak_club_mph": {
+     "value": 113,
+     "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+     "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+    },
+    "ball_speed_mph": {
+     "value": 167,
+     "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)"
+    },
+    "smash": {
+     "value": 1.48,
+     "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+     "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+    },
+    "launch_deg": {
+     "value": 10.9,
+     "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)"
+    },
+    "attack_deg": {
+     "value": -0.9,
+     "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+     "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+    },
+    "carry_yd": {
+     "value": 282,
+     "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+     "note": "older table (S_TM_GM) lists 275 yd"
+    },
+    "tempo_ratio": {
+     "value": 3.0,
+     "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+     "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+    },
+    "takeaway_to_impact_s": {
+     "range": [
+      0.93,
+      1.2
+     ],
+     "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed"
+    },
+    "chest_yaw_top_deg": {
+     "value": 42,
+     "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+     "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only",
+     "context_only": true
+    }
+   },
+   "qualitative": {
+    "sequence_proximal_to_distal": "Cheetham, Rose, Neal, 'Comparison of Kinematic Sequence Parameters between Amateur and Professional Golfers' and Cheetham 'Kinematic Sequence: Transition and Downswing Phases' (http://sgpl.ch/Dokumente/Article-KinematicSequenceTransitionDownswing.pdf): pros peak pelvis -> thorax -> lead arm -> club, club still accelerating at impact; amateurs' mean arm peak occurs before mean thorax peak"
+   },
+   "point_tolerance": 0.1
+  },
+  "lpga_tour_driver": {
+   "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+   "features": {
+    "attack_deg": {
+     "value": 2.8,
+     "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg"
+    },
+    "carry_yd": {
+     "value": 223,
+     "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd"
+    }
+   },
+   "qualitative": {},
+   "point_tolerance": 0.1
+  }
+ },
+ "models": {
+  "ppo_v3flt_yaw_s31": {
+   "meta": {
+    "name": "best_learned_yaw_s31",
+    "label": "ppo_v3flt_yaw_s31",
+    "scripted": false,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.166666666666998,
+     "q25": 4.5000000000002585,
+     "q75": 6.0000000000004245,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6199999999999716,
+     "q25": 0.5399999999999715,
+     "q75": 0.7199999999999717,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.11999999999998678,
+     "q25": 0.11962499999998683,
+     "q75": 0.11999999999998678,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.7399999999999584,
+     "q25": 0.6596249999999584,
+     "q75": 0.8399999999999584,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.05999999999999339,
+     "q25": 0.05999999999999339,
+     "q75": 0.05999999999999339,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.029999999999996696,
+     "q25": 0.029999999999996696,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": 0.009999999999998899,
+     "q25": 0.009999999999998899,
+     "q75": 0.019999999999997797,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 0.052832686381942356,
+     "q25": 0.052470447773465045,
+     "q75": 0.05333680820688241,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 120.43492825612012,
+     "q25": 120.32514172907617,
+     "q75": 120.43719187315739,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 120.28549545655954,
+     "q25": 120.16313339165902,
+     "q75": 120.2877290021022,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 121.63284698525786,
+     "q25": 120.12168943710012,
+     "q75": 122.44303061987046,
+     "n": 20
+    },
+    "smash": {
+     "median": 1.0111775404152492,
+     "q25": 1.0019256535172953,
+     "q75": 1.0179045431715756,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": 12.679871060623245,
+     "q25": 11.845151921035773,
+     "q75": 13.266458986053182,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 2.651940982393275,
+     "q25": 1.725719844456783,
+     "q75": 2.652406648907211,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 119.31552338696518,
+     "q25": 109.97875190775719,
+     "q75": 119.82394523604613,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.166666666666998,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.7816091954024131
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6199999999999716,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.2828470929028999
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.11999999999998678,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.7198560287941619
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.05999999999999339,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.1999999999998678
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 1,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 120.43492825612012,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 121.63284698525786,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -19.073288765630174,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 1.0111775404152492,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -24.085770239095407,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": 12.679871060623245,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "above",
+       "pct_outside": 0.6898710606232452,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.651940982393275,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 3.461940982393275,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 119.31552338696518,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -52.988367459824595,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 56.56565656566662,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.7399999999999584,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -20.4301075268862,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 0.052832686381942356,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -99.86023098840757,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 1,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.651940982393275,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 119.31552338696518,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -40.55031221376921,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  },
+  "ppo_v3flt_yaw_s32": {
+   "meta": {
+    "name": "ppo_v3flt_yaw_s32",
+    "label": "ppo_v3flt_yaw_s32",
+    "scripted": false,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.166666666666998,
+     "q25": 4.5000000000002585,
+     "q75": 6.0000000000004245,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6199999999999716,
+     "q25": 0.5399999999999715,
+     "q75": 0.7199999999999717,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.11999999999998678,
+     "q25": 0.11962499999998683,
+     "q75": 0.11999999999998678,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.7399999999999584,
+     "q25": 0.6596249999999584,
+     "q75": 0.8399999999999584,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.05999999999999339,
+     "q25": 0.05999999999999339,
+     "q75": 0.05999999999999339,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.029999999999996696,
+     "q25": 0.029999999999996696,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": 0.019999999999997797,
+     "q25": 0.014999999999998348,
+     "q75": 0.05124999999999436,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 0.009077252322642636,
+     "q25": 0.008806833510395046,
+     "q75": 0.00987136570840791,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 120.43492112459653,
+     "q25": 120.32511263687212,
+     "q75": 120.43718497912958,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 120.28548838711802,
+     "q25": 120.16310464265432,
+     "q75": 120.28772216786082,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 121.63364709372536,
+     "q25": 120.11152893923693,
+     "q75": 122.441683278486,
+     "n": 20
+    },
+    "smash": {
+     "median": 1.011184252762646,
+     "q25": 1.0018056613036415,
+     "q75": 1.017893402027985,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": 12.679894513294087,
+     "q25": 11.847142016667675,
+     "q75": 13.266369057557148,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 2.651938675145513,
+     "q25": 1.7257190471381616,
+     "q75": 2.6524044043513757,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 119.31511954362296,
+     "q25": 109.80925221040519,
+     "q75": 119.82434205224297,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.166666666666998,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.7816091954024131
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6199999999999716,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.2828470929028999
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.11999999999998678,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.7198560287941619
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.05999999999999339,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.1999999999998678
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 1,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 120.43492112459653,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 121.63364709372536,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -19.0727564246671,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 1.011184252762646,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -24.085266309110665,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": 12.679894513294087,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "above",
+       "pct_outside": 0.689894513294087,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.651938675145513,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 3.4619386751455132,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 119.31511954362296,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -52.98852657855676,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 56.56565656566662,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.7399999999999584,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -20.4301075268862,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 0.009077252322642636,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -99.97598610496657,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 1,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.651938675145513,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 119.31511954362296,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -40.55051343117939,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  },
+  "ppo_resid_v3_left_an3_s1": {
+   "meta": {
+    "name": "ppo_resid_v3_left_an3_s1",
+    "label": "ppo_resid_v3_left_an3_s1",
+    "scripted": false,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.179282868526259,
+     "q25": 4.337349397590628,
+     "q75": 5.454045801527112,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6499999999999738,
+     "q25": 0.5399999999999737,
+     "q75": 0.6999999999999739,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.12499999999998623,
+     "q25": 0.12449999999998629,
+     "q75": 0.12549999999998618,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.77499999999996,
+     "q25": 0.66449999999996,
+     "q75": 0.8249999999999601,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.054999999999993936,
+     "q25": 0.054999999999993936,
+     "q75": 0.05499999999999395,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.024999999999997247,
+     "q25": 0.024999999999997247,
+     "q75": 0.024999999999997247,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": 0.024999999999997247,
+     "q25": 0.014999999999998348,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 0.29873528937554505,
+     "q25": 0.2971846313112764,
+     "q75": 0.30203364641715513,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 114.83492591172885,
+     "q25": 114.72622414806266,
+     "q75": 114.90805340731536,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 114.66361390232979,
+     "q25": 114.55398588955165,
+     "q75": 114.74757594123926,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 82.88555591958162,
+     "q25": 81.87387646717755,
+     "q75": 95.49298776299409,
+     "n": 20
+    },
+    "smash": {
+     "median": 0.723674756090259,
+     "q25": 0.7136846619215277,
+     "q75": 0.8347415381604897,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": 29.68031382590619,
+     "q25": 27.231060332910516,
+     "q75": 36.15505692646322,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 4.617058392297588,
+     "q25": 4.259230987526876,
+     "q75": 5.241903650737539,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 116.72222804644159,
+     "q25": 114.35879262937652,
+     "q75": 120.56546569166996,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.179282868526259,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.785959609836641
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6499999999999738,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.344920339333693
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.12499999999998623,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.7498500299939187
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.054999999999993936,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.0999999999998786
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 1,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 114.83492591172885,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 82.88555591958162,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -44.8532562078632,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 0.723674756090259,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -45.670063356587164,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": 29.68031382590619,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "above",
+       "pct_outside": 17.690313825906188,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 4.617058392297588,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 5.427058392297589,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 116.72222804644159,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -54.01015443402617,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.179282868526259,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 56.94796571291694,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.77499999999996,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -16.666666666670967,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 0.29873528937554505,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -99.209695001652,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 0,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 4.617058392297588,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "above",
+       "pct_outside": 1.5370583922975887,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 116.72222804644159,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -41.84243744571919,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  },
+  "ppo_resid_v3_left_fast2_s11": {
+   "meta": {
+    "name": "ppo_resid_v3_left_fast2_s11",
+    "label": "ppo_resid_v3_left_fast2_s11",
+    "scripted": false,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.544619804709852,
+     "q25": 4.81027667984218,
+     "q75": 6.134712744882671,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6299999999999716,
+     "q25": 0.5399999999999715,
+     "q75": 0.7199999999999717,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.11524999999998731,
+     "q25": 0.11399999999998744,
+     "q75": 0.11549999999998728,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.7427499999999592,
+     "q25": 0.6564999999999587,
+     "q75": 0.834374999999959,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.05999999999999339,
+     "q25": 0.05999999999999339,
+     "q75": 0.05999999999999339,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.029999999999996696,
+     "q25": 0.014999999999998346,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": -0.03499999999999615,
+     "q25": -0.03499999999999615,
+     "q75": -0.03499999999999614,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 0.058932495920026674,
+     "q25": 0.05862391186236558,
+     "q75": 0.05997006684147537,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 123.62853604233874,
+     "q25": 123.55368035561192,
+     "q75": 123.67628893454454,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 123.48506925519656,
+     "q25": 123.40032332397925,
+     "q75": 123.5347812781022,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 109.74402216623832,
+     "q25": 108.02417511395531,
+     "q75": 112.5094606741892,
+     "n": 20
+    },
+    "smash": {
+     "median": 0.8904411598756048,
+     "q25": 0.8755555107875248,
+     "q75": 0.9114961248204032,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": -6.182069719743907,
+     "q25": -6.734544256308984,
+     "q75": -4.702398741041547,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 1.7605695048377024,
+     "q25": 1.2104674614963384,
+     "q75": 1.8902690320583906,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 15.288409343244865,
+     "q25": 14.687576678716407,
+     "q75": 18.37031995945427,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.544619804709852,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.9119378636930524
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6299999999999716,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.303538175046496
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.11524999999998731,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.691361727654393
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.05999999999999339,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.1999999999998678
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 1,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 123.62853604233874,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 109.74402216623832,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -26.98335185213685,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 0.8904411598756048,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -33.15006307240205,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": -6.182069719743907,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "below",
+       "pct_outside": -15.992069719743908,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 1.7605695048377024,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 2.570569504837702,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 15.288409343244865,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -93.976198052307,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.544619804709852,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 68.0187819609046,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.7427499999999592,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -20.13440860215493,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 0.058932495920026674,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -99.8440939261375,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 0,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 1.7605695048377024,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "below",
+       "pct_outside": -0.7594304951622977,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 15.288409343244865,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -92.38245672982318,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  },
+  "fast v3 Stage 6": {
+   "meta": {
+    "name": "fast v3 Stage 6",
+    "label": "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]",
+    "scripted": true,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.166666666666998,
+     "q25": 4.5000000000002585,
+     "q75": 6.0000000000004245,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6199999999999716,
+     "q25": 0.5399999999999715,
+     "q75": 0.7199999999999717,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.11999999999998678,
+     "q25": 0.11962499999998683,
+     "q75": 0.11999999999998678,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.7399999999999584,
+     "q25": 0.6596249999999584,
+     "q75": 0.8399999999999584,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.05999999999999339,
+     "q25": 0.05999999999999339,
+     "q75": 0.05999999999999339,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.029999999999996696,
+     "q25": 0.029999999999996696,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": 0.019999999999997797,
+     "q25": 0.018749999999997935,
+     "q75": 0.019999999999997797,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 1.0084804188580902e-06,
+     "q25": 2.9615309599197364e-07,
+     "q75": 7.641529644052944e-06,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 120.44334200611829,
+     "q25": 120.33348565141836,
+     "q75": 120.44560702055097,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 120.29385016062531,
+     "q25": 120.1714171568982,
+     "q75": 120.29608509050648,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 121.67891947628254,
+     "q25": 120.15716222514523,
+     "q75": 122.48624671763454,
+     "n": 20
+    },
+    "smash": {
+     "median": 1.01149029746289,
+     "q25": 1.002190906001332,
+     "q75": 1.0181930753727433,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": 12.675741555627898,
+     "q25": 11.843860246910141,
+     "q75": 13.262870447224412,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 2.6584212185958807,
+     "q25": 1.732144712019883,
+     "q75": 2.6588872204073937,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 119.05822413163693,
+     "q25": 110.17318652898602,
+     "q75": 119.77554884488319,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.166666666666998,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.7816091954024131
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6199999999999716,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.2828470929028999
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.11999999999998678,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.7198560287941619
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.05999999999999339,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.1999999999998678
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 1,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 120.44334200611829,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 121.67891947628254,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -19.042635078987004,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 1.01149029746289,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -24.06228998026351,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": 12.675741555627898,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "above",
+       "pct_outside": 0.6857415556278976,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.6584212185958807,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 3.4684212185958807,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 119.05822413163693,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -53.08974620502879,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 56.56565656566662,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.7399999999999584,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -20.4301075268862,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 1.0084804188580902e-06,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -99.99999733206238,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 1,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.6584212185958807,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 119.05822413163693,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -40.678513138197836,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  },
+  "fast v2 lofted": {
+   "meta": {
+    "name": "fast v2 lofted",
+    "label": "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]",
+    "scripted": true,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.5000000000003695,
+     "q25": 4.5000000000002585,
+     "q75": 6.0000000000004245,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6599999999999716,
+     "q25": 0.5399999999999715,
+     "q75": 0.7199999999999717,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.11999999999998678,
+     "q25": 0.11962499999998683,
+     "q75": 0.11999999999998678,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.7799999999999584,
+     "q25": 0.6599999999999583,
+     "q75": 0.8399999999999584,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.05999999999999339,
+     "q25": 0.05999999999999339,
+     "q75": 0.05999999999999339,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.029999999999996696,
+     "q25": 0.029999999999996696,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": 0.019999999999997797,
+     "q25": 0.014999999999998348,
+     "q75": 0.019999999999997797,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 1.3218198347141137e-06,
+     "q25": 2.7408812852020076e-07,
+     "q75": 1.7004145469342503e-05,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 120.44365505499889,
+     "q25": 120.33114747175583,
+     "q75": 120.44578609542178,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 120.2941591112534,
+     "q25": 120.16910601486217,
+     "q75": 120.29626176315716,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 120.5098173886791,
+     "q25": 119.60440156911957,
+     "q75": 121.65732063089939,
+     "n": 20
+    },
+    "smash": {
+     "median": 1.0035037419982582,
+     "q25": 0.9962899608331175,
+     "q75": 1.0113183680287732,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": 10.78416032262384,
+     "q25": 7.127106265515277,
+     "q75": 10.786123745170213,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 2.6584849679215052,
+     "q25": 1.7313768280378874,
+     "q75": 2.6589228959554028,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 80.1109926853014,
+     "q25": 72.43333161723234,
+     "q75": 97.73694826147901,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.5000000000003695,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.8965517241380585
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6599999999999716,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.3656114214772845
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.11999999999998678,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.7198560287941619
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.05999999999999339,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.1999999999998678
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 2,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 120.44365505499889,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 120.5098173886791,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -19.820480779321965,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 1.0035037419982582,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -24.661881231362003,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": 10.78416032262384,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.6584849679215052,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 3.4684849679215053,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 80.1109926853014,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -68.43538507277329,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.5000000000003695,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 66.66666666667787,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.7799999999999584,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -16.129032258068996,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 1.3218198347141137e-06,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -99.99999650312212,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 1,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 2.6584849679215052,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 80.1109926853014,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -60.08420892610792,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  },
+  "trainer cfg: left, loft 7": {
+   "meta": {
+    "name": "trainer cfg: left, loft 7",
+    "label": "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]",
+    "scripted": true,
+    "hypothetical_actuators": true,
+    "force_scale": 2.0,
+    "episodes": 20,
+    "seed": 4000,
+    "deterministic": true,
+    "env_fingerprint": "30178ef58c6a",
+    "control_dt": 0.020000000000000014
+   },
+   "features": {
+    "n_episodes": 20,
+    "n_contact": 20,
+    "tempo_ratio": {
+     "median": 5.018450184502188,
+     "q25": 4.107093682877369,
+     "q75": 5.294117647059198,
+     "n": 20
+    },
+    "backswing_s": {
+     "median": 0.6799999999999716,
+     "q25": 0.5549999999999715,
+     "q75": 0.7199999999999717,
+     "n": 20
+    },
+    "downswing_s": {
+     "median": 0.13549999999998508,
+     "q25": 0.13549999999998508,
+     "q75": 0.13549999999998508,
+     "n": 20
+    },
+    "takeaway_to_impact_s": {
+     "median": 0.8154999999999567,
+     "q25": 0.6904999999999566,
+     "q75": 0.8554999999999567,
+     "n": 20
+    },
+    "wrist_minus_shoulder_s": {
+     "median": 0.054999999999993936,
+     "q25": 0.054999999999993936,
+     "q75": 0.05499999999999394,
+     "n": 20
+    },
+    "elbow_minus_shoulder_s": {
+     "median": 0.029999999999996696,
+     "q25": 0.029999999999996696,
+     "q75": 0.029999999999996696,
+     "n": 20
+    },
+    "torso_minus_hips_s": {
+     "median": 0.024999999999997243,
+     "q25": 0.024999999999997243,
+     "q75": 0.024999999999997247,
+     "n": 20
+    },
+    "seq_proximal_to_distal": {
+     "median": 0.0,
+     "q25": 0.0,
+     "q75": 0.0,
+     "n": 20
+    },
+    "chest_yaw_top_deg": {
+     "median": 1.0497159749192531e-18,
+     "q25": 1.0495694683728898e-18,
+     "q75": 2.278260247616571e-05,
+     "n": 20
+    },
+    "peak_club_mph": {
+     "median": 107.85252671270806,
+     "q25": 107.85189423458479,
+     "q75": 107.85276741457722,
+     "n": 20
+    },
+    "club_pre_mph": {
+     "median": 107.69873825873796,
+     "q25": 107.69811444862245,
+     "q75": 107.6989750928015,
+     "n": 20
+    },
+    "ball_speed_mph": {
+     "median": 99.50698659878753,
+     "q25": 96.68096841009898,
+     "q75": 100.70578556702962,
+     "n": 20
+    },
+    "smash": {
+     "median": 0.9239377095138314,
+     "q25": 0.8977036541955771,
+     "q75": 0.9342933609831797,
+     "n": 20
+    },
+    "launch_deg": {
+     "median": 5.7638786639284465,
+     "q25": 4.4470532252576565,
+     "q75": 25.77718912816051,
+     "n": 20
+    },
+    "attack_deg": {
+     "median": 4.308060761615276,
+     "q25": 4.307904125209124,
+     "q75": 4.308106124795152,
+     "n": 20
+    },
+    "carry_yd": {
+     "median": 40.219647107037574,
+     "q25": 17.0293903853732,
+     "q75": 108.95275620893192,
+     "n": 20
+    }
+   },
+   "vs_mason": [
+    {
+     "feature": "tempo_ratio",
+     "sim_median": 5.018450184502188,
+     "mason_median": 2.9,
+     "mason_iqr": [
+      2.875,
+      3.55
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.7305000636214443
+    },
+    {
+     "feature": "backswing_s",
+     "sim_median": 0.6799999999999716,
+     "mason_median": 0.4833,
+     "mason_iqr": [
+      0.4833,
+      0.575
+     ],
+     "n_mason": 11,
+     "status": "above",
+     "ratio_to_mason_median": 1.4069935857644769
+    },
+    {
+     "feature": "downswing_s",
+     "sim_median": 0.13549999999998508,
+     "mason_median": 0.1667,
+     "mason_iqr": [
+      0.1583,
+      0.1667
+     ],
+     "n_mason": 11,
+     "status": "below",
+     "ratio_to_mason_median": 0.8128374325134078
+    },
+    {
+     "feature": "wrist_minus_shoulder_s",
+     "sim_median": 0.054999999999993936,
+     "mason_median": 0.05,
+     "mason_iqr": [
+      0.035,
+      0.06
+     ],
+     "n_mason": 11,
+     "status": "within Mason IQR",
+     "ratio_to_mason_median": 1.0999999999998786
+    }
+   ],
+   "vs_published": {
+    "pga_tour_driver": {
+     "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
+     "n_within": 1,
+     "n_scored": 8,
+     "rows": [
+      {
+       "feature": "peak_club_mph",
+       "sim_median": 107.85252671270806,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "status": "within",
+       "pct_outside": null,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "'club speed' at impact; our peak substep club speed used as the proxy"
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim_median": 99.50698659878753,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "status": "below",
+       "pct_outside": -33.79442009395374,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "smash",
+       "sim_median": 0.9239377095138314,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "status": "below",
+       "pct_outside": -30.635307093556207,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": "sim smash ~1.0 is a known contact-model artifact (smash_anomaly.md)"
+      },
+      {
+       "feature": "launch_deg",
+       "sim_median": 5.7638786639284465,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "status": "below",
+       "pct_outside": -4.046121336071554,
+       "context_only": false,
+       "source": "TrackMan PGA Tour driver averages as reproduced by Golf Monthly 'How Far PGA Tour Players Carry Their Drives' (https://www.golfmonthly.com/tour/how-far-pga-tour-players-carry-their-drives; numbers: Trackman) and the TrackMan tour-average table PDF (https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf)",
+       "note": ""
+      },
+      {
+       "feature": "attack_deg",
+       "sim_median": 4.308060761615276,
+       "target": -0.9,
+       "band": [
+        -0.99,
+        -0.81
+       ],
+       "status": "above",
+       "pct_outside": 5.118060761615276,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": "older table (S_TM_GM) lists -1.3 deg; both published, we use the newer"
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 40.219647107037574,
+       "target": 282,
+       "band": [
+        253.8,
+        310.2
+       ],
+       "status": "below",
+       "pct_outside": -84.15301532425627,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": "older table (S_TM_GM) lists 275 yd"
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim_median": 5.018450184502188,
+       "target": 3.0,
+       "band": [
+        2.7,
+        3.3
+       ],
+       "status": "above",
+       "pct_outside": 52.07424801521784,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": "popular-book 3:1; arXiv single-pro measurement gives 2.8:1 (arXiv)"
+      },
+      {
+       "feature": "takeaway_to_impact_s",
+       "sim_median": 0.8154999999999567,
+       "target": null,
+       "band": [
+        0.93,
+        1.2
+       ],
+       "status": "below",
+       "pct_outside": -12.311827956993907,
+       "context_only": false,
+       "source": "J. Novosel, 'Tour Tempo' (2004) as reported in The Golf Wire press release 2006-05-03 (https://thegolfwire.com/105752-2/) and tourtempo.com/blogs/tips/what-the-numbers-mean: back:down ~3:1 (27/9 frames at 30 fps etc.); takeaway-to-impact 0.93-1.20 s for tour pros. Popular-book video analysis, not peer reviewed",
+       "note": ""
+      },
+      {
+       "feature": "chest_yaw_top_deg",
+       "sim_median": 1.0497159749192531e-18,
+       "target": 42,
+       "band": [
+        37.8,
+        46.2
+       ],
+       "status": "below",
+       "pct_outside": -100.0,
+       "context_only": true,
+       "source": "Cheetham, Martin, Mottram, St Laurent (2001) 'The importance of stretching the X-Factor in the downswing of golf' (in Optimising Performance in Golf, ISBN 1 875378 37 5; reprinted J. Applied Golf Research 2011) via TPI article https://www.mytpi.com/articles/biomechanics/the-difference-between-x-factor-and-x-factor-stretch : 'TPI Tour average for X-Factor at pelvis transition is about 42 degrees'",
+       "note": "TPI figure is X-factor AT PELVIS TRANSITION (shoulder-minus-pelvis turn); our value is a chest-yaw proxy - NOT the same quantity, shown for context only"
+      }
+     ]
+    },
+    "lpga_tour_driver": {
+     "label": "LPGA Tour driver (TrackMan; only the numbers verified)",
+     "n_within": 0,
+     "n_scored": 2,
+     "rows": [
+      {
+       "feature": "attack_deg",
+       "sim_median": 4.308060761615276,
+       "target": 2.8,
+       "band": [
+        2.52,
+        3.0799999999999996
+       ],
+       "status": "above",
+       "pct_outside": 1.2280607616152763,
+       "context_only": false,
+       "source": "TrackMan blog 'What is Attack Angle?' (https://www.trackman.com/blog/attack-angle) tour averages: PGA Tour driver -0.9 deg, LPGA Tour driver +2.8 deg",
+       "note": ""
+      },
+      {
+       "feature": "carry_yd",
+       "sim_median": 40.219647107037574,
+       "target": 223,
+       "band": [
+        200.7,
+        245.3
+       ],
+       "status": "below",
+       "pct_outside": -79.96031534278147,
+       "context_only": false,
+       "source": "TrackMan blog 'What Is Carry in Golf?' (https://www.trackman.com/blog/what-is-carry) tour averages: PGA Tour driver 282 yd, LPGA Tour driver 223 yd",
+       "note": ""
+      }
+     ]
+    }
+   }
+  }
+ }
+}

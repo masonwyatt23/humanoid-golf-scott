@@ -1,0 +1,738 @@
+{
+ "generated": "2026-10-17 00:45",
+ "episodes": 20,
+ "seed": 4000,
+ "split": "val",
+ "refs": [
+  {
+   "path": "data/references/mason_v2_p1_s06.npz",
+   "source": "mason",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 242
+  },
+  {
+   "path": "data/references/mason_v2_p1_s11.npz",
+   "source": "mason",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 191
+  },
+  {
+   "path": "data/references/mason_v2_p2_s01.npz",
+   "source": "mason",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 239
+  },
+  {
+   "path": "data/references/multisense_P20_s55_mirrored.npz",
+   "source": "multisense",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 219
+  },
+  {
+   "path": "data/references/multisense_P20_s76_mirrored.npz",
+   "source": "multisense",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 223
+  },
+  {
+   "path": "data/references/multisense_P20_s87_mirrored.npz",
+   "source": "multisense",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 220
+  },
+  {
+   "path": "data/references/multisense_P22_s108_mirrored.npz",
+   "source": "multisense",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 214
+  },
+  {
+   "path": "data/references/multisense_P22_s59_mirrored.npz",
+   "source": "multisense",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 213
+  },
+  {
+   "path": "data/references/multisense_P22_s60_mirrored.npz",
+   "source": "multisense",
+   "mirrored_on_load": false,
+   "handedness": "left",
+   "frames": 212
+  },
+  {
+   "path": "data/references/cmu_64_02.npz",
+   "source": "cmu",
+   "mirrored_on_load": true,
+   "handedness": "left",
+   "frames": 268
+  },
+  {
+   "path": "data/references/cmu_64_06.npz",
+   "source": "cmu",
+   "mirrored_on_load": true,
+   "handedness": "left",
+   "frames": 249
+  }
+ ],
+ "models": {
+  "best_learned_yaw_s31": {
+   "label": "ppo_v3flt_yaw_s31",
+   "scripted": false,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.1148315903910717,
+     "upper5": 1.7121014107953902,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.620818936487549,
+     "upper5": 2.228974306422979,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 1.9909428074437205,
+     "upper5": 1.4561284573880686,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.159755665225684,
+     "upper5": 1.8693239162391724
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 3.2351982402658805,
+     "upper5": 2.7662352908710965
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.467502903971084,
+     "upper5": 2.0513637121586674
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.184608836769745,
+     "upper5": 1.6013737300400552
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.116492878095047,
+     "upper5": 1.3926289924363826
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9558715468221302,
+     "upper5": 1.4567275846262162
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.825919843042253,
+     "upper5": 1.3714045501083452
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9301054769730634,
+     "upper5": 1.4539602086274708
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9326582629600857,
+     "upper5": 1.4606756784899413
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.122271014435002,
+     "upper5": 1.750244609470418
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.107392166347141,
+     "upper5": 1.6739582121203624
+    }
+   ]
+  },
+  "ppo_v3flt_yaw_s32": {
+   "label": "ppo_v3flt_yaw_s32",
+   "scripted": false,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.1147802961645583,
+     "upper5": 1.7120749718948662,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.620681910194205,
+     "upper5": 2.2288141518496105,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 1.9908327088579754,
+     "upper5": 1.4559643848141732,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.1596838382781436,
+     "upper5": 1.8692887860773566
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 3.23485303662284,
+     "upper5": 2.7657841429491716
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.4675088556816314,
+     "upper5": 2.0513695265223038
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.1845863248191604,
+     "upper5": 1.6013449044776737
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.116471811538668,
+     "upper5": 1.3925986753610717
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9558493567645285,
+     "upper5": 1.456699557657188
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.825729526238225,
+     "upper5": 1.371116297296338
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9299032090437347,
+     "upper5": 1.4536570083579528
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9324560247435354,
+     "upper5": 1.4603698657348156
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.1222270717787257,
+     "upper5": 1.750220437534755
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.1073335205503914,
+     "upper5": 1.6739295062549775
+    }
+   ]
+  },
+  "ppo_resid_v3_left_an3_s1": {
+   "label": "ppo_resid_v3_left_an3_s1",
+   "scripted": false,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.0397037196657086,
+     "upper5": 1.5174333791209094,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.3852193242688355,
+     "upper5": 1.8986877006444665,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 1.8151616453932233,
+     "upper5": 1.1931127657517528,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.084467936372266,
+     "upper5": 1.7163374354449523
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 2.7590758022521333,
+     "upper5": 2.1453495690955355
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.312114234182107,
+     "upper5": 1.8343760973929115
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9924190025505102,
+     "upper5": 1.345922310969884
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.939825471268652,
+     "upper5": 1.153934553424587
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.7875403503759326,
+     "upper5": 1.2256787345488607
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.667524285161053,
+     "upper5": 1.0864001463931519
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.7542178733755684,
+     "upper5": 1.1704411507110133
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.7494428896276228,
+     "upper5": 1.176299698463021
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.058206366417463,
+     "upper5": 1.5690482169148707
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.021201072913955,
+     "upper5": 1.4658185413269478
+    }
+   ]
+  },
+  "ppo_resid_v3_left_fast2_s11": {
+   "label": "ppo_resid_v3_left_fast2_s11",
+   "scripted": false,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.0514451660575803,
+     "upper5": 1.7127018539577405,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.498080093157956,
+     "upper5": 2.1199114700297503,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 2.005718355834134,
+     "upper5": 1.5734127635703519,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.0805705555719793,
+     "upper5": 1.8117754062048295
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 2.9965335993385134,
+     "upper5": 2.5360860729142436
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.4171361245633745,
+     "upper5": 2.0118729309701777
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.2028282405147297,
+     "upper5": 1.7199479055905063
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.1122509115652157,
+     "upper5": 1.5128884428080986
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.975548664627793,
+     "upper5": 1.5698040543654699
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.8546095137875525,
+     "upper5": 1.4972267348076849
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9434546849066734,
+     "upper5": 1.5675646242730696
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.945618119602841,
+     "upper5": 1.5730448195772824
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.0559328676267645,
+     "upper5": 1.7486259912134425
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.0469574644883965,
+     "upper5": 1.6767777167020388
+    }
+   ]
+  },
+  "fast v3 Stage 6": {
+   "label": "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]",
+   "scripted": true,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.112523829578979,
+     "upper5": 1.7103408991804594,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.622430170855723,
+     "upper5": 2.2317137644178513,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 1.98993694235981,
+     "upper5": 1.4546754181630135,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.1587794072528848,
+     "upper5": 1.868965851782723
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 3.2429205726750823,
+     "upper5": 2.776582861840262
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.465590532639202,
+     "upper5": 2.049592579630568
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.183122189201626,
+     "upper5": 1.5999524845368591
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.1151331192906007,
+     "upper5": 1.3906027131981593
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9544390285890436,
+     "upper5": 1.455001070840272
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.8253229985826938,
+     "upper5": 1.3700329237925213
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9294196287359113,
+     "upper5": 1.45269987794375
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9321846897589843,
+     "upper5": 1.4597634386665184
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.1198078260166224,
+     "upper5": 1.7482648247125774
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.1052398331413364,
+     "upper5": 1.6724169736483414
+    }
+   ]
+  },
+  "fast v2 lofted": {
+   "label": "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]",
+   "scripted": true,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.08305053073111,
+     "upper5": 1.705209944136751,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.6059942022653484,
+     "upper5": 2.2268041986788973,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 2.002523430720976,
+     "upper5": 1.475702199579987,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.1164188001759867,
+     "upper5": 1.8404457725537486
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 3.261779525013413,
+     "upper5": 2.8144844764621437
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.4397842816066446,
+     "upper5": 2.0254823470207994
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.194897298164926,
+     "upper5": 1.6210457110259369
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.1207207964010255,
+     "upper5": 1.4072445826414373
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9670449642238286,
+     "upper5": 1.4726859210671206
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.8415940481334108,
+     "upper5": 1.3943125938420358
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9440695470830947,
+     "upper5": 1.4755017896835936
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.9468139303195702,
+     "upper5": 1.4834225992197965
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.0877863052062846,
+     "upper5": 1.7398203865931752
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.0783147562559354,
+     "upper5": 1.6705995016803268
+    }
+   ]
+  },
+  "trainer cfg: left, loft 7": {
+   "label": "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]",
+   "scripted": true,
+   "hypothetical_actuators": true,
+   "by_source": {
+    "cmu": {
+     "n_refs": 2,
+     "all11": 2.043785144450303,
+     "upper5": 1.59107474198843,
+     "best_ref": "data/references/cmu_64_06.npz"
+    },
+    "mason": {
+     "n_refs": 3,
+     "all11": 2.42943479934453,
+     "upper5": 1.9792663274775135,
+     "best_ref": "data/references/mason_v2_p1_s06.npz"
+    },
+    "multisense": {
+     "n_refs": 6,
+     "all11": 1.8993247099125778,
+     "upper5": 1.3306773891370136,
+     "best_ref": "data/references/multisense_P22_s108_mirrored.npz"
+    }
+   },
+   "per_ref": [
+    {
+     "path": "data/references/mason_v2_p1_s06.npz",
+     "source": "mason",
+     "all11": 2.0548911607274523,
+     "upper5": 1.7163242467960145
+    },
+    {
+     "path": "data/references/mason_v2_p1_s11.npz",
+     "source": "mason",
+     "all11": 2.9051951948483756,
+     "upper5": 2.36229476737814
+    },
+    {
+     "path": "data/references/mason_v2_p2_s01.npz",
+     "source": "mason",
+     "all11": 2.3282180424577628,
+     "upper5": 1.8591799682583858
+    },
+    {
+     "path": "data/references/multisense_P20_s55_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.0819072698090433,
+     "upper5": 1.4891043715762484
+    },
+    {
+     "path": "data/references/multisense_P20_s76_mirrored.npz",
+     "source": "multisense",
+     "all11": 2.015600726484542,
+     "upper5": 1.2807595149198523
+    },
+    {
+     "path": "data/references/multisense_P20_s87_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.871176594370254,
+     "upper5": 1.3500937792981293
+    },
+    {
+     "path": "data/references/multisense_P22_s108_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.7505097632741085,
+     "upper5": 1.2307167997797341
+    },
+    {
+     "path": "data/references/multisense_P22_s59_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.8397063119468915,
+     "upper5": 1.3130045582580874
+    },
+    {
+     "path": "data/references/multisense_P22_s60_mirrored.npz",
+     "source": "multisense",
+     "all11": 1.8370475935906296,
+     "upper5": 1.320385310990031
+    },
+    {
+     "path": "data/references/cmu_64_02.npz",
+     "source": "cmu",
+     "all11": 2.0492701165791485,
+     "upper5": 1.6322969599120545
+    },
+    {
+     "path": "data/references/cmu_64_06.npz",
+     "source": "cmu",
+     "all11": 2.038300172321458,
+     "upper5": 1.5498525240648053
+    }
+   ]
+  }
+ }
+}
