@@ -1577,7 +1577,7 @@ Gaussian noise of the given sigma is added to EVERY observation and EVERY action
 | ppo_v4power_s62 | EFFECTIVELY SCRIPTED (force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 8000 | 100 | 283.2 / 310 | 2.51 | 2.46 | 100% | 12.3 | 132.3 | 2.51 | 254 (91%) / 254 (91%) PASS | PASS (min_carry 11.98) |
 | ppo_v4power_s62 | EFFECTIVELY SCRIPTED (force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 9000 | 100 | 278.1 / 304 | 17.59 | 16.87 | 99% | 11.5 | 132.3 | 17.58 | 254 (91%) / 254 (91%) PASS | FAIL (min_carry 11.98) |
 
-### imit18_power_dart_s51: impact-gain sensitivity (Trainer re-gates, results/imit_private/gain*/ [gate JSON held locally, Trainer-reported]; default gate = gain 1.28 above)
+### imit18_power_dart_s51: impact-gain sensitivity (Trainer re-gates, results/imit_private/gain*/; default gate = gain 1.28 above)
 
 Same policy and gate protocol (100 eps x seeds 4000/8000/9000), env `impact_gain` overridden. Smash = ball speed / impact club speed. Gain 1.0 exactly was NOT gated (only 1.02 and 1.20 exist); a smash <= ~1.48 is the legal-driver reference. MODEL-BASED simulation, hypothetical power-tier actuators, no spin model (backspin hand-set).
 
