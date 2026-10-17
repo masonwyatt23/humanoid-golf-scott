@@ -1,0 +1,38 @@
+{
+ "note": "STOCK force_scale 1, scripted zero residual, 100 eps",
+ "rows": {
+  "4000": {
+   "launch_elev_mean_deg": 17.41,
+   "launch_elev_std_deg": 1.11,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 139.06,
+   "mean_distance": 139.06,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.38,
+   "peak_club_mph_mean": 100.64
+  },
+  "8000": {
+   "launch_elev_mean_deg": 17.57,
+   "launch_elev_std_deg": 1.05,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 139.61,
+   "mean_distance": 139.61,
+   "landed_fraction": 1.0,
+   "lateral_std": 3.98,
+   "peak_club_mph_mean": 100.7
+  },
+  "9000": {
+   "launch_elev_mean_deg": 17.55,
+   "launch_elev_std_deg": 1.08,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 139.82,
+   "mean_distance": 139.82,
+   "landed_fraction": 1.0,
+   "lateral_std": 4.14,
+   "peak_club_mph_mean": 100.69
+  }
+ }
+}

@@ -1,7 +1,7 @@
 """HYPOTHETICAL TIER (force_scale > 1) 3-seed headline-gate table, built from results/gate_<name>_seed<seed>.json (seed 4000 file = ..._seed4000.json).
 Kept SEPARATE from the learned-vs-scripted leaderboard.  'Effectively scripted' = on every recorded seed the policy's det carry is within 1% and lateral std within 15%
 (or 0.3 m) of the zero-residual script recorded in the same gate file.  Nothing is guessed: every cell is read from the JSON."""
-import glob, json, re
+import glob, json, os, re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TOL_CARRY, TOL_LAT_REL, TOL_LAT_ABS = 0.01, 0.15, 0.3
@@ -37,6 +37,22 @@ def noise_cell(name):
     return "not measured"
 
 
+def gain_rows():
+    """imit18 s51 re-gates at overridden impact_gain (Trainer, results/imit_private/gain<NNN>/gate_imit18_power_dart_s51[_seedN].json) + the default-gain gates for comparison."""
+    import glob, re
+    rows = []
+    paths = [(1.28, str(ROOT / "results/imit_private/gate_imit18_power_dart_s51%s.json") % sfx) for sfx in ("", "_seed8000", "_seed9000")]
+    for d_ in sorted(glob.glob(str(ROOT / "results/imit_private/gain*"))):
+        for sfx in ("", "_seed8000", "_seed9000"):
+            paths.append((None, f"{d_}/gate_imit18_power_dart_s51{sfx}.json"))
+    for g, f in paths:
+        if not os.path.exists(f): continue
+        j = json.load(open(f)); p, st = j["policy_det"], j["policy_stoch"]; ek = j["env_kwargs"]
+        gain = g if g is not None else float(ek.get("impact_gain") or (ek.get("impact_model") or {}).get("gain", 0))
+        rows.append(dict(gain=gain, seed=j["seed"], ball_mph=p["mean_peak_ball_speed"] * 2.23694, smash=p["smash_factor_mean"], carry=p["mean_carry"], lat=p["lateral_std"], lat_s=st["lateral_std"], landed=p["landed_fraction"], **{"pass": bool(j["gate_pass"])}))
+    return sorted(rows, key=lambda r: (-r["gain"], r["seed"]))
+
+
 def md():
     R = tier()
     L = ["## HYPOTHETICAL TIER (force_scale > 1): 3-seed headline gate, kept separate from learned vs scripted", "",
@@ -50,6 +66,12 @@ def md():
         for s, d in sorted(r["seeds"].items()):
             p, st, z = d["policy_det"], d["policy_stoch"], d.get("scripted_zero_residual", {})
             L.append(f"| {r['name']} | {lab} | {r['force_scale']:g} | {r['flight_steps']} | {r['res_scale']} | {s} | {d['episodes']} | {p['mean_carry']:.1f} / {p['mean_carry']*1.09361:.0f} | {p['lateral_std']:.2f} | {st['lateral_std']:.2f} | {p['landed_fraction']*100:.0f}% | {p['launch_elev_mean_deg']:.1f} | {p['peak_club_mph_mean']:.1f} | {z.get('lateral_std', float('nan')):.2f} | {noise_cell(r['name'])} | {'PASS' if d['gate_pass'] else 'FAIL'} (min_carry {d['min_carry']}) |")
+    G = gain_rows()
+    if G:
+        L += ["", "### imit18_power_dart_s51: impact-gain sensitivity (Trainer re-gates, results/imit_private/gain*/; default gate = gain 1.28 above)", "",
+              "Same policy and gate protocol (100 eps x seeds 4000/8000/9000), env `impact_gain` overridden. Smash = ball speed / impact club speed. Gain 1.0 exactly was NOT gated (only 1.02 and 1.20 exist); a smash <= ~1.48 is the legal-driver reference. MODEL-BASED simulation, hypothetical power-tier actuators, no spin model (backspin hand-set).", "",
+              "| impact gain | seed | det ball mph | det smash | det carry m / yd | det lat std m | stoch lat std m | landed | headline |", "|---|---|---|---|---|---|---|---|---|"]
+        for r in G: L.append(f"| {r['gain']:g} | {r['seed']} | {r['ball_mph']:.0f} | {r['smash']:.2f} | {r['carry']:.1f} / {r['carry']*1.09361:.0f} | {r['lat']:.2f} | {r['lat_s']:.2f} | {r['landed']*100:.0f}% | {'PASS' if r['pass'] else 'FAIL'} |")
     L += ["", "3/3-seed pass: " + (", ".join(f"{r['name']}: {'YES' if r['all3'] else 'NO'}" for r in R) or "no rows"), ""]
     return L
 

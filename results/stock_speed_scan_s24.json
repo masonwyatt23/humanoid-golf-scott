@@ -1,0 +1,137 @@
+{
+ "note": "STOCK force_scale 1, scripted zero residual, 40 eps seed 4000, eval.eval_v4; non-timing levers",
+ "rows": {
+  "base": {
+   "launch_elev_mean_deg": 12.71,
+   "launch_elev_std_deg": 1.57,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 74.27,
+   "mean_distance": 74.27,
+   "landed_fraction": 1.0,
+   "lateral_std": 1.35,
+   "peak_club_mph_mean": 98.28
+  },
+  "yaw_fin -0.4": {
+   "launch_elev_mean_deg": 7.38,
+   "launch_elev_std_deg": 2.37,
+   "launch_flat_frac": 0.2,
+   "contact_rate": 0.12,
+   "mean_carry": 3.16,
+   "mean_distance": 4.77,
+   "landed_fraction": 0.1,
+   "lateral_std": 6.05,
+   "peak_club_mph_mean": 101.32
+  },
+  "yaw_fin 0.4": {
+   "launch_elev_mean_deg": 7.35,
+   "launch_elev_std_deg": 1.9,
+   "launch_flat_frac": 0.14,
+   "contact_rate": 0.17,
+   "mean_carry": 4.91,
+   "mean_distance": 5.24,
+   "landed_fraction": 0.17,
+   "lateral_std": 4.54,
+   "peak_club_mph_mean": 101.04
+  },
+  "yaw_back 0.5": {
+   "launch_elev_mean_deg": 0.73,
+   "launch_elev_std_deg": 3.72,
+   "launch_flat_frac": 0.69,
+   "contact_rate": 0.33,
+   "mean_carry": 1.66,
+   "mean_distance": 10.34,
+   "landed_fraction": 0.1,
+   "lateral_std": 21.64,
+   "peak_club_mph_mean": 101.66
+  },
+  "yaw_back -0.5": {
+   "launch_elev_mean_deg": 0.6,
+   "launch_elev_std_deg": 4.13,
+   "launch_flat_frac": 0.67,
+   "contact_rate": 0.23,
+   "mean_carry": 1.62,
+   "mean_distance": 5.49,
+   "landed_fraction": 0.07,
+   "lateral_std": 12.94,
+   "peak_club_mph_mean": 101.95
+  },
+  "q_back 2.6": {
+   "launch_elev_mean_deg": 32.4,
+   "launch_elev_std_deg": 7.8,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 30.18,
+   "mean_distance": 30.18,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.51,
+   "peak_club_mph_mean": 108.35
+  },
+  "q_back 3.0": {
+   "launch_elev_mean_deg": null,
+   "launch_elev_std_deg": null,
+   "launch_flat_frac": null,
+   "contact_rate": 0.0,
+   "mean_carry": 0.0,
+   "mean_distance": 0.38,
+   "landed_fraction": 0.0,
+   "lateral_std": 0.01,
+   "peak_club_mph_mean": 120.83
+  },
+  "wrist_cock 0.6": {
+   "launch_elev_mean_deg": null,
+   "launch_elev_std_deg": null,
+   "launch_flat_frac": null,
+   "contact_rate": 0.0,
+   "mean_carry": 0.0,
+   "mean_distance": 0.38,
+   "landed_fraction": 0.0,
+   "lateral_std": 0.01,
+   "peak_club_mph_mean": 106.56
+  },
+  "wrist_cock 1.0": {
+   "launch_elev_mean_deg": null,
+   "launch_elev_std_deg": null,
+   "launch_flat_frac": null,
+   "contact_rate": 0.0,
+   "mean_carry": 0.0,
+   "mean_distance": 0.37,
+   "landed_fraction": 0.0,
+   "lateral_std": 0.01,
+   "peak_club_mph_mean": 97.28
+  },
+  "wr_rel 0.3-0.9": {
+   "launch_elev_mean_deg": 12.68,
+   "launch_elev_std_deg": 1.57,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 74.65,
+   "mean_distance": 74.65,
+   "landed_fraction": 1.0,
+   "lateral_std": 1.51,
+   "peak_club_mph_mean": 98.32
+  },
+  "wr_rel 0.0-0.4": {
+   "launch_elev_mean_deg": 12.73,
+   "launch_elev_std_deg": 1.57,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 74.32,
+   "mean_distance": 74.32,
+   "landed_fraction": 1.0,
+   "lateral_std": 1.15,
+   "peak_club_mph_mean": 98.24
+  },
+  "t_back 0.9": {
+   "launch_elev_mean_deg": 12.65,
+   "launch_elev_std_deg": 1.76,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 67.2,
+   "mean_distance": 67.2,
+   "landed_fraction": 1.0,
+   "lateral_std": 0.58,
+   "peak_club_mph_mean": 97.79
+  }
+ }
+}

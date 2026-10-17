@@ -1,0 +1,8 @@
+{
+ "preset": "power_gain120",
+ "version": 1,
+ "description": "HYPOTHETICAL power tier (humanoid_golf_v4_power.xml, force_scale 2 BOOSTED; NOT stock/realistic). OPT-IN post-contact impact preset: impact_model.gain 1.20 instead of the default 1.28 (smash ~1.46-1.48, backspin ~2850-2890 rpm; 1.28 gives smash 1.55+, unrealistic vs real 1.45-1.50). Applied as an env-kwarg override at gate time (GATE_OVERRIDE); results JSON / trained models and the old default 1.28 are untouched and stay reproducible via scripts/gate3.sh.",
+ "hypothetical": true,
+ "gate_override": {"impact_gain": 1.20},
+ "default_for_comparison": {"impact_gain": 1.28, "gate_script": "scripts/gate3.sh"}
+}

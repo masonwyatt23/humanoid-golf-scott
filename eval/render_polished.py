@@ -80,8 +80,9 @@ def actuator_tags(kw):
     if fs and fs > 1.0: tags.append(f"force_scale {fs:g} (hypothetical-strength actuators)")
     if ts and ts > 1.0: tags.append(f"torque_scale {ts:g} (boosted)")
     if (kw.get("impact_model") or {}).get("spin_k"): tags.append("no spin model: backspin hand-set by impact model (spin_k), not from contact")
-    g = (kw.get("impact_model") or {}).get("gain", 1.0)
-    if g and g > 1.05: tags.append(f"impact gain {g:g}: ball speed/smash INFLATED (smash ~1.6), distances inflated")
+    g = kw.get("impact_gain") or (kw.get("impact_model") or {}).get("gain", 1.0)
+    if g and g > 1.25: tags.append(f"impact gain {g:g}: ball speed/smash INFLATED (smash ~1.6), distances inflated")
+    elif g and g > 1.05: tags.append(f"impact gain {g:g}: hypothetical power tier, smash set by this gain (gate-measured, see banner), distances model-based")
     td = (kw.get("script") or {}).get("t_down")
     if td is not None and td < 0.08: tags.append(f"t_down {td:g} s (65-80 ms downswing: not a human tempo)")
     return tags
@@ -318,6 +319,8 @@ def main():
     ap.add_argument("--pick", default="best_qualifying", choices=["best_qualifying", "best", "best_left"])
     ap.add_argument("--model", default=None, help="render this checkpoint name (as in the leaderboard, e.g. imit3_w050_s51) instead of the --pick choice")
     ap.add_argument("--swings", type=int, default=12); ap.add_argument("--seed", type=int, default=5000); ap.add_argument("--K", type=int, default=6)
+    ap.add_argument("--env-override", default=None, help="JSON dict merged into the chosen model's env kwargs (e.g. '{\"impact_gain\": 1.2}'); use with --override-stats")
+    ap.add_argument("--override-stats", default=None, help="gate JSON (eval_gate output run with the same override): its policy_det/policy_stoch replace the leaderboard stats shown on screen; noise caveat is dropped (it was measured without the override)")
     ap.add_argument("--out", default="results/videos/showcase_polished.mp4"); ap.add_argument("--no-pose", dest="pose", action="store_false"); ap.add_argument("--no-extras", action="store_true", help="skip social cut + hero gif")
     ap.add_argument("--profiles", nargs="?", const="docs/MASON_VS_PROFILES.md", default=None, help="optional style-profile summary slides from this doc (default docs/MASON_VS_PROFILES.md)")
     a = ap.parse_args(); ensure_gl()
@@ -335,6 +338,12 @@ def main():
     if a.model: pk, fallback = next(m["names"] for m in models if a.model in m["names"]), False
     if fallback: pk = lb["best_model"]
     lm = by[pk[0]]; ok_l, fail_l = q[pk[0]]
+    if a.env_override:
+        lm = dict(lm); lm["env_kwargs"] = dict(lm["env_kwargs"], **json.loads(a.env_override)); lm["noise_robust"] = None
+        if a.override_stats:
+            gj = json.loads((ROOT / a.override_stats).read_text()); lm["modes"] = dict(lm["modes"], deterministic=gj["policy_det"], stochastic=gj["policy_stoch"])
+            ok_l, fail_l = qualification(lm, crit)
+        by[pk[0]] = lm
     # --- scripted segments: those that qualify; else the 0.422 trainer-cfg baseline (labeled)
     sq = [m for m in scripted if q[m["names"][0]][0]]
     seg_s = [max(sq, key=lambda m: m["modes"]["deterministic"]["mean_carry"])] if sq else [m for m in scripted if "ball_x 0.422" in m["names"][0]][:1]
@@ -365,8 +374,8 @@ def main():
         name = m["names"][0]; d = m["modes"]["deterministic"]; sc = m.get("scripted", False)
         swt = (m.get("env_kwargs") or {}).get("script_weight")
         blend = ("script-free imitation of the scripted v3 swing" if swt == 0.0 else f"{round((1 - swt) * 100)}% learned / {round(swt * 100)}% scripted") if (kind == "LEARNED" and swt is not None and swt < 1.0) else ""   # from the run's env kwargs (verified in results JSON), never guessed
-        dk = "SCRIPT-DISTILLED POLICY" if (kind == "LEARNED" and swt == 0.0) else kind   # display name: a script-free imitation is not a swing learned independently
-        _ek = m.get("env_kwargs") or {}; _fs = _ek.get("force_scale") or 1.0; _g = (_ek.get("impact_model") or {}).get("gain", 1.0) or 1.0
+        dk = "SCRIPT-DISTILLED POLICY" if (kind == "LEARNED" and swt == 0.0) else "SCRIPT-DISTILLED BLEND" if (kind == "LEARNED" and swt is not None and 0.0 < swt < 1.0 and name.startswith("imit")) else kind   # display name: a script-free imitation is not a swing learned independently
+        _ek = m.get("env_kwargs") or {}; _fs = _ek.get("force_scale") or 1.0; _g = _ek.get("impact_gain") or (_ek.get("impact_model") or {}).get("gain", 1.0) or 1.0
         mot = (", power tier hypothetical (impact gain %g)" % _g if _g > 1.05 else f", force_scale {_fs:g} hypothetical-strength" if _fs > 1.0 else ", stock motors (force_scale 1)") if dk != kind or kind == "LEARNED" else ""
         title = (f"{dk} ({label(m)}){mot}" if kind == "LEARNED" else f"{kind}") + (f" - {blend}" if blend and dk == kind else "")   # distilled rows: the blend is already named in the overlay line, keeps the banner inside the frame
         kind_txt = dk + (f" [{blend}]" if blend else "")
@@ -389,6 +398,7 @@ def main():
         seed, sh = good[(len(good) - 1) // 2]
         ban = [f"{title}" + ("" if okq else "  -  DOES NOT YET QUALIFY") , f"All-episode (det): carry {d['mean_carry']:.1f} m | lat std {d['lateral_std']:.2f} m | L/R miss {d['left_miss_rate']*100:.0f}/{d['right_miss_rate']*100:.0f}% | launch {d['launch_elev_mean_deg']:.1f} deg | {d['peak_club_mph_mean']:.1f} mph",
                f"This swing: seed {seed}, median-by-carry of {a.swings} (overlay below = this swing only)"]
+        if kind == "LEARNED" and a.env_override and a.override_stats: ban.insert(1 + 1, "Stats: eval_gate %s eps, seed %s, with override %s (not the 50-ep leaderboard row)" % (json.loads((ROOT / a.override_stats).read_text()).get("episodes"), json.loads((ROOT / a.override_stats).read_text()).get("seed"), a.env_override))
         if not okq: ban.insert(2, "Fails: " + "; ".join(fails))
         nc = noise_caveat(m) if kind == "LEARNED" else ""
         if nc:
@@ -431,6 +441,7 @@ def main():
     if noise_caveat(lm) and (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e.insert(1, "- " + noise_caveat(lm) + ". NOISE-FRAGILE: the distilled policy loses much of its carry under small observation/action noise (quick screen, my 80%-of-clean threshold).")
     if (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e = [x.replace("'LEARNED' = trained policy (PPO residual on a scripted swing, or behaviour-cloned imitation: see segment label)", "'SCRIPT-DISTILLED POLICY' = behaviour-cloned imitation of the scripted swing (not learned from Mason)") for x in e]
     if (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e.insert(1, "- SCRIPT-DISTILLED row = script-free imitation of the scripted v3 swing (behaviour cloning, 100% of joint targets from the policy); it reproduces the script, it does not discover a new swing.")
+    if a.env_override: e.insert(1, "- ENV OVERRIDE %s applied to the learned segment only. The leaderboard slides above show the unmodified leaderboard row (impact gain 1.28 for the power tier = inflated distances); the swing segment and its banner use the override and the gate numbers named in the banner. Hypothetical power tier, no spin model (backspin hand-set)." % a.env_override)
     if fallback: e.insert(1, "THIS IS A FALLBACK PREVIEW: no trained model qualifies - the learned segment is not a good drive.")
     if a.profiles:
         for img_, sec_ in profiles_slides(ROOT / a.profiles): hold(img_, sec_)
