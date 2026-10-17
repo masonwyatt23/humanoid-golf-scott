@@ -25,7 +25,7 @@ Not legal advice and not a legal conclusion; a list of questions and the current
 - Q: Is MediaPipe's own license/model-card compatible with commercial use of its outputs?
 
 ## 4. Player names / likeness in profile files
-- `docs/research_pro_swing_profiles.md` and JSON name Tiger Woods, Adam Scott, Bryson DeChambeau, Chris Gotterup, Scottie Scheffler, Rory McIlroy. Content is published summary stats from cited sources, framed as "style profiles"; no player video, no claims of simulating real persons.
+- `docs/research_pro_swing_profiles.md` and JSON name six real professional golfers (names omitted here). Content is published summary stats from cited sources, framed as "style profiles"; no player video, no claims of simulating real persons.
 - Q: Is naming players acceptable in a public repo, product copy, or model names (right of publicity, trademark, endorsement implication)? Should the files use anonymised labels (e.g., "long-hitter style A")?
 - Q: Does reuse of third-party published numbers (articles, vendor data) need attribution or permission?
 
