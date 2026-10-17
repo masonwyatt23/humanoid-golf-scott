@@ -23,6 +23,7 @@ if __name__ == "__main__":
         kw = dict(J["env_kwargs_full"], _env="residual", track_weight=0.0, track_set=None); kw["residual_scale"] = list(kw["residual_scale"])
     else:
         kw = resid_kw_from_args(args)
+    if os.environ.get("GATE_OVERRIDE"): kw.update(json.loads(os.environ["GATE_OVERRIDE"]))   # e.g. {"elbow_base":0.41}: evaluate the model on a different address distribution (recorded in env_kwargs)
     out = {"name": name, "episodes": n, "seed": seed, "env_kwargs": kw}
     for label, scripted, det in [("policy_det", False, True), ("policy_stoch", False, False), ("scripted_zero_residual", True, True)]:
         d, _ = dr.run(name, kw, n, seed, det, scripted=scripted, workers=int(os.environ.get("EVAL_WORKERS", "1")))

@@ -90,6 +90,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         s = self.script
         t1 = s["t_hold"]; t2 = t1 + s["t_back"]; t3 = t2 + s["t_pause"]; t4 = t3 + s["t_down"]; t5 = t4 + s["t_follow"]
         el0 = float(s.get("el0", np.deg2rad(20.0)))
+        if s.get("el0_follow_start") and getattr(self, "_el_start", None) is not None: el0 = min(el0, float(self._el_start))   # OPT-IN: never command the elbow ABOVE its start value (low-elbow starts hit the strike cliff)
         if t < t2:
             b = _smooth((t - t1) / s["t_back"])
             sh = s["q_back"] * b; el = el0 + (s["elbow_back"] - el0) * b; wr = s["wrist_cock"] * b; yaw = s["yaw_back"] * b
@@ -337,7 +338,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._launch_paid = False
         self._st = np.zeros(4)
         self._qtraj = []
-        self._y_off = float(self.data.qpos[1])
+        self._y_off = float(self.data.qpos[1]); self._el_start = float(self.data.qpos[self._q_el])
         if self.strike_comp:
             sc = self.strike_comp
             if "points" in sc:   # 2-D Gaussian-kernel regression of measured face dz on (start elbow, start shoulder)
