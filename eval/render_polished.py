@@ -351,7 +351,7 @@ def main():
     hold(card(t, cols, 0.6), 4)
     # leaderboard slides
     rank = [r.split("/")[0] for r in lb["ranking"]][:4]
-    kd = lambda m: "LEARNED" if (m.get("env_kwargs") or {}).get("script_weight") in (None, 1.0) else "SCRIPT-DISTILLED" if (m.get("env_kwargs") or {}).get("script_weight") == 0.0 else f"BLEND {round((1 - m['env_kwargs']['script_weight']) * 100)}/{round(m['env_kwargs']['script_weight'] * 100)}"
+    kd = lambda m: "LEARNED" if (m.get("env_kwargs") or {}).get("script_weight") in (None, 1.0) else "DISTILLED" if (m.get("env_kwargs") or {}).get("script_weight") == 0.0 else f"BLEND {round((1 - m['env_kwargs']['script_weight']) * 100)}/{round(m['env_kwargs']['script_weight'] * 100)}"
     rows = [(label(by[n]), kd(by[n]), by[n], q[n][0]) for n in rank if n in by]
     rows += [(label(m), "SCRIPTED", m, q[m["names"][0]][0]) for m in scripted]
     if lm["names"][0] not in rank: rows.insert(0, (label(lm), kd(lm), lm, ok_l))
