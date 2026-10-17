@@ -13,14 +13,15 @@
    "self_owned",
    "cmu_permissive",
    "cc0",
+   "needs_counsel",
    "noncommercial",
    "unknown"
   ],
   "proposed_new": [
    "cc_by",
-   "commercial_license_required",
-   "needs_counsel"
-  ]
+   "commercial_license_required"
+  ],
+  "note": "needs_counsel was adopted into data/provenance.py LICENSE_CLASSES on 2026-10-17 (MultiSenseGolf retag), so it is listed under existing."
  },
  "proposed_tag_mapping": {
   "cc_by": {

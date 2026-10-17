@@ -226,7 +226,7 @@ def build(refs="data/references"):
         rs = []
         for p in sorted(glob.glob(os.path.join(refs, pattern))):
             d = np.load(p, allow_pickle=True)
-            if bool(d["commercial_ok"]) and (not ("mirrored" in d.files) or not bool(d["mirrored"])):
+            if (bool(d["commercial_ok"]) or ("counsel_required" in d.files and bool(d["counsel_required"]))) and (not ("mirrored" in d.files) or not bool(d["mirrored"])):
                 f = features(d, kind); f["file"] = os.path.basename(p); rs.append(f)
         return rs
 
