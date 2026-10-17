@@ -123,6 +123,34 @@ def _entry(p, source, group, tracked, **kw):
     return e
 
 
+NEEDS_MASON_CONFIRMATION = {"mason_v2_p1_s11.npz", "mason_v2_p2_s10.npz"}
+
+
+def annotate_entry(e):
+    """Add licence facts (counsel_required, license_url, verification, ...) and handedness-verification flags."""
+    from data.provenance import license_facts
+    e.update(license_facts(e["source"]))
+    if e["source"] == "mason":
+        name = Path(e["path"]).name
+        d = np.load(REF_DIR / name, allow_pickle=True)
+        e["handedness_verified"] = bool(_s(d, "handedness_verified", False))
+        e["handedness_detected"] = str(_s(d, "handedness_detected", ""))
+        e["needs_mason_confirmation"] = name in NEEDS_MASON_CONFIRMATION or not e["handedness_verified"]
+        e["counsel_required"] = False
+        e["third_party_content_unreviewed"] = True      # Instagram terms / music / bystanders never reviewed
+    return e
+
+
+def annotate_manifest(m):
+    for e in m["entries"]:
+        annotate_entry(e)
+    m.setdefault("notes", [])
+    n = "licence facts: see data/provenance.py LICENSE_FACTS; commercial_cleared(entry) = commercial_ok and not counsel_required (MultiSense is counsel_required)"
+    if n not in m["notes"]:
+        m["notes"].append(n)
+    return m
+
+
 def build_manifest():
     tracked = _tracked_on_origin()
     gid = _groups(None)
@@ -170,7 +198,7 @@ def build_manifest():
     w = train_weights(entries, cfg)
     for e in entries:
         e["weight_train"] = round(w.get(e["path"], 0.0), 6)
-    return {
+    return annotate_manifest({
         "version": "unified_v1",
         "base": "origin/main (impact-geometry commits a873466/09d53d3 are NOT required; no file here comes from that branch)",
         "n_entries": len(entries),
@@ -181,7 +209,7 @@ def build_manifest():
                   "MultiSense entries are tagged needs_counsel / commercial_ok=false (published as CC0 but participants are identifiable); see license_note",
                   "entries with handedness_unverified/exclude_pending_verification are FLAGGED ONLY; sampling does not honor the flag (would change recorded results)"],
         "entries": entries,
-    }
+    })
 
 
 def _h(seed, key):
@@ -295,7 +323,12 @@ def as_reference_dataset(split="train", manifest=None, root=ROOT):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["build"]); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["build", "annotate"]); a = ap.parse_args()
+    if a.cmd == "annotate":     # add licence/handedness flags to the existing manifest in place (no rebuild, no split change)
+        m = annotate_manifest(json.load(open(MANIFEST)))
+        json.dump(m, open(MANIFEST, "w"), indent=1)
+        print("annotated", m["n_entries"], "entries")
+        return
     SET_DIR.mkdir(parents=True, exist_ok=True)
     if not SAMPLING.exists():
         json.dump(DEFAULT_SAMPLING, open(SAMPLING, "w"), indent=2)

@@ -87,3 +87,25 @@ def test_handedness_unverified_flags_do_not_change_sampling():
     assert flagged["mason_v2_p1_s11.npz"]["split"] == "val"
     ents, _ = U.weights()
     assert "data/references/mason_v2_p2_s10.npz" in {e["path"] for e in ents}
+
+
+def test_licence_flags_in_manifest():
+    from data.provenance import commercial_cleared
+    man = U.load_manifest()
+    by = {}
+    for e in man["entries"]:
+        by.setdefault(e["source"], []).append(e)
+    assert all(e["counsel_required"] for e in by["multisense"])
+    assert not any(commercial_cleared(e) for e in by["multisense"])
+    assert all(e["no_standalone_resale"] and e["acknowledgment_required"] and e["ack"] for e in by["cmu"])
+    assert all(commercial_cleared(e) for e in by["cmu"])
+    assert all("license_url" in e and "verification" in e for e in by["cmu"] + by["multisense"])
+    s11 = [e for e in by["mason"] if e["path"].endswith("mason_v2_p1_s11.npz")][0]
+    assert s11["needs_mason_confirmation"] and not s11["handedness_verified"] and s11["split"] == "val"
+
+
+def test_face_path_stub_is_unverified():
+    import json
+    from pathlib import Path
+    j = json.load(open(Path(__file__).resolve().parents[1] / "data/references/mason_impact_face_path_proxies.json"))
+    assert j["unverified_all"] and "face_angle_deg" in j["unavailable"] and "club_path_deg" in j["unavailable"]

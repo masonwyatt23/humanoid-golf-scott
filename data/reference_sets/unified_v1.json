@@ -8,7 +8,8 @@
   "quality for multisense/cmu is a proxy (1-0.15*n_qc_flags); Mason uses video quality_score",
   "CMU and MultiSense carry attribution requirements: see 'ack'",
   "MultiSense entries are tagged needs_counsel / commercial_ok=false (published as CC0 but participants are identifiable); see license_note",
-  "entries with handedness_unverified/exclude_pending_verification are FLAGGED ONLY; sampling does not honor the flag (would change recorded results)"
+  "entries with handedness_unverified/exclude_pending_verification are FLAGGED ONLY; sampling does not honor the flag (would change recorded results)",
+  "licence facts: see data/provenance.py LICENSE_FACTS; commercial_cleared(entry) = commercial_ok and not counsel_required (MultiSense is counsel_required)"
  ],
  "entries": [
   {
@@ -32,7 +33,12 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.073212
+   "weight_train": 0.073212,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p1_s04.npz",
@@ -55,7 +61,12 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.073819
+   "weight_train": 0.073819,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p1_s05.npz",
@@ -78,7 +89,12 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.070539
+   "weight_train": 0.070539,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p1_s06.npz",
@@ -101,7 +117,12 @@
    "ack": null,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p1_s11.npz",
@@ -127,7 +148,12 @@
    "weight_train": 0.0,
    "handedness_unverified": true,
    "exclude_pending_verification": true,
-   "flag_note": "handedness detected RIGHT (confidence 0.12), stated left, cues disagree; may not be Mason. Val split. Unverified."
+   "flag_note": "handedness detected RIGHT (confidence 0.12), stated left, cues disagree; may not be Mason. Val split. Unverified.",
+   "handedness_verified": false,
+   "handedness_detected": "right",
+   "needs_mason_confirmation": true,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p2_s01.npz",
@@ -150,7 +176,12 @@
    "ack": null,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p2_s02.npz",
@@ -173,7 +204,12 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.079453
+   "weight_train": 0.079453,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p2_s10.npz",
@@ -199,7 +235,12 @@
    "weight_train": 0.071891,
    "handedness_unverified": true,
    "exclude_pending_verification": true,
-   "flag_note": "handedness unverified (detected left, lead-arm cue says right). Train split. Unverified."
+   "flag_note": "handedness unverified (detected left, lead-arm cue says right). Train split. Unverified.",
+   "handedness_verified": false,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": true,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p2_s11.npz",
@@ -222,7 +263,12 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.070699
+   "weight_train": 0.070699,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p2_s13.npz",
@@ -245,7 +291,12 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.071998
+   "weight_train": 0.071998,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v2_p3_s09_unmirrored.npz",
@@ -268,7 +319,12 @@
    "ack": null,
    "note": "caption-flagged flipped edit of a left-handed swing, un-mirrored back to left",
    "split": "train",
-   "weight_train": 0.088389
+   "weight_train": 0.088389,
+   "handedness_verified": true,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": false,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/mason_v3_p2_s03_slowmo.npz",
@@ -291,7 +347,12 @@
    "ack": null,
    "note": "slow-mo: video-time axis stretched; excluded from default sampling",
    "split": "train",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "handedness_verified": false,
+   "handedness_detected": "left",
+   "needs_mason_confirmation": true,
+   "counsel_required": false,
+   "third_party_content_unreviewed": true
   },
   {
    "path": "data/references/multisense_P19_s20_mirrored.npz",
@@ -318,7 +379,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P19_s29_mirrored.npz",
@@ -345,7 +413,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P19_s32_mirrored.npz",
@@ -372,7 +447,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P19_s34_mirrored.npz",
@@ -399,7 +481,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P19_s45_mirrored.npz",
@@ -426,7 +515,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P19_s75_mirrored.npz",
@@ -453,7 +549,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P19_s99_mirrored.npz",
@@ -480,7 +583,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s16_mirrored.npz",
@@ -507,7 +617,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s20_mirrored.npz",
@@ -534,7 +651,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s28_mirrored.npz",
@@ -561,7 +685,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s31_mirrored.npz",
@@ -588,7 +719,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s37_mirrored.npz",
@@ -615,7 +753,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s52_mirrored.npz",
@@ -642,7 +787,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s55_mirrored.npz",
@@ -669,7 +821,14 @@
    "weight_train": 0.0,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s61_mirrored.npz",
@@ -696,7 +855,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s62_mirrored.npz",
@@ -723,7 +889,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s76_mirrored.npz",
@@ -750,7 +923,14 @@
    "weight_train": 0.0,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s77_mirrored.npz",
@@ -777,7 +957,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P20_s87_mirrored.npz",
@@ -804,7 +991,14 @@
    "weight_train": 0.0,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s108_mirrored.npz",
@@ -831,7 +1025,14 @@
    "weight_train": 0.0,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s11_mirrored.npz",
@@ -858,7 +1059,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s26_mirrored.npz",
@@ -885,7 +1093,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s46_mirrored.npz",
@@ -912,7 +1127,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s59_mirrored.npz",
@@ -939,7 +1161,14 @@
    "weight_train": 0.0,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s60_mirrored.npz",
@@ -966,7 +1195,14 @@
    "weight_train": 0.0,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s83_mirrored.npz",
@@ -993,7 +1229,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s95_mirrored.npz",
@@ -1020,7 +1263,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/multisense_P22_s99_mirrored.npz",
@@ -1047,7 +1297,14 @@
    "weight_train": 0.009091,
    "license_class_as_published": "cc0",
    "counsel_required": true,
-   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md.",
+   "license_url": "https://doi.org/10.7910/dvn/lccllw",
+   "license_dataset_id": "multisensegolf",
+   "verification": "secondary_search_snippet",
+   "no_standalone_resale": false,
+   "acknowledgment_required": false,
+   "counsel_note": "CC0 + identifiable participants + consent scope for commercial training; CC0 text not read from the record itself [unverified]. Joint-position data only, no video.",
+   "counsel_redistribution_question": false
   },
   {
    "path": "data/references/cmu_64_01.npz",
@@ -1070,7 +1327,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.022078
+   "weight_train": 0.022078,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_02.npz",
@@ -1093,7 +1358,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_03.npz",
@@ -1116,7 +1389,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.025974
+   "weight_train": 0.025974,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_04.npz",
@@ -1139,7 +1420,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.025974
+   "weight_train": 0.025974,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_05.npz",
@@ -1162,7 +1451,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.022078
+   "weight_train": 0.022078,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_06.npz",
@@ -1185,7 +1482,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_07.npz",
@@ -1208,7 +1513,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.025974
+   "weight_train": 0.025974,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_08.npz",
@@ -1231,7 +1544,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.025974
+   "weight_train": 0.025974,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_09.npz",
@@ -1254,7 +1575,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.025974
+   "weight_train": 0.025974,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   },
   {
    "path": "data/references/cmu_64_10.npz",
@@ -1277,7 +1606,15 @@
    "ack": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)",
    "note": "file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)",
    "split": "train",
-   "weight_train": 0.025974
+   "weight_train": 0.025974,
+   "license_url": "http://mocap.cs.cmu.edu/",
+   "license_dataset_id": "cmu_mocap",
+   "verification": "primary_fetched",
+   "counsel_required": false,
+   "no_standalone_resale": true,
+   "acknowledgment_required": true,
+   "counsel_note": "Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md).",
+   "counsel_redistribution_question": true
   }
  ]
 }

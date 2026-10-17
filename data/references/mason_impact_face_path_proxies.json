@@ -1,0 +1,98 @@
+{
+ "schema": "mason_impact_face_path_proxies/v1",
+ "purpose": "Proxies that ARE available for Mason at/near impact. Face angle and club path are NOT available; see docs/IMPACT_FACE_PATH_AVAILABILITY.md.",
+ "source_files": [
+  "data/references/mason_impact_geometry_targets.json",
+  "data/references/mason_target_features.json"
+ ],
+ "unverified_all": true,
+ "unverified_reason": "~30 unique fps screen recordings of social-feed playback, monocular MediaPipe world landmarks, no club or ball tracking, impact event is landmark-inferred (+-~0.05 s), several clips edited/looped.",
+ "unavailable": {
+  "face_angle_deg": "requires club tracking or launch monitor",
+  "face_to_path_deg": "requires club tracking or launch monitor",
+  "club_path_deg": "requires club tracking or launch monitor",
+  "attack_angle_deg": "requires club tracking or launch monitor",
+  "dynamic_loft_deg": "requires club tracking or launch monitor",
+  "shaft_lean_deg": "requires club tracking or launch monitor",
+  "launch_angle_deg": "requires club tracking or launch monitor",
+  "spin_rpm": "requires club tracking or launch monitor",
+  "club_head_speed_mph": "requires club tracking or launch monitor",
+  "ball_speed_mph": "requires club tracking or launch monitor"
+ },
+ "proxies": {
+  "hand_up_at_impact_torso_lengths": {
+   "n": 11,
+   "median": 0.388,
+   "iqr": [
+    0.337,
+    0.43
+   ],
+   "use": "reward_ready (soft band)",
+   "unverified": true
+  },
+  "hand_up_at_top_torso_lengths": {
+   "n": 11,
+   "median": 1.253,
+   "iqr": [
+    1.229,
+    1.372
+   ],
+   "use": "reward_ready (soft band)",
+   "unverified": true
+  },
+  "low_point_t_minus_impact_s": {
+   "n": 11,
+   "median": 0.067,
+   "iqr": [
+    0.067,
+    0.083
+   ],
+   "use": "reward_ready timing; implies the impact event is early vs hand low point",
+   "unverified": true
+  },
+  "peak_hand_speed_torso_per_s": {
+   "n": 11,
+   "median": 12.855,
+   "iqr": [
+    11.991,
+    15.186
+   ],
+   "use": "reward_ready relative hand speed; NOT mph (torso length unscaled)",
+   "unverified": true
+  },
+  "hand_tgt_at_impact_torso_lengths": {
+   "n": 11,
+   "median": -0.085,
+   "iqr": [
+    -0.186,
+    -0.002
+   ],
+   "use": "diagnostic only: target axis from monocular depth, only ~2-3 clips pass view-axis agreement",
+   "unverified": true
+  },
+  "lead_arm_lean_at_impact_deg": {
+   "n": 11,
+   "median": -57.64,
+   "iqr": [
+    -61.062,
+    -54.009
+   ],
+   "use": "diagnostic only: arm-line proxy not shaft lean; ~-58 deg is largely depth smear",
+   "unverified": true
+  },
+  "hand_path_direction": {
+   "available": "vertical (up) and timing only",
+   "tgt": "diagnostic",
+   "oth": "NOT usable: lateral sign is arbitrary per clip; weighted median lies outside its own IQR",
+   "unverified": true,
+   "note": "Hand path direction in the swing plane is a weak hint at path, not club path (hands path != clubhead path)."
+  },
+  "lateral_spread": {
+   "available": false,
+   "note": "No Mason lateral-dispersion data; ball flight never observed. Lateral spread can only come from launch-monitor or sim shots."
+  }
+ },
+ "handedness_flags": {
+  "mason_v2_p1_s11": "handedness_verified=False; geometry proxies from this clip inherit that caveat"
+ }
+}

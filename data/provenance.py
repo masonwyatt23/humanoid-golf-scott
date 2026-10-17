@@ -39,8 +39,10 @@ PRESETS: Dict[str, Dict] = {
     # overrides them to needs_counsel/commercial_ok=False (data/unified_refset.py MS_LICENSE); .npz files were not rewritten.
     "multisensegolf_cc0": dict(license_class="cc0", commercial_ok=True, provenance_source="multisensegolf_harvard_dataverse",
                               provenance_note="MultiSenseGolf (Oh et al., Harvard Dataverse doi:10.7910/DVN/LCCLLW), "
-                                              "CC0 1.0 per the dataset record; inertial-mocap joint positions only "
-                                              "(no video/faces used). Participants consented to data disclosure. "
+                                              "CC0 1.0 (inferred from the Dataverse default waiver; [unverified] against "
+                                              "the record text); inertial-mocap joint positions only (no video/faces "
+                                              "used). Participants are identifiable people and consent scope for "
+                                              "commercial model training is NOT established: counsel_required. "
                                               "IMU mocap, not optical: expect drift/noise.",
                               acknowledgment_required=False,
                               acknowledgment_text="Oh, Seong, Ko, Lim, Kim, Choi, DelPreto, Rus, Kim. MultiSenseGolf, "
@@ -122,3 +124,32 @@ def save_npz_atomic(path, arrays: Dict) -> None:
     finally:
         if tmp.exists():
             tmp.unlink()
+
+
+# ---- extra licence facts (additive; not stored in existing .npz files) -------------------------------------
+# Source of truth: data/references/mocap_dataset_licenses.json (ids cmu_mocap, multisensegolf).
+# Not legal advice. `commercial_ok` is left as originally tagged; use `commercial_cleared()` to also honour counsel.
+LICENSE_FACTS: Dict[str, Dict] = {
+    "cmu": dict(license_url="http://mocap.cs.cmu.edu/", license_dataset_id="cmu_mocap", verification="primary_fetched",
+                counsel_required=False, no_standalone_resale=True, acknowledgment_required=True,
+                counsel_note=("Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). "
+                              "Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a "
+                              "counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md)."),
+                counsel_redistribution_question=True),
+    "multisense": dict(license_url="https://doi.org/10.7910/dvn/lccllw", license_dataset_id="multisensegolf",
+                       verification="secondary_search_snippet", counsel_required=True, no_standalone_resale=False,
+                       acknowledgment_required=False,
+                       counsel_note=("CC0 + identifiable participants + consent scope for commercial training; CC0 text not read "
+                                     "from the record itself [unverified]. Joint-position data only, no video."),
+                       counsel_redistribution_question=False),
+}
+
+
+def license_facts(source: str) -> Dict:
+    """Extra tags for a unified-set source ('cmu', 'multisense'); {} for others."""
+    return dict(LICENSE_FACTS.get(source, {}))
+
+
+def commercial_cleared(entry: Dict) -> bool:
+    """commercial_ok AND no outstanding counsel requirement (default-deny when the counsel flag is true)."""
+    return bool(entry.get("commercial_ok")) and not bool(entry.get("counsel_required", False))
