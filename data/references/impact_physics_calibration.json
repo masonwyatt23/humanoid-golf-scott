@@ -1,0 +1,1490 @@
+{
+ "schema_version": 1,
+ "generated": "2026-10-17",
+ "scope": "Driver impact physics and ball-flight calibration for 120-150 mph club speed",
+ "confidence_levels": [
+  "high",
+  "medium",
+  "low",
+  "none"
+ ],
+ "verification_levels": {
+  "fetched": "page body read",
+  "search_snippet": "seen only in search-result excerpt/synthesis",
+  "not_fetched": "cited via another source, not read"
+ },
+ "sources": [
+  {
+   "id": "usga_tpx3004",
+   "url": "https://www.usga.org/content/dam/usga/pdf/Equipment/TPX3004-procedure-for-measuring-the-flexibility-of-a-golf-clubhead.pdf",
+   "title": "USGA TPX3004 pendulum CT procedure",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "usga_notice_2016",
+   "url": "https://www.usga.org/content/dam/usga/pdf/RSI/distance-insights-2021-docs/Notice%20%20-Spring%20Effect%20Interpretation%201-11-16%20Final.pdf",
+   "title": "USGA Notice to Manufacturers, spring-effect interpretation (2016)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "golfcom_ct",
+   "url": "https://golf.com/gear/gear-101-ct-test-cor-test-golf-clubs/",
+   "title": "GOLF.com Gear 101: CT vs COR",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "hireko_cor",
+   "url": "https://www.hirekogolf.com/coefficient-of-restitution-cor-characteristic-time-ct",
+   "title": "Hireko: COR vs CT (COR limit 0.822+0.008)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "tut_smash",
+   "url": "https://www.tutelman.com/golf/ballflight/smashfactor.php",
+   "title": "Tutelman: Smash Factor - Myths and Facts",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "tut_dplane",
+   "url": "https://www.tutelman.com/golf/biomech/appconcepts1.php",
+   "title": "Tutelman: D-plane concepts",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "tut_3d",
+   "url": "https://tutelman.com/golf/ballflight/3dlaunch.php",
+   "title": "Tutelman: 3-D launch conditions from impact (launch=Phi*(0.96-0.0071*Phi))",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "tut_9flights",
+   "url": "https://www.tutelman.com/golf/ballflight/ballflight.php",
+   "title": "Tutelman: Nine ball flights (ball starts near face direction)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "tut_gear3",
+   "url": "https://www.tutelman.com/golf/ballflight/gearEffect3.php",
+   "title": "Tutelman: All about Gear Effect 3 (eq 2a,3a)",
+   "verification": "fetched"
+  },
+  {
+   "id": "tut_launchopt",
+   "url": "https://www.tutelman.com/golf/ballflight/launchOptimize.php",
+   "title": "Tutelman: Optimizing a driver's launch parameters (best launch vs ball speed table)",
+   "verification": "fetched"
+  },
+  {
+   "id": "tut_swing2",
+   "url": "https://tutelman.com/golf/design/swing2.php",
+   "title": "Tutelman Design Notes golf physics p2 (spin=160*V*sin(loft))",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "trackman_defs",
+   "url": "https://support.trackmangolf.com/hc/en-us/articles/5089892383515-Practice-Trackman-Data-Parameter-Definitions",
+   "title": "TrackMan data parameter definitions",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "trackman_aa",
+   "url": "https://www.trackman.com/blog/attack-angle",
+   "title": "TrackMan: What is attack angle (tour AoA -0.9 driver)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "trackman_tour2023",
+   "url": "https://www.trackman.com/blog/introducing-updated-tour-averages",
+   "title": "TrackMan 2023 PGA/LPGA tour averages (page; numbers via secondary)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "golfmonthly_tm",
+   "url": "https://www.golfmonthly.com/tour/how-far-pga-tour-players-hit-every-club-in-the-bag",
+   "title": "Golf Monthly: TrackMan 2023 PGA Tour table (115/171/2545/282)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "tm_avg_2019pdf",
+   "url": "https://teeituprva.com/wp-content/uploads/2019/03/PGA-AVERAGES-INTERACTIVE.pdf",
+   "title": "Older TrackMan PGA Tour averages PDF (113/167/1.48/10.9/2686/38deg/275yd)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "pgamag_opt",
+   "url": "https://pgamagazine.com/wp-content/media/2021/02/Optimal-Launch-Spin-Chart-1.pdf",
+   "title": "Optimal launch & spin chart (high-speed, negative AoA assumptions)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "penner_2003",
+   "url": "https://iopscience.iop.org/article/10.1088/0034-4885/66/2/202",
+   "title": "Penner 2003, The physics of golf, Rep. Prog. Phys. 66:131",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "penner_pdf",
+   "url": "http://raypenner.com/golf-physics.pdf",
+   "title": "Penner 2003 author PDF",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "penner_convex",
+   "url": "http://www.raypenner.com/golf-convex.pdf",
+   "title": "Penner, convex face of a driver (spin decay, CD/CL use)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "smits_smith_1994",
+   "url": "https://doi.org/10.4324/9780203474709-58",
+   "title": "Smits & Smith 1994, A new aerodynamic model of a golf ball in flight (abstract only; full text paywalled)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "golfsim_gh",
+   "url": "https://github.com/avrybrdly93/golfsim",
+   "title": "Third-party implementation quoting Smits&Smith CL fit (secondary, not primary)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "bounce_arxiv",
+   "url": "https://arxiv.org/html/2302.02758v1",
+   "title": "Measurements and linearized models for golf ball bounce (arXiv 2302.02758)",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "golfingfocus",
+   "url": "https://golfingfocus.com/how-far-tour-pros-hit-driver-and-what-it-means-for-your-drives/",
+   "title": "Golfing Focus: tour averages (115/171/1.49/10.4/2545/-0.9) - secondary blog",
+   "verification": "search_snippet"
+  },
+  {
+   "id": "bearman_harvey_1976",
+   "url": "https://doi.org/ (unverified; bibliographic citation only: Aeronautical Quarterly 27(2):112-122, 1976)",
+   "title": "Bearman & Harvey 1976, Golf ball aerodynamics, Aeronaut. Q. 27:112 (NOT fetched; cited via Penner)",
+   "verification": "not_fetched"
+  }
+ ],
+ "values": [
+  {
+   "id": "usga_ct_limit",
+   "quantity": "USGA driver characteristic-time limit",
+   "value": 239,
+   "unit": "us",
+   "source_ids": [
+    "usga_tpx3004",
+    "usga_notice_2016"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "note": "+18 us test tolerance -> 257 us max conforming reading"
+  },
+  {
+   "id": "usga_cor_legacy",
+   "quantity": "Legacy COR limit (pre-CT)",
+   "value": 0.822,
+   "unit": "ratio",
+   "source_ids": [
+    "hireko_cor",
+    "golfcom_ct"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "+0.008 tolerance = 0.830 effective. CT is not a perfect COR substitute; off-centre CT reads high (golf.com quote)"
+  },
+  {
+   "id": "smash_theory_max",
+   "quantity": "Theoretical centre-hit smash factor, 460cc ~200 g head, COR 0.83, ~10 deg loft",
+   "value": [
+    1.47,
+    1.482
+   ],
+   "unit": "ratio",
+   "source_ids": [
+    "tut_smash"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "Tutelman: 1.482 for a square hit; <1.47 at normal ~10 deg loft; falls with loft. Not a rule limit"
+  },
+  {
+   "id": "smash_tour_2023",
+   "quantity": "TrackMan 2023 PGA Tour driver smash",
+   "value": 1.49,
+   "unit": "ratio",
+   "source_ids": [
+    "trackman_tour2023",
+    "golfmonthly_tm"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "Exceeds Tutelman's 1.47-1.48 estimate: ball/club speed definitions differ (TrackMan club speed is head CG speed; modern heads/CT near limit). Treat 1.47-1.50 as plausible tour-best band"
+  },
+  {
+   "id": "tour_club_speed_2023",
+   "quantity": "PGA Tour driver club speed",
+   "value": 115,
+   "unit": "mph",
+   "source_ids": [
+    "golfmonthly_tm",
+    "trackman_tour2023"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "tour_ball_speed_2023",
+   "quantity": "PGA Tour driver ball speed",
+   "value": 171,
+   "unit": "mph",
+   "source_ids": [
+    "golfmonthly_tm"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "tour_spin_2023",
+   "quantity": "PGA Tour driver spin",
+   "value": 2545,
+   "unit": "rpm",
+   "source_ids": [
+    "golfmonthly_tm"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "tour_launch_2023",
+   "quantity": "PGA Tour driver launch",
+   "value": 10.4,
+   "unit": "deg",
+   "source_ids": [
+    "golfingfocus"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Secondary blog quoting TrackMan; consistent with 10.9 deg in older TrackMan set"
+  },
+  {
+   "id": "tour_carry_2023",
+   "quantity": "PGA Tour driver carry",
+   "value": 282,
+   "unit": "yd",
+   "source_ids": [
+    "golfmonthly_tm"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "Golf Monthly also cites 300.2 yd total drive (PGA Tour driving distance, different measure)"
+  },
+  {
+   "id": "tour_aoa",
+   "quantity": "PGA Tour driver attack angle",
+   "value": -0.9,
+   "unit": "deg",
+   "source_ids": [
+    "trackman_aa"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "LPGA +2.8 deg"
+  },
+  {
+   "id": "tour_2019_set",
+   "quantity": "Older TrackMan tour set: 113 mph / 167 mph / 1.48 / 10.9 deg / 2686 rpm / 38 deg land / 275 yd carry / AoA -1.3",
+   "value": null,
+   "unit": "table",
+   "source_ids": [
+    "tm_avg_2019pdf"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "dplane_start_line",
+   "quantity": "Ball launch direction weighting",
+   "value": {
+    "face": 0.85,
+    "path": 0.15
+   },
+   "unit": "fraction",
+   "source_ids": [
+    "tut_dplane",
+    "tut_9flights"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "~85/15 driver rule of thumb via search synthesis; Tutelman states ball starts much closer to face than path"
+  },
+  {
+   "id": "dplane_launch_factor",
+   "quantity": "Launch angle = Phi*(0.96-0.0071*Phi), Phi=D-plane (spin) loft deg",
+   "value": null,
+   "unit": "formula",
+   "source_ids": [
+    "tut_3d"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "Phi=24 deg -> 0.790 factor. Applies to 3-D obliqueness; Tutelman 'dynamic loft' there = spin loft"
+  },
+  {
+   "id": "spin_axis_perp_dplane",
+   "quantity": "Spin axis perpendicular to D-plane; spin magnitude grows with obliqueness (face-to-path, spin loft)",
+   "value": null,
+   "unit": "principle",
+   "source_ids": [
+    "tut_dplane",
+    "trackman_defs"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "spin_formula_tutelman",
+   "quantity": "Clean-hit backspin ~ 160*V_club(mph)*sin(spin loft) rpm",
+   "value": 160,
+   "unit": "rpm/(mph*sin)",
+   "source_ids": [
+    "tut_swing2"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Old era ball/club; gives ~4,600 rpm at 115 mph, 14.5 deg - far above 2,545 tour avg. Do not use for modern low-spin balls"
+  },
+  {
+   "id": "spin_per_loft_deg",
+   "quantity": "Driver backspin vs loft (modern, TrackMan-sourced)",
+   "value": [
+    400,
+    500
+   ],
+   "unit": "rpm/deg loft",
+   "source_ids": [
+    "tut_swing2"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Search synthesis of exactgolf.com data; not independently fetched"
+  },
+  {
+   "id": "gear_horizontal",
+   "quantity": "Horizontal gear-effect spin = 16.4 * Vb(mph) * x(inch) rpm",
+   "value": 16.4,
+   "unit": "rpm/(mph*in)",
+   "source_ids": [
+    "tut_gear3"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "note": "Fetched. Ih 4000-5900 g-cm^2 for 460cc heads; ~2,460 rpm/in at 150 mph"
+  },
+  {
+   "id": "gear_vertical",
+   "quantity": "Vertical gear-effect spin = 25 * Vb(mph) * y(inch) rpm",
+   "value": 25,
+   "unit": "rpm/(mph*in)",
+   "source_ids": [
+    "tut_gear3"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "note": "Fetched. Iv = 1/2..2/3 of Ih; high hit -> less backspin/launch higher"
+  },
+  {
+   "id": "gear_bulge_roll",
+   "quantity": "Bulge and roll compensate gear effect: toe hit starts right then hooks; heel starts left then slices",
+   "value": null,
+   "unit": "principle",
+   "source_ids": [
+    "tut_gear3"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "offcenter_loss",
+   "quantity": "Smash loss from off-centre hits",
+   "value": [
+    0.07,
+    0.14
+   ],
+   "unit": "fraction per inch (rough, grows ~quadratically)",
+   "source_ids": [
+    "tut_smash"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "0.14/in old Tutelman factor probably too high for modern MOI; 0.07-0.10 plausible per search synthesis - needs primary source"
+  },
+  {
+   "id": "optimal_launch_vs_ball_speed",
+   "quantity": "Tutelman best-carry launch angle by ball speed (zero-AoA assumption; fitted)",
+   "value": {
+    "100": 17,
+    "115": 15,
+    "130": 13,
+    "145": 11,
+    "160": 10,
+    "175": 8.5,
+    "190": 7
+   },
+   "unit": "deg launch by mph ball speed",
+   "source_ids": [
+    "tut_launchopt"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "Fetched table; carry-optimal only, derived from TrajectoWare Drive, not tour measurement. Authors note ridge: change launch and spin together"
+  },
+  {
+   "id": "optimal_high_speed_pga",
+   "quantity": "150 mph ball: ~6.2 deg launch / 3,500 rpm; 180 mph: ~3.6 deg / 3,450 rpm (AoA -10 deg assumption)",
+   "value": null,
+   "unit": "table",
+   "source_ids": [
+    "pgamag_opt"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Assumes -10 deg AoA (not driver-realistic); conflicts with Tutelman table and TrackMan older optimiser (+5 AoA: 14.5 deg/2,560 rpm at 155 mph) - source disagreement, do not use for calibration"
+  },
+  {
+   "id": "aoa_effect",
+   "quantity": "Positive AoA raises launch and lowers spin at same dynamic loft (lower spin loft)",
+   "value": null,
+   "unit": "principle",
+   "source_ids": [
+    "trackman_aa",
+    "tut_dplane"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "note": "TrackMan: hitting up is a must for driver distance"
+  },
+  {
+   "id": "cl_smits_smith",
+   "quantity": "CL(S) = 1.99 S - 3.25 S^2 (dimpled ball, S=R*omega/V)",
+   "value": null,
+   "unit": "formula",
+   "source_ids": [
+    "golfsim_gh",
+    "smits_smith_1994"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Secondary implementation quoting Smits&Smith; primary paywalled. CL(0.1)=0.167, CL(0.15)=0.226, CL(0.2)=0.268"
+  },
+  {
+   "id": "cd_smits_smith_note",
+   "quantity": "Drag coefficient of dimpled ball rises with spin ratio above Re 5e4, rises with Re up to ~2e5, then falls (drag crisis behaviour); typical flight CD ~0.2-0.3",
+   "value": [
+    0.2,
+    0.3
+   ],
+   "unit": "CD",
+   "source_ids": [
+    "penner_pdf",
+    "smits_smith_1994"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Qualitative shape confirmed (Penner/Smits-Smith abstract). The numeric 0.2-0.3 band is generalised, not read from a table; the third-party piecewise CD (0.2S+0.29 at high Re) could not be parsed reliably"
+  },
+  {
+   "id": "lift_re_independent",
+   "quantity": "Lift approx independent of Reynolds number; increases with spin",
+   "value": null,
+   "unit": "principle",
+   "source_ids": [
+    "penner_pdf"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": ""
+  },
+  {
+   "id": "spin_decay",
+   "quantity": "Spin decay ~ 3-4 %/s typical; landing spin ~75% of launch spin; alpha=-0.00002*(vb/omega)",
+   "value": null,
+   "unit": "principle",
+   "source_ids": [
+    "penner_convex"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "note": "Penner via Smits-Smith. The env 3%/s decay compares: exp(-0.03*t) over 7 s = 81% retained (a little more than 75%)"
+  },
+  {
+   "id": "bounce_restitution",
+   "quantity": "Normal restitution of golf ball on green ~0.4 (rigid model); tangential Coulomb friction mu",
+   "value": 0.4,
+   "unit": "ratio",
+   "source_ids": [
+    "bounce_arxiv"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Green (not fairway). Fairway value not sourced; env uses 0.28 fairway / 0.20 rough (unverified for fairway)"
+  },
+  {
+   "id": "rollout_factors",
+   "quantity": "Rollout rises with shallow landing angle, low backspin, firm dry turf",
+   "value": null,
+   "unit": "principle",
+   "source_ids": [
+    "penner_2003"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Qualitative from search synthesis; no numeric rollout law sourced"
+  },
+  {
+   "id": "tour_roll",
+   "quantity": "Tour driver roll: ~300.2 yd total vs 282 yd carry",
+   "value": 18,
+   "unit": "yd",
+   "source_ids": [
+    "golfmonthly_tm"
+   ],
+   "confidence": "low",
+   "unverified": true,
+   "note": "Mixed-lie, mixed-measurement (Tour driving distance vs TrackMan carry)"
+  }
+ ],
+ "formulas": [
+  {
+   "id": "F1",
+   "name": "smash factor (normal impact)",
+   "expr": "Vb/Vc = (1+e)/(1+m_ball/m_head) * cos^2(L) + corrections",
+   "note": "Tutelman form for oblique hit not reproduced exactly; pure-normal form (1+e)*m_c/(m_c+m_b)=1.47 for e=.83, m_c=200g, ball 45.9g",
+   "sources": [
+    "tut_smash"
+   ],
+   "confidence": "medium",
+   "unverified": false
+  },
+  {
+   "id": "F2",
+   "name": "spin loft",
+   "expr": "L_spin = dynamic_loft - attack_angle (face normal vs path, vertical)",
+   "sources": [
+    "tut_dplane",
+    "tut_3d"
+   ],
+   "confidence": "high",
+   "unverified": false
+  },
+  {
+   "id": "F3",
+   "name": "launch angle",
+   "expr": "launch = AoA + f*L_spin, f = 0.96-0.0071*L_spin(deg)",
+   "sources": [
+    "tut_3d"
+   ],
+   "confidence": "medium",
+   "unverified": false
+  },
+  {
+   "id": "F4",
+   "name": "horizontal/vertical gear spin",
+   "expr": "rpm_h=16.4*Vb_mph*x_in; rpm_v=25*Vb_mph*y_in",
+   "sources": [
+    "tut_gear3"
+   ],
+   "confidence": "high",
+   "unverified": false
+  },
+  {
+   "id": "F5",
+   "name": "aero",
+   "expr": "F_D=0.5*rho*A*CD*v^2; F_L=0.5*rho*A*CL*v^2; S=R*omega/v; CL=1.99S-3.25S^2 (secondary)",
+   "sources": [
+    "penner_pdf",
+    "golfsim_gh"
+   ],
+   "confidence": "low",
+   "unverified": true
+  }
+ ],
+ "model_comparison": {
+  "model_runs": {
+   "module": "env/ball_flight_analytic.py",
+   "run": "read-only, venv numpy, bare import (no edits)",
+   "mu_inactive_finding": "In impact(), Jt=min(mu*Jn, M*vt/3.5): at every tested case the roll-off limit binds, so mu (0.22) has NO effect on spin (mu swept 0.08-0.22: identical 4084.58 rpm). Backspin = vt/(1.4*R) with vt=v_club*sin(spin loft).",
+   "grid_default_runs": [
+    {
+     "mph": 120.0,
+     "att": 2.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 175.73,
+     "smash": 1.46,
+     "launch": 10.46,
+     "spin": 3123.24,
+     "carry_yd": 280.47,
+     "total_yd": 305.91,
+     "apex_ft": 115.27,
+     "hang": 7.18,
+     "land_angle": 43.12
+    },
+    {
+     "mph": 120.0,
+     "att": -1.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 173.86,
+     "smash": 1.45,
+     "launch": 9.86,
+     "spin": 4000.9,
+     "carry_yd": 265.28,
+     "total_yd": 287.98,
+     "apex_ft": 113.83,
+     "hang": 7.13,
+     "land_angle": 44.63
+    },
+    {
+     "mph": 120.0,
+     "att": 3.0,
+     "dyn_loft": 13.5,
+     "ball_mph": 175.73,
+     "smash": 1.46,
+     "launch": 11.46,
+     "spin": 3123.24,
+     "carry_yd": 281.81,
+     "total_yd": 307.11,
+     "apex_ft": 124.52,
+     "hang": 7.36,
+     "land_angle": 44.81
+    },
+    {
+     "mph": 120.0,
+     "att": 2.0,
+     "dyn_loft": 11.0,
+     "ball_mph": 176.49,
+     "smash": 1.47,
+     "launch": 9.26,
+     "spin": 2681.05,
+     "carry_yd": 283.4,
+     "total_yd": 310.43,
+     "apex_ft": 100.01,
+     "hang": 6.83,
+     "land_angle": 39.34
+    },
+    {
+     "mph": 130.0,
+     "att": 2.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 190.37,
+     "smash": 1.46,
+     "launch": 10.46,
+     "spin": 3383.51,
+     "carry_yd": 302.33,
+     "total_yd": 327.22,
+     "apex_ft": 143.79,
+     "hang": 7.9,
+     "land_angle": 47.53
+    },
+    {
+     "mph": 130.0,
+     "att": -1.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 188.35,
+     "smash": 1.45,
+     "launch": 9.86,
+     "spin": 4334.31,
+     "carry_yd": 283.19,
+     "total_yd": 304.86,
+     "apex_ft": 141.4,
+     "hang": 7.81,
+     "land_angle": 49.27
+    },
+    {
+     "mph": 130.0,
+     "att": 3.0,
+     "dyn_loft": 13.5,
+     "ball_mph": 190.37,
+     "smash": 1.46,
+     "launch": 11.46,
+     "spin": 3383.51,
+     "carry_yd": 302.9,
+     "total_yd": 327.72,
+     "apex_ft": 153.85,
+     "hang": 8.07,
+     "land_angle": 48.9
+    },
+    {
+     "mph": 130.0,
+     "att": 2.0,
+     "dyn_loft": 11.0,
+     "ball_mph": 191.2,
+     "smash": 1.47,
+     "launch": 9.26,
+     "spin": 2904.47,
+     "carry_yd": 308.55,
+     "total_yd": 334.79,
+     "apex_ft": 127.19,
+     "hang": 7.59,
+     "land_angle": 44.35
+    },
+    {
+     "mph": 140.0,
+     "att": 2.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 205.02,
+     "smash": 1.46,
+     "launch": 10.46,
+     "spin": 3643.78,
+     "carry_yd": 320.16,
+     "total_yd": 344.71,
+     "apex_ft": 173.64,
+     "hang": 8.55,
+     "land_angle": 51.02
+    },
+    {
+     "mph": 140.0,
+     "att": -1.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 202.83,
+     "smash": 1.45,
+     "launch": 9.86,
+     "spin": 4667.72,
+     "carry_yd": 297.19,
+     "total_yd": 317.95,
+     "apex_ft": 169.84,
+     "hang": 8.42,
+     "land_angle": 52.96
+    },
+    {
+     "mph": 140.0,
+     "att": 3.0,
+     "dyn_loft": 13.5,
+     "ball_mph": 205.02,
+     "smash": 1.46,
+     "launch": 11.46,
+     "spin": 3643.78,
+     "carry_yd": 320.06,
+     "total_yd": 344.62,
+     "apex_ft": 184.37,
+     "hang": 8.71,
+     "land_angle": 52.1
+    },
+    {
+     "mph": 140.0,
+     "att": 2.0,
+     "dyn_loft": 11.0,
+     "ball_mph": 205.91,
+     "smash": 1.47,
+     "launch": 9.26,
+     "spin": 3127.89,
+     "carry_yd": 329.53,
+     "total_yd": 355.26,
+     "apex_ft": 156.21,
+     "hang": 8.28,
+     "land_angle": 48.45
+    },
+    {
+     "mph": 150.0,
+     "att": 2.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 219.66,
+     "smash": 1.46,
+     "launch": 10.46,
+     "spin": 3904.05,
+     "carry_yd": 334.28,
+     "total_yd": 358.5,
+     "apex_ft": 204.14,
+     "hang": 9.13,
+     "land_angle": 53.83
+    },
+    {
+     "mph": 150.0,
+     "att": -1.0,
+     "dyn_loft": 12.5,
+     "ball_mph": 217.32,
+     "smash": 1.45,
+     "launch": 9.86,
+     "spin": 5001.12,
+     "carry_yd": 307.98,
+     "total_yd": 327.97,
+     "apex_ft": 198.51,
+     "hang": 8.97,
+     "land_angle": 55.82
+    },
+    {
+     "mph": 150.0,
+     "att": 3.0,
+     "dyn_loft": 13.5,
+     "ball_mph": 219.66,
+     "smash": 1.46,
+     "launch": 11.46,
+     "spin": 3904.05,
+     "carry_yd": 333.6,
+     "total_yd": 357.89,
+     "apex_ft": 215.4,
+     "hang": 9.29,
+     "land_angle": 54.67
+    },
+    {
+     "mph": 150.0,
+     "att": 2.0,
+     "dyn_loft": 11.0,
+     "ball_mph": 220.61,
+     "smash": 1.47,
+     "launch": 9.26,
+     "spin": 3351.31,
+     "carry_yd": 346.95,
+     "total_yd": 372.4,
+     "apex_ft": 186.33,
+     "hang": 8.91,
+     "land_angle": 51.67
+    }
+   ],
+   "tour_case_115mph_aoa_m0p9": [
+    {
+     "mph": 115.0,
+     "att": -0.9,
+     "loft": 12.0,
+     "spin_loft": 12.9,
+     "ball": 167.01,
+     "smash": 1.45,
+     "launch": 9.48,
+     "spin": 3666.74,
+     "carry": 256.59,
+     "total": 280.58,
+     "apex_ft": 96.91,
+     "land": 40.66,
+     "hang": 6.68
+    },
+    {
+     "mph": 115.0,
+     "att": -0.9,
+     "loft": 13.5,
+     "spin_loft": 14.4,
+     "ball": 165.99,
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "total": 273.58,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "hang": 6.9
+    },
+    {
+     "mph": 115.0,
+     "att": -0.9,
+     "loft": 15.0,
+     "spin_loft": 15.9,
+     "ball": 164.86,
+     "smash": 1.43,
+     "launch": 11.87,
+     "spin": 4499.61,
+     "carry": 244.9,
+     "total": 265.36,
+     "apex_ft": 117.53,
+     "land": 47.02,
+     "hang": 7.07
+    }
+   ],
+   "sweep_130mph_aoa0": [
+    {
+     "mph": 130.0,
+     "att": 0.0,
+     "loft": 6.0,
+     "spin_loft": 6.0,
+     "ball": 192.47,
+     "smash": 1.48,
+     "launch": 4.84,
+     "spin": 1940.75,
+     "carry": 298.65,
+     "total": 331.06,
+     "apex_ft": 65.35,
+     "land": 28.31,
+     "hang": 6.03
+    },
+    {
+     "mph": 130.0,
+     "att": 0.0,
+     "loft": 8.0,
+     "spin_loft": 8.0,
+     "ball": 191.68,
+     "smash": 1.47,
+     "launch": 6.45,
+     "spin": 2583.98,
+     "carry": 305.36,
+     "total": 333.33,
+     "apex_ft": 93.83,
+     "land": 37.15,
+     "hang": 6.88
+    },
+    {
+     "mph": 130.0,
+     "att": 0.0,
+     "loft": 10.0,
+     "spin_loft": 10.0,
+     "ball": 190.66,
+     "smash": 1.47,
+     "launch": 8.06,
+     "spin": 3224.07,
+     "carry": 301.9,
+     "total": 327.43,
+     "apex_ft": 118.2,
+     "land": 43.19,
+     "hang": 7.42
+    },
+    {
+     "mph": 130.0,
+     "att": 0.0,
+     "loft": 12.0,
+     "spin_loft": 12.0,
+     "ball": 189.42,
+     "smash": 1.46,
+     "launch": 9.66,
+     "spin": 3860.23,
+     "carry": 292.69,
+     "total": 316.26,
+     "apex_ft": 138.34,
+     "land": 47.56,
+     "hang": 7.78
+    },
+    {
+     "mph": 130.0,
+     "att": 0.0,
+     "loft": 14.0,
+     "spin_loft": 14.0,
+     "ball": 187.96,
+     "smash": 1.45,
+     "launch": 11.26,
+     "spin": 4491.69,
+     "carry": 280.06,
+     "total": 301.11,
+     "apex_ft": 154.63,
+     "land": 51.34,
+     "hang": 8.02
+    },
+    {
+     "mph": 130.0,
+     "att": 0.0,
+     "loft": 16.0,
+     "spin_loft": 16.0,
+     "ball": 186.28,
+     "smash": 1.43,
+     "launch": 12.85,
+     "spin": 5117.67,
+     "carry": 266.18,
+     "total": 284.91,
+     "apex_ft": 167.56,
+     "land": 54.3,
+     "hang": 8.17
+    }
+   ],
+   "high_speed": [
+    {
+     "mph": 150.0,
+     "att": 5.0,
+     "loft": 9.0,
+     "spin_loft": 4.0,
+     "ball": 222.74,
+     "smash": 1.48,
+     "launch": 8.23,
+     "spin": 1494.4,
+     "carry": 371.94,
+     "total": 403.35,
+     "apex_ft": 130.89,
+     "land": 41.61,
+     "hang": 7.75
+    },
+    {
+     "mph": 150.0,
+     "att": 5.0,
+     "loft": 11.0,
+     "spin_loft": 6.0,
+     "ball": 222.08,
+     "smash": 1.48,
+     "launch": 9.84,
+     "spin": 2239.32,
+     "carry": 367.35,
+     "total": 395.3,
+     "apex_ft": 175.06,
+     "land": 49.48,
+     "hang": 8.69
+    },
+    {
+     "mph": 150.0,
+     "att": 5.0,
+     "loft": 13.0,
+     "spin_loft": 8.0,
+     "ball": 221.17,
+     "smash": 1.47,
+     "launch": 11.45,
+     "spin": 2981.52,
+     "carry": 353.89,
+     "total": 380.08,
+     "apex_ft": 208.28,
+     "land": 53.45,
+     "hang": 9.23
+    },
+    {
+     "mph": 140.0,
+     "att": 3.0,
+     "loft": 10.0,
+     "spin_loft": 7.0,
+     "ball": 206.88,
+     "smash": 1.48,
+     "launch": 8.65,
+     "spin": 2436.76,
+     "carry": 339.39,
+     "total": 367.05,
+     "apex_ft": 139.02,
+     "land": 45.14,
+     "hang": 7.95
+    },
+    {
+     "mph": 140.0,
+     "att": 3.0,
+     "loft": 12.0,
+     "spin_loft": 9.0,
+     "ball": 205.91,
+     "smash": 1.47,
+     "launch": 10.26,
+     "spin": 3127.89,
+     "carry": 330.0,
+     "total": 355.67,
+     "apex_ft": 167.33,
+     "land": 49.81,
+     "hang": 8.46
+    }
+   ],
+   "e_mu_sweep_tour": [
+    {
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "e": 0.83,
+     "mu": 0.22
+    },
+    {
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "e": 0.83,
+     "mu": 0.15
+    },
+    {
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "e": 0.83,
+     "mu": 0.12
+    },
+    {
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "e": 0.83,
+     "mu": 0.1
+    },
+    {
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "e": 0.83,
+     "mu": 0.08
+    },
+    {
+     "smash": 1.46,
+     "launch": 10.71,
+     "spin": 4084.58,
+     "carry": 254.58,
+     "apex_ft": 111.23,
+     "land": 44.63,
+     "e": 0.85,
+     "mu": 0.22
+    },
+    {
+     "smash": 1.46,
+     "launch": 10.71,
+     "spin": 4084.58,
+     "carry": 254.58,
+     "apex_ft": 111.23,
+     "land": 44.63,
+     "e": 0.85,
+     "mu": 0.15
+    },
+    {
+     "smash": 1.46,
+     "launch": 10.71,
+     "spin": 4084.58,
+     "carry": 254.58,
+     "apex_ft": 111.23,
+     "land": 44.63,
+     "e": 0.85,
+     "mu": 0.12
+    },
+    {
+     "smash": 1.46,
+     "launch": 10.71,
+     "spin": 4084.58,
+     "carry": 254.58,
+     "apex_ft": 111.23,
+     "land": 44.63,
+     "e": 0.85,
+     "mu": 0.1
+    },
+    {
+     "smash": 1.46,
+     "launch": 10.71,
+     "spin": 4084.58,
+     "carry": 254.58,
+     "apex_ft": 111.23,
+     "land": 44.63,
+     "e": 0.85,
+     "mu": 0.08
+    }
+   ],
+   "patched_copy_sweep": [
+    {
+     "smash": 1.44,
+     "launch": 10.68,
+     "spin": 4084.58,
+     "carry": 251.41,
+     "total": 273.58,
+     "apex_ft": 107.89,
+     "land": 44.08,
+     "K": 3.5,
+     "e": 0.83
+    },
+    {
+     "smash": 1.47,
+     "launch": 10.72,
+     "spin": 4084.58,
+     "carry": 256.16,
+     "total": 278.37,
+     "apex_ft": 112.92,
+     "land": 44.89,
+     "K": 3.5,
+     "e": 0.86
+    },
+    {
+     "smash": 1.44,
+     "launch": 11.74,
+     "spin": 2552.86,
+     "carry": 268.59,
+     "total": 295.44,
+     "apex_ft": 103.88,
+     "land": 40.57,
+     "K": 5.6,
+     "e": 0.83
+    },
+    {
+     "smash": 1.47,
+     "launch": 11.76,
+     "spin": 2552.86,
+     "carry": 274.06,
+     "total": 300.89,
+     "apex_ft": 108.59,
+     "land": 41.42,
+     "K": 5.6,
+     "e": 0.86
+    },
+    {
+     "smash": 1.49,
+     "launch": 10.69,
+     "spin": 2214.18,
+     "carry": 320.93,
+     "total": 348.95,
+     "apex_ft": 133.73,
+     "land": 44.48,
+     "K": 5.6,
+     "e": 0.86,
+     "mph": 130.0,
+     "att": 1.0,
+     "loft": 12.0
+    },
+    {
+     "smash": 1.5,
+     "launch": 10.05,
+     "spin": 1739.22,
+     "carry": 352.88,
+     "total": 382.64,
+     "apex_ft": 142.1,
+     "land": 44.5,
+     "K": 5.6,
+     "e": 0.86,
+     "mph": 140.0,
+     "att": 3.0,
+     "loft": 11.0
+    },
+    {
+     "smash": 1.51,
+     "launch": 9.41,
+     "spin": 1166.97,
+     "carry": 380.62,
+     "total": 413.46,
+     "apex_ft": 135.89,
+     "land": 41.58,
+     "K": 5.6,
+     "e": 0.86,
+     "mph": 150.0,
+     "att": 5.0,
+     "loft": 10.0
+    }
+   ],
+   "patched_copy_note": "Patched COPY in /tmp only (K replaces 3.5 in vt/K). K=5.6, e=0.83-0.86. Never applied to env/."
+  },
+  "comparison": [
+   {
+    "metric": "Tour driver spin at 115 mph, AoA -0.9, dyn loft 13.5",
+    "published": 2545,
+    "model": 4084.6,
+    "unit": "rpm",
+    "ratio": 1.6,
+    "verdict": "model +60% too much spin",
+    "sources": [
+     "golfmonthly_tm"
+    ],
+    "confidence": "medium"
+   },
+   {
+    "metric": "Tour smash",
+    "published": 1.49,
+    "model": 1.44,
+    "unit": "ratio",
+    "verdict": "model slightly low; e=0.83 normal-only formula gives <=1.47 at 0 loft",
+    "sources": [
+     "trackman_tour2023",
+     "tut_smash"
+    ],
+    "confidence": "medium"
+   },
+   {
+    "metric": "Tour carry (113-115 mph)",
+    "published": [
+     275,
+     282
+    ],
+    "model": 251.4,
+    "unit": "yd",
+    "verdict": "model ~9-11% short, caused by excess spin (carry rises to 269-274 yd with K=5.6)",
+    "sources": [
+     "golfmonthly_tm",
+     "tm_avg_2019pdf"
+    ],
+    "confidence": "medium"
+   },
+   {
+    "metric": "Tour apex",
+    "published": "~35 yd (105 ft) 2023; 32 m 2019",
+    "model": 107.9,
+    "unit": "ft",
+    "verdict": "consistent",
+    "sources": [
+     "golfmonthly_tm",
+     "tm_avg_2019pdf"
+    ],
+    "confidence": "low"
+   },
+   {
+    "metric": "Landing angle (tour)",
+    "published": 38,
+    "model": 44.1,
+    "unit": "deg",
+    "verdict": "model steeper (older 2019 TrackMan figure)",
+    "sources": [
+     "tm_avg_2019pdf"
+    ],
+    "confidence": "low"
+   },
+   {
+    "metric": "Smash at ~10-12 deg loft vs loft",
+    "published": "falls with loft (Tutelman)",
+    "model": "1.47 @6deg ->1.43 @16deg (130 mph, AoA0)",
+    "verdict": "direction right",
+    "sources": [
+     "tut_smash"
+    ],
+    "confidence": "medium"
+   },
+   {
+    "metric": "Smash vs club speed",
+    "published": "roughly flat (not sourced numerically)",
+    "model": "flat (e fixed)",
+    "verdict": "unknown - no source for speed dependence of e; real COR falls with impact speed (unverified)",
+    "sources": [],
+    "confidence": "none",
+    "unverified": true
+   },
+   {
+    "metric": "Start direction vs face-to-path (path=0)",
+    "published": "~85% face (driver)",
+    "model": "0.80*face",
+    "verdict": "close; model ignores path term in start line (path enters only via velocity direction)",
+    "sources": [
+     "tut_dplane"
+    ],
+    "confidence": "medium"
+   },
+   {
+    "metric": "Sidespin from face-to-path 4 deg at 130 mph, spin loft ~10.5",
+    "published": "not numerically sourced",
+    "model": 1264,
+    "unit": "rpm",
+    "verdict": "could not verify; total spin grows with FTP in model (backspin unchanged + sidespin added) whereas D-plane theory conserves/slightly raises total spin and tilts axis",
+    "sources": [
+     "tut_dplane"
+    ],
+    "confidence": "low",
+    "unverified": true
+   },
+   {
+    "metric": "Gear effect / off-centre impact",
+    "published": "16.4*Vb*x rpm horizontal; 25*Vb*y vertical; smash loss with miss",
+    "model": "not modelled (centre hit only)",
+    "verdict": "missing",
+    "sources": [
+     "tut_gear3"
+    ],
+    "confidence": "high"
+   },
+   {
+    "metric": "CL(S) at S=0.10/0.15/0.20",
+    "published": [
+     0.167,
+     0.226,
+     0.268
+    ],
+    "model": [
+     0.167,
+     0.197,
+     0.221
+    ],
+    "unit": "CL",
+    "verdict": "matches at 0.10, underestimates 12-18% at 0.15-0.20 (published values from secondary fit; unverified)",
+    "sources": [
+     "golfsim_gh"
+    ],
+    "confidence": "low",
+    "unverified": true
+   },
+   {
+    "metric": "Spin loft slope at 130 mph",
+    "published": "not directly sourced; tour 2545 rpm",
+    "model": "~316 rpm per deg spin loft",
+    "verdict": "too steep by ~1.6x against tour avg if spin loft ~14.5 (spin loft itself unverified)",
+    "sources": [
+     "golfmonthly_tm"
+    ],
+    "confidence": "low",
+    "unverified": true
+   },
+   {
+    "metric": "Total drive at 150 mph club, +5 AoA, loft 9-13 (model)",
+    "published": "no verified published figure",
+    "model": "380-403 yd total",
+    "verdict": "model likely overstates: spin too high is NOT the issue here (too high spin lowers carry) but low-spin high-speed regime is outside calibration; treat as unverified extrapolation",
+    "sources": [],
+    "confidence": "none",
+    "unverified": true
+   }
+  ]
+ },
+ "recommendations": [
+  {
+   "id": "R1",
+   "priority": "high",
+   "change": "Make spin a calibrated constant: replace the hard-coded 3.5 in Jt=min(mu*Jn, M*vt/3.5) with K~5.6 (or add a spin_scale ~0.62), since mu never binds",
+   "evidence": "Patched copy: K=5.6 gives 2,553 rpm vs 2,545 tour at 115 mph; carry 269 yd (e=.83) / 274 yd (e=.86) vs 275-282",
+   "confidence": "medium",
+   "unverified_inputs": [
+    "tour dynamic loft/spin loft"
+   ],
+   "note": "K fitted to one tour-average point. Re-fit against Mason launch-monitor data when available"
+  },
+  {
+   "id": "R2",
+   "priority": "high",
+   "change": "Raise effective normal restitution so centre-hit smash ~1.47-1.49 at tour loft (e~0.845); do not exceed conforming smash ~1.50",
+   "evidence": "smash 1.44 @ e=.83; e=.86 gives 1.47 @115 mph but 1.50-1.51 at 140-150 mph low loft (above USGA-conforming practical ceiling ~1.49-1.50)",
+   "confidence": "medium"
+  },
+  {
+   "id": "R3",
+   "priority": "medium",
+   "change": "Add impact-location inputs (dx,dy inches): ball speed *= (1 - c*(r/in)^2), c~0.05-0.10 (UNVERIFIED), horizontal spin += 16.4*Vb*dx, vertical spin += 25*Vb*dy with bulge/roll start-line offset",
+   "evidence": "Tutelman gear-effect eq 2a/3a",
+   "confidence": "medium for gear formulas, low for smash-loss c"
+  },
+  {
+   "id": "R4",
+   "priority": "medium",
+   "change": "Face-to-path: use D-plane: start line ~0.85*face+0.15*path; spin axis tilt from face-to-path obliqueness with total spin conserved, rather than adding sidespin on top of full backspin",
+   "evidence": "Tutelman D-plane/3-D pages",
+   "confidence": "medium"
+  },
+  {
+   "id": "R5",
+   "priority": "medium",
+   "change": "Lift: replace cl_of with CL=1.99S-3.25S^2 (S<=~0.25) pending primary check; keep drag floor but validate CD(Re,S) against Smits&Smith primary or Bearman&Harvey tables",
+   "evidence": "secondary implementation only",
+   "confidence": "low"
+  },
+  {
+   "id": "R6",
+   "priority": "low",
+   "change": "Landing/roll: fairway en=0.28 and mu 0.45 are unsourced; compare roll against tour (~18 yd) - model rolls 22-27 yd. Treat as plausible, unverified",
+   "confidence": "low"
+  },
+  {
+   "id": "R7",
+   "priority": "high",
+   "change": "Treat 130-150 mph outputs as extrapolation: no verified published TrackMan means for >125 mph club speed in this document. Use long-drive data only after sourcing",
+   "confidence": "n/a"
+  }
+ ],
+ "unverified_ids": [
+  "tour_launch_2023",
+  "spin_formula_tutelman",
+  "spin_per_loft_deg",
+  "offcenter_loss",
+  "optimal_high_speed_pga",
+  "cl_smits_smith",
+  "cd_smits_smith_note",
+  "bounce_restitution",
+  "rollout_factors",
+  "tour_roll",
+  "Smash vs club speed",
+  "Sidespin from face-to-path 4 deg at 130 mph, spin loft ~10.5",
+  "CL(S) at S=0.10/0.15/0.20",
+  "Spin loft slope at 130 mph",
+  "Total drive at 150 mph club, +5 AoA, loft 9-13 (model)"
+ ],
+ "caveats": [
+  "Many sources seen only through search excerpts; primary papers (Smits&Smith 1994, Bearman&Harvey 1976, Penner) were not read in full.",
+  "bearman_harvey_1976 URL is a placeholder DOI and is NOT verified; cite by bibliographic reference only.",
+  "No verified published TrackMan means exist here for >125 mph club speed.",
+  "Mason's 120 mph is self-reported; nothing here is a measurement of Mason.",
+  "golfingfocus.com was cited via search synthesis for launch 10.4 deg; flagged unverified."
+ ],
+ "notes": "Model code env/ball_flight_analytic.py read-only; no edits."
+}
