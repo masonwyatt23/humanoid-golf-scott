@@ -59,38 +59,38 @@
   "_env": "residual"
  },
  "policy_det": {
-  "launch_elev_mean_deg": 11.581368857191773,
-  "launch_elev_std_deg": 3.181317379850188,
-  "launch_flat_frac": 0.03,
+  "launch_elev_mean_deg": 11.301257548232925,
+  "launch_elev_std_deg": 3.4900409183353127,
+  "launch_flat_frac": 0.07,
   "launch_flat_flag": false,
   "peak_club_unstable_episodes": 0,
   "peak_club_raw_max_unstable": null,
-  "peak_club_speed_mean": 53.79657034332642,
-  "peak_club_speed_max": 53.9711474569865,
-  "peak_club_mph_mean": 120.33970006380062,
-  "peak_club_mph_max": 120.73021859243138,
-  "peak_club_pct_target_mean": 100.2918910203699,
-  "peak_club_pct_target_max": 100.61735170951995,
-  "impact_club_speed_mean": 53.79657034332642,
-  "impact_club_speed_max": 53.9711474569865,
-  "smash_factor_mean": 0.9961392853010601,
-  "smash_factor_median": 1.004496440869839,
+  "peak_club_speed_mean": 53.88843547406906,
+  "peak_club_speed_max": 54.0075765034993,
+  "peak_club_mph_mean": 120.54519684936406,
+  "peak_club_mph_max": 120.81170818373774,
+  "peak_club_pct_target_mean": 100.46315338193337,
+  "peak_club_pct_target_max": 100.68526566647893,
+  "impact_club_speed_mean": 53.88843547406906,
+  "impact_club_speed_max": 54.0075765034993,
+  "smash_factor_mean": 0.9993284338399414,
+  "smash_factor_median": 1.0096397680038183,
   "smash_factor_n": 100,
   "episodes": 100,
   "contact_rate": 1.0,
-  "mean_distance": 114.53184307788528,
-  "std_distance": 31.71707901704941,
-  "median_distance": 108.43284935257992,
-  "max_distance": 288.64609852328647,
-  "mean_y": 0.0016963704827266516,
-  "lateral_std": 3.8329391629225853,
-  "mean_abs_y": 0.7985653918099486,
-  "max_abs_y": 30.368730002567766,
-  "left_miss_rate": 0.07,
-  "right_miss_rate": 0.09,
-  "in_corridor_rate": 0.84,
-  "left_miss_rate_contact_only": 0.07,
-  "right_miss_rate_contact_only": 0.09,
+  "mean_distance": 132.0556890260748,
+  "std_distance": 50.46902857912142,
+  "median_distance": 110.10310069476122,
+  "max_distance": 283.49448277530394,
+  "mean_y": -0.3542136848956112,
+  "lateral_std": 2.8174694458112217,
+  "mean_abs_y": 1.1848192460000195,
+  "max_abs_y": 13.205090624413254,
+  "left_miss_rate": 0.09,
+  "right_miss_rate": 0.16,
+  "in_corridor_rate": 0.75,
+  "left_miss_rate_contact_only": 0.09,
+  "right_miss_rate_contact_only": 0.16,
   "sequencing_proxy": {
    "n": 100,
    "segments": [
@@ -103,7 +103,7 @@
    ],
    "peak_rel_impact_ms_median": [
     -14.999999999998348,
-    1.4999999999998348,
+    12.499999999998623,
     -14.999999999998348,
     14.999999999998348,
     44.99999999999504,
@@ -112,23 +112,23 @@
    "peak_rel_impact_ms_iqr": [
     [
      -14.999999999998348,
-     -13.874999999998472
+     -13.499999999998513
     ],
     [
-     0.0,
-     4.999999999999449
+     4.999999999999449,
+     19.999999999997797
     ],
     [
      -14.999999999998348,
-     -13.874999999998472
+     -13.499999999998513
     ],
     [
      14.999999999998348,
-     16.124999999998224
+     16.49999999999818
     ],
     [
      44.99999999999504,
-     46.12499999999492
+     46.49999999999488
     ],
     [
      -4.999999999999449,
@@ -138,53 +138,53 @@
    "frac_proximal_to_distal": 0.0,
    "wrist_minus_shoulder_s_median": 0.05999999999999339,
    "elbow_minus_shoulder_s_median": 0.029999999999996696,
-   "torso_minus_hips_s_median": 0.014999999999998348
+   "torso_minus_hips_s_median": 0.02749999999999697
   },
-  "mean_carry": 108.85503449817426,
-  "mean_carry_yd": 119.04495427754836,
-  "mean_total_m": 114.13606484804676,
-  "median_total_m": 108.03750620967833,
-  "mean_total_yd": 124.8203418784724,
-  "max_total_yd": 315.2355863402441,
+  "mean_carry": 112.6190754067764,
+  "mean_carry_yd": 123.16134705560474,
+  "mean_total_m": 131.65991079623626,
+  "median_total_m": 109.70818037691886,
+  "mean_total_yd": 143.98459504587194,
+  "max_total_yd": 309.60249184448634,
   "mean_roll_m": NaN,
-  "landed_fraction": 0.98,
-  "mean_peak_ball_speed": 53.58805181123942,
+  "landed_fraction": 0.93,
+  "mean_peak_ball_speed": 53.85218313372091,
   "lateral_threshold_m": 0.5,
-  "mean_max_ball_x": 114.53184307788528
+  "mean_max_ball_x": 132.0556890260748
  },
  "policy_stoch": {
-  "launch_elev_mean_deg": 10.271671815709475,
-  "launch_elev_std_deg": 5.41805161686346,
-  "launch_flat_frac": 0.12,
+  "launch_elev_mean_deg": 8.75279769617594,
+  "launch_elev_std_deg": 6.514419271164716,
+  "launch_flat_frac": 0.23,
   "launch_flat_flag": false,
   "peak_club_unstable_episodes": 0,
   "peak_club_raw_max_unstable": null,
-  "peak_club_speed_mean": 53.79829139583171,
-  "peak_club_speed_max": 54.11436805408794,
-  "peak_club_mph_mean": 120.3435499549918,
-  "peak_club_mph_max": 121.05059447491149,
-  "peak_club_pct_target_mean": 100.29509954480184,
-  "peak_club_pct_target_max": 100.88435505982092,
-  "impact_club_speed_mean": 53.79829139583171,
-  "impact_club_speed_max": 54.11436805408794,
-  "smash_factor_mean": 0.9760353403754648,
-  "smash_factor_median": 0.99726844346346,
+  "peak_club_speed_mean": 53.89015865319414,
+  "peak_club_speed_max": 54.142680546304426,
+  "peak_club_mph_mean": 120.54905149767612,
+  "peak_club_mph_max": 121.11392782125023,
+  "peak_club_pct_target_mean": 100.46636587098088,
+  "peak_club_pct_target_max": 100.937137483789,
+  "impact_club_speed_mean": 53.89015865319414,
+  "impact_club_speed_max": 54.142680546304426,
+  "smash_factor_mean": 0.963114014633512,
+  "smash_factor_median": 1.001605719052558,
   "smash_factor_n": 100,
   "episodes": 100,
   "contact_rate": 1.0,
-  "mean_distance": 121.15377594206451,
-  "std_distance": 52.6269373904776,
-  "median_distance": 108.80909044464923,
-  "max_distance": 277.8199265034088,
-  "mean_y": 0.7297583705528716,
-  "lateral_std": 5.931023794013974,
-  "mean_abs_y": 1.3454963344723512,
-  "max_abs_y": 43.51493821024566,
-  "left_miss_rate": 0.08,
-  "right_miss_rate": 0.08,
-  "in_corridor_rate": 0.8400000000000001,
-  "left_miss_rate_contact_only": 0.08,
-  "right_miss_rate_contact_only": 0.08,
+  "mean_distance": 134.97657001917895,
+  "std_distance": 71.2068265427447,
+  "median_distance": 110.58876505182582,
+  "max_distance": 292.1729109347184,
+  "mean_y": -0.6000485823495362,
+  "lateral_std": 2.8546409059104616,
+  "mean_abs_y": 1.072760511304356,
+  "max_abs_y": 12.344857893225422,
+  "left_miss_rate": 0.05,
+  "right_miss_rate": 0.14,
+  "in_corridor_rate": 0.8099999999999999,
+  "left_miss_rate_contact_only": 0.05,
+  "right_miss_rate_contact_only": 0.14,
   "sequencing_proxy": {
    "n": 100,
    "segments": [
@@ -197,7 +197,7 @@
    ],
    "peak_rel_impact_ms_median": [
     -14.999999999998348,
-    0.0,
+    4.999999999999449,
     -14.999999999998348,
     14.999999999998348,
     44.99999999999504,
@@ -206,45 +206,45 @@
    "peak_rel_impact_ms_iqr": [
     [
      -14.999999999998348,
-     -13.999999999998458
+     -13.499999999998513
     ],
     [
-     -66.2499999999927,
-     1.4999999999998348
+     -19.62499999999784,
+     19.999999999997797
     ],
     [
      -14.999999999998348,
-     -13.999999999998458
+     -13.499999999998513
     ],
     [
      14.999999999998348,
-     15.999999999998238
+     16.49999999999818
     ],
     [
      44.99999999999504,
-     45.999999999994934
+     46.49999999999488
     ],
     [
      -4.999999999999449,
-     -3.8749999999995732
+     -3.4999999999996145
     ]
    ],
    "frac_proximal_to_distal": 0.0,
    "wrist_minus_shoulder_s_median": 0.05999999999999339,
    "elbow_minus_shoulder_s_median": 0.029999999999996696,
-   "torso_minus_hips_s_median": 0.014999999999998348
+   "torso_minus_hips_s_median": 0.019999999999997797
   },
-  "mean_carry": 99.15853394808647,
-  "mean_carry_yd": 108.44076431096684,
-  "mean_total_m": 120.75799771222603,
-  "median_total_m": 108.4128483220726,
-  "mean_total_yd": 132.0621538780675,
-  "max_total_yd": 303.3914349370702,
+  "mean_carry": 93.05752203131911,
+  "mean_carry_yd": 101.7686366686709,
+  "mean_total_m": 134.58079178934042,
+  "median_total_m": 110.19256686838263,
+  "mean_total_yd": 147.17889970874057,
+  "max_total_yd": 319.0910087495132,
   "mean_roll_m": NaN,
-  "landed_fraction": 0.92,
-  "mean_peak_ball_speed": 52.50946017672582,
+  "landed_fraction": 0.85,
+  "mean_peak_ball_speed": 51.901522517695604,
   "lateral_threshold_m": 0.5,
-  "mean_max_ball_x": 121.15377594206451
+  "mean_max_ball_x": 134.97657001917895
  },
  "scripted_zero_residual": {
   "launch_elev_mean_deg": 12.401676197326154,
