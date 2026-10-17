@@ -1,0 +1,355 @@
+{
+ "status": "UNVERIFIED sim probe; env/ read-only",
+ "models": {
+  "v3_fs1": {
+   "static": {
+    "gear": 20.0,
+    "forcerange": [
+     -3.0,
+     3.0
+    ],
+    "max_torque_Nm": 60.0,
+    "joint_damping": 2.0,
+    "armature": 0.2,
+    "dt_physics": 0.0005,
+    "dt_control": 0.02,
+    "kp": 700.0,
+    "kd": 23.333333333333332,
+    "ctrl_to_torque": "ctrl=(kp*err-kd*qd)/gear, force=ctrl (gain 1) clipped to forcerange, torque=gear*force; target-position PD, not raw torque"
+   },
+   "cases": {
+    "step_0_to_-0.09": {
+     "final_cmd": -0.09,
+     "final_ach": -0.087,
+     "max_abs_err": 0.073,
+     "sat_frac": 0.0,
+     "t90_s": 0.18
+    },
+    "step_0_to_-0.33": {
+     "final_cmd": -0.33,
+     "final_ach": -0.329,
+     "max_abs_err": 0.306,
+     "sat_frac": 0.1,
+     "t90_s": 0.12
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.095s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.05,
+     "at_ramp_end_cmd": -0.155,
+     "at_ramp_end_ach": -0.28,
+     "lag_at_ramp_end_rad": -0.126,
+     "max_abs_err_during_ramp": 0.126
+    },
+    "settled_-0.5_ramp_to_-0.33_in_0.095s": {
+     "final_cmd": -0.33,
+     "final_ach": -0.331,
+     "sat_frac": 0.05,
+     "at_ramp_end_cmd": -0.357,
+     "at_ramp_end_ach": -0.409,
+     "lag_at_ramp_end_rad": -0.052,
+     "max_abs_err_during_ramp": 0.052
+    },
+    "settled_0_ramp_to_-0.977_in_0.095s": {
+     "final_cmd": -0.977,
+     "final_ach": -0.975,
+     "sat_frac": 0.07,
+     "at_ramp_end_cmd": -0.823,
+     "at_ramp_end_ach": -0.348,
+     "lag_at_ramp_end_rad": 0.475,
+     "max_abs_err_during_ramp": 0.475
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.2s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.05,
+     "at_ramp_end_cmd": -0.131,
+     "at_ramp_end_ach": -0.185,
+     "lag_at_ramp_end_rad": -0.054,
+     "max_abs_err_during_ramp": 0.06
+    }
+   }
+  },
+  "v3_fs2": {
+   "static": {
+    "gear": 20.0,
+    "forcerange": [
+     -6.0,
+     6.0
+    ],
+    "max_torque_Nm": 120.0,
+    "joint_damping": 2.0,
+    "armature": 0.2,
+    "dt_physics": 0.0005,
+    "dt_control": 0.02,
+    "kp": 700.0,
+    "kd": 23.333333333333332,
+    "ctrl_to_torque": "ctrl=(kp*err-kd*qd)/gear, force=ctrl (gain 1) clipped to forcerange, torque=gear*force; target-position PD, not raw torque"
+   },
+   "cases": {
+    "step_0_to_-0.09": {
+     "final_cmd": -0.09,
+     "final_ach": -0.087,
+     "max_abs_err": 0.073,
+     "sat_frac": 0.0,
+     "t90_s": 0.18
+    },
+    "step_0_to_-0.33": {
+     "final_cmd": -0.33,
+     "final_ach": -0.329,
+     "max_abs_err": 0.28,
+     "sat_frac": 0.0,
+     "t90_s": 0.1
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.095s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.02,
+     "at_ramp_end_cmd": -0.155,
+     "at_ramp_end_ach": -0.28,
+     "lag_at_ramp_end_rad": -0.125,
+     "max_abs_err_during_ramp": 0.125
+    },
+    "settled_-0.5_ramp_to_-0.33_in_0.095s": {
+     "final_cmd": -0.33,
+     "final_ach": -0.331,
+     "sat_frac": 0.02,
+     "at_ramp_end_cmd": -0.357,
+     "at_ramp_end_ach": -0.409,
+     "lag_at_ramp_end_rad": -0.052,
+     "max_abs_err_during_ramp": 0.052
+    },
+    "settled_0_ramp_to_-0.977_in_0.095s": {
+     "final_cmd": -0.977,
+     "final_ach": -0.974,
+     "sat_frac": 0.0,
+     "at_ramp_end_cmd": -0.823,
+     "at_ramp_end_ach": -0.501,
+     "lag_at_ramp_end_rad": 0.321,
+     "max_abs_err_during_ramp": 0.321
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.2s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.02,
+     "at_ramp_end_cmd": -0.131,
+     "at_ramp_end_ach": -0.185,
+     "lag_at_ramp_end_rad": -0.054,
+     "max_abs_err_during_ramp": 0.06
+    }
+   }
+  },
+  "v4_power_fs1": {
+   "static": {
+    "gear": 20.0,
+    "forcerange": [
+     -6.0,
+     6.0
+    ],
+    "max_torque_Nm": 120.0,
+    "joint_damping": 0.5,
+    "armature": 0.2,
+    "dt_physics": 0.0005,
+    "dt_control": 0.02,
+    "kp": 700.0,
+    "kd": 23.333333333333332,
+    "ctrl_to_torque": "ctrl=(kp*err-kd*qd)/gear, force=ctrl (gain 1) clipped to forcerange, torque=gear*force; target-position PD, not raw torque"
+   },
+   "cases": {
+    "step_0_to_-0.09": {
+     "final_cmd": -0.09,
+     "final_ach": -0.087,
+     "max_abs_err": 0.072,
+     "sat_frac": 0.0,
+     "t90_s": 0.18
+    },
+    "step_0_to_-0.33": {
+     "final_cmd": -0.33,
+     "final_ach": -0.329,
+     "max_abs_err": 0.278,
+     "sat_frac": 0.0,
+     "t90_s": 0.1
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.095s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.02,
+     "at_ramp_end_cmd": -0.155,
+     "at_ramp_end_ach": -0.274,
+     "lag_at_ramp_end_rad": -0.119,
+     "max_abs_err_during_ramp": 0.119
+    },
+    "settled_-0.5_ramp_to_-0.33_in_0.095s": {
+     "final_cmd": -0.33,
+     "final_ach": -0.331,
+     "sat_frac": 0.02,
+     "at_ramp_end_cmd": -0.357,
+     "at_ramp_end_ach": -0.406,
+     "lag_at_ramp_end_rad": -0.049,
+     "max_abs_err_during_ramp": 0.049
+    },
+    "settled_0_ramp_to_-0.977_in_0.095s": {
+     "final_cmd": -0.977,
+     "final_ach": -0.973,
+     "sat_frac": 0.0,
+     "at_ramp_end_cmd": -0.823,
+     "at_ramp_end_ach": -0.519,
+     "lag_at_ramp_end_rad": 0.304,
+     "max_abs_err_during_ramp": 0.304
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.2s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.02,
+     "at_ramp_end_cmd": -0.131,
+     "at_ramp_end_ach": -0.18,
+     "lag_at_ramp_end_rad": -0.049,
+     "max_abs_err_during_ramp": 0.056
+    }
+   }
+  },
+  "v4_power_fs2": {
+   "static": {
+    "gear": 20.0,
+    "forcerange": [
+     -12.0,
+     12.0
+    ],
+    "max_torque_Nm": 240.0,
+    "joint_damping": 0.5,
+    "armature": 0.2,
+    "dt_physics": 0.0005,
+    "dt_control": 0.02,
+    "kp": 700.0,
+    "kd": 23.333333333333332,
+    "ctrl_to_torque": "ctrl=(kp*err-kd*qd)/gear, force=ctrl (gain 1) clipped to forcerange, torque=gear*force; target-position PD, not raw torque"
+   },
+   "cases": {
+    "step_0_to_-0.09": {
+     "final_cmd": -0.09,
+     "final_ach": -0.087,
+     "max_abs_err": 0.072,
+     "sat_frac": 0.0,
+     "t90_s": 0.18
+    },
+    "step_0_to_-0.33": {
+     "final_cmd": -0.33,
+     "final_ach": -0.329,
+     "max_abs_err": 0.261,
+     "sat_frac": 0.0,
+     "t90_s": 0.1
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.095s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.0,
+     "at_ramp_end_cmd": -0.155,
+     "at_ramp_end_ach": -0.274,
+     "lag_at_ramp_end_rad": -0.119,
+     "max_abs_err_during_ramp": 0.119
+    },
+    "settled_-0.5_ramp_to_-0.33_in_0.095s": {
+     "final_cmd": -0.33,
+     "final_ach": -0.331,
+     "sat_frac": 0.0,
+     "at_ramp_end_cmd": -0.357,
+     "at_ramp_end_ach": -0.406,
+     "lag_at_ramp_end_rad": -0.049,
+     "max_abs_err_during_ramp": 0.049
+    },
+    "settled_0_ramp_to_-0.977_in_0.095s": {
+     "final_cmd": -0.977,
+     "final_ach": -0.973,
+     "sat_frac": 0.0,
+     "at_ramp_end_cmd": -0.823,
+     "at_ramp_end_ach": -0.524,
+     "lag_at_ramp_end_rad": 0.299,
+     "max_abs_err_during_ramp": 0.299
+    },
+    "settled_-0.5_ramp_to_-0.09_in_0.2s": {
+     "final_cmd": -0.09,
+     "final_ach": -0.091,
+     "sat_frac": 0.0,
+     "at_ramp_end_cmd": -0.131,
+     "at_ramp_end_ach": -0.18,
+     "lag_at_ramp_end_rad": -0.049,
+     "max_abs_err_during_ramp": 0.056
+    }
+   }
+  }
+ },
+ "fix_sweep_v3_fs2": {
+  "kp700_kd23.3_lead0": {
+   "ach_at_impact": -0.2,
+   "intended": -0.09,
+   "err": -0.11,
+   "peak_past_intended": 0.039
+  },
+  "kp700_kd23.3_lead0.04": {
+   "ach_at_impact": -0.105,
+   "intended": -0.09,
+   "err": -0.015,
+   "peak_past_intended": 0.039
+  },
+  "kp700_kd23.3_lead0.06": {
+   "ach_at_impact": -0.087,
+   "intended": -0.09,
+   "err": 0.003,
+   "peak_past_intended": 0.039
+  },
+  "kp700_kd23.3_lead0.08": {
+   "ach_at_impact": -0.08,
+   "intended": -0.09,
+   "err": 0.01,
+   "peak_past_intended": 0.039
+  },
+  "kp1400_kd23.3_lead0": {
+   "ach_at_impact": -0.115,
+   "intended": -0.09,
+   "err": -0.025,
+   "peak_past_intended": 0.04
+  },
+  "kp1400_kd23.3_lead0.04": {
+   "ach_at_impact": -0.07,
+   "intended": -0.09,
+   "err": 0.02,
+   "peak_past_intended": 0.04
+  },
+  "kp1400_kd23.3_lead0.06": {
+   "ach_at_impact": -0.075,
+   "intended": -0.09,
+   "err": 0.015,
+   "peak_past_intended": 0.04
+  },
+  "kp1400_kd23.3_lead0.08": {
+   "ach_at_impact": -0.083,
+   "intended": -0.09,
+   "err": 0.007,
+   "peak_past_intended": 0.04
+  },
+  "kp1400_kd40.0_lead0": {
+   "ach_at_impact": -0.166,
+   "intended": -0.09,
+   "err": -0.076,
+   "peak_past_intended": 0.044
+  },
+  "kp1400_kd40.0_lead0.04": {
+   "ach_at_impact": -0.095,
+   "intended": -0.09,
+   "err": -0.005,
+   "peak_past_intended": 0.044
+  },
+  "kp1400_kd40.0_lead0.06": {
+   "ach_at_impact": -0.087,
+   "intended": -0.09,
+   "err": 0.003,
+   "peak_past_intended": 0.044
+  },
+  "kp1400_kd40.0_lead0.08": {
+   "ach_at_impact": -0.086,
+   "intended": -0.09,
+   "err": 0.004,
+   "peak_past_intended": 0.044
+  }
+ }
+}
