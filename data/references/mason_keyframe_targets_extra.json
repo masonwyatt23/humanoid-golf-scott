@@ -1,0 +1,3184 @@
+{
+ "version": "mason_keyframes_extra_v1",
+ "unverified": true,
+ "companion_of": "data/references/mason_keyframe_targets.json (unchanged)",
+ "joint_columns": [
+  "right_shoulder_pitch",
+  "right_shoulder_roll",
+  "right_elbow",
+  "right_wrist",
+  "left_shoulder_pitch",
+  "right_hip_pitch",
+  "right_knee",
+  "right_ankle",
+  "left_hip_pitch",
+  "left_knee",
+  "left_ankle"
+ ],
+ "units": "degrees; times in seconds on each clip's own joint-time axis",
+ "pooling": "none: every clip here is excluded_from_pooling=True; no aggregate statistics",
+ "clips_in_main_file": [
+  "mason_v2_p1_s03",
+  "mason_v2_p1_s04",
+  "mason_v2_p1_s05",
+  "mason_v2_p1_s06",
+  "mason_v2_p2_s01",
+  "mason_v2_p2_s02",
+  "mason_v2_p2_s11",
+  "mason_v2_p2_s13",
+  "mason_v2_p3_s09_unmirrored"
+ ],
+ "n_clips": 29,
+ "clips": {
+  "mason_v2_p1_s01": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.6267289011303248,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.067,
+    "address": 0.0,
+    "top": 0.567,
+    "impact": 0.7,
+    "finish": 1.27
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 4.75,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 16.4,
+      "right_shoulder_roll": -73.2,
+      "right_elbow": 27.1,
+      "right_wrist": 60.1,
+      "left_shoulder_pitch": 34.0,
+      "right_hip_pitch": 56.1,
+      "right_knee": 28.7,
+      "right_ankle": 14.5,
+      "left_hip_pitch": 55.6,
+      "left_knee": 14.3,
+      "left_ankle": 31.4
+     }
+    },
+    "top": {
+     "t_s": 0.567,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -69.6,
+      "right_shoulder_roll": -20.6,
+      "right_elbow": 44.9,
+      "right_wrist": 23.0,
+      "left_shoulder_pitch": -66.8,
+      "right_hip_pitch": 64.6,
+      "right_knee": 52.2,
+      "right_ankle": 7.7,
+      "left_hip_pitch": 43.1,
+      "left_knee": 25.7,
+      "left_ankle": 29.2
+     }
+    },
+    "impact": {
+     "t_s": 0.7,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -15.1,
+      "right_shoulder_roll": -74.0,
+      "right_elbow": 45.5,
+      "right_wrist": 49.8,
+      "left_shoulder_pitch": -13.2,
+      "right_hip_pitch": 63.7,
+      "right_knee": 35.2,
+      "right_ankle": 15.0,
+      "left_hip_pitch": 40.8,
+      "left_knee": 33.1,
+      "left_ankle": 26.3
+     }
+    },
+    "finish": {
+     "t_s": 1.27,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": -81.4,
+      "right_shoulder_roll": -7.8,
+      "right_elbow": 143.1,
+      "right_wrist": 50.6,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 11.2,
+      "right_knee": 11.1,
+      "right_ankle": 55.4,
+      "left_hip_pitch": 16.9,
+      "left_knee": 12.2,
+      "left_ankle": 62.9
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.7435897435897436
+  },
+  "mason_v2_p1_s02_partial": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.44770097462212466,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "partial"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.383,
+    "address": 0.0,
+    "top": 0.117,
+    "impact": 0.617,
+    "finish": 1.38
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -8.6,
+      "right_shoulder_roll": -75.4,
+      "right_elbow": 25.6,
+      "right_wrist": 58.2,
+      "left_shoulder_pitch": 10.8,
+      "right_hip_pitch": 42.9,
+      "right_knee": 28.0,
+      "right_ankle": 3.6,
+      "left_hip_pitch": 43.1,
+      "left_knee": 30.6,
+      "left_ankle": 15.5
+     }
+    },
+    "top": {
+     "t_s": 0.117,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -38.1,
+      "right_shoulder_roll": -47.0,
+      "right_elbow": 64.2,
+      "right_wrist": 22.0,
+      "left_shoulder_pitch": -31.1,
+      "right_hip_pitch": 50.9,
+      "right_knee": 37.3,
+      "right_ankle": 6.7,
+      "left_hip_pitch": 37.9,
+      "left_knee": 15.1,
+      "left_ankle": 29.3
+     }
+    },
+    "impact": {
+     "t_s": 0.617,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.38,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -80.2,
+      "right_shoulder_roll": -9.9,
+      "right_elbow": 131.4,
+      "right_wrist": 50.9,
+      "left_shoulder_pitch": -77.3,
+      "right_hip_pitch": 9.3,
+      "right_knee": 8.4,
+      "right_ankle": -4.7,
+      "left_hip_pitch": 22.3,
+      "left_knee": 6.0,
+      "left_ankle": 47.4
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.25396825396825395
+  },
+  "mason_v2_p1_s07": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.6445489702936005,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.017,
+    "address": 0.017,
+    "top": 0.483,
+    "impact": 0.667,
+    "finish": 1.11
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 2.545454545454546,
+   "keyframes": {
+    "address": {
+     "t_s": 0.017,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": 21.8,
+      "right_shoulder_roll": -67.8,
+      "right_elbow": 26.4,
+      "right_wrist": 59.9,
+      "left_shoulder_pitch": 28.9,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 49.6,
+      "left_knee": 22.0,
+      "left_ankle": 21.7
+     }
+    },
+    "top": {
+     "t_s": 0.483,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -78.1,
+      "right_shoulder_roll": -11.5,
+      "right_elbow": 39.2,
+      "right_wrist": 9.6,
+      "left_shoulder_pitch": -86.4,
+      "right_hip_pitch": 45.8,
+      "right_knee": 44.7,
+      "right_ankle": -1.3,
+      "left_hip_pitch": 31.2,
+      "left_knee": 24.3,
+      "left_ankle": 23.1
+     }
+    },
+    "impact": {
+     "t_s": 0.667,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 7.6,
+      "right_shoulder_roll": -67.6,
+      "right_elbow": 67.5,
+      "right_wrist": 42.2,
+      "left_shoulder_pitch": -0.6,
+      "right_hip_pitch": 57.3,
+      "right_knee": 33.5,
+      "right_ankle": 15.2,
+      "left_hip_pitch": 42.8,
+      "left_knee": 23.6,
+      "left_ankle": 23.0
+     }
+    },
+    "finish": {
+     "t_s": 1.11,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -90.8,
+      "right_shoulder_roll": 0.8,
+      "right_elbow": 100.3,
+      "right_wrist": 28.1,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 18.4,
+      "right_knee": 14.0,
+      "right_ankle": -6.4,
+      "left_hip_pitch": 33.6,
+      "left_knee": 14.0,
+      "left_ankle": 30.9
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.390625
+  },
+  "mason_v2_p1_s08": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.5894486178604276,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.1,
+    "address": 0.0,
+    "top": 0.467,
+    "impact": 0.617,
+    "finish": 0.63
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 3.7777777777777777,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 24.8,
+      "right_shoulder_roll": -65.2,
+      "right_elbow": 24.9,
+      "right_wrist": 64.8,
+      "left_shoulder_pitch": 28.0,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 53.2,
+      "left_knee": 15.0,
+      "left_ankle": 17.7
+     }
+    },
+    "top": {
+     "t_s": 0.467,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -66.9,
+      "right_shoulder_roll": -23.1,
+      "right_elbow": 46.2,
+      "right_wrist": 13.1,
+      "left_shoulder_pitch": -70.1,
+      "right_hip_pitch": 61.6,
+      "right_knee": 49.4,
+      "right_ankle": 1.6,
+      "left_hip_pitch": 38.3,
+      "left_knee": 14.5,
+      "left_ankle": 26.7
+     }
+    },
+    "impact": {
+     "t_s": 0.617,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": 6.2,
+      "right_shoulder_roll": -71.5,
+      "right_elbow": 58.8,
+      "right_wrist": 53.3,
+      "left_shoulder_pitch": 0.1,
+      "right_hip_pitch": 60.6,
+      "right_knee": 39.0,
+      "right_ankle": 9.9,
+      "left_hip_pitch": 35.9,
+      "left_knee": 11.0,
+      "left_ankle": 25.5
+     }
+    },
+    "finish": {
+     "t_s": 0.63,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": 12.7,
+      "right_shoulder_roll": -71.5,
+      "right_elbow": 56.7,
+      "right_wrist": 57.0,
+      "left_shoulder_pitch": 3.9,
+      "right_hip_pitch": 59.9,
+      "right_knee": 39.0,
+      "right_ankle": 10.6,
+      "left_hip_pitch": 35.9,
+      "left_knee": 10.7,
+      "left_ankle": 24.5
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.4117647058823529
+  },
+  "mason_v2_p1_s09": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "unknown",
+   "handedness_verified": false,
+   "quality_score": 0.641545561399773,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.375,
+    "address": 0.0,
+    "top": 0.825,
+    "impact": 2.442,
+    "finish": 2.5
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -11.3,
+      "right_shoulder_roll": -62.5,
+      "right_elbow": 49.4,
+      "right_wrist": 35.2,
+      "left_shoulder_pitch": -29.6,
+      "right_hip_pitch": 52.5,
+      "right_knee": 36.9,
+      "right_ankle": 14.2,
+      "left_hip_pitch": 31.0,
+      "left_knee": 6.6,
+      "left_ankle": 28.0
+     }
+    },
+    "top": {
+     "t_s": 0.825,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -92.1,
+      "right_shoulder_roll": 1.6,
+      "right_elbow": 88.9,
+      "right_wrist": 17.4,
+      "left_shoulder_pitch": -3.1,
+      "right_hip_pitch": 19.3,
+      "right_knee": 7.8,
+      "right_ankle": 16.8,
+      "left_hip_pitch": 30.9,
+      "left_knee": 2.8,
+      "left_ankle": 54.1
+     }
+    },
+    "impact": {
+     "t_s": 2.442,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -86.4,
+      "right_shoulder_roll": -3.6,
+      "right_elbow": 123.5,
+      "right_wrist": 41.6,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 8.1,
+      "right_knee": 13.3,
+      "right_ankle": 9.0,
+      "left_hip_pitch": 16.5,
+      "left_knee": 5.8,
+      "left_ankle": 41.7
+     }
+    },
+    "finish": {
+     "t_s": 2.5,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -83.7,
+      "right_shoulder_roll": -6.5,
+      "right_elbow": 127.3,
+      "right_wrist": 38.4,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 6.7,
+      "right_knee": 11.1,
+      "right_ankle": 4.3,
+      "left_hip_pitch": 16.1,
+      "left_knee": 6.5,
+      "left_ankle": 42.6
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.7012987012987013
+  },
+  "mason_v2_p1_s10_partial": {
+   "view": "face_on",
+   "view_confidence": 0.9157342002689143,
+   "handedness_file": "left",
+   "handedness_detected": "right",
+   "handedness_verified": false,
+   "quality_score": 0.5,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "partial",
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.767,
+    "address": 0.0,
+    "top": -0.267,
+    "impact": 0.233,
+    "finish": 0.633
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": false,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 3.1,
+      "right_shoulder_roll": -50.0,
+      "right_elbow": 13.9,
+      "right_wrist": 69.1,
+      "left_shoulder_pitch": -5.8,
+      "right_hip_pitch": 37.4,
+      "right_knee": 23.1,
+      "right_ankle": 3.3,
+      "left_hip_pitch": 63.0,
+      "left_knee": 35.6,
+      "left_ankle": 15.5
+     }
+    },
+    "top": {
+     "t_s": -0.267,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "impact": {
+     "t_s": 0.233,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 3.6,
+      "right_shoulder_roll": -52.3,
+      "right_elbow": 14.8,
+      "right_wrist": 70.0,
+      "left_shoulder_pitch": -2.7,
+      "right_hip_pitch": 36.7,
+      "right_knee": 24.6,
+      "right_ankle": 1.6,
+      "left_hip_pitch": 61.3,
+      "left_knee": 33.3,
+      "left_ankle": 15.8
+     }
+    },
+    "finish": {
+     "t_s": 0.633,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 3.4,
+      "right_shoulder_roll": -46.7,
+      "right_elbow": 10.9,
+      "right_wrist": 70.7,
+      "left_shoulder_pitch": -3.2,
+      "right_hip_pitch": 40.2,
+      "right_knee": 26.0,
+      "right_ankle": 0.6,
+      "left_hip_pitch": 64.3,
+      "left_knee": 33.5,
+      "left_ankle": 19.0
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 1.0
+  },
+  "mason_v2_p1_s11": {
+   "view": "face_on",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "right",
+   "handedness_verified": false,
+   "quality_score": 0.7562334814959155,
+   "recommended_in_v2_report": true,
+   "flags": [
+    "handedness_unverified",
+    "excluded_in_unified_v2"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "in unified_v2 but not used by mason_keyframe_targets.json (flagged, slow-mo or aux)",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": true,
+   "manifest_split": "excluded",
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 1.0,
+    "impact": 1.167,
+    "finish": 1.567
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 3.6,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -3.6,
+      "right_shoulder_roll": -43.1,
+      "right_elbow": 5.9,
+      "right_wrist": 68.3,
+      "left_shoulder_pitch": -7.1,
+      "right_hip_pitch": 43.8,
+      "right_knee": 27.0,
+      "right_ankle": 4.4,
+      "left_hip_pitch": 66.2,
+      "left_knee": 31.9,
+      "left_ankle": 25.7
+     }
+    },
+    "top": {
+     "t_s": 1.0,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -116.8,
+      "right_shoulder_roll": 30.8,
+      "right_elbow": 47.9,
+      "right_wrist": 23.5,
+      "left_shoulder_pitch": -136.4,
+      "right_hip_pitch": 20.5,
+      "right_knee": 27.0,
+      "right_ankle": 16.5,
+      "left_hip_pitch": 48.0,
+      "left_knee": 26.5,
+      "left_ankle": 41.3
+     }
+    },
+    "impact": {
+     "t_s": 1.167,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -37.4,
+      "right_shoulder_roll": -33.2,
+      "right_elbow": 56.0,
+      "right_wrist": 37.3,
+      "left_shoulder_pitch": -42.3,
+      "right_hip_pitch": 34.6,
+      "right_knee": 20.7,
+      "right_ankle": 17.3,
+      "left_hip_pitch": 52.5,
+      "left_knee": 44.1,
+      "left_ankle": 19.9
+     }
+    },
+    "finish": {
+     "t_s": 1.567,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.6944444444444444
+  },
+  "mason_v2_p2_s03": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.4111852380578175,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.2,
+    "address": 0.0,
+    "top": 0.45,
+    "impact": 0.583,
+    "finish": 1.01
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 4.875,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 17.7,
+      "right_shoulder_roll": -71.6,
+      "right_elbow": 26.8,
+      "right_wrist": 47.9,
+      "left_shoulder_pitch": 31.9,
+      "right_hip_pitch": 59.7,
+      "right_knee": 32.8,
+      "right_ankle": 6.8,
+      "left_hip_pitch": 58.4,
+      "left_knee": 19.7,
+      "left_ankle": 22.7
+     }
+    },
+    "top": {
+     "t_s": 0.45,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -43.4,
+      "right_shoulder_roll": -46.3,
+      "right_elbow": 54.3,
+      "right_wrist": 26.3,
+      "left_shoulder_pitch": -49.5,
+      "right_hip_pitch": 50.7,
+      "right_knee": 39.7,
+      "right_ankle": 9.0,
+      "left_hip_pitch": 33.0,
+      "left_knee": 14.1,
+      "left_ankle": 29.9
+     }
+    },
+    "impact": {
+     "t_s": 0.583,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 5.7,
+      "right_shoulder_roll": -81.6,
+      "right_elbow": 51.1,
+      "right_wrist": 57.7,
+      "left_shoulder_pitch": 23.3,
+      "right_hip_pitch": 58.8,
+      "right_knee": 42.0,
+      "right_ankle": 7.3,
+      "left_hip_pitch": 47.1,
+      "left_knee": 25.5,
+      "left_ankle": 20.7
+     }
+    },
+    "finish": {
+     "t_s": 1.01,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": -69.5,
+      "right_shoulder_roll": -20.4,
+      "right_elbow": 93.5,
+      "right_wrist": 31.7,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 29.1,
+      "left_knee": 15.9,
+      "left_ankle": 26.9
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.2962962962962963
+  },
+  "mason_v2_p2_s04_partial": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.4499663217884559,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "partial"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.217,
+    "address": 0.0,
+    "top": 0.283,
+    "impact": 0.783,
+    "finish": 1.58
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 18.5,
+      "right_shoulder_roll": -71.5,
+      "right_elbow": 28.7,
+      "right_wrist": 64.6,
+      "left_shoulder_pitch": 23.5,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 41.6,
+      "left_knee": 16.1,
+      "left_ankle": 14.4
+     }
+    },
+    "top": {
+     "t_s": 0.283,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -57.9,
+      "right_shoulder_roll": -27.6,
+      "right_elbow": 60.5,
+      "right_wrist": 8.5,
+      "left_shoulder_pitch": -71.3,
+      "right_hip_pitch": 32.7,
+      "right_knee": 32.6,
+      "right_ankle": 2.5,
+      "left_hip_pitch": 19.7,
+      "left_knee": 13.3,
+      "left_ankle": 25.6
+     }
+    },
+    "impact": {
+     "t_s": 0.783,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.58,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": -86.5,
+      "right_shoulder_roll": -3.1,
+      "right_elbow": 134.5,
+      "right_wrist": 44.7,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 15.7,
+      "right_knee": 11.6,
+      "right_ankle": 6.2,
+      "left_hip_pitch": 20.5,
+      "left_knee": 10.0,
+      "left_ankle": 48.8
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.21212121212121213
+  },
+  "mason_v2_p2_s05": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "right",
+   "handedness_detected": "right",
+   "handedness_verified": true,
+   "quality_score": 0.8243280665627359,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 1.05,
+    "impact": 1.25,
+    "finish": 1.36
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 3.25,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -5.5,
+      "right_shoulder_roll": -56.0,
+      "right_elbow": 2.6,
+      "right_wrist": 62.5,
+      "left_shoulder_pitch": -0.3,
+      "right_hip_pitch": 29.9,
+      "right_knee": 23.2,
+      "right_ankle": 4.6,
+      "left_hip_pitch": 48.5,
+      "left_knee": 26.9,
+      "left_ankle": 19.8
+     }
+    },
+    "top": {
+     "t_s": 1.05,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -134.3,
+      "right_shoulder_roll": 41.4,
+      "right_elbow": 54.5,
+      "right_wrist": 25.8,
+      "left_shoulder_pitch": -69.0,
+      "right_hip_pitch": 6.8,
+      "right_knee": 16.9,
+      "right_ankle": 8.7,
+      "left_hip_pitch": 26.8,
+      "left_knee": 22.9,
+      "left_ankle": 68.1
+     }
+    },
+    "impact": {
+     "t_s": 1.25,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -34.8,
+      "right_shoulder_roll": -38.5,
+      "right_elbow": 49.5,
+      "right_wrist": 94.5,
+      "left_shoulder_pitch": -22.3,
+      "right_hip_pitch": 29.3,
+      "right_knee": 24.6,
+      "right_ankle": 14.1,
+      "left_hip_pitch": 44.2,
+      "left_knee": 38.6,
+      "left_ankle": 21.1
+     }
+    },
+    "finish": {
+     "t_s": 1.36,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": 16.6,
+      "right_shoulder_roll": -61.0,
+      "right_elbow": 5.4,
+      "right_wrist": 68.5,
+      "left_shoulder_pitch": 19.3,
+      "right_hip_pitch": 24.2,
+      "right_knee": 19.3,
+      "right_ankle": 12.6,
+      "left_hip_pitch": 52.1,
+      "left_knee": 43.0,
+      "left_ankle": 11.5
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.8363636363636363
+  },
+  "mason_v2_p2_s06": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.5836357598274964,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.05,
+    "address": 0.0,
+    "top": 0.5,
+    "impact": 0.683,
+    "finish": 1.22
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 3.0000000000000004,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 21.4,
+      "right_shoulder_roll": -67.1,
+      "right_elbow": 20.1,
+      "right_wrist": 70.6,
+      "left_shoulder_pitch": 24.6,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 48.2,
+      "left_knee": 20.3,
+      "left_ankle": 16.3
+     }
+    },
+    "top": {
+     "t_s": 0.5,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -61.5,
+      "right_shoulder_roll": -19.7,
+      "right_elbow": 60.7,
+      "right_wrist": 9.2,
+      "left_shoulder_pitch": -90.8,
+      "right_hip_pitch": 40.8,
+      "right_knee": 41.0,
+      "right_ankle": 0.3,
+      "left_hip_pitch": 31.2,
+      "left_knee": 17.8,
+      "left_ankle": 27.9
+     }
+    },
+    "impact": {
+     "t_s": 0.683,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.22,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": -74.0,
+      "right_shoulder_roll": -15.8,
+      "right_elbow": 135.4,
+      "right_wrist": 49.0,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 9.4,
+      "right_knee": 15.9,
+      "right_ankle": 54.6,
+      "left_hip_pitch": 25.5,
+      "left_knee": 15.5,
+      "left_ankle": 70.2
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.23809523809523808
+  },
+  "mason_v2_p2_s07_partial": {
+   "view": "face_on",
+   "view_confidence": 0.6519346800317527,
+   "handedness_file": "left",
+   "handedness_detected": "right",
+   "handedness_verified": false,
+   "quality_score": 0.5,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "partial",
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.95,
+    "address": 0.0,
+    "top": -0.45,
+    "impact": 0.05,
+    "finish": 0.36
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": false,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 0.9,
+      "right_shoulder_roll": -54.5,
+      "right_elbow": 7.5,
+      "right_wrist": 61.4,
+      "left_shoulder_pitch": 1.3,
+      "right_hip_pitch": 40.8,
+      "right_knee": 29.0,
+      "right_ankle": 7.8,
+      "left_hip_pitch": 62.6,
+      "left_knee": 34.5,
+      "left_ankle": 26.3
+     }
+    },
+    "top": {
+     "t_s": -0.45,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "impact": {
+     "t_s": 0.05,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 1.4,
+      "right_shoulder_roll": -51.7,
+      "right_elbow": 7.2,
+      "right_wrist": 63.6,
+      "left_shoulder_pitch": 1.4,
+      "right_hip_pitch": 42.7,
+      "right_knee": 29.3,
+      "right_ankle": 6.9,
+      "left_hip_pitch": 62.5,
+      "left_knee": 33.2,
+      "left_ankle": 27.2
+     }
+    },
+    "finish": {
+     "t_s": 0.36,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 2.1,
+      "right_shoulder_roll": -52.1,
+      "right_elbow": 8.2,
+      "right_wrist": 60.8,
+      "left_shoulder_pitch": 2.4,
+      "right_hip_pitch": 42.3,
+      "right_knee": 29.5,
+      "right_ankle": 11.0,
+      "left_hip_pitch": 62.3,
+      "left_knee": 34.4,
+      "left_ankle": 30.4
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 1.0
+  },
+  "mason_v2_p2_s08": {
+   "view": "face_on",
+   "view_confidence": 0.6241671188680807,
+   "handedness_file": "right",
+   "handedness_detected": "right",
+   "handedness_verified": true,
+   "quality_score": 0.6731432371095365,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 1.067,
+    "impact": 1.367,
+    "finish": 1.26
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": false,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": 2.2222222222222223,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -9.5,
+      "right_shoulder_roll": -51.8,
+      "right_elbow": 5.3,
+      "right_wrist": 65.7,
+      "left_shoulder_pitch": 1.2,
+      "right_hip_pitch": 42.6,
+      "right_knee": 27.4,
+      "right_ankle": 1.7,
+      "left_hip_pitch": 64.5,
+      "left_knee": 36.3,
+      "left_ankle": 13.5
+     }
+    },
+    "top": {
+     "t_s": 1.067,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -89.9,
+      "right_shoulder_roll": -0.3,
+      "right_elbow": 69.1,
+      "right_wrist": 19.1,
+      "left_shoulder_pitch": -119.3,
+      "right_hip_pitch": 7.1,
+      "right_knee": 25.2,
+      "right_ankle": 11.1,
+      "left_hip_pitch": 31.1,
+      "left_knee": 18.1,
+      "left_ankle": 41.1
+     }
+    },
+    "impact": {
+     "t_s": 1.367,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.26,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": 1.1,
+      "right_shoulder_roll": -60.9,
+      "right_elbow": 21.1,
+      "right_wrist": 129.1,
+      "left_shoulder_pitch": -12.4,
+      "right_hip_pitch": 28.0,
+      "right_knee": 19.5,
+      "right_ankle": 11.0,
+      "left_hip_pitch": 54.6,
+      "left_knee": 23.7,
+      "left_ankle": 21.4
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.5961538461538461
+  },
+  "mason_v2_p2_s09": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": false,
+   "quality_score": 0.5802486439640676,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 0.4,
+    "impact": 1.367,
+    "finish": 1.767
+   },
+   "address_in_motion": false,
+   "event_order_sane": false,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -53.6,
+      "right_shoulder_roll": -31.7,
+      "right_elbow": 58.2,
+      "right_wrist": 14.3,
+      "left_shoulder_pitch": -63.8,
+      "right_hip_pitch": 57.0,
+      "right_knee": 37.0,
+      "right_ankle": 8.1,
+      "left_hip_pitch": 38.1,
+      "left_knee": 20.0,
+      "left_ankle": 28.3
+     }
+    },
+    "top": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -53.6,
+      "right_shoulder_roll": -31.7,
+      "right_elbow": 58.2,
+      "right_wrist": 14.3,
+      "left_shoulder_pitch": -63.8,
+      "right_hip_pitch": 57.0,
+      "right_knee": 37.0,
+      "right_ankle": 8.1,
+      "left_hip_pitch": 38.1,
+      "left_knee": 20.0,
+      "left_ankle": 28.3
+     }
+    },
+    "impact": {
+     "t_s": 1.367,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.767,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 24.6,
+      "right_shoulder_roll": -59.7,
+      "right_elbow": 42.7,
+      "right_wrist": 65.6,
+      "left_shoulder_pitch": 13.2,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 53.1,
+      "left_knee": 35.5,
+      "left_ankle": 15.6
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.6666666666666666
+  },
+  "mason_v2_p2_s10": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": false,
+   "quality_score": 0.6750212380723075,
+   "recommended_in_v2_report": true,
+   "flags": [
+    "handedness_unverified",
+    "excluded_in_unified_v2"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "in unified_v2 but not used by mason_keyframe_targets.json (flagged, slow-mo or aux)",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": true,
+   "manifest_split": "excluded",
+   "events_s": {
+    "takeaway": -0.05,
+    "address": 0.0,
+    "top": 0.433,
+    "impact": 0.6,
+    "finish": 0.95
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 2.9000000000000004,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 18.0,
+      "right_shoulder_roll": -71.9,
+      "right_elbow": 36.2,
+      "right_wrist": 54.7,
+      "left_shoulder_pitch": 24.4,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 52.1,
+      "left_knee": 26.6,
+      "left_ankle": 24.3
+     }
+    },
+    "top": {
+     "t_s": 0.433,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -63.5,
+      "right_shoulder_roll": -20.9,
+      "right_elbow": 50.4,
+      "right_wrist": 15.3,
+      "left_shoulder_pitch": -71.5,
+      "right_hip_pitch": 45.5,
+      "right_knee": 39.0,
+      "right_ankle": -2.8,
+      "left_hip_pitch": 31.4,
+      "left_knee": 22.8,
+      "left_ankle": 21.6
+     }
+    },
+    "impact": {
+     "t_s": 0.6,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -4.2,
+      "right_shoulder_roll": -74.2,
+      "right_elbow": 56.9,
+      "right_wrist": 49.7,
+      "left_shoulder_pitch": -12.8,
+      "right_hip_pitch": 62.1,
+      "right_knee": 38.0,
+      "right_ankle": 11.2,
+      "left_hip_pitch": 42.2,
+      "left_knee": 18.5,
+      "left_ankle": 30.2
+     }
+    },
+    "finish": {
+     "t_s": 0.95,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -86.9,
+      "right_shoulder_roll": -3.1,
+      "right_elbow": 83.4,
+      "right_wrist": 25.5,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 26.8,
+      "right_knee": 15.2,
+      "right_ankle": -14.4,
+      "left_hip_pitch": 31.2,
+      "left_knee": 14.7,
+      "left_ankle": 47.2
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.26229508196721313
+  },
+  "mason_v2_p2_s12": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.6467224162290364,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.133,
+    "address": 0.0,
+    "top": 0.35,
+    "impact": 0.517,
+    "finish": 0.93
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 2.9000000000000004,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 15.4,
+      "right_shoulder_roll": -73.4,
+      "right_elbow": 36.0,
+      "right_wrist": 75.6,
+      "left_shoulder_pitch": 10.4,
+      "right_hip_pitch": 40.4,
+      "right_knee": 26.6,
+      "right_ankle": 7.2,
+      "left_hip_pitch": 41.2,
+      "left_knee": 20.2,
+      "left_ankle": 18.2
+     }
+    },
+    "top": {
+     "t_s": 0.35,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -73.4,
+      "right_shoulder_roll": -13.2,
+      "right_elbow": 45.1,
+      "right_wrist": 8.8,
+      "left_shoulder_pitch": -83.6,
+      "right_hip_pitch": 48.6,
+      "right_knee": 38.6,
+      "right_ankle": 1.8,
+      "left_hip_pitch": 32.3,
+      "left_knee": 27.1,
+      "left_ankle": 24.8
+     }
+    },
+    "impact": {
+     "t_s": 0.517,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -1.9,
+      "right_shoulder_roll": -74.2,
+      "right_elbow": 67.8,
+      "right_wrist": 42.3,
+      "left_shoulder_pitch": -7.6,
+      "right_hip_pitch": 54.9,
+      "right_knee": 25.3,
+      "right_ankle": 14.5,
+      "left_hip_pitch": 47.6,
+      "left_knee": 32.6,
+      "left_ankle": 16.1
+     }
+    },
+    "finish": {
+     "t_s": 0.93,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -78.8,
+      "right_shoulder_roll": -10.1,
+      "right_elbow": 72.3,
+      "right_wrist": 29.5,
+      "left_shoulder_pitch": -105.8,
+      "right_hip_pitch": 15.0,
+      "right_knee": 12.1,
+      "right_ankle": 32.4,
+      "left_hip_pitch": 25.0,
+      "left_knee": 8.2,
+      "left_ankle": 58.3
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.5178571428571429
+  },
+  "mason_v2_p3_s01_partial": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "right",
+   "handedness_detected": "right",
+   "handedness_verified": true,
+   "quality_score": 0.5,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "partial",
+    "detected_or_stated_right_handed"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.7,
+    "address": 0.0,
+    "top": -0.2,
+    "impact": 0.3,
+    "finish": 0.4
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": false,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 22.8,
+      "right_shoulder_roll": -66.9,
+      "right_elbow": 30.8,
+      "right_wrist": 50.4,
+      "left_shoulder_pitch": 30.1,
+      "right_hip_pitch": 52.7,
+      "right_knee": 28.6,
+      "right_ankle": 6.4,
+      "left_hip_pitch": 46.4,
+      "left_knee": 20.6,
+      "left_ankle": 20.9
+     }
+    },
+    "top": {
+     "t_s": -0.2,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "impact": {
+     "t_s": 0.3,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 14.0,
+      "right_shoulder_roll": -71.2,
+      "right_elbow": 75.7,
+      "right_wrist": 54.7,
+      "left_shoulder_pitch": 13.6,
+      "right_hip_pitch": 43.3,
+      "right_knee": 30.3,
+      "right_ankle": 6.9,
+      "left_hip_pitch": 37.7,
+      "left_knee": 13.7,
+      "left_ankle": 21.3
+     }
+    },
+    "finish": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 9.4,
+      "right_shoulder_roll": -70.0,
+      "right_elbow": 88.7,
+      "right_wrist": 38.7,
+      "left_shoulder_pitch": 7.7,
+      "right_hip_pitch": 43.1,
+      "right_knee": 31.4,
+      "right_ankle": 6.1,
+      "left_hip_pitch": 32.5,
+      "left_knee": 11.0,
+      "left_ankle": 20.3
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.29545454545454547
+  },
+  "mason_v2_p3_s02": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "left",
+   "handedness_detected": "unknown",
+   "handedness_verified": false,
+   "quality_score": 0.46698637951838945,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 0.4,
+    "impact": 1.267,
+    "finish": 1.13
+   },
+   "address_in_motion": false,
+   "event_order_sane": false,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": false,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -81.9,
+      "right_shoulder_roll": -7.9,
+      "right_elbow": 39.4,
+      "right_wrist": 9.7,
+      "left_shoulder_pitch": -89.9,
+      "right_hip_pitch": 49.5,
+      "right_knee": 42.7,
+      "right_ankle": -4.0,
+      "left_hip_pitch": 26.4,
+      "left_knee": 14.7,
+      "left_ankle": 24.1
+     }
+    },
+    "top": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -81.9,
+      "right_shoulder_roll": -7.9,
+      "right_elbow": 39.4,
+      "right_wrist": 9.7,
+      "left_shoulder_pitch": -89.9,
+      "right_hip_pitch": 49.5,
+      "right_knee": 42.7,
+      "right_ankle": -4.0,
+      "left_hip_pitch": 26.4,
+      "left_knee": 14.7,
+      "left_ankle": 24.1
+     }
+    },
+    "impact": {
+     "t_s": 1.267,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.13,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": -30.7,
+      "right_shoulder_roll": -51.5,
+      "right_elbow": 59.7,
+      "right_wrist": 28.1,
+      "left_shoulder_pitch": -19.7,
+      "right_hip_pitch": 57.6,
+      "right_knee": 39.7,
+      "right_ankle": 3.2,
+      "left_hip_pitch": 36.1,
+      "left_knee": 23.5,
+      "left_ankle": 20.1
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.3793103448275862
+  },
+  "mason_v2_p3_s03": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "left",
+   "handedness_detected": "unknown",
+   "handedness_verified": false,
+   "quality_score": 0.3392464594042358,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 0.4,
+    "impact": 1.3,
+    "finish": 1.13
+   },
+   "address_in_motion": false,
+   "event_order_sane": false,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": false,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -93.7,
+      "right_shoulder_roll": 4.4,
+      "right_elbow": 40.6,
+      "right_wrist": 5.4,
+      "left_shoulder_pitch": -109.1,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 30.1,
+      "left_knee": 17.4,
+      "left_ankle": 29.0
+     }
+    },
+    "top": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -93.7,
+      "right_shoulder_roll": 4.4,
+      "right_elbow": 40.6,
+      "right_wrist": 5.4,
+      "left_shoulder_pitch": -109.1,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 30.1,
+      "left_knee": 17.4,
+      "left_ankle": 29.0
+     }
+    },
+    "impact": {
+     "t_s": 1.3,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.13,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": -29.3,
+      "right_shoulder_roll": -53.3,
+      "right_elbow": 66.7,
+      "right_wrist": 28.4,
+      "left_shoulder_pitch": -16.4,
+      "right_hip_pitch": 11.9,
+      "right_knee": 8.5,
+      "right_ankle": 1.0,
+      "left_hip_pitch": 40.5,
+      "left_knee": 28.2,
+      "left_ankle": 22.8
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.016666666666666666
+  },
+  "mason_v2_p3_s04": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "left",
+   "handedness_detected": "unknown",
+   "handedness_verified": false,
+   "quality_score": 0.43170759436540174,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 0.4,
+    "impact": 1.067,
+    "finish": 1.05
+   },
+   "address_in_motion": false,
+   "event_order_sane": false,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": false,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -81.4,
+      "right_shoulder_roll": -9.3,
+      "right_elbow": 40.3,
+      "right_wrist": 9.5,
+      "left_shoulder_pitch": -94.0,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 23.6,
+      "left_knee": 17.7,
+      "left_ankle": 23.0
+     }
+    },
+    "top": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -81.4,
+      "right_shoulder_roll": -9.3,
+      "right_elbow": 40.3,
+      "right_wrist": 9.5,
+      "left_shoulder_pitch": -94.0,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 23.6,
+      "left_knee": 17.7,
+      "left_ankle": 23.0
+     }
+    },
+    "impact": {
+     "t_s": 1.067,
+     "valid_rows": 2,
+     "joints_deg": {
+      "right_shoulder_pitch": -4.6,
+      "right_shoulder_roll": -77.1,
+      "right_elbow": 65.0,
+      "right_wrist": 41.0,
+      "left_shoulder_pitch": -7.0,
+      "right_hip_pitch": 57.7,
+      "right_knee": 39.4,
+      "right_ankle": 12.4,
+      "left_hip_pitch": 35.0,
+      "left_knee": 19.5,
+      "left_ankle": 25.5
+     }
+    },
+    "finish": {
+     "t_s": 1.05,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": -6.7,
+      "right_shoulder_roll": -75.0,
+      "right_elbow": 65.0,
+      "right_wrist": 37.7,
+      "left_shoulder_pitch": -9.1,
+      "right_hip_pitch": 57.6,
+      "right_knee": 38.5,
+      "right_ankle": 12.4,
+      "left_hip_pitch": 34.8,
+      "left_knee": 19.0,
+      "left_ankle": 26.1
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.16666666666666666
+  },
+  "mason_v2_p3_s05": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.5836713821171267,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.233,
+    "address": 0.0,
+    "top": 0.4,
+    "impact": 0.583,
+    "finish": 1.07
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 3.4545454545454546,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 21.6,
+      "right_shoulder_roll": -68.3,
+      "right_elbow": 28.4,
+      "right_wrist": 58.7,
+      "left_shoulder_pitch": 21.8,
+      "right_hip_pitch": 51.3,
+      "right_knee": 35.0,
+      "right_ankle": 9.3,
+      "left_hip_pitch": 45.3,
+      "left_knee": 15.2,
+      "left_ankle": 24.6
+     }
+    },
+    "top": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -83.9,
+      "right_shoulder_roll": -7.2,
+      "right_elbow": 36.5,
+      "right_wrist": 9.5,
+      "left_shoulder_pitch": -94.8,
+      "right_hip_pitch": 52.4,
+      "right_knee": 40.7,
+      "right_ankle": -1.8,
+      "left_hip_pitch": 24.2,
+      "left_knee": 17.6,
+      "left_ankle": 24.2
+     }
+    },
+    "impact": {
+     "t_s": 0.583,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.07,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": -81.7,
+      "right_shoulder_roll": -8.2,
+      "right_elbow": 131.8,
+      "right_wrist": 57.3,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 26.2,
+      "right_knee": 16.3,
+      "right_ankle": 8.6,
+      "left_hip_pitch": 27.6,
+      "left_knee": 8.1,
+      "left_ankle": 41.3
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.16176470588235295
+  },
+  "mason_v2_p3_s06": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "left",
+   "handedness_detected": "unknown",
+   "handedness_verified": false,
+   "quality_score": 0.45086891990225497,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 0.4,
+    "impact": 1.017,
+    "finish": 0.96
+   },
+   "address_in_motion": false,
+   "event_order_sane": false,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": false,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": NaN,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -86.3,
+      "right_shoulder_roll": 1.5,
+      "right_elbow": 41.0,
+      "right_wrist": 11.0,
+      "left_shoulder_pitch": -107.6,
+      "right_hip_pitch": 45.0,
+      "right_knee": 35.8,
+      "right_ankle": -7.0,
+      "left_hip_pitch": 40.4,
+      "left_knee": 21.6,
+      "left_ankle": 14.5
+     }
+    },
+    "top": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -86.3,
+      "right_shoulder_roll": 1.5,
+      "right_elbow": 41.0,
+      "right_wrist": 11.0,
+      "left_shoulder_pitch": -107.6,
+      "right_hip_pitch": 45.0,
+      "right_knee": 35.8,
+      "right_ankle": -7.0,
+      "left_hip_pitch": 40.4,
+      "left_knee": 21.6,
+      "left_ankle": 14.5
+     }
+    },
+    "impact": {
+     "t_s": 1.017,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 0.96,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -31.5,
+      "right_shoulder_roll": -49.3,
+      "right_elbow": 66.7,
+      "right_wrist": 30.8,
+      "left_shoulder_pitch": -32.2,
+      "right_hip_pitch": 53.4,
+      "right_knee": 28.7,
+      "right_ankle": 1.5,
+      "left_hip_pitch": 41.4,
+      "left_knee": 20.8,
+      "left_ankle": 15.7
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.5
+  },
+  "mason_v2_p3_s07": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.5826279960574664,
+   "recommended_in_v2_report": false,
+   "flags": [],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": -0.117,
+    "address": 0.0,
+    "top": 0.35,
+    "impact": 0.533,
+    "finish": 1.12
+   },
+   "address_in_motion": true,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 2.545454545454546,
+   "keyframes": {
+    "address": {
+     "t_s": 0.0,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": 8.4,
+      "right_shoulder_roll": -77.4,
+      "right_elbow": 43.2,
+      "right_wrist": 72.3,
+      "left_shoulder_pitch": 4.4,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 42.4,
+      "left_knee": 15.9,
+      "left_ankle": 19.5
+     }
+    },
+    "top": {
+     "t_s": 0.35,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -85.9,
+      "right_shoulder_roll": 2.4,
+      "right_elbow": 39.6,
+      "right_wrist": 9.5,
+      "left_shoulder_pitch": -103.4,
+      "right_hip_pitch": 48.0,
+      "right_knee": 36.1,
+      "right_ankle": -5.8,
+      "left_hip_pitch": 39.2,
+      "left_knee": 21.2,
+      "left_ankle": 19.4
+     }
+    },
+    "impact": {
+     "t_s": 0.533,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 1.12,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": -86.3,
+      "right_shoulder_roll": -3.6,
+      "right_elbow": 124.2,
+      "right_wrist": 40.9,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 13.1,
+      "right_knee": 19.4,
+      "right_ankle": 15.1,
+      "left_hip_pitch": 0.0,
+      "left_knee": 0.0,
+      "left_ankle": 0.0
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.15
+  },
+  "mason_v2_p3_s08": {
+   "view": "face_on",
+   "view_confidence": 1.0,
+   "handedness_file": "right",
+   "handedness_detected": "right",
+   "handedness_verified": true,
+   "quality_score": 0.8197782134651916,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 1.083,
+    "impact": 1.4,
+    "finish": 1.56
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 2.1578947368421053,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -3.3,
+      "right_shoulder_roll": -45.9,
+      "right_elbow": 4.4,
+      "right_wrist": 68.1,
+      "left_shoulder_pitch": -6.8,
+      "right_hip_pitch": 46.9,
+      "right_knee": 28.3,
+      "right_ankle": 0.4,
+      "left_hip_pitch": 60.3,
+      "left_knee": 32.8,
+      "left_ankle": 22.9
+     }
+    },
+    "top": {
+     "t_s": 1.083,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -98.8,
+      "right_shoulder_roll": 14.3,
+      "right_elbow": 58.1,
+      "right_wrist": 20.7,
+      "left_shoulder_pitch": -134.6,
+      "right_hip_pitch": 12.4,
+      "right_knee": 22.3,
+      "right_ankle": 8.9,
+      "left_hip_pitch": 31.2,
+      "left_knee": 27.3,
+      "left_ankle": 44.9
+     }
+    },
+    "impact": {
+     "t_s": 1.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -29.7,
+      "right_shoulder_roll": -37.0,
+      "right_elbow": 34.9,
+      "right_wrist": 42.8,
+      "left_shoulder_pitch": -33.7,
+      "right_hip_pitch": 17.3,
+      "right_knee": 9.4,
+      "right_ankle": 9.4,
+      "left_hip_pitch": 41.1,
+      "left_knee": 30.0,
+      "left_ankle": 30.1
+     }
+    },
+    "finish": {
+     "t_s": 1.56,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": 17.2,
+      "right_shoulder_roll": -69.1,
+      "right_elbow": 20.8,
+      "right_wrist": 88.4,
+      "left_shoulder_pitch": 23.3,
+      "right_hip_pitch": 6.9,
+      "right_knee": 6.2,
+      "right_ankle": 20.1,
+      "left_hip_pitch": 36.8,
+      "left_knee": 32.0,
+      "left_ankle": 30.1
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.8225806451612904
+  },
+  "mason_v2_p3_s09": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "right",
+   "handedness_detected": "right",
+   "handedness_verified": true,
+   "quality_score": 0.8299260377932083,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "duplicate of mason_v2_p3_s09_unmirrored (aux in main file); this copy was mirrored from a left-handed swing",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "events_s": {
+    "takeaway": 0.4,
+    "address": 0.4,
+    "top": 1.35,
+    "impact": 1.683,
+    "finish": 1.95
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 2.85,
+   "keyframes": {
+    "address": {
+     "t_s": 0.4,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -27.8,
+      "right_shoulder_roll": -51.1,
+      "right_elbow": 23.3,
+      "right_wrist": 57.1,
+      "left_shoulder_pitch": -33.4,
+      "right_hip_pitch": 56.8,
+      "right_knee": 38.1,
+      "right_ankle": 3.5,
+      "left_hip_pitch": 54.9,
+      "left_knee": 25.0,
+      "left_ankle": 15.8
+     }
+    },
+    "top": {
+     "t_s": 1.35,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 65.5,
+      "right_shoulder_roll": -22.8,
+      "right_elbow": 74.9,
+      "right_wrist": 41.0,
+      "left_shoulder_pitch": 101.8,
+      "right_hip_pitch": 41.4,
+      "right_knee": 38.0,
+      "right_ankle": -8.3,
+      "left_hip_pitch": 58.7,
+      "left_knee": 0.0,
+      "left_ankle": 0.0
+     }
+    },
+    "impact": {
+     "t_s": 1.683,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 5.2,
+      "right_shoulder_roll": -82.8,
+      "right_elbow": 128.6,
+      "right_wrist": 49.0,
+      "left_shoulder_pitch": -26.2,
+      "right_hip_pitch": 55.6,
+      "right_knee": 41.9,
+      "right_ankle": 6.8,
+      "left_hip_pitch": 0.0,
+      "left_knee": 0.0,
+      "left_ankle": 0.0
+     }
+    },
+    "finish": {
+     "t_s": 1.95,
+     "valid_rows": 3,
+     "joints_deg": {
+      "right_shoulder_pitch": -35.9,
+      "right_shoulder_roll": -53.6,
+      "right_elbow": 58.0,
+      "right_wrist": 0.0,
+      "left_shoulder_pitch": 0.0,
+      "right_hip_pitch": 55.8,
+      "right_knee": 32.5,
+      "right_ankle": -5.5,
+      "left_hip_pitch": 0.0,
+      "left_knee": 0.0,
+      "left_ankle": 0.0
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.19444444444444445
+  },
+  "mason_v3_p1_s01_slowmo": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.629864502112031,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "slowmo_time_stretched"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "time_stretch": {
+    "slowdown_factor_est": 4.628724449476754,
+    "axis": "VIDEO seconds (stretched); not real swing time",
+    "note": "do not use these times for a 0.02 s-step env without dividing by the slowdown factor; factor is an estimate"
+   },
+   "events_s": {
+    "takeaway": 0.1,
+    "address": 0.1,
+    "top": 3.567,
+    "impact": 4.367,
+    "finish": 4.767
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 4.333333333333274,
+   "keyframes": {
+    "address": {
+     "t_s": 0.1,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 21.0,
+      "right_shoulder_roll": -68.8,
+      "right_elbow": 32.2,
+      "right_wrist": 57.3,
+      "left_shoulder_pitch": 29.9,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 55.0,
+      "left_knee": 26.7,
+      "left_ankle": 24.3
+     }
+    },
+    "top": {
+     "t_s": 3.567,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -70.3,
+      "right_shoulder_roll": -17.5,
+      "right_elbow": 41.6,
+      "right_wrist": 14.4,
+      "left_shoulder_pitch": -73.4,
+      "right_hip_pitch": 62.7,
+      "right_knee": 62.7,
+      "right_ankle": -3.9,
+      "left_hip_pitch": 38.5,
+      "left_knee": 18.5,
+      "left_ankle": 27.5
+     }
+    },
+    "impact": {
+     "t_s": 4.367,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -26.2,
+      "right_shoulder_roll": -56.9,
+      "right_elbow": 72.9,
+      "right_wrist": 28.7,
+      "left_shoulder_pitch": -20.8,
+      "right_hip_pitch": 54.9,
+      "right_knee": 50.9,
+      "right_ankle": 6.1,
+      "left_hip_pitch": 40.9,
+      "left_knee": 22.6,
+      "left_ankle": 19.3
+     }
+    },
+    "finish": {
+     "t_s": 4.767,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 24.7,
+      "right_shoulder_roll": -63.7,
+      "right_elbow": 47.1,
+      "right_wrist": 65.8,
+      "left_shoulder_pitch": 0.5,
+      "right_hip_pitch": 59.1,
+      "right_knee": 47.1,
+      "right_ankle": 7.0,
+      "left_hip_pitch": 39.0,
+      "left_knee": 16.4,
+      "left_ankle": 22.9
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.22935779816513763
+  },
+  "mason_v3_p2_s02_slowmo": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": true,
+   "quality_score": 0.6525079636685951,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "slowmo_time_stretched"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "time_stretch": {
+    "slowdown_factor_est": 5.277313891263764,
+    "axis": "VIDEO seconds (stretched); not real swing time",
+    "note": "do not use these times for a 0.02 s-step env without dividing by the slowdown factor; factor is an estimate"
+   },
+   "events_s": {
+    "takeaway": 0.017,
+    "address": 0.017,
+    "top": 3.017,
+    "impact": 4.218,
+    "finish": 3.85
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": false,
+    "finish": true
+   },
+   "events_usable_for_targets": false,
+   "tempo_ratio_stored": 2.4965325936199734,
+   "keyframes": {
+    "address": {
+     "t_s": 0.017,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": 19.1,
+      "right_shoulder_roll": -70.3,
+      "right_elbow": 27.4,
+      "right_wrist": 59.7,
+      "left_shoulder_pitch": 26.9,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 54.1,
+      "left_knee": 23.9,
+      "left_ankle": 27.4
+     }
+    },
+    "top": {
+     "t_s": 3.017,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -49.9,
+      "right_shoulder_roll": -38.7,
+      "right_elbow": 50.5,
+      "right_wrist": 28.2,
+      "left_shoulder_pitch": -55.2,
+      "right_hip_pitch": 63.2,
+      "right_knee": 42.5,
+      "right_ankle": 7.4,
+      "left_hip_pitch": 44.9,
+      "left_knee": 21.0,
+      "left_ankle": 31.4
+     }
+    },
+    "impact": {
+     "t_s": 4.218,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 3.85,
+     "valid_rows": 4,
+     "joints_deg": {
+      "right_shoulder_pitch": -8.4,
+      "right_shoulder_roll": -71.3,
+      "right_elbow": 51.9,
+      "right_wrist": 40.3,
+      "left_shoulder_pitch": 21.1,
+      "right_hip_pitch": 76.8,
+      "right_knee": 48.5,
+      "right_ankle": 14.9,
+      "left_hip_pitch": 51.4,
+      "left_knee": 28.1,
+      "left_ankle": 28.5
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.49038461538461536
+  },
+  "mason_v3_p2_s03_slowmo": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "handedness_file": "left",
+   "handedness_detected": "left",
+   "handedness_verified": false,
+   "quality_score": 0.6761204041188066,
+   "recommended_in_v2_report": true,
+   "flags": [
+    "slowmo_time_stretched",
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "in unified_v2 but not used by mason_keyframe_targets.json (flagged, slow-mo or aux)",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": true,
+   "manifest_split": "train",
+   "time_stretch": {
+    "slowdown_factor_est": 4.786851255603302,
+    "axis": "VIDEO seconds (stretched); not real swing time",
+    "note": "do not use these times for a 0.02 s-step env without dividing by the slowdown factor; factor is an estimate"
+   },
+   "events_s": {
+    "takeaway": 0.383,
+    "address": 0.383,
+    "top": 3.452,
+    "impact": 4.418,
+    "finish": 4.818
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 3.1741379310344784,
+   "keyframes": {
+    "address": {
+     "t_s": 0.383,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 13.1,
+      "right_shoulder_roll": -71.4,
+      "right_elbow": 25.9,
+      "right_wrist": 59.8,
+      "left_shoulder_pitch": 14.2,
+      "right_hip_pitch": 49.5,
+      "right_knee": 28.6,
+      "right_ankle": 10.7,
+      "left_hip_pitch": 43.2,
+      "left_knee": 17.1,
+      "left_ankle": 26.5
+     }
+    },
+    "top": {
+     "t_s": 3.452,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -53.4,
+      "right_shoulder_roll": -31.9,
+      "right_elbow": 58.4,
+      "right_wrist": 14.3,
+      "left_shoulder_pitch": -63.8,
+      "right_hip_pitch": 57.5,
+      "right_knee": 37.3,
+      "right_ankle": 8.5,
+      "left_hip_pitch": 38.4,
+      "left_knee": 20.3,
+      "left_ankle": 28.4
+     }
+    },
+    "impact": {
+     "t_s": 4.418,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "finish": {
+     "t_s": 4.818,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": 24.6,
+      "right_shoulder_roll": -59.7,
+      "right_elbow": 42.7,
+      "right_wrist": 65.6,
+      "left_shoulder_pitch": 13.2,
+      "right_hip_pitch": 0.0,
+      "right_knee": 0.0,
+      "right_ankle": 0.0,
+      "left_hip_pitch": 53.1,
+      "left_knee": 35.5,
+      "left_ankle": 15.6
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.335
+  },
+  "mason_v3_p2_s04_slowmo": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "handedness_file": "left",
+   "handedness_detected": "right",
+   "handedness_verified": false,
+   "quality_score": 0.5321147782802019,
+   "recommended_in_v2_report": false,
+   "flags": [
+    "slowmo_time_stretched",
+    "handedness_unverified"
+   ],
+   "excluded_from_pooling": true,
+   "excluded_reasons": [
+    "not in unified_v2 manifest stats set / not in mason_keyframe_targets.json",
+    "every clip in this file is excluded from pooling by design"
+   ],
+   "unverified": true,
+   "in_unified_v2_manifest": false,
+   "manifest_split": null,
+   "time_stretch": {
+    "slowdown_factor_est": 2.3801865953892225,
+    "axis": "VIDEO seconds (stretched); not real swing time",
+    "note": "do not use these times for a 0.02 s-step env without dividing by the slowdown factor; factor is an estimate"
+   },
+   "events_s": {
+    "takeaway": 1.483,
+    "address": 1.483,
+    "top": 3.317,
+    "impact": 3.717,
+    "finish": 4.21
+   },
+   "address_in_motion": false,
+   "event_order_sane": true,
+   "event_in_axis": {
+    "address": true,
+    "top": true,
+    "impact": true,
+    "finish": true
+   },
+   "events_usable_for_targets": true,
+   "tempo_ratio_stored": 4.583333333333437,
+   "keyframes": {
+    "address": {
+     "t_s": 1.483,
+     "valid_rows": 0,
+     "joints_deg": {
+      "right_shoulder_pitch": null,
+      "right_shoulder_roll": null,
+      "right_elbow": null,
+      "right_wrist": null,
+      "left_shoulder_pitch": null,
+      "right_hip_pitch": null,
+      "right_knee": null,
+      "right_ankle": null,
+      "left_hip_pitch": null,
+      "left_knee": null,
+      "left_ankle": null
+     }
+    },
+    "top": {
+     "t_s": 3.317,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -71.4,
+      "right_shoulder_roll": -18.6,
+      "right_elbow": 79.4,
+      "right_wrist": 49.0,
+      "left_shoulder_pitch": -71.5,
+      "right_hip_pitch": 14.6,
+      "right_knee": 10.2,
+      "right_ankle": 26.4,
+      "left_hip_pitch": 25.7,
+      "left_knee": 6.0,
+      "left_ankle": 38.8
+     }
+    },
+    "impact": {
+     "t_s": 3.717,
+     "valid_rows": 6,
+     "joints_deg": {
+      "right_shoulder_pitch": -53.3,
+      "right_shoulder_roll": -35.1,
+      "right_elbow": 43.3,
+      "right_wrist": 51.3,
+      "left_shoulder_pitch": -93.8,
+      "right_hip_pitch": 14.5,
+      "right_knee": 9.4,
+      "right_ankle": 25.9,
+      "left_hip_pitch": 25.5,
+      "left_knee": 3.8,
+      "left_ankle": 45.4
+     }
+    },
+    "finish": {
+     "t_s": 4.21,
+     "valid_rows": 5,
+     "joints_deg": {
+      "right_shoulder_pitch": -70.4,
+      "right_shoulder_roll": -16.5,
+      "right_elbow": 36.3,
+      "right_wrist": 51.9,
+      "left_shoulder_pitch": -98.7,
+      "right_hip_pitch": 14.8,
+      "right_knee": 13.8,
+      "right_ankle": 9.8,
+      "left_hip_pitch": 27.4,
+      "left_knee": 13.3,
+      "left_ankle": 50.5
+     }
+    }
+   },
+   "leg_valid_frame_ratio": 0.46621621621621623
+  }
+ },
+ "caveats": [
+  "2-D-ish MediaPipe proxies from ~30 fps screen-recorded feed clips; view-dependent, UNVERIFIED, not 3-D humanoid joint angles.",
+  "Flags are carried from the npz / unified_v2 manifest; handedness-unverified, right-handed-detected, mirrored and partial clips must not be trained on as 'Mason left-handed' without confirmation.",
+  "Events are landmark-inferred (+-1 frame ~33 ms) and offset-corrected as in the main file; 'events_usable_for_targets' / 'event_order_sane' / 'event_in_axis' show which clips have usable events.",
+  "Instagram-derived: third-party content unreviewed (docs/RELEASE_QUESTIONS_FOR_COUNSEL.md)."
+ ]
+}

@@ -1,0 +1,1194 @@
+{
+ "version": "mason_elbow_camera_bias_v1",
+ "unverified": true,
+ "question": "Is Mason's median address elbow (29.1 deg / 0.509 rad) over-flexed by camera angle?",
+ "answer_short": "Probably modestly over-flexed, but not mainly because of camera yaw: the pipeline angle is 3-D (not a 2-D projection); a pure 2-D read of a hinge reads SMALLER. Likelier upward contributors are landmark-depth noise folding an unsigned angle and takeaway having already started. Mason-vs-view differences are within n=1-4 clip noise.",
+ "what_pipeline_measures": "joints col 2 = 180 - angle(shoulder12, elbow14, wrist16) on 3-D MediaPipe world landmarks (data/process_video.py:167); matches landmark-recomputed 3-D angle within ~1 deg on checked clip (mason_v2_p1_s03: 31.2 vs 31.5)",
+ "view_source": "npz field `view` from data/remine_feed_v2.py (shoulder/stance width ratio; thresholds set by eye on ~6 clips; docs/MASON_VIDEO_REPORT.md); NOT ground truth",
+ "per_clip": {
+  "mason_v2_p1_s01": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 27.38830860021719,
+   "early_mean_deg": 28.663197943910404,
+   "elbow3d_first_landmarks_deg": 27.783115060141938,
+   "elbow_xy_only_deg": 24.621901139337666,
+   "depth_fraction_of_arm_segments": 0.10546898807613135,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.06666666666666643,
+   "elbow_slope_deg_per_s_first_0p25s": 36.19540853375078,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s02_partial": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 28.177779382298063,
+   "early_mean_deg": 52.761731389546725,
+   "elbow3d_first_landmarks_deg": 27.83868653241646,
+   "elbow_xy_only_deg": 20.111639238528397,
+   "depth_fraction_of_arm_segments": 0.3630384253287003,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.38333333333333286,
+   "elbow_slope_deg_per_s_first_0p25s": 78.0116931280329,
+   "in_keyframe_stats": false,
+   "flags": [
+    "partial"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s03": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 31.469030753293907,
+   "early_mean_deg": 35.615119939624414,
+   "elbow3d_first_landmarks_deg": 31.212751522308565,
+   "elbow_xy_only_deg": 25.650720373094515,
+   "depth_fraction_of_arm_segments": 0.1802380074241639,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.033333333333333215,
+   "elbow_slope_deg_per_s_first_0p25s": 73.35721667976058,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s04": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 28.92583845149594,
+   "early_mean_deg": 33.26493033021787,
+   "elbow3d_first_landmarks_deg": 29.02839618900748,
+   "elbow_xy_only_deg": 24.78949863535223,
+   "depth_fraction_of_arm_segments": 0.1535489082037696,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.016666666666669272,
+   "elbow_slope_deg_per_s_first_0p25s": 46.13400766395456,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s05": {
+   "view": "down_the_line",
+   "view_confidence": 0.9413891123101386,
+   "address_deg": 29.355324263332946,
+   "early_mean_deg": 35.336923761833894,
+   "elbow3d_first_landmarks_deg": 29.462245869884384,
+   "elbow_xy_only_deg": 23.95593571156337,
+   "depth_fraction_of_arm_segments": 0.22268988986662736,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 174.81056976869328,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s06": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 22.25597096276769,
+   "early_mean_deg": 23.968711635964727,
+   "elbow3d_first_landmarks_deg": 22.504946084725333,
+   "elbow_xy_only_deg": 18.51630476614443,
+   "depth_fraction_of_arm_segments": 0.1108157343026883,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 14.58123442987635,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s07": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 26.50244897526937,
+   "early_mean_deg": 30.934530017228276,
+   "elbow3d_first_landmarks_deg": 27.066530996375064,
+   "elbow_xy_only_deg": 24.97205806311746,
+   "depth_fraction_of_arm_segments": 0.12500697574519928,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 87.37286490812791,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s08": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 24.768674776404993,
+   "early_mean_deg": 32.22322145934766,
+   "elbow3d_first_landmarks_deg": 24.407042135305204,
+   "elbow_xy_only_deg": 20.198239600513716,
+   "depth_fraction_of_arm_segments": 0.12251297905466234,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.10000000000000142,
+   "elbow_slope_deg_per_s_first_0p25s": 155.2335071349812,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s09": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 50.22717874589247,
+   "early_mean_deg": 49.7104615281636,
+   "elbow3d_first_landmarks_deg": 47.45118007190149,
+   "elbow_xy_only_deg": 65.63190509438112,
+   "depth_fraction_of_arm_segments": 0.6449740763849976,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.3749999999999787,
+   "elbow_slope_deg_per_s_first_0p25s": -19.239904004807887,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s10_partial": {
+   "view": "face_on",
+   "view_confidence": 0.9157342002689143,
+   "address_deg": 12.191327153132905,
+   "early_mean_deg": 12.458105453456854,
+   "elbow3d_first_landmarks_deg": 12.861548832740368,
+   "elbow_xy_only_deg": 5.372429724507157,
+   "depth_fraction_of_arm_segments": 0.16973215722812043,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.7666666666666657,
+   "elbow_slope_deg_per_s_first_0p25s": 4.822456419444114,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified",
+    "partial"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p1_s11": {
+   "view": "face_on",
+   "view_confidence": 1.0,
+   "address_deg": 7.733438704796603,
+   "early_mean_deg": 7.33877371885891,
+   "elbow3d_first_landmarks_deg": 7.432584236105356,
+   "elbow_xy_only_deg": 4.9789730773876215,
+   "depth_fraction_of_arm_segments": 0.1628917672841497,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -2.1855445816425285,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s01": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 30.02633745589509,
+   "early_mean_deg": 39.56344459960252,
+   "elbow3d_first_landmarks_deg": 30.24233813045319,
+   "elbow_xy_only_deg": 23.46102916201835,
+   "depth_fraction_of_arm_segments": 0.278039052285764,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.06666666666666643,
+   "elbow_slope_deg_per_s_first_0p25s": 183.865539660327,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s02": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 23.18970010563946,
+   "early_mean_deg": 29.018460039212307,
+   "elbow3d_first_landmarks_deg": 23.27590259034659,
+   "elbow_xy_only_deg": 19.39584962872729,
+   "depth_fraction_of_arm_segments": 0.10926148523126852,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.03333333333333499,
+   "elbow_slope_deg_per_s_first_0p25s": 140.453960961761,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s03": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 26.26291239285908,
+   "early_mean_deg": 25.226836704174794,
+   "elbow3d_first_landmarks_deg": 25.76958213958838,
+   "elbow_xy_only_deg": 23.367713894964908,
+   "depth_fraction_of_arm_segments": 0.10236780298944513,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.20000000000000995,
+   "elbow_slope_deg_per_s_first_0p25s": 34.61385637219202,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s04_partial": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 29.070287245369222,
+   "early_mean_deg": 42.907256858304244,
+   "elbow3d_first_landmarks_deg": 28.999463129144516,
+   "elbow_xy_only_deg": 24.966539898015014,
+   "depth_fraction_of_arm_segments": 0.11703425935408422,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.21666666666666856,
+   "elbow_slope_deg_per_s_first_0p25s": 177.32171332592196,
+   "in_keyframe_stats": false,
+   "flags": [
+    "partial"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s05": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 2.8879731026762356,
+   "early_mean_deg": 2.0490599498773827,
+   "elbow3d_first_landmarks_deg": 2.908200422594149,
+   "elbow_xy_only_deg": 1.5090663374056987,
+   "depth_fraction_of_arm_segments": 0.10159841423219393,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 0.1564131402167756,
+   "in_keyframe_stats": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s06": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 24.307760118122353,
+   "early_mean_deg": 25.753687322836228,
+   "elbow3d_first_landmarks_deg": 24.01399250079095,
+   "elbow_xy_only_deg": 13.861542472229274,
+   "depth_fraction_of_arm_segments": 0.21245270453986315,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.05000000000000426,
+   "elbow_slope_deg_per_s_first_0p25s": 127.80240025681398,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 13
+  },
+  "mason_v2_p2_s07_partial": {
+   "view": "face_on",
+   "view_confidence": 0.6519346800317527,
+   "address_deg": 7.440997865861871,
+   "early_mean_deg": 6.311223423115119,
+   "elbow3d_first_landmarks_deg": 7.326615046984443,
+   "elbow_xy_only_deg": 7.303310314639589,
+   "depth_fraction_of_arm_segments": 0.15167995453412236,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.9500000000000028,
+   "elbow_slope_deg_per_s_first_0p25s": 1.6651061260967919,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified",
+    "partial"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s08": {
+   "view": "face_on",
+   "view_confidence": 0.6241671188680807,
+   "address_deg": 2.698641673908273,
+   "early_mean_deg": 2.668081058000104,
+   "elbow3d_first_landmarks_deg": 2.697669622035704,
+   "elbow_xy_only_deg": 2.656205966701606,
+   "depth_fraction_of_arm_segments": 0.13454440778609827,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 6.659630677864592,
+   "in_keyframe_stats": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s09": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 56.559055954892855,
+   "early_mean_deg": 57.9803922255106,
+   "elbow3d_first_landmarks_deg": 56.37141247684943,
+   "elbow_xy_only_deg": 63.06927970545104,
+   "depth_fraction_of_arm_segments": 0.43252273982542255,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -1.9714069798022582,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s10": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 35.906128841409895,
+   "early_mean_deg": 42.15884326128706,
+   "elbow3d_first_landmarks_deg": 35.561108877947476,
+   "elbow_xy_only_deg": 31.293538822282585,
+   "depth_fraction_of_arm_segments": 0.2168989952106579,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.04999999999999716,
+   "elbow_slope_deg_per_s_first_0p25s": 146.22147071156505,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s11": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 36.39405548587318,
+   "early_mean_deg": 39.94191882168167,
+   "elbow3d_first_landmarks_deg": 36.23713082509846,
+   "elbow_xy_only_deg": 32.427729572776315,
+   "depth_fraction_of_arm_segments": 0.19792121776239954,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.01666666666666572,
+   "elbow_slope_deg_per_s_first_0p25s": 129.1258614270847,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s12": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 43.623109191380145,
+   "early_mean_deg": 58.383558637896385,
+   "elbow3d_first_landmarks_deg": 46.33585574682766,
+   "elbow_xy_only_deg": 27.337733010527472,
+   "depth_fraction_of_arm_segments": 0.37451954324863135,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.13333333333332575,
+   "elbow_slope_deg_per_s_first_0p25s": 53.48027867504426,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p2_s13": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 18.74636267716229,
+   "early_mean_deg": 23.75112715249237,
+   "elbow3d_first_landmarks_deg": 19.20888592006466,
+   "elbow_xy_only_deg": 15.715555285937768,
+   "depth_fraction_of_arm_segments": 0.09075947164406198,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.15000000000000568,
+   "elbow_slope_deg_per_s_first_0p25s": 148.41349223959517,
+   "in_keyframe_stats": true,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s01_partial": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 31.752806862262663,
+   "early_mean_deg": 34.50684131396391,
+   "elbow3d_first_landmarks_deg": 31.762413730516244,
+   "elbow_xy_only_deg": 28.244188986856102,
+   "depth_fraction_of_arm_segments": 0.12034867924976667,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.7000000000000011,
+   "elbow_slope_deg_per_s_first_0p25s": 37.59295922269915,
+   "in_keyframe_stats": false,
+   "flags": [
+    "detected_or_stated_right_handed",
+    "partial"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s02": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 65.77841132143273,
+   "early_mean_deg": 58.31906891042939,
+   "elbow3d_first_landmarks_deg": 64.93018406378424,
+   "elbow_xy_only_deg": 74.0837872178663,
+   "depth_fraction_of_arm_segments": 0.4515299198645937,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -105.539399564109,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s03": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 45.69290893711437,
+   "early_mean_deg": 42.665612008061466,
+   "elbow3d_first_landmarks_deg": 45.04788085279691,
+   "elbow_xy_only_deg": 49.6754329322184,
+   "depth_fraction_of_arm_segments": 0.43906166685833026,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -37.34612086071627,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s04": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 49.27651422868756,
+   "early_mean_deg": 46.09925051562112,
+   "elbow3d_first_landmarks_deg": 49.407176463677246,
+   "elbow_xy_only_deg": 52.31902133240769,
+   "depth_fraction_of_arm_segments": 0.38011147175535664,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -32.12602251267322,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s05": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 30.10981559296147,
+   "early_mean_deg": 51.40603833909286,
+   "elbow3d_first_landmarks_deg": 30.810753755781093,
+   "elbow_xy_only_deg": 25.45826201677619,
+   "depth_fraction_of_arm_segments": 0.22758653973154475,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.23333333333333428,
+   "elbow_slope_deg_per_s_first_0p25s": 167.06812612525565,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s06": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 47.87748767598677,
+   "early_mean_deg": 45.17105651219291,
+   "elbow3d_first_landmarks_deg": 47.524382539002715,
+   "elbow_xy_only_deg": 56.209566966837585,
+   "depth_fraction_of_arm_segments": 0.5170994362804104,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -29.067077182425116,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s07": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 48.06368222086361,
+   "early_mean_deg": 58.392355256115586,
+   "elbow3d_first_landmarks_deg": 47.99578634740499,
+   "elbow_xy_only_deg": 37.93956158714013,
+   "depth_fraction_of_arm_segments": 0.45296699125654305,
+   "address_in_motion": true,
+   "takeaway_lead_s": 0.11666666666666714,
+   "elbow_slope_deg_per_s_first_0p25s": 38.50389960486706,
+   "in_keyframe_stats": false,
+   "flags": [],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s08": {
+   "view": "face_on",
+   "view_confidence": 1.0,
+   "address_deg": 3.099913328170667,
+   "early_mean_deg": 4.131306503030627,
+   "elbow3d_first_landmarks_deg": 3.056111537738076,
+   "elbow_xy_only_deg": 1.1964782326989507,
+   "depth_fraction_of_arm_segments": 0.10259579499813673,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 3.417980379257842,
+   "in_keyframe_stats": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s09": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 21.747062553356553,
+   "early_mean_deg": 21.46755653948364,
+   "elbow3d_first_landmarks_deg": 21.688581555159175,
+   "elbow_xy_only_deg": 9.957597492005817,
+   "depth_fraction_of_arm_segments": 0.17103451043796503,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -2.0339915423787986,
+   "in_keyframe_stats": false,
+   "flags": [
+    "detected_or_stated_right_handed"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v2_p3_s09_unmirrored": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 21.747062553356553,
+   "early_mean_deg": 21.46755653948364,
+   "elbow3d_first_landmarks_deg": 8.159900839836297,
+   "elbow_xy_only_deg": 7.825802437638288,
+   "depth_fraction_of_arm_segments": 0.24168041032229304,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": -2.0339915423787986,
+   "in_keyframe_stats": false,
+   "flags": [
+    "mirrored_or_flip_edit"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v3_p1_s01_slowmo": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 33.40039426194369,
+   "early_mean_deg": 33.03174110644967,
+   "elbow3d_first_landmarks_deg": 33.50645067464208,
+   "elbow_xy_only_deg": 29.59116611794923,
+   "depth_fraction_of_arm_segments": 0.15335755182643002,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 2.2137041261286257,
+   "in_keyframe_stats": false,
+   "flags": [
+    "slowmo_time_stretched"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v3_p2_s02_slowmo": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 27.794604544053726,
+   "early_mean_deg": 28.489111161260016,
+   "elbow3d_first_landmarks_deg": 27.770803698501965,
+   "elbow_xy_only_deg": 22.302293727213964,
+   "depth_fraction_of_arm_segments": 0.13213347349716523,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 11.921460402010386,
+   "in_keyframe_stats": false,
+   "flags": [
+    "slowmo_time_stretched"
+   ],
+   "n_valid_early": 21
+  },
+  "mason_v3_p2_s03_slowmo": {
+   "view": "oblique",
+   "view_confidence": 0.5,
+   "address_deg": 25.990373747589103,
+   "early_mean_deg": 25.990373747589103,
+   "elbow3d_first_landmarks_deg": null,
+   "elbow_xy_only_deg": null,
+   "depth_fraction_of_arm_segments": null,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": null,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified",
+    "slowmo_time_stretched"
+   ],
+   "n_valid_early": 1
+  },
+  "mason_v3_p2_s04_slowmo": {
+   "view": "down_the_line",
+   "view_confidence": 1.0,
+   "address_deg": 61.70044469759812,
+   "early_mean_deg": 62.46678508186991,
+   "elbow3d_first_landmarks_deg": 62.11048394867041,
+   "elbow_xy_only_deg": 75.66297517140073,
+   "depth_fraction_of_arm_segments": 0.5400709854772248,
+   "address_in_motion": false,
+   "takeaway_lead_s": 0.0,
+   "elbow_slope_deg_per_s_first_0p25s": 31.689694841521582,
+   "in_keyframe_stats": false,
+   "flags": [
+    "handedness_unverified",
+    "slowmo_time_stretched"
+   ],
+   "n_valid_early": 21
+  }
+ },
+ "per_view": {
+  "down_the_line": {
+   "unflagged_all": {
+    "clips": [
+     "mason_v2_p1_s01",
+     "mason_v2_p1_s03",
+     "mason_v2_p1_s04",
+     "mason_v2_p1_s05",
+     "mason_v2_p1_s07",
+     "mason_v2_p1_s08",
+     "mason_v2_p2_s01",
+     "mason_v2_p2_s02",
+     "mason_v2_p2_s03",
+     "mason_v2_p2_s06",
+     "mason_v2_p2_s11",
+     "mason_v2_p2_s12",
+     "mason_v2_p2_s13",
+     "mason_v2_p3_s05",
+     "mason_v2_p3_s07"
+    ],
+    "address_deg": {
+     "n": 15,
+     "median": 28.93,
+     "q25": 25.52,
+     "q75": 30.79,
+     "min": 18.75,
+     "max": 48.06
+    },
+    "xy_only_deg": {
+     "n": 15,
+     "median": 24.62,
+     "q25": 21.78,
+     "q75": 25.55,
+     "min": 13.86,
+     "max": 37.94
+    },
+    "depth_fraction": {
+     "n": 15,
+     "median": 0.18,
+     "q25": 0.12,
+     "q75": 0.23,
+     "min": 0.09,
+     "max": 0.45
+    }
+   },
+   "keyframe_clips_only": {
+    "clips": [
+     "mason_v2_p1_s03",
+     "mason_v2_p1_s04",
+     "mason_v2_p1_s05",
+     "mason_v2_p2_s01",
+     "mason_v2_p2_s02",
+     "mason_v2_p2_s11",
+     "mason_v2_p2_s13"
+    ],
+    "address_deg": {
+     "n": 7,
+     "median": 29.36,
+     "q25": 26.06,
+     "q75": 30.75,
+     "min": 18.75,
+     "max": 36.39
+    },
+    "xy_only_deg": {
+     "n": 7,
+     "median": 23.96,
+     "q25": 21.43,
+     "q75": 25.22,
+     "min": 15.72,
+     "max": 32.43
+    },
+    "depth_fraction": {
+     "n": 7,
+     "median": 0.18,
+     "q25": 0.13,
+     "q75": 0.21,
+     "min": 0.09,
+     "max": 0.28
+    }
+   }
+  },
+  "oblique": {
+   "unflagged_all": {
+    "clips": [
+     "mason_v2_p1_s06"
+    ],
+    "address_deg": {
+     "n": 1,
+     "median": 22.26,
+     "q25": 22.26,
+     "q75": 22.26,
+     "min": 22.26,
+     "max": 22.26
+    },
+    "xy_only_deg": {
+     "n": 1,
+     "median": 18.52,
+     "q25": 18.52,
+     "q75": 18.52,
+     "min": 18.52,
+     "max": 18.52
+    },
+    "depth_fraction": {
+     "n": 1,
+     "median": 0.11,
+     "q25": 0.11,
+     "q75": 0.11,
+     "min": 0.11,
+     "max": 0.11
+    }
+   },
+   "keyframe_clips_only": {
+    "clips": [
+     "mason_v2_p1_s06"
+    ],
+    "address_deg": {
+     "n": 1,
+     "median": 22.26,
+     "q25": 22.26,
+     "q75": 22.26,
+     "min": 22.26,
+     "max": 22.26
+    },
+    "xy_only_deg": {
+     "n": 1,
+     "median": 18.52,
+     "q25": 18.52,
+     "q75": 18.52,
+     "min": 18.52,
+     "max": 18.52
+    },
+    "depth_fraction": {
+     "n": 1,
+     "median": 0.11,
+     "q25": 0.11,
+     "q75": 0.11,
+     "min": 0.11,
+     "max": 0.11
+    }
+   }
+  },
+  "face_on": {
+   "unflagged_all": {
+    "clips": [],
+    "address_deg": null,
+    "xy_only_deg": null,
+    "depth_fraction": null
+   },
+   "keyframe_clips_only": {
+    "clips": [],
+    "address_deg": null,
+    "xy_only_deg": null,
+    "depth_fraction": null
+   }
+  }
+ },
+ "depth_axis_effect": {
+  "note": "3-D landmark elbow minus xy-only (drop depth) elbow at first landmarks, unflagged clips",
+  "stats_deg": {
+   "n": 16,
+   "median": 4.22,
+   "q25": 3.73,
+   "q75": 5.87,
+   "min": 2.09,
+   "max": 19.0
+  },
+  "reading": "positive = the model's depth axis ADDS flexion relative to the image plane"
+ },
+ "simulation": {
+  "assumptions": [
+   "orthographic camera, no perspective",
+   "segment lengths upper 0.29 m, forearm 0.25 m (measured on ONE clip's world landmarks)",
+   "upper arm hangs forward-tilted 0/10/20 deg from vertical; bend in a single plane; hinge axis = z",
+   "yaw 0 = optical axis parallel to hinge axis (bend plane face-on); yaw = rotation about vertical",
+   "true golf-address arm geometry (flared elbows, hinge roll) varied only via the 'roll' table",
+   "noise table: iid isotropic Gaussian per landmark, sigma 0-4 cm, ASSUMED (no ground-truth noise level)"
+  ],
+  "projected_2d_flexion_deg": {
+   "fwd0_theta15": {
+    "yaw0": 15.0,
+    "yaw15": 14.51,
+    "yaw30": 13.06,
+    "yaw45": 10.73,
+    "yaw60": 7.63
+   },
+   "fwd0_theta20": {
+    "yaw0": 20.0,
+    "yaw15": 19.37,
+    "yaw30": 17.5,
+    "yaw45": 14.43,
+    "yaw60": 10.31
+   },
+   "fwd0_theta25": {
+    "yaw0": 25.0,
+    "yaw15": 24.25,
+    "yaw30": 21.99,
+    "yaw45": 18.25,
+    "yaw60": 13.12
+   },
+   "fwd0_theta30": {
+    "yaw0": 30.0,
+    "yaw15": 29.15,
+    "yaw30": 26.57,
+    "yaw45": 22.21,
+    "yaw60": 16.1
+   },
+   "fwd0_theta35": {
+    "yaw0": 35.0,
+    "yaw15": 34.07,
+    "yaw30": 31.23,
+    "yaw45": 26.34,
+    "yaw60": 19.3
+   },
+   "fwd0_theta45": {
+    "yaw0": 45.0,
+    "yaw15": 44.01,
+    "yaw30": 40.89,
+    "yaw45": 35.26,
+    "yaw60": 26.57
+   },
+   "fwd10_theta15": {
+    "yaw0": 15.0,
+    "yaw15": 14.58,
+    "yaw30": 13.31,
+    "yaw45": 11.14,
+    "yaw60": 8.09
+   },
+   "fwd10_theta20": {
+    "yaw0": 20.0,
+    "yaw15": 19.48,
+    "yaw30": 17.88,
+    "yaw45": 15.1,
+    "yaw60": 11.06
+   },
+   "fwd10_theta25": {
+    "yaw0": 25.0,
+    "yaw15": 24.41,
+    "yaw30": 22.55,
+    "yaw45": 19.23,
+    "yaw60": 14.26
+   },
+   "fwd10_theta30": {
+    "yaw0": 30.0,
+    "yaw15": 29.36,
+    "yaw30": 27.32,
+    "yaw45": 23.57,
+    "yaw60": 17.72
+   },
+   "fwd10_theta35": {
+    "yaw0": 35.0,
+    "yaw15": 34.34,
+    "yaw30": 32.21,
+    "yaw45": 28.16,
+    "yaw60": 21.53
+   },
+   "fwd10_theta45": {
+    "yaw0": 45.0,
+    "yaw15": 44.4,
+    "yaw30": 42.36,
+    "yaw45": 38.17,
+    "yaw60": 30.49
+   },
+   "fwd20_theta15": {
+    "yaw0": 15.0,
+    "yaw15": 14.7,
+    "yaw30": 13.74,
+    "yaw45": 11.91,
+    "yaw60": 8.98
+   },
+   "fwd20_theta20": {
+    "yaw0": 20.0,
+    "yaw15": 19.65,
+    "yaw30": 18.51,
+    "yaw45": 16.25,
+    "yaw60": 12.45
+   },
+   "fwd20_theta25": {
+    "yaw0": 25.0,
+    "yaw15": 24.64,
+    "yaw30": 23.4,
+    "yaw45": 20.83,
+    "yaw60": 16.25
+   },
+   "fwd20_theta30": {
+    "yaw0": 30.0,
+    "yaw15": 29.65,
+    "yaw30": 28.41,
+    "yaw45": 25.69,
+    "yaw60": 20.48
+   },
+   "fwd20_theta35": {
+    "yaw0": 35.0,
+    "yaw15": 34.69,
+    "yaw30": 33.55,
+    "yaw45": 30.85,
+    "yaw60": 25.22
+   },
+   "fwd20_theta45": {
+    "yaw0": 45.0,
+    "yaw15": 44.86,
+    "yaw30": 44.2,
+    "yaw45": 42.16,
+    "yaw60": 36.68
+   }
+  },
+  "roll_sensitivity_theta25_fwd10": {
+   "tilt0": {
+    "yaw0": 25.0,
+    "yaw30": 22.55,
+    "yaw60": 14.26
+   },
+   "tilt20": {
+    "yaw0": 23.66,
+    "yaw30": 24.92,
+    "yaw60": 20.83
+   },
+   "tilt40": {
+    "yaw0": 19.66,
+    "yaw30": 24.56,
+    "yaw60": 24.47
+   }
+  },
+  "noise_fold_bias_3d": {
+   "sigma_0.00m": {
+    "10": {
+     "mean": 10.0,
+     "median": 10.0,
+     "bias": 0.0
+    },
+    "15": {
+     "mean": 15.0,
+     "median": 15.0,
+     "bias": 0.0
+    },
+    "20": {
+     "mean": 20.0,
+     "median": 20.0,
+     "bias": 0.0
+    },
+    "25": {
+     "mean": 25.0,
+     "median": 25.0,
+     "bias": 0.0
+    },
+    "30": {
+     "mean": 30.0,
+     "median": 30.0,
+     "bias": 0.0
+    },
+    "35": {
+     "mean": 35.0,
+     "median": 35.0,
+     "bias": 0.0
+    },
+    "45": {
+     "mean": 45.0,
+     "median": 45.0,
+     "bias": 0.0
+    }
+   },
+   "sigma_0.01m": {
+    "10": {
+     "mean": 11.5,
+     "median": 11.43,
+     "bias": 1.43
+    },
+    "15": {
+     "mean": 15.8,
+     "median": 15.83,
+     "bias": 0.83
+    },
+    "20": {
+     "mean": 20.64,
+     "median": 20.76,
+     "bias": 0.76
+    },
+    "25": {
+     "mean": 25.67,
+     "median": 25.71,
+     "bias": 0.71
+    },
+    "30": {
+     "mean": 30.43,
+     "median": 30.45,
+     "bias": 0.45
+    },
+    "35": {
+     "mean": 35.32,
+     "median": 35.38,
+     "bias": 0.38
+    },
+    "45": {
+     "mean": 45.25,
+     "median": 45.3,
+     "bias": 0.3
+    }
+   },
+   "sigma_0.02m": {
+    "10": {
+     "mean": 15.87,
+     "median": 15.11,
+     "bias": 5.11
+    },
+    "15": {
+     "mean": 18.81,
+     "median": 18.12,
+     "bias": 3.12
+    },
+    "20": {
+     "mean": 23.18,
+     "median": 22.91,
+     "bias": 2.91
+    },
+    "25": {
+     "mean": 27.38,
+     "median": 27.4,
+     "bias": 2.4
+    },
+    "30": {
+     "mean": 31.83,
+     "median": 31.91,
+     "bias": 1.91
+    },
+    "35": {
+     "mean": 36.32,
+     "median": 36.28,
+     "bias": 1.28
+    },
+    "45": {
+     "mean": 46.39,
+     "median": 46.74,
+     "bias": 1.74
+    }
+   },
+   "sigma_0.03m": {
+    "10": {
+     "mean": 21.35,
+     "median": 20.23,
+     "bias": 10.23
+    },
+    "15": {
+     "mean": 24.05,
+     "median": 22.99,
+     "bias": 7.99
+    },
+    "20": {
+     "mean": 27.04,
+     "median": 26.39,
+     "bias": 6.39
+    },
+    "25": {
+     "mean": 30.55,
+     "median": 30.14,
+     "bias": 5.14
+    },
+    "30": {
+     "mean": 34.12,
+     "median": 33.89,
+     "bias": 3.89
+    },
+    "35": {
+     "mean": 38.97,
+     "median": 39.06,
+     "bias": 4.06
+    },
+    "45": {
+     "mean": 47.8,
+     "median": 48.03,
+     "bias": 3.03
+    }
+   },
+   "sigma_0.04m": {
+    "10": {
+     "mean": 27.9,
+     "median": 26.63,
+     "bias": 16.63
+    },
+    "15": {
+     "mean": 29.85,
+     "median": 28.32,
+     "bias": 13.32
+    },
+    "20": {
+     "mean": 31.47,
+     "median": 29.98,
+     "bias": 9.98
+    },
+    "25": {
+     "mean": 34.84,
+     "median": 34.1,
+     "bias": 9.1
+    },
+    "30": {
+     "mean": 38.3,
+     "median": 37.78,
+     "bias": 7.78
+    },
+    "35": {
+     "mean": 41.54,
+     "median": 41.28,
+     "bias": 6.28
+    },
+    "45": {
+     "mean": 49.98,
+     "median": 50.41,
+     "bias": 5.41
+    }
+   }
+  }
+ },
+ "comparators_3d": {
+  "note": "from mason_elbow_address_stats.json (3-D mocap, mirrored for comparison; MultiSense needs_counsel; statistics only)",
+  "cmu_median_deg": 22.53,
+  "cmu_iqr_deg": [
+   21.65,
+   23.8
+  ],
+  "multisense_mirrored_note": "most clips 1-18 deg (22 clips below 18 deg); different joint-centre definitions vs MediaPipe, small n, golfers differ"
+ },
+ "takeaway_effect": {
+  "clips_address_in_motion_of_keyframe_clips": 6,
+  "raw_median_early_mean_minus_address_deg": 4.67,
+  "extrapolation_method": "elbow slope over first 0.25 s x (axis start - takeaway), sign flipped; heavy assumption (linear, unobserved interval)"
+ },
+ "recommendation": {
+  "raw_median_deg": 29.14,
+  "raw_iqr_deg": [
+   22.96,
+   30.39
+  ],
+  "projection_bias_deg": "unquantified for the 3-D landmark angle; 2-D simulation says a pure 2-D read UNDER-states flexion (see table), so projection does NOT explain over-flexion",
+  "noise_fold_correction_deg": {
+   "sigma_0.01m": -0.64,
+   "sigma_0.02m": -2.14,
+   "sigma_0.03m": -5.14
+  },
+  "takeaway_in_motion_correction_deg": -3.56,
+  "takeaway_in_motion_raw_estimates_deg": [
+   -2.4,
+   -0.8,
+   -12.3,
+   -4.7,
+   -2.2,
+   -22.3
+  ],
+  "bias_corrected_center_deg": 23.4,
+  "bias_corrected_range_deg": [
+   18.4,
+   28.4
+  ],
+  "bias_corrected_range_rad": [
+   0.322,
+   0.496
+  ],
+  "range_half_width_deg_assumed": 5.0,
+  "confidence": "low (n=8 clips, 1 mostly-DTL view, no ground truth, simulation assumptions); UNVERIFIED",
+  "use": "Plausible address-elbow support 18.4-28.4 deg (0.32-0.50 rad), centre 23.4 deg. The raw 0.509 rad median is upper-leaning, but camera yaw is not the main reason.",
+  "env_failure_floor_rad": 0.31
+ },
+ "caveats": [
+  "No camera calibration, no ground truth elbow angle, view labels heuristic.",
+  "Simulation conclusions follow from stated geometry only; real arms flare and bend out of plane.",
+  "Noise sigma and the +-5 deg half-width are assumptions, not measured.",
+  "Instagram-derived footage; third-party content unreviewed."
+ ]
+}
