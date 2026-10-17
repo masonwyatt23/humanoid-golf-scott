@@ -10,17 +10,13 @@ Highest-value next steps for the humanoid golf system:
 6. **Multi-style policies** — Train and compare Scott, Scheffler, and Rory styles side-by-side with the compare_styles script.
 7. **Transfer to ashlrai org** — Move the repository into the AshlrAI GitHub organization once admin access is available.
 
-## Recent changes (commit 6bf1217)
+## Historical notes (commit 6bf1217; superseded)
 
-- **cvel fix:** `ball_vel` was read from `data.cvel[ball][:3]`, which is the *angular* part of MuJoCo's `cvel`. It now uses `[3:6]` (linear velocity) in both the observation and the reward.
-- **Post-contact velocity bonus:** once contact is registered, the reward adds `0.5 * ball_vel[0]` when forward ball velocity exceeds 1.0 m/s. This replaces the earlier `0.05 * ball_vel[0]` term and the distance-to-target shaping term.
-- **Stronger contact rewards:** club-ball proximity term raised to `2.5*exp(-4d)`, near-ball bonus radius widened to 0.25 m (peak 4.0), contact detection threshold lowered to 0.3 m/s, and the one-time contact bonus raised from 10 to 15.
-
-Note: the earlier "0.74 m" carry figure (commit 6adb62d message) predates the cvel fix, and no results files are committed, so it has not been re-measured. Re-run `python -m eval.evaluate` and commit the output to confirm current numbers.
-
-Current milestone: **100% contact rate** reported, with distance still modest and expected to improve after the cvel fix.
+- **cvel fix:** `ball_vel` was read from `data.cvel[ball][:3]` (the *angular* part of MuJoCo's `cvel`); it now uses `[3:6]` (linear velocity) in both the observation and the reward.
+- Later reward changes (post-contact velocity bonus, stronger contact rewards) and the early "0.74 m carry / 100% contact" milestone predate the current evaluator and are not current results. Current numbers are in the README Status table and `results/leaderboard.md`.
 
 ## Status notes
 
-- `data/process_video.py` now exists (MediaPipe pipeline). WHAM/GVHMR extraction is still only documented in `docs/WHAM_GVHMR.md`, not implemented.
-- No `results/*.json` or trained models are committed yet. Add them (via `python -m eval.evaluate` output) before publishing a results table in the README.
+- `data/process_video.py` exists (MediaPipe pipeline). WHAM/GVHMR extraction is still only documented in `docs/WHAM_GVHMR.md`, not implemented.
+- `results/*.json` are committed (gate files, leaderboard, validation). Trained models (`models/*.zip`) are not committed and no Release exists.
+- The README Status table is the source of truth for results: Stage 6 scripted swing, Stage 8 yaw-only residual, Stage 9 hypothetical 128 mph tier, Stage 10 imitation annealing (script-free stage not yet reached), and the `sim/` simulator. Next steps there: confirm the gate constants with the Trainer/Evaluator (README "What 'PASS' means"), run the 0.25 and 0.0 script-weight stages with more seeds, and calibrate spin/contact against measured data.
