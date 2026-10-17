@@ -79,6 +79,7 @@ def actuator_tags(kw):
     fs, ts = kw.get("force_scale", 1.0), kw.get("torque_scale", None)
     if fs and fs > 1.0: tags.append(f"force_scale {fs:g} (hypothetical-strength actuators)")
     if ts and ts > 1.0: tags.append(f"torque_scale {ts:g} (boosted)")
+    if (kw.get("impact_model") or {}).get("spin_k"): tags.append("no spin model: backspin hand-set by impact model (spin_k), not from contact")
     g = (kw.get("impact_model") or {}).get("gain", 1.0)
     if g and g > 1.05: tags.append(f"impact gain {g:g}: ball speed/smash INFLATED (smash ~1.6), distances inflated")
     td = (kw.get("script") or {}).get("t_down")
@@ -165,7 +166,7 @@ class PRec:
         lines = [f"Club speed now: {cs * 2.23694:.0f} mph   peak so far: {self.peak_club * 2.23694:.1f} mph ({self.peak_club / 53.64 * 100:.0f}% of 120)   Ball speed: {f(None if bs is None else bs * 2.23694, '.0f')} mph ({f(bs, '.1f')} m/s)",
                  f"Launch: {f(le, '.1f')} deg   Carry: {'n/a' if carry <= 0 else format(carry, '.1f') + ' m / ' + format(carry * 1.09361, '.0f') + ' yd'}   Ball dist. so far: {x:.1f} m / {x * 1.09361:.0f} yd   Lateral y (+left): {float(bp[1]):+.2f} m",
                  f"Slow-mo {slow:.1f}x (ramps around impact)   {self.kind}   left-handed   measured in simulation, this swing only"]
-        if self.tags: lines.append("ACTUATORS: " + "; ".join(self.tags))
+        if self.tags: lines += [("ACTUATORS: " if i == 0 else "   ") + t for i, t in enumerate(self.tags)]   # one tag per line (no clipping)
         ov = img.copy(); cv2.rectangle(ov, (0, 480 - 22 * len(lines) - 10), (1280, 480), (0, 0, 0), -1); img = cv2.addWeighted(ov, 0.6, img, 0.4, 0)
         for i, t in enumerate(lines): cv2.putText(img, t, (10, 480 - 22 * len(lines) + 22 * i + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 200, 120) if i == 3 else (255, 255, 255), 1, cv2.LINE_AA)
         if self.banner:
@@ -350,7 +351,7 @@ def main():
     hold(card(t, cols, 0.6), 4)
     # leaderboard slides
     rank = [r.split("/")[0] for r in lb["ranking"]][:4]
-    kd = lambda m: "LEARNED" if (m.get("env_kwargs") or {}).get("script_weight") in (None, 1.0) else f"BLEND {round((1 - m['env_kwargs']['script_weight']) * 100)}/{round(m['env_kwargs']['script_weight'] * 100)}"
+    kd = lambda m: "LEARNED" if (m.get("env_kwargs") or {}).get("script_weight") in (None, 1.0) else "SCRIPT-DISTILLED" if (m.get("env_kwargs") or {}).get("script_weight") == 0.0 else f"BLEND {round((1 - m['env_kwargs']['script_weight']) * 100)}/{round(m['env_kwargs']['script_weight'] * 100)}"
     rows = [(label(by[n]), kd(by[n]), by[n], q[n][0]) for n in rank if n in by]
     rows += [(label(m), "SCRIPTED", m, q[m["names"][0]][0]) for m in scripted]
     if lm["names"][0] not in rank: rows.insert(0, (label(lm), kd(lm), lm, ok_l))
@@ -364,8 +365,11 @@ def main():
         name = m["names"][0]; d = m["modes"]["deterministic"]; sc = m.get("scripted", False)
         swt = (m.get("env_kwargs") or {}).get("script_weight")
         blend = ("script-free imitation of the scripted v3 swing" if swt == 0.0 else f"{round((1 - swt) * 100)}% learned / {round(swt * 100)}% scripted") if (kind == "LEARNED" and swt is not None and swt < 1.0) else ""   # from the run's env kwargs (verified in results JSON), never guessed
-        title = (f"{kind} ({label(m)})" if kind == "LEARNED" else f"{kind}") + (f" - {blend}" if blend else "")
-        kind_txt = kind + (f" [{blend}]" if blend else "")
+        dk = "SCRIPT-DISTILLED POLICY" if (kind == "LEARNED" and swt == 0.0) else kind   # display name: a script-free imitation is not a swing learned independently
+        _ek = m.get("env_kwargs") or {}; _fs = _ek.get("force_scale") or 1.0; _g = (_ek.get("impact_model") or {}).get("gain", 1.0) or 1.0
+        mot = (", power tier hypothetical (impact gain %g)" % _g if _g > 1.05 else f", force_scale {_fs:g} hypothetical-strength" if _fs > 1.0 else ", stock motors (force_scale 1)") if dk != kind or kind == "LEARNED" else ""
+        title = (f"{dk} ({label(m)}){mot}" if kind == "LEARNED" else f"{kind}") + (f" - {blend}" if blend else "")
+        kind_txt = dk + (f" [{blend}]" if blend else "")
         hold(card([title, f"model: {label(m)}", f"Deterministic, {lb['episodes']} eps: carry {d['mean_carry']:.1f} m mean | lateral std {d['lateral_std']:.2f} m | miss L/R {d['left_miss_rate']*100:.0f}%/{d['right_miss_rate']*100:.0f}%",
                    f"launch {d['launch_elev_mean_deg']:.1f} deg | peak club {d['peak_club_mph_mean']:.1f} mph | landed {d['landed_fraction']*100:.0f}%" + ("   (FLAT launch)" if d.get("launch_flat_flag") else ""),
                    ("QUALIFIES under the criterion" if okq else "DOES NOT YET QUALIFY: " + "; ".join(fails))] + [x for x in wrap("Swing shown: ONE deterministic swing, lower median by carry of %d (seeds %d..); live overlay = that swing's own measurement." % (a.swings, a.seed), 100)],
@@ -414,7 +418,7 @@ def main():
         seg_frames = (rec.frames0, w.frames, rec.impact_frame)
         if a.pose and imp_step:
             hold(pose_slide(np.array(jt), imp_step, ROOT / "data/references/mason_v2_p1_s06.npz", kind_txt, label(m)), 5)
-        meta["segments"].append(dict(kind=kind, blend=blend or None, script_weight=swt, model=label(m), qualifies=okq, failed=fails, seed=seed, selection_pass_carry=sh["carry"], actuator_tags=tags,
+        meta["segments"].append(dict(kind=dk, blend=blend or None, script_weight=swt, model=label(m), qualifies=okq, failed=fails, seed=seed, selection_pass_carry=sh["carry"], actuator_tags=tags,
                                      frames=dict(start=seg_frames[0], end=seg_frames[1], impact=seg_frames[2]),
                                      rendered=dict(carry=sw["carry"], carry_yd=sw["carry_yd"], total_yd=sw["total_yd"], lateral_y=sw["final_y"], launch_deg=sw["launch_elev_deg"], peak_club_mph=rec.peak_club * 2.23694, impact_club_mps=sw["impact_club_speed"]),
                                      all_swings=[dict(seed=s_, carry=x["carry"], y=x["final_y"], launch=x["launch_elev_deg"]) for s_, x in res]))
@@ -425,7 +429,8 @@ def main():
          "- Learned strikes are regime-sensitive: one swing is not the average; see the leaderboard slides for all-episode stats. Address-noise outliers exist.",
          "- DTW style scores (leaderboard.md) are 2D-proxy, tempo +-15% indicative only; Mason v3 slow-mo refs are loose-tempo extras."]
     if noise_caveat(lm) and (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e.insert(1, "- " + noise_caveat(lm) + ". NOISE-FRAGILE: the distilled policy loses much of its carry under small observation/action noise (quick screen, my 80%-of-clean threshold).")
-    if (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e.insert(1, "- LEARNED row = script-free imitation of the scripted v3 swing (behaviour cloning, 100% of joint targets from the policy); it reproduces the script, it does not discover a new swing.")
+    if (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e = [x.replace("'LEARNED' = trained policy (PPO residual on a scripted swing, or behaviour-cloned imitation: see segment label)", "'SCRIPT-DISTILLED POLICY' = behaviour-cloned imitation of the scripted swing (not learned from Mason)") for x in e]
+    if (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e.insert(1, "- SCRIPT-DISTILLED row = script-free imitation of the scripted v3 swing (behaviour cloning, 100% of joint targets from the policy); it reproduces the script, it does not discover a new swing.")
     if fallback: e.insert(1, "THIS IS A FALLBACK PREVIEW: no trained model qualifies - the learned segment is not a good drive.")
     if a.profiles:
         for img_, sec_ in profiles_slides(ROOT / a.profiles): hold(img_, sec_)
