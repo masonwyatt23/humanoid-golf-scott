@@ -50,7 +50,7 @@ def main():
               env_scripted_lateral_std_m="1.5-2.5 m (0.3-0.5 deg at 293 m) in the scan: the scripted swing is ~10x tighter than any human reference, so the goal for a learned policy is to stay near it, not to match human scatter",
               source="docs/LOFT_ENV_PARAMS_AND_DISPERSION.md (Broadie fetched; PING, TrackMan snippets unverified; face/path sigma not published)"),
         logging_needed="Env does not log face yaw, club path, or dynamic loft at contact; add them (read face normal and club-head velocity at first contact) before using face/path terms. env/ is read-only for the Data Agent.",
-        bc_prior_options=[dict(source="CMU subject 64 (10 swings)", license_tag="counsel_required", note="reference tracking/RSI prior; provenance.py still says commercial_ok=True (open flag for Mason/counsel)"),
+        bc_prior_options=[dict(source="CMU subject 64 (10 swings)", license_tag="counsel_required", note="reference tracking/RSI prior; provenance.py now tags CMU needs_counsel / commercial_ok=False (retagged 2026-10); open item for Mason/counsel: whether to keep or untrack the tracked cmu_64_*.npz"),
                           dict(source="MultiSenseGolf (28 swings)", license_tag="counsel_required", note="no wrist data; low weight"),
                           dict(source="BONES-SEED", license_tag="counsel_required", note="not in repo; general humanoid prior; never commit"),
                           dict(source="100STYLE", license_tag="cc_by", note="locomotion only"),

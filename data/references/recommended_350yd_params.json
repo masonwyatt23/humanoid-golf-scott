@@ -306,7 +306,7 @@
   {
    "source": "CMU subject 64 (10 swings)",
    "license_tag": "counsel_required",
-   "note": "reference tracking/RSI prior; provenance.py still says commercial_ok=True (open flag for Mason/counsel)"
+   "note": "reference tracking/RSI prior; provenance.py now tags CMU needs_counsel / commercial_ok=False (retagged 2026-10); open item for Mason/counsel: whether to keep or untrack the tracked cmu_64_*.npz"
   },
   {
    "source": "MultiSenseGolf (28 swings)",

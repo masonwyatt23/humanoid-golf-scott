@@ -57,7 +57,7 @@ Context: the scripted swing's env lateral std is 1.5-2.5 m (0.3-0.5 deg at 293 m
 | Source | Tag | Use |
 |---|---|---|
 | scripted zero-residual swing + residual policy (own code) | none | **recommended base**: BC/DAgger-regularise the residual toward zero plus shaping |
-| CMU subject 64 | counsel_required | tracking reference/RSI only; `data/provenance.py` still tags it commercial_ok=True (open flag for Mason/counsel) |
+| CMU subject 64 | counsel_required | tracking reference/RSI only; `data/provenance.py` now tags it needs_counsel / commercial_ok=False (retagged 2026-10); open item for Mason/counsel: keep or untrack the tracked `cmu_64_*.npz` |
 | MultiSenseGolf | counsel_required | low weight, no wrist data |
 | BONES-SEED | counsel_required | not in repo; never commit |
 | 100STYLE | cc_by | locomotion only |
