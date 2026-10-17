@@ -321,3 +321,33 @@ Checkpoint models/best_imit_scriptfree_elbow48_s51.zip (gitignored). Single seed
 Again the residual is statistically identical to the script: no distance gain from yaw-only residual (as in Stage 8/13). Higher distance would need the other joints or higher club speed (not attempted).
 - **Tracking reward joint mapping** re-measured on the v3 elbow-0.48 script (12 eps): track_score 0.0 -> 0.331 with `track_time_fix` (shoulder part 0.001 -> 0.994; yaw/wrist parts 0.0). The positional-index bug only affected HumanoidGolfEnv's `reference_path` reward (fixed, Stage 15); ResidualGolfEnv's track reward was always name-based.
 - **NOT done:** the short track_time_fix + key_weight fine-tune with before/after (only the script-level measurement above); imit s52/s53.
+
+## Stage 17: script-free reliability across seeds, noise robustness, Mason-reward fine-tune
+**(1) Script-free (script_weight 0), v3, elbow_base 0.48, seeds 52/53.** Recipe: warm start from the seed's own earlier model (s52: imit3_w050_s52; s53: imit3_w075_s53, which had no w=0.5 parent) + 500 clean teacher episodes (seed 100+s), 1500 epochs, bc_noise 0.0005, no PPO. Headline gate (min_carry 30, det / stoch), 100 eps, GATE_OUT=results/imit_private:
+| model | seed | carry=total m | lateral std m | launch deg | landed | headline |
+| s51 (imit9) | 4000/8000/9000 | 119.3/120.7/118.2 | 1.17/1.39/1.27 | 12.9/13.0/12.9 | 100% | PASS x3 (Stage 16) |
+| s52 | 4000 | 118.1 / 117.9 | 0.85 / 1.40 | 12.9 | 100% | PASS |
+| s52 | 8000 | 122.1 / 118.1 | 1.42 / 1.43 | 13.0 / 12.8 | 100% / 99% | PASS |
+| s52 | 9000 | 119.0 / 116.5 | 1.54 / 1.55 | 12.9 | 100% | PASS |
+| s53 | 4000 | 116.9 / 116.8 | 1.11 / 0.82 | 12.9 | 100% | PASS |
+| s53 | 8000 | 116.6 / 118.9 | 1.32 / 1.26 | 13.0 | 100% | PASS |
+| s53 | 9000 | 114.6 / 115.1 | 1.15 / 0.79 | 12.9 / 12.8 | 100% / 99% | PASS |
+=> 9/9 seed-x-eval-seed combinations pass (3 policy seeds). Honest scope: all on the elbow-0.48 address distribution (low-elbow starts not sampled), 3 eval seeds x 100 eps, all three are warm-started chains from the same v3 script teacher; distillation of the script, not learning from Mason data. Checkpoints models/best_imit_scriptfree_elbow48_s5{1,2,3}.zip (gitignored). Earlier default-elbow imit7/imit8 failures are explained in Stage 16.
+**(3) Noise robustness of imit9_w000_s51** (eval/noise_robustness.py, 50 eps, training-env protocol, action noise sigma in action units; results/noise_imit9_w000_s51*.json). New env vars NOISE_MASK (e.g. 0,0,0,1,0 = yaw only) and NOISE_TAG.
+| noise | sigma | carry m | lateral std m | launch deg | landed | contact |
+| all 5 dims | 0 | 115.5 | 0.84 | 12.75 | 100% | 100% |
+| all | 0.002 | 108.6 | 0.04 | 12.3 | 96% | 100% |
+| all | 0.005 | 74.3 | 1.11 | 6.7 | 82% | 98% |
+| all | 0.01 | 27.0 | 3.33 | 1.3 | 54% | 92% |
+| yaw only | 0.002 | 117.4 | 0.95 | 12.8 | 100% | 100% |
+| yaw only | 0.005 | 117.3 | 0.83 | 12.8 | 100% | 100% |
+| yaw only | 0.01 | 114.7 | 0.95 | 12.3 | 100% | 100% |
+Reading: with the elbow fixed, lateral spread is no longer the failure (the Stage-11 lateral blow-up at sigma 0.002 is gone); the remaining sensitivity is shoulder/elbow/wrist action noise breaking strike height (launch collapses at sigma >= 0.005 on all dims), while yaw-only noise is harmless up to 0.01.
+**(2) Fine-tune toward Mason data (PPO from imit9_w000_s51; track_time_fix + key_weight + name-based mapping; unified_v1; 10-20k steps; eval/track_before_after.py, 30 eps, seed 4000, training env, deterministic):**
+| run | settings | track_score | key_score | sh/yaw/wr parts | carry m | lateral std | launch | RMS dev from script (rad) |
+| imit9 (before) | - | 0.332 | 0.000 | 0.994/0.002/0.000 | 117.7 | 0.78 | 12.8 | 0.0002 |
+| imit10 | track 2, key 2, lr 3e-5, log_std -5.5, 20k | 0.397 | 0.012 | 0.862/0.330/0.000 | 98.0 | 0.24 | 8.6 | 0.142 |
+| imit11 | track 0.3, key 0.3, lr 1e-5, log_std -6.5, 10k | 0.441 | 0.005 | 0.700/0.622/0.002 | 90.0 | 2.51 | 8.3 | 0.204 |
+| imit12 | track 0.1, key 0.1, lr 1e-5, log_std -7, 10k | 0.318 | 0.000 | 0.925/0.028/0.000 | 110.5 | 0.74 | 11.6 | 0.050 |
+Honest result: the reward moves yaw toward the Mason/CMU/MultiSense thorax shape (0.002 -> 0.33-0.62) but trades away the shoulder match and strike height: imit10/imit11 drift (RMS 0.14-0.20 rad from the script), launch falls to 8.3-8.6 deg (below the 10 target), imit11 lateral 2.51 m (near the 2.73 limit); they do NOT hold the gate margins and were not 3-seed gated (training-env numbers only). The gentlest weight (imit12) keeps carry/lateral/launch but has no track gain. key_score stays ~0 in every run (the v3 swing's shoulder/wrist progress at impact is far from Mason's medians and the wrist never follows the reference), so the keyframe reward provides no usable gradient at these step budgets. Conclusion: tracking the unified refs with a tiny PPO step does not yield a better-matching AND gate-holding swing; a real attempt needs the wrist/elbow script retuned toward the references first. No Mason-learned model is claimed.
+**(4) Name-based joints in eval/evaluate.py and eval/style_match.py: done** (trivial: `env._ref_q(11)`; style_match only had docstrings). Syntax-checked only; I did not re-run the DTW/leaderboard pipeline (leaderboard files belong to others).
