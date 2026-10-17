@@ -398,6 +398,9 @@ def main():
         seed, sh = good[(len(good) - 1) // 2]
         ban = [f"{title}" + ("" if okq else "  -  DOES NOT YET QUALIFY") , f"All-episode (det): carry {d['mean_carry']:.1f} m | lat std {d['lateral_std']:.2f} m | L/R miss {d['left_miss_rate']*100:.0f}/{d['right_miss_rate']*100:.0f}% | launch {d['launch_elev_mean_deg']:.1f} deg | {d['peak_club_mph_mean']:.1f} mph",
                f"This swing: seed {seed}, median-by-carry of {a.swings} (overlay below = this swing only)"]
+        if kind == "LEARNED" and a.env_override and a.override_stats:
+            _p = json.loads((ROOT / a.override_stats).read_text())["policy_det"]
+            ban.insert(2, "Launch monitor (gate mean, det): club %.1f mph | ball %.0f mph | smash %.2f | launch %.1f deg | carry %.0f yd (%.0f m) | backspin hand-set, no spin model" % (_p["peak_club_mph_mean"], _p["mean_peak_ball_speed"] * 2.23694, _p["mean_peak_ball_speed"] / _p["impact_club_speed_mean"], _p["launch_elev_mean_deg"], _p["mean_carry"] * 1.09361, _p["mean_carry"]))
         if kind == "LEARNED" and a.env_override and a.override_stats: ban.insert(1 + 1, "Stats: eval_gate %s eps, seed %s, with override %s (not the 50-ep leaderboard row)" % (json.loads((ROOT / a.override_stats).read_text()).get("episodes"), json.loads((ROOT / a.override_stats).read_text()).get("seed"), a.env_override))
         if not okq: ban.insert(2, "Fails: " + "; ".join(fails))
         nc = noise_caveat(m) if kind == "LEARNED" else ""
