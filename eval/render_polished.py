@@ -408,7 +408,7 @@ def main():
             for _sd in (4000, 8000, 9000):
                 _f = ROOT / "results" / f"gate_{m['names'][0]}_seed{_sd}.json"
                 if _f.exists(): _j = json.loads(_f.read_text()); _g.append((_sd, _j["gate_pass"], _j["policy_det"]["lateral_std"]))
-            ban.insert(2, "Smash %.2f (%s): ball barely faster than club, carry far SHORT of real driver distance" % (m["smash_ratio_det"], m["smash_flag"]) + ((" | 3-seed gate (eval_gate): %s, det lat std %s m" % ("PASS %d/3" % sum(1 for x in _g if x[1]), "/".join("%.2f" % x[2] for x in _g))) if len(_g) == 3 else " | no 3-seed gate JSON in results/"))
+            ban.insert(2, "Smash %.2f (%s): ball barely faster than club (short of real distance)" % (m["smash_ratio_det"], m["smash_flag"]) + ((" | 3-seed gate: %s, lat std %s m" % ("PASS %d/3" % sum(1 for x in _g if x[1]), "/".join("%.2f" % x[2] for x in _g))) if len(_g) == 3 else " | no 3-seed gate JSON in results/"))
         if kind == "LEARNED" and a.env_override and a.override_stats:
             _p = json.loads((ROOT / a.override_stats).read_text())["policy_det"]
             ban.insert(2, "Launch monitor (gate mean, det): club %.1f mph | ball %.0f mph | smash %.2f | launch %.1f deg | carry %.0f yd (%.0f m) | backspin hand-set, no spin model" % (_p["peak_club_mph_mean"], _p["mean_peak_ball_speed"] * 2.23694, _p["mean_peak_ball_speed"] / _p["impact_club_speed_mean"], _p["launch_elev_mean_deg"], _p["mean_carry"] * 1.09361, _p["mean_carry"]))
