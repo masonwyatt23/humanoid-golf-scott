@@ -41,6 +41,9 @@ class HumanoidGolfEnv(gym.Env):
         ball_y_noise: float = 0.02,
         sh_noise: float = 0.05,
         el_noise: float = 0.1,
+        contact_damp: float = None,
+        ball_friction: float = None,
+        impact_model: dict = None,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -79,6 +82,13 @@ class HumanoidGolfEnv(gym.Env):
         model_path = Path(__file__).parent / "models" / model_xml
         self.model = mujoco.MjModel.from_xml_path(str(model_path))
         self.data = mujoco.MjData(self.model)
+        self.impact_model = impact_model  # OPT-IN (v4) post-contact model: {'k_off','spin_k','k_side'}; None = v3 behaviour
+        if contact_damp is not None:  # OPT-IN (v4): solref damping ratio of ball+club-head geoms; default None keeps the v3 critically-damped (plastic, smash~1.0) contact
+            for _g in (self.model.geom('club_head').id, self.model.geom('ball_geom').id):
+                self.model.geom_solref[_g, 1] = contact_damp
+        if ball_friction is not None:  # OPT-IN: sliding friction of ball+head (spin generation)
+            for _g in (self.model.geom('club_head').id, self.model.geom('ball_geom').id):
+                self.model.geom_friction[_g, 0] = ball_friction
         self.substeps = int(round(0.02 / self.model.opt.timestep))  # control dt fixed at 20 ms
         if ball_damping > 0:  # linear+angular drag on the ball's freejoint so rolling does not dominate
             self.model.dof_damping[0:6] = ball_damping
@@ -110,6 +120,7 @@ class HumanoidGolfEnv(gym.Env):
         self._club_geom = self.model.geom("club_head").id
         self._ball_geom = self.model.geom("ball_geom").id
         self._club_body = int(self.model.geom_bodyid[self._club_geom])
+        self._ball_dof = int(self.model.jnt_dofadr[self.model.body('ball').jntadr[0]])
         self._reset_metrics()
 
     # ---- curriculum / metrics helpers -------------------------------------
@@ -125,7 +136,7 @@ class HumanoidGolfEnv(gym.Env):
 
     def _reset_metrics(self):
         self.true_contact = False
-        self._sep_v = None
+        self._sep_v = None; self._sep_rpm = None; self._face_off = None
         self.impact_club_speed = 0.0
         self.peak_ball_speed = 0.0
         self.peak_ball_vx = 0.0
@@ -170,6 +181,15 @@ class HumanoidGolfEnv(gym.Env):
         if wn > 1e-6:
             f = f + cl * q * np.cross(w / wn, v)
         d.xfrc_applied[self._ball_id, :3] = f
+
+    def _contact_face_off(self):
+        d = self.data; gid = self._club_geom
+        for i in range(d.ncon):
+            c = d.contact[i]
+            if {c.geom1, c.geom2} == {gid, self._ball_geom}:
+                R = d.geom_xmat[gid].reshape(3, 3); pl = R.T @ (c.pos - d.geom_xpos[gid])
+                return (float(pl[1]), float(pl[2]))
+        return None
 
     def _ground_contact(self) -> bool:
         d = self.data; g = self.model.geom("ground").id
@@ -442,10 +462,20 @@ class HumanoidGolfEnv(gym.Env):
             self.peak_club_speed = max(self.peak_club_speed, self._club_speed())
             if self.true_contact and self._sep_v is None and not self._check_contact():
                 self._sep_v = self._ball_lin_vel().copy()   # ball velocity at the first substep after club-face separation (what the evaluator calls separation velocity)
+                if self.impact_model is not None:
+                    im = self.impact_model; dy, dz = self._face_off if self._face_off is not None else (0.0, 0.0)
+                    f = float(np.clip(1.0 - im.get("k_off", 0.0) * ((dy / 0.03) ** 2 + ((dz - im.get('dz0', 0.0)) / 0.02) ** 2), 0.6, 1.0))  # smash drops off-centre
+                    self.data.qvel[0:3] *= f * im.get("gain", 1.0); self._sep_v = self._ball_lin_vel().copy()
+                    v = self._sep_v; spd = float(np.linalg.norm(v)); el = np.degrees(np.arctan2(v[2], np.hypot(v[0], v[1])))
+                    rpm = float(np.clip(im.get("spin_k", 0.0) * spd * np.sin(np.radians(max(el + 2.0, 0.0))), 0.0, 6000.0))
+                    self._sep_rpm = rpm
+                    _wW = np.array([0.0, -rpm, im.get("k_side", 0.0) * dy]) * 2 * np.pi / 60.0  # desired world-frame spin (backspin about -y, sidespin about z)
+                    self.data.qvel[self._ball_dof + 3:self._ball_dof + 6] = self.data.xmat[self._ball_id].reshape(3, 3).T @ _wW  # free-joint angular qvel is body-frame
             if not self.true_contact:
                 cs_now = self._club_speed()
                 if (not self._lockout()) and self._check_contact():
                     self.true_contact = True
+                    self._face_off = self._contact_face_off()
                     # speed just before/at first contact (post-contact speed is already reduced)
                     self.impact_club_speed = max(self._prev_club_speed, cs_now)
                 self._prev_club_speed = cs_now

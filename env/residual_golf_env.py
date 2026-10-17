@@ -265,7 +265,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             from env.ball_flight_analytic import simulate
             v = self._sep_v.copy(); sp = float(np.linalg.norm(v))
             elev = np.degrees(np.arctan2(v[2], np.hypot(v[0], v[1])))
-            rpm = float(np.clip(1500.0 + 70.0 * elev, 1000.0, 5000.0))  # ASSUMED backspin from launch elevation (no measured spin)
+            rpm = float(self._sep_rpm) if self._sep_rpm is not None else float(np.clip(1500.0 + 70.0 * elev, 1000.0, 5000.0))  # ASSUMED backspin from launch elevation (no measured spin)
             w0 = np.array([0.0, -rpm * 2 * np.pi / 60.0, 0.0])
             if sp > 1.0 and v[0] > 0:
                 res = simulate([0, 0, 0.07], v, w0, dt=0.005, t_max=12.0)
