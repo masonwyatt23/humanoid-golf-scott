@@ -258,9 +258,15 @@ def main():
         if r > SM_WARN_HI: return "WARN smash>1.49"
         if r < SM_WARN_LO: return "WARN smash<1.30"
         return None
+    def demote_reason(c):
+        """HYPOTHETICAL demotion: boosted-impact (impact gain > 1.05) rows whose residual is yaw-only (res_scale[:3] == 0, yaw cap <= 0.05) are effectively the SCRIPTED swing under a power impact model, not a stock-motor policy."""
+        ek = c.get("env_kwargs") or {}; g = ek.get("impact_gain") or (ek.get("impact_model") or {}).get("gain"); rs = ek.get("residual_scale")
+        if c.get("scripted") or not (g and g > 1.05 and rs and all(abs(x) < 1e-9 for x in rs[:3])): return None
+        return "HYPOTHETICAL, effectively scripted: force_scale %g + impact gain %g (inflated), yaw-only residual (res_scale %s); not a stock-motor policy" % (ek.get("force_scale") or 1, g, rs)
     for c in cur:
-        if "modes" in c: c["smash_ratio_det"] = smash_ratio(c); c["smash_flag"] = smash_flag(c)
-    sm_ok = lambda c: c.get("smash_flag") is None and "smash_flag" in c
+        if "modes" in c:
+            c["smash_ratio_det"] = smash_ratio(c); c["smash_flag"] = smash_flag(c); c["hypo_demoted"] = demote_reason(c)
+    sm_ok = lambda c: c.get("smash_flag") is None and "smash_flag" in c and not c.get("hypo_demoted")   # eligible = smash 1.30-1.49 AND not demoted
     ranked_all = sorted(cur, key=score, reverse=True)           # incl. scripted baseline
     ranked = [c for c in ranked_all if not c.get("scripted")]   # trained checkpoints only
     ranked_ok_all = [c for c in ranked_all if sm_ok(c)]; ranked_ok = [c for c in ranked if sm_ok(c)]   # rows with smash inside 1.30-1.49: only these can be top/best/showcase
@@ -274,6 +280,7 @@ def main():
         return "stock (force_scale 1)" if f <= 1.0 else f"{f:g}x (force_scale {f:g}, hypothetical-strength actuators)"
     def _label(c):
         if c.get("scripted"): return "SCRIPTED (not learned)"
+        if c.get("hypo_demoted"): return "HYPOTHETICAL: effectively scripted (yaw-only residual under fs2 + impact gain %g); not a stock-motor policy" % ((c.get("env_kwargs") or {}).get("impact_gain") or ((c.get("env_kwargs") or {}).get("impact_model") or {}).get("gain", 0))
         ek = c.get("env_kwargs", {}) or {}; sw = ek.get("script_weight")
         if sw == 0 and any(x.startswith("imit") for x in c["names"]): return "LEARNED, distilled from script (script-free imitation, script_weight 0)"
         if sw not in (None, 1.0): return f"BLEND {round((1 - sw) * 100)}% learned / {round(sw * 100)}% scripted (imitation of the script)" if any(x.startswith("imit") for x in c["names"]) else f"BLEND {round((1 - sw) * 100)}/{round(sw * 100)}"
@@ -292,13 +299,13 @@ def main():
                   f"mean carry >= {Q_CARRY:g} m (det)": v["mean_carry"] >= Q_CARRY,
                   f"lateral std <= {Q_LAT:g} m (det)": v["lateral_std"] <= Q_LAT,
                   f"mean launch elev >= {Q_ELEV:g} deg, not flat (det)": not v["launch_flat_flag"],
-                  "smash within 1.30-1.49 (ball mph / impact club mph, det)": sm_ok(c)}
+                  "eligible: smash within 1.30-1.49 (ball mph / impact club mph, det) and not hypothetical-demoted (yaw-only residual under boosted impact)": sm_ok(c)}
         return checks
     qrows = [(c, qual(c)) for c in ranked if qual(c)]
     qualifying = [c for c, q in qrows if all(q.values())]
     qualifying.sort(key=score, reverse=True)
     out = {"env_fingerprint": fp, "episodes": a.episodes, "seed_base": a.seed, "references": refs,
-           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked_ok[0]["names"] if ranked_ok else None), "best_overall": (ranked_ok_all[0]["names"] if ranked_ok_all else None), "smash_gate": {"fail_above": SM_FAIL, "warn_above": SM_WARN_HI, "warn_below": SM_WARN_LO, "definition": "det mean ball mph / det mean impact club mph (not smash_factor_mean); rows outside 1.30-1.49 are flagged and cannot be best/top/showcase"}, "smash_flagged": ["/".join(c["names"]) + ": " + c["smash_flag"] for c in cur if c.get("smash_flag")], "ranking_unflagged": ["/".join(c["names"]) for c in ranked_ok], "best_left": (left[0]["names"] if left else None), "qualifying": [c["names"] for c in qualifying], "best_qualifying": (qualifying[0]["names"] if qualifying else None),
+           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked_ok[0]["names"] if ranked_ok else None), "best_overall": (ranked_ok_all[0]["names"] if ranked_ok_all else None), "smash_gate": {"fail_above": SM_FAIL, "warn_above": SM_WARN_HI, "warn_below": SM_WARN_LO, "definition": "det mean ball mph / det mean impact club mph (not smash_factor_mean); rows outside 1.30-1.49 are flagged and cannot be best/top/showcase"}, "hypo_demoted": ["/".join(c["names"]) + ": " + c["hypo_demoted"] for c in cur if c.get("hypo_demoted")], "smash_flagged": ["/".join(c["names"]) + ": " + c["smash_flag"] for c in cur if c.get("smash_flag")], "ranking_unflagged": ["/".join(c["names"]) for c in ranked_ok], "best_left": (left[0]["names"] if left else None), "qualifying": [c["names"] for c in qualifying], "best_qualifying": (qualifying[0]["names"] if qualifying else None),
            "qualify_criterion": {"carry_m_min": Q_CARRY, "lateral_std_m_max": Q_LAT, "launch_elev_deg_min": Q_ELEV, "contact": "100% in both modes", "mode": "deterministic for carry/lateral/launch"},
            "ranking": ["/".join(c["names"]) for c in ranked], "ranking_incl_scripted": ["/".join(c["names"]) for c in ranked_all],
            "track_score_caveat": "VOID/UNVERIFIED: every models[].track_score (mean/min/parts sh,yaw,wr) was computed with the lead/trail arm mapping the Trainer found wrong (trail key scores 0.02). Do not read track_score or any 'Mason-shaped wrist' claim as valid; only the yaw part is unaffected. See the noise/track_score section of leaderboard.md.",
@@ -431,10 +438,10 @@ def main():
           "| Model | " + " | ".join(next(iter([q for _, q in qrows])).keys()) + " | Qualifies |", "|---|" + "---|" * (len(next(iter([q for _, q in qrows])))+1)]
     for c, q in qrows:
         Qs.append(f"| {'/'.join(c['names'])} | " + " | ".join('yes' if x else 'NO' for x in q.values()) + f" | {'**YES**' if all(q.values()) else 'no'} |")
-    Qs += ["", "## Smash flag", "", "Smash = det mean ball mph / det mean impact club mph (ratio of means; NOT smash_factor_mean). Thresholds from eval/launch_report.py (derived, not published): FAIL >1.50, WARN >1.49 or <1.30. Flagged rows cannot be the best/top/showcase row. Boosted v3 policies sit at ~0.9-1.0 (ball barely faster than the club: not a real-contact smash) and the v4/power impact-model rows at 1.44-1.60.", "",
-           "| model | smash | flag |", "|---|---|---|"]
+    Qs += ["", "## Smash flag", "", "Smash = det mean ball mph / det mean impact club mph (ratio of means; NOT smash_factor_mean). Thresholds from eval/launch_report.py (derived, not published): FAIL >1.50, WARN >1.49 or <1.30. Flagged rows cannot be the best/top/showcase row. DEMOTED rows (ppo_v4yaw_*: force_scale 2 + impact gain 1.28 with a yaw-only residual, so effectively the scripted swing under an inflated power impact model) are labelled HYPOTHETICAL and are also ineligible. Boosted v3 policies sit at ~0.9-1.0 (ball barely faster than the club: not a real-contact smash) and the v4/power impact-model rows at 1.44-1.60.", "",
+           "| model | smash | flag | demotion |", "|---|---|---|---|"]
     for c in sorted([c for c in cur if "smash_flag" in c and not c.get("scripted")], key=lambda c: -(c.get("smash_ratio_det") or 0)):
-        Qs.append(f"| {'/'.join(c['names'][:1])} | {('%.3f' % c['smash_ratio_det']) if c.get('smash_ratio_det') else 'n/m'} | {c['smash_flag'] or 'ok (1.30-1.49)'} |")
+        Qs.append(f"| {'/'.join(c['names'][:1])} | {('%.3f' % c['smash_ratio_det']) if c.get('smash_ratio_det') else 'n/m'} | {c['smash_flag'] or 'ok (1.30-1.49)'} | {c.get('hypo_demoted') or '-'} |")
     Qs += ["", ("Qualifying: " + ", ".join('/'.join(c['names']) for c in qualifying)) if qualifying else "**None qualifies.**"]
     flat = [c for c in cur if any(v.get("launch_flat_flag") for v in c.get("modes", {}).values())]
     Qs += ["", "Flat/negative-launch flag (mean elevation < %g deg or >= 50%% of shots below it): " % Q_ELEV + (", ".join('/'.join(c['names']) + " [" + ", ".join(f"{m[:3]} {v['launch_elev_mean_deg']:.1f} deg" for m, v in c['modes'].items() if v.get('launch_flat_flag')) + "]" for c in flat) or "none")]

@@ -340,6 +340,8 @@ def main():
     if a.model: pk, fallback = next(m["names"] for m in models if a.model in m["names"]), False
     if fallback: pk = lb["best_model"]
     lm = by[pk[0]]; ok_l, fail_l = q[pk[0]]
+    if lm.get("smash_flag") or lm.get("hypo_demoted"):   # smash gate / hypothetical demotion (leaderboard.json): not eligible as a qualifying showcase
+        ok_l = False; fail_l = list(fail_l) + ([f"smash {lm['smash_ratio_det']:.2f} outside 1.30-1.49 ({lm['smash_flag']})"] if lm.get("smash_flag") else []) + ([lm["hypo_demoted"]] if lm.get("hypo_demoted") else [])
     if a.env_override:
         lm = dict(lm); lm["env_kwargs"] = dict(lm["env_kwargs"], **json.loads(a.env_override)); lm["noise_robust"] = None
         if a.override_stats:
@@ -401,6 +403,12 @@ def main():
         seed, sh = good[(len(good) - 1) // 2]
         ban = [f"{title}" + ("" if okq else "  -  DOES NOT YET QUALIFY") , f"All-episode (det): carry {d['mean_carry']:.1f} m | lat std {d['lateral_std']:.2f} m | L/R miss {d['left_miss_rate']*100:.0f}/{d['right_miss_rate']*100:.0f}% | launch {d['launch_elev_mean_deg']:.1f} deg | {d['peak_club_mph_mean']:.1f} mph",
                f"This swing: seed {seed}, median-by-carry of {a.swings} (overlay below = this swing only)"]
+        if kind == "LEARNED" and not a.env_override and m.get("smash_flag"):
+            _g = []
+            for _sd in (4000, 8000, 9000):
+                _f = ROOT / "results" / f"gate_{m['names'][0]}_seed{_sd}.json"
+                if _f.exists(): _j = json.loads(_f.read_text()); _g.append((_sd, _j["gate_pass"], _j["policy_det"]["lateral_std"]))
+            ban.insert(2, "Smash %.2f (%s): ball barely faster than club, carry far SHORT of real driver distance" % (m["smash_ratio_det"], m["smash_flag"]) + ((" | 3-seed gate (eval_gate): %s, det lat std %s m" % ("PASS %d/3" % sum(1 for x in _g if x[1]), "/".join("%.2f" % x[2] for x in _g))) if len(_g) == 3 else " | no 3-seed gate JSON in results/"))
         if kind == "LEARNED" and a.env_override and a.override_stats:
             _p = json.loads((ROOT / a.override_stats).read_text())["policy_det"]
             ban.insert(2, "Launch monitor (gate mean, det): club %.1f mph | ball %.0f mph | smash %.2f | launch %.1f deg | carry %.0f yd (%.0f m) | backspin hand-set, no spin model" % (_p["peak_club_mph_mean"], _p["mean_peak_ball_speed"] * 2.23694, _p["mean_peak_ball_speed"] / _p["impact_club_speed_mean"], _p["launch_elev_mean_deg"], _p["mean_carry"] * 1.09361, _p["mean_carry"]))

@@ -1,7 +1,7 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
 Env fingerprint `c66fd89099c7`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
-Best trained: **ppo_v4yaw_s42**; best left-handed: **ppo_v4yaw_s42**; best overall incl. scripted baseline: **ppo_v4yaw_s42**.
+Best trained: **ppo_scott_curr**; best left-handed: **n/a**; best overall incl. scripted baseline: **ppo_scott_curr**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -153,3 +153,5 @@ Best trained: **ppo_v4yaw_s42**; best left-handed: **ppo_v4yaw_s42**; best overa
 | ppo15_stoch_s71 | 0 | left | stoch | 100% | 105.34 | 271.19 | 89.41 | 94% | 4.60 | 6% | 12% | 116.2 / 120.9 | 100.8% |
 | ppo15_anneal_s91 | 0 | left | deter | 98% | 106.86 | 177.25 | 106.85 | 98% | 9.80 | 12% | 6% | 120.8 / 121.9 | 101.6% |
 | ppo15_anneal_s91 | 0 | left | stoch | 100% | 120.45 | 266.45 | 115.12 | 98% | 5.25 | 10% | 20% | 121.7 / 124.6 | 103.9% |
+| imit20_fs1_q23_dart_s51 | 0 | left | deter | 100% | 139.63 | 150.49 | 139.63 | 100% | 2.29 | 6% | 12% | 100.7 / 101.0 | 84.2% |
+| imit20_fs1_q23_dart_s51 | 0 | left | stoch | 100% | 139.13 | 148.96 | 139.13 | 100% | 2.49 | 8% | 12% | 100.6 / 101.0 | 84.2% |

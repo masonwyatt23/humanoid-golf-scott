@@ -66,6 +66,27 @@ def gain_rows():
     return sorted(rows, key=lambda r: (r["model"], -r["gain"], r["loft"] or 0, r["seed"]))
 
 
+def stock_gate_rows():
+    """STOCK (force_scale 1) 3-seed headline gates: Stage 25/26 scripted q23 dz016 + imit16 (+ imit20 if a gate file exists). Smash = mean ball mph / mean impact club mph."""
+    rows = []
+    for name, pats in (("stock scripted q_back 2.3 dz 0.016 (SCRIPTED, not learned)", ["results/imit_private/gate_stock_fs1_q23_dz016_scripted%s.json"]),
+                       ("imit16_fs1_dart_s51 (script-distilled)", ["results/gate_imit16_fs1_dart_s51_seed4000.json", "results/gate_imit16_fs1_dart_s51_seed%s.json"]),
+                       ("imit20_fs1_q23_dart_s51 (script-distilled)", ["results/gate_imit20_fs1_q23_dart_s51_seed4000.json", "results/gate_imit20_fs1_q23_dart_s51_seed%s.json", "results/imit_private/gate_imit20_fs1_q23_dart_s51%s.json"])):
+        got = False
+        for sd, sfx in ((4000, ""), (8000, "_seed8000"), (9000, "_seed9000")):
+            cands = []
+            for pt in pats:
+                if "%s" in pt: cands.append(pt % (sfx if "imit_private" in pt else str(sd)))
+                else: cands.append(pt) if sd == 4000 else None
+            f = next((ROOT / c for c in cands if (ROOT / c).exists()), None)
+            if f is None: continue
+            j = json.load(open(f)); p = j["policy_det"]; st = j["policy_stoch"]; got = True
+            rows.append(dict(name=name, seed=j["seed"], club=p["peak_club_mph_mean"], ball=p["mean_peak_ball_speed"] * 2.23694, smash=p["mean_peak_ball_speed"] / p["impact_club_speed_mean"], launch=p["launch_elev_mean_deg"],
+                             carry=p["mean_carry"], lat=p["lateral_std"], lat_s=st["lateral_std"], loft=j["env_kwargs"].get("loft_deg"), pas=bool(j["gate_pass"]), held=_held(f), src="/".join(Path(f).parts[-2:])))
+        if not got: rows.append(dict(name=name, missing=True))
+    return rows
+
+
 def md():
     R = tier()
     L = ["## HYPOTHETICAL TIER (force_scale > 1): 3-seed headline gate, kept separate from learned vs scripted", "",
@@ -91,6 +112,16 @@ def md():
             L.append(f"| {r['model']} | {r['gain']:g} | {r['loft']} | {r['seed']} | {r['club']:.1f} | {r['ball_mph']:.0f} | {r['smash']:.3f} | {fl} | {r['launch']:.1f} | {r['carry']:.1f} / {r['carry']*1.09361:.0f} | {r['lat']:.2f} | {r['lat_s']:.2f} | {r['landed']*100:.0f}% | {'PASS' if r['pass'] else 'FAIL'} | {'held locally (not in repo)' if r['held'] else 'in repo'} `{r['src']}` |")
         miss = [f"{m} loft -27 seed 9000 (and loft -27 for s52 entirely)" for m in ("imit18_power_dart_s51",) if not any(r["model"] == m and r["loft"] == -27 and r["seed"] == 9000 for r in G)]
         if miss: L += ["", "Missing (not in the Trainer files found): " + "; ".join(miss) + "."]
+    SG = stock_gate_rows()
+    if SG:
+        L += ["", "### STOCK motors (force_scale 1): 3-seed headline gates, Stage 25/26 (Trainer)", "",
+              "Gate = eval_gate headline protocol (100 eps x seeds 4000/8000/9000). Smash = mean ball mph / mean impact club mph: ~1.0 means the ball leaves barely faster than the club (not a real-contact smash; flagged WARN <1.30 by the smash gate), so these carries are far SHORT of real driver distance. Rows marked held have no backing file in the repo.", "",
+              "| model | seed | loft | club mph | ball mph | smash | smash flag | launch deg | det carry m / yd | det lat std m | stoch lat std m | headline | backing |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for r in SG:
+            if r.get("missing"): L.append(f"| {r['name']} | - | - | - | - | - | - | - | - | - | - | MISSING: no gate JSON found (only a result JSON/model, if any); not evaluated here | - |"); continue
+            fl = "FAIL smash>1.50" if r["smash"] > 1.50 else "WARN smash>1.49" if r["smash"] > 1.49 else "WARN smash<1.30" if r["smash"] < 1.30 else "ok"
+            L.append(f"| {r['name']} | {r['seed']} | {r['loft']} | {r['club']:.1f} | {r['ball']:.0f} | {r['smash']:.3f} | {fl} | {r['launch']:.1f} | {r['carry']:.1f} / {r['carry']*1.09361:.0f} | {r['lat']:.2f} | {r['lat_s']:.2f} | {'PASS' if r['pas'] else 'FAIL'} | {'held locally (not in repo)' if r['held'] else 'in repo'} `{r['src']}` |")
+        L += ["", "**imit15_dart_s52 note:** the lateral std 4.37 m (with a ~190 m outlier) comes from a seed-5000 TRAIN-env run (`results/imit_private/gate_imit15_dart_s52_seed5000.json`, headline FAIL). Seed 5000 is NOT a gate seed; it is not a gate result. The authoritative 3-seed gates (4000/8000/9000) pass with lateral std 1.46/0.54/2.14 m (Trainer files) and 1.5/0.91/2.11 m (repo `results/gate_imit15_dart_s52_seed*.json`). Both sets are listed; the 3-seed gates decide."]
     L += ["", "3/3-seed pass: " + (", ".join(f"{r['name']}: {'YES' if r['all3'] else 'NO'}" for r in R) or "no rows"), ""]
     return L
 
