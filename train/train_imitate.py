@@ -39,13 +39,14 @@ def distill(model, kw, a):
             act = np.clip(ideal + rng.normal(0, nz, 5), -1, 1).astype(np.float32); act[4] = 0.0
             obs, _, done, trunc, _ = env.step(act); done = done or trunc
     X = torch.tensor(np.array(X)); Y = torch.tensor(np.array(Y))
-    pol = model.policy; opt = torch.optim.Adam(pol.parameters(), lr=a.bc_lr); n = len(X); hist = []
+    pol = model.policy; opt = torch.optim.Adam(pol.parameters(), lr=a.bc_lr); n = len(X); hist = []; lst = torch.tensor(ls, dtype=torch.float32)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=a.bc_epochs, eta_min=a.bc_lr * 0.01)
     for epoch in range(a.bc_epochs):
         perm = torch.randperm(n)
         for i in range(0, n, 512):
             idx = perm[i:i + 512]; mean = pol.get_distribution(X[idx]).distribution.mean
-            loss = ((mean[:, :4] - Y[idx][:, :4]) ** 2).mean(); opt.zero_grad(); loss.backward(); opt.step()
-        hist.append(float(loss))
+            loss = 1e3 * (((mean[:, :4] - Y[idx][:, :4]) * lst) ** 2).mean(); opt.zero_grad(); loss.backward(); opt.step()  # error measured in RADIANS (strike window is ~1 mm)
+        sched.step(); hist.append(float(loss.detach()))
     with torch.no_grad(): rm = float(torch.sqrt(((pol.get_distribution(X).distribution.mean[:, :4] - Y[:, :4]) ** 2).mean()))
     return dict(n_samples=n, final_batch_mse=hist[-1], rmse_action=rm, rmse_rad_shoulder=float(rm * ls[0]))
 
@@ -55,8 +56,8 @@ def main():
     ap.add_argument("--name", required=True); ap.add_argument("--seed", type=int, default=0); ap.add_argument("--config", default="configs/fast_scripted_v3.json")
     ap.add_argument("--stage_w", type=float, required=True); ap.add_argument("--learn_scale", type=float, nargs=4, required=True)
     ap.add_argument("--init_model", default=None); ap.add_argument("--res_scale", type=float, nargs=4, default=[0.01, 0.01, 0.01, 0.01])
-    ap.add_argument("--bc_eps", type=int, default=60); ap.add_argument("--bc_epochs", type=int, default=150); ap.add_argument("--bc_lr", type=float, default=1e-3); ap.add_argument("--bc_noise", type=float, default=0.03)
-    ap.add_argument("--ppo_steps", type=int, default=20000); ap.add_argument("--lr", type=float, default=3e-5); ap.add_argument("--log_std", type=float, default=-5.0)
+    ap.add_argument("--bc_eps", type=int, default=200); ap.add_argument("--bc_epochs", type=int, default=400); ap.add_argument("--bc_lr", type=float, default=1e-3); ap.add_argument("--bc_noise", type=float, default=0.01)
+    ap.add_argument("--ppo_steps", type=int, default=20000); ap.add_argument("--lr", type=float, default=1e-5); ap.add_argument("--log_std", type=float, default=-8.0)
     ap.add_argument("--n_envs", type=int, default=2); ap.add_argument("--track_weight", type=float, default=2.0); ap.add_argument("--seq_weight", type=float, default=0.0)
     ap.add_argument("--shot_pen", type=float, default=1.0); ap.add_argument("--carry_cap", type=float, default=120.0); ap.add_argument("--eval_episodes", type=int, default=100)
     a = ap.parse_args(); torch.set_num_threads(1)

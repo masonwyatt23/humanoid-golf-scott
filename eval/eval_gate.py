@@ -14,6 +14,7 @@ import eval.dispersion_report as dr
 from eval.env_factory import resid_kw_from_args
 ROOT = Path(__file__).resolve().parent.parent
 if __name__ == "__main__":
+    min_carry = float(sys.argv[4]) if len(sys.argv) > 4 else 11.98
     name = sys.argv[1]; n = int(sys.argv[2]) if len(sys.argv) > 2 else 50; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 4000
     dr.REFS = []
     args = json.load(open(ROOT / "results" / f"{name}.json"))["args"]
@@ -28,7 +29,15 @@ if __name__ == "__main__":
         out[label] = {k: d[k] for k in d if not k.startswith("dtw")}
         print(label, {k: round(v, 3) for k, v in out[label].items() if isinstance(v, float) and k in ("contact_rate", "mean_carry", "landed_fraction", "lateral_std", "mean_y", "peak_club_mph_mean", "mean_distance")}, flush=True)
     p, s = out["policy_det"], out["scripted_zero_residual"]
-    out["gate_pass"] = bool(p["mean_carry"] > 11.98 and p["lateral_std"] < 2.73 and p["contact_rate"] >= 0.99)
+    def tier(m, carry_min, launch_lo, launch_hi):
+        return bool(m["contact_rate"] >= 0.99 and m["lateral_std"] <= 2.73 and launch_lo <= m["launch_elev_mean_deg"] <= launch_hi and m["mean_carry"] >= carry_min and m["landed_fraction"] >= 0.90)
+    out["gate_pass_legacy"] = bool(p["mean_carry"] > 11.98 and p["lateral_std"] < 2.73 and p["contact_rate"] >= 0.99)   # old teammate gate: carry/lateral/contact only (NOT a headline)
+    out["min_carry"] = min_carry
+    # HEADLINE gate (same as scripts/auto_loop.py): det AND stochastic: contact>=99%, lat std<=2.73, launch 5-20 deg, carry>=min_carry, landed>=90%
+    out["gate_pass"] = bool(tier(p, min_carry, 5, 20) and ("policy_stoch" not in out or tier(out["policy_stoch"], min_carry, 5, 20)))
+    # SHOWCASE tier (det AND stoch): carry>=30 m and launch 8-14 deg (plus the same contact/lateral/landed limits)
+    out["gate_pass_showcase30"] = bool(tier(p, 30.0, 8, 14) and ("policy_stoch" not in out or tier(out["policy_stoch"], 30.0, 8, 14)))
+    print("HEADLINE gate:", out["gate_pass"], "| showcase30:", out["gate_pass_showcase30"], "| legacy:", out["gate_pass_legacy"])
     out["launch_not_flat"] = bool(not p.get("launch_flat_flag", False))
     out["gate_note"] = "carry>11.98 m is a legacy 4-s-horizon baseline (~1/3 of shots landed at ~12 m); weak floor under the 450-step horizon. Showcase criterion (carry>=30, launch not flat, ...) lives in eval/leaderboard.py. See eval_gate.py docstring."
     print("GATE (carry>11.98 & lat_std<2.73 & contact>=99%):", out["gate_pass"])

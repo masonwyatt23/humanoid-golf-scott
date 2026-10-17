@@ -52,7 +52,7 @@ def note(text):
 def stage(seed, prefix, w, prev, retry, a):
     name = f"{prefix}_w{int(w * 100):03d}_s{seed}"; fct = max(1.0 - w, 0.25); ls = [round(fct * x, 4) for x in (2.4, 0.7, 0.15, 0.15)]
     cmd = [PY, "-m", "train.train_imitate", "--name", name, "--seed", str(seed), "--stage_w", str(w), "--learn_scale"] + [str(x) for x in ls] + ["--ppo_steps", str(a.ppo_steps), "--track_weight", str(a.track_weight)]
-    if retry: cmd += ["--bc_eps", "150", "--bc_epochs", "300", "--bc_noise", "0.015"]
+    if retry: cmd += ["--bc_eps", "300", "--bc_epochs", "600", "--bc_noise", "0.005"]
     if prev: cmd += ["--init_model", prev]
     log(seed, f"TRAIN {name} w={w} learn_scale={ls} retry={retry}")
     if run(cmd, f"{name}.log") != 0: log(seed, "train failed"); return None
@@ -81,7 +81,7 @@ def pipeline(seed, a):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--seeds", type=int, nargs="+", default=[51]); ap.add_argument("--stages", type=float, nargs="+", default=[0.75, 0.5, 0.25, 0.0])
-    ap.add_argument("--prefix", default="imit"); ap.add_argument("--max_parallel", type=int, default=3); ap.add_argument("--ppo_steps", type=int, default=15000); ap.add_argument("--track_weight", type=float, default=2.0)
+    ap.add_argument("--prefix", default="imit"); ap.add_argument("--max_parallel", type=int, default=3); ap.add_argument("--ppo_steps", type=int, default=8000); ap.add_argument("--track_weight", type=float, default=2.0)
     a = ap.parse_args(); a.max_parallel = min(a.max_parallel, 3)   # hard cap of 3 parallel pipelines
     (ROOT / "logs").mkdir(exist_ok=True)
     with ThreadPoolExecutor(a.max_parallel) as ex: list(ex.map(lambda s: pipeline(s, a), a.seeds))
