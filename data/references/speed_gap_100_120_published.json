@@ -1,0 +1,58 @@
+{
+  "_meta": {
+    "title": "Published segment peak rotational speeds vs club-head speed, for the 100 -> 120 mph gap",
+    "contains_instagram_or_mason_derived_data": false,
+    "generated": "2026-10-17 America/New_York",
+    "status": "model-only; 100 mph values interpolated, 120 mph values EXTRAPOLATED beyond the highest published group (109 mph); unverified"
+  },
+  "sources": {
+    "cheetham": {
+      "cite": "Cheetham PJ, Rose GA, Hinrichs RN, Neal RJ, Mottram RE, Hurrion PD, Vint PF. Comparison of Kinematic Sequence Parameters between Amateur and Professional Golfers. Science and Golf V (World Scientific Congress of Golf), ch.4, pp.30-36 (publication year not shown in fetched text)",
+      "url": "http://www.waddengolfacademy.com/biomechanics/Cheetham%20Rose%20Neal%20Comparison_of_Kinematic_Sequence.pdf",
+      "tag": "fetched (full text, Table 1)",
+      "n": "19 amateurs (88 mph, SD 5) + 19 PGA Tour pros (109 mph, SD 3); one representative swing each; 240 Hz electromagnetic"
+    },
+    "hume2005": {
+      "cite": "Hume PA, Keogh J, Reid D. The role of biomechanics in maximising distance and accuracy of golf shots. Sports Med 2005;35(5):429-449",
+      "url": "http://www.waddengolfacademy.com/biomechanics/Hume%20Keogh%20Role%20of%20golf_biomechanics.pdf",
+      "tag": "snippet only (search summary); values UNVERIFIED",
+      "reported_pro_peaks_deg_s": {"pelvis": 498, "shoulder": 723, "arm": 1165, "clubhead": 2090}
+    },
+    "chu2010": {
+      "cite": "Chu Y, Sell TC, Lephart SM. The relationship between biomechanical variables and driving performance during the golf swing. J Sports Sci 2010",
+      "url": "https://doi.org/10.1080/02640414.2010.507249",
+      "tag": "fetched abstract + snippets (308 golfers), qualitative",
+      "finding": "X-factor, delayed arm/wrist release, trunk tilt and weight shift predict ball velocity (R2 0.44-0.74)."
+    },
+    "tpi": {
+      "cite": "TPI linear kinematic sequence article; TPI Brennan assessment article",
+      "url": "https://www.mytpi.com/articles/biomechanics/the-linear-kinematic-sequence",
+      "tag": "snippet only; qualitative; Brennan trunk ~909 vs Tour ~700 deg/s is a single-player anecdote, unverified"
+    }
+  },
+  "cheetham_table1": {
+    "club_head_speed_mph": {"amateur": 88, "pro": 109},
+    "peak_rotational_speed_deg_s": {
+      "pelvis": {"amateur": 395, "pro": 477},
+      "thorax": {"amateur": 583, "pro": 727},
+      "lead_arm": {"amateur": 763, "pro": 980},
+      "club": {"amateur": 1790, "pro": 2254}
+    },
+    "peak_time_before_impact_ms": {
+      "pelvis": {"amateur": 78, "pro": 87},
+      "thorax": {"amateur": 59, "pro": 68},
+      "lead_arm": {"amateur": 64, "pro": 65}
+    },
+    "speed_gain_deg_s": {"pelvis_to_thorax": {"amateur": 188, "pro": 250}, "thorax_to_arm": {"amateur": 185, "pro": 253}, "arm_to_club": {"amateur": 1027, "pro": 1274}}
+  },
+  "derived_power_law_fit": {
+    "method": "peak = peak_pro*(CHS/109)^k; k = ln(pro/amateur)/ln(109/88), two group means only",
+    "tag": "interpolated at 100 mph; EXTRAPOLATED at 120 mph; unverified",
+    "k": {"pelvis": 0.881, "thorax": 1.031, "lead_arm": 1.170, "club": 1.077},
+    "peak_deg_s_at_100_mph": {"pelvis": 442, "thorax": 665, "lead_arm": 886, "club": 2054},
+    "peak_deg_s_at_120_mph": {"pelvis": 519, "thorax": 803, "lead_arm": 1097, "club": 2500},
+    "ratio_120_over_100": {"pelvis": 1.174, "thorax": 1.207, "lead_arm": 1.238, "club": 1.217},
+    "caveat": "k ordering is within noise (large SDs, one swing per player)."
+  },
+  "long_drive_note": "No fetched, citable per-segment angular-velocity table for 120+ mph long-drive golfers was found; none is claimed."
+}
