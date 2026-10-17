@@ -115,3 +115,38 @@ downswing shape/timing (13-38 unique frames in the downswing). Pattern `mason_v3
 `data/references/caddieset_driver_event_features.json`: CaddieSet (MIT repo licence) driver event-level 2D joint-feature summary
 (median/IQR, all vs fastest-quartile ball speed, face-on and down-the-line). Not a trajectory, not loadable as a reference; diagnostic only.
 Details and caveats in `docs/research_open_data_v3.md`.
+
+
+## Unified set (`unified_v1`)
+
+Built on `origin/main` (143b4a3). It uses no files from branch `impact-geometry` (a873466/09d53d3); every referenced
+`.npz` is tracked on origin/main (`on_origin_main: true` in the manifest). Only the manifest, sampling config,
+`data/unified_refset.py`, test and this section are new.
+
+- Manifest: `data/reference_sets/unified_v1.json` (path, source, group, license_class, commercial_ok, handedness,
+  mirrored, view, quality, variant, split, weight_train, ack). Rebuild: `python -m data.unified_refset build`.
+- Sampling config (edit to re-weight): `data/reference_sets/unified_v1_sampling.json`.
+- Contents (50 entries): **Mason 12** = v2 `recommended` native-left, commercial_ok, non-partial, non-mirrored (10) +
+  `mason_v2_p3_s09_unmirrored` (flip-edit un-mirrored back to left; `variant=flip_edit_unmirrored`) + v3 slow-mo
+  `p2_s03` (`variant=slowmo`, weight 0 by default: video time axis is stretched ~3-6x). **MultiSense 28** =
+  `multisense_*_mirrored.npz` (CC0, left). **CMU 10** = `cmu_64_01..10` (right-handed files, `effective_mirrored_on_load=true`:
+  `load_ref` mirrors them with `data.mirror_references.mirror_dict`; no mirrored CMU files were written).
+- Attribution: CMU entries carry the CMU acknowledgment text in `ack` (must appear in any release; no standalone
+  resale of converted data); MultiSense carries the Harvard Dataverse citation. Open legal item: CC0 + consent
+  for commercial use of person-derived motion still needs sign-off.
+- Weights: source mass 0.6 Mason / 0.2 MultiSense / 0.2 CMU, renormalised over the train split; per file
+  `quality**quality_power`, normalised within source. Mason quality = video `quality_score`; MultiSense/CMU have
+  none, so proxy `1-0.15*n_qc_flags`. Rationale: Mason is the target; the others are sequencing priors (slow/amateur or
+  sub-103 mph). Weights are a prior, not tuned. Change `source_weights`, `quality_power`, `multipliers` in the config; the
+  loader recomputes from it (`weight_train` in the manifest is just the default).
+- Split (deterministic: sha256 of `split_seed:group`, `val_fraction` 0.2, min 2 groups per source): holds out whole
+  swings, stratified by source. Groups = Mason files whose video windows overlap (same source video; v3 re-cuts of v2 swings) or
+  that share a `v1_overlap` name; a group never straddles train/val. Counts: train 39 (Mason 9 incl. slow-mo,
+  MultiSense 22, CMU 8), val 11 (Mason 3, MultiSense 6, CMU 2). Mason val: `mason_v2_p1_s06` (oblique), `p1_s11` (face_on),
+  `p2_s01` (DTL). Slow-mo p2_s03 shares a group with v2 `p2_s09` (not in the set) and sits in train with weight 0.
+- Loader: `from data.unified_refset import load_manifest, split_entries, iter_split, weights, sample, load_ref,
+  as_reference_dataset`. `sample(np.random.default_rng(0))` draws a weighted train ref dict;
+  `as_reference_dataset("train"|"val")` returns a `ReferenceDataset`-compatible object (`.references`, `.sample()`, `len`).
+  Env/train/eval are untouched; they need to be pointed at it explicitly.
+- Caveats: Mason joints are 2D-proxy, ~30 fps; MultiSense/CMU joints are mocap-derived; the three sources have
+  different time-axis/quality, and mirrored CMU/MultiSense are right-handed motions flipped.

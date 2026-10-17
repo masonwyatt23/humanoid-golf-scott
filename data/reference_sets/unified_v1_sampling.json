@@ -1,0 +1,22 @@
+{
+  "version": "unified_v1",
+  "source_weights": {
+    "mason": 0.6,
+    "multisense": 0.2,
+    "cmu": 0.2
+  },
+  "quality_power": 1.0,
+  "rationale": "Mason is the target player (left-handed, native footage) so he gets the highest total mass (0.6); MultiSenseGolf (28 mirrored CC0 swings, 89-103 mph, IMU mocap) and CMU subject 64 (slow recreational mocap, mirrored on load) are movement-sequencing priors at 0.2 each. Within a source the per-file weight is quality_score**quality_power, normalised to sum to the source weight. Mason quality_score is the video heuristic (0.66-0.83); MultiSense/CMU have none so quality=1-0.15*n_qc_flags (floor 0.05). Weights are a prior, not tuned.",
+  "multipliers": {
+    "flip_edit_unmirrored": 1.0,
+    "slowmo": 0.0
+  },
+  "slowmo_note": "Slow-mo v3 swings are on a stretched video time axis (~3-6x), so they are excluded from default sampling (multiplier 0). Set multipliers.slowmo>0 only if you resample with time_real_est.",
+  "val_fraction": 0.2,
+  "min_val_per_source": {
+    "mason": 2,
+    "multisense": 2,
+    "cmu": 2
+  },
+  "split_seed": 20261016
+}

@@ -1,0 +1,70 @@
+import subprocess
+from pathlib import Path
+import numpy as np
+from data import unified_refset as U
+
+ROOT = Path(__file__).resolve().parents[1]
+M = U.load_manifest()
+
+
+def test_files_exist_tracked_and_commercial():
+    tracked = set(subprocess.run(["git", "ls-files", "data/references"], cwd=ROOT, capture_output=True, text=True).stdout.split())
+    for e in M["entries"]:
+        assert (ROOT / e["path"]).exists()
+        if tracked:
+            assert e["path"] in tracked
+        assert e["commercial_ok"] and e["handedness"] == "left"
+        assert e["on_origin_main"] in (True, None)
+
+
+def test_split_rules():
+    ents = M["entries"]
+    mason_val = [e for e in ents if e["source"] == "mason" and e["split"] == "val"]
+    assert len(mason_val) >= 2
+    for s in ("mason", "multisense", "cmu"):
+        assert {e["split"] for e in ents if e["source"] == s} == {"train", "val"}
+    groups = {}
+    for e in ents:
+        groups.setdefault(e["group"], set()).add(e["split"])
+    assert all(len(v) == 1 for v in groups.values())  # no group straddles train/val
+    # v2 swings that re-cut a v1 swing / v3 re-cuts share a group with the v3 slow-mo window
+    slow = [e for e in ents if e["variant"] == "slowmo"]
+    assert slow and all(e["weight_train"] == 0 for e in slow)
+
+
+def test_split_is_deterministic():
+    import copy
+    ents = copy.deepcopy(M["entries"])
+    for e in ents:
+        e["split"] = None
+    U.assign_splits(ents, U.load_sampling_config())
+    assert [e["split"] for e in ents] == [e["split"] for e in M["entries"]]
+
+
+def test_weights_normalised_and_configurable():
+    ents, p = U.weights(M)
+    assert abs(p.sum() - 1) < 1e-9
+    tot = {}
+    for e, pi in zip(ents, p):
+        tot[e["source"]] = tot.get(e["source"], 0) + pi
+    assert abs(tot["mason"] - 0.6) < 1e-6 and abs(tot["multisense"] - 0.2) < 1e-6 and abs(tot["cmu"] - 0.2) < 1e-6
+    cfg = U.load_sampling_config(); cfg["source_weights"] = {"mason": 0.8, "multisense": 0.1, "cmu": 0.1}
+    ents2, p2 = U.weights(M, cfg)
+    assert abs(sum(pi for e, pi in zip(ents2, p2) if e["source"] == "mason") - 0.8) < 1e-6
+    q = [e["quality"] for e in ents if e["source"] == "mason"]
+    pm = [pi for e, pi in zip(ents, p) if e["source"] == "mason"]
+    assert np.argmax(q) == np.argmax(pm)
+
+
+def test_sample_and_loader_with_reference_dataset():
+    rng = np.random.default_rng(0)
+    seen = {U.sample(rng, M)["source"] for _ in range(200)}
+    assert seen == {"mason", "multisense", "cmu"}
+    ds = U.as_reference_dataset("val", M)
+    assert len(ds) == len(U.split_entries(M, "val"))
+    r = ds.sample()
+    assert r["joints"].shape[1] == 11 and r["handedness"] == "left"
+    cmu = next(U.load_ref(e) for e in M["entries"] if e["source"] == "cmu")
+    raw = np.load(ROOT / cmu["path"].replace(str(ROOT) + "/", ""))["joints"]
+    assert cmu["mirrored"] and not np.allclose(cmu["joints"], raw)
+    assert len(list(U.iter_split(M, "val"))) > 0
