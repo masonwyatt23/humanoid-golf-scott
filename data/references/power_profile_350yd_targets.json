@@ -1,0 +1,851 @@
+{
+ "schema_version": 1,
+ "name": "power_profile_350yd_targets",
+ "generated_by": "scripts/gen_power_profile_350yd.py",
+ "generated_for": "Mason (left-handed target profile) / Trainer reward shaping",
+ "units": "SI-adjacent: see per-field unit; speeds deg/s, forces in bodyweights, distances yards (flight) or inches (equipment)",
+ "notes": [
+  "Bands: min/target/max are plausibility bands for a 350 yd-class long driver, NOT measured data on Mason.",
+  "unverified=true -> no verified published number was retrieved; value fields are null or a stated assumption. Do not use as reward targets without confirming.",
+  "confidence: high = fetched primary/standards page; medium = fetched or consistent multi-source; low = single secondary/vendor/derived; none = nothing retrieved.",
+  "Bryson numbers come from vendor video-AI (Sportsbox), media and PGA Tour averages - not radar-verified for 128 mph; treat as indicative.",
+  "Handedness: all literature values are handedness-agnostic magnitudes; mirror (not re-derive) for a left-handed humanoid."
+ ],
+ "sources": {
+  "usga_equip_part2": {
+   "title": "USGA/R&A Equipment Rules Part 2 s.1c Length (2019 rules page)",
+   "url": "https://www.usga.org/equipment-standards/equipment-rules-2019/equipment-rules/part-2-rule-2.html",
+   "verified": "fetched",
+   "terms": "USGA web content; quoted figures only, no redistribution of text"
+  },
+  "usga_equip_faq": {
+   "title": "USGA Equipment FAQ (48 in. max, optional Local Rule G-10 = 46 in.)",
+   "url": "https://www.usga.org/equipment-standards/equipment-faq-25852.html",
+   "verified": "search_snippet",
+   "terms": "USGA web content; numbers cited only"
+  },
+  "randa_longer_clubs": {
+   "title": "R&A Equipment Info for Players (>48 in. only with medical/physical need + Local Committee)",
+   "url": "https://www.randa.org/en/equipment-info-for-players",
+   "verified": "search_snippet",
+   "terms": "R&A web content; numbers cited only"
+  },
+  "usga_ball_faq": {
+   "title": "USGA The Golf Ball and Distance FAQ (ODS 317 yd +3 at 120 mph/10 deg/2520 rpm; 125 mph/11 deg/2220 rpm from 2028 cycle)",
+   "url": "https://www.usga.org/content/usga/home-page/advancing-the-game/distance-insights/golf-ball-revised-testing-guidelines--frequently-asked-questions.html",
+   "verified": "fetched",
+   "terms": "USGA web content; numbers cited only"
+  },
+  "usga_ct_notice": {
+   "title": "USGA Notice to Manufacturers - spring effect (Characteristic Time 239 us, +18 us tolerance)",
+   "url": "https://www.usga.org/content/dam/usga/pdf/RSI/distance-insights-2021-docs/Notice%20%20-Spring%20Effect%20Interpretation%201-11-16%20Final.pdf",
+   "verified": "search_snippet",
+   "terms": "USGA PDF; numbers cited only"
+  },
+  "trackman_tour_avg_pdf": {
+   "title": "TrackMan PGA Tour averages (2023 data, PDF)",
+   "url": "https://support.trackmangolf.com/hc/en-us/article_attachments/7349802113051/PGA_Tour_average.pdf",
+   "verified": "fetched_pdf",
+   "terms": "TrackMan published reference table; cite, do not redistribute the PDF"
+  },
+  "trackman_tour_avg_blog": {
+   "title": "TrackMan 'Introducing updated Tour Averages' (method notes: competition + range data, 200+ players)",
+   "url": "https://www.trackman.com/blog/introducing-updated-tour-averages",
+   "verified": "fetched",
+   "terms": "TrackMan web content"
+  },
+  "trackman_smash": {
+   "title": "TrackMan 'What is Smash Factor' (tour driver 1.49; ~1.50 hoped for)",
+   "url": "https://www.trackman.com/blog/smash-factor",
+   "verified": "fetched",
+   "terms": "TrackMan web content"
+  },
+  "foresight_tables": {
+   "title": "Foresight Sports Ball Launch Data: Performance Reference Tables (optimized driver launch vs club/ball speed)",
+   "url": "https://help.foresightsports.com/hc/en-us/articles/47208228295187-Ball-Launch-Data-Performance-Reference-Tables",
+   "verified": "fetched",
+   "terms": "Foresight help-center content; numbers cited only. Vendor reference table, not peer reviewed"
+  },
+  "pgatour_bryson_2024": {
+   "title": "PGA Tour betting profile (ShotLink-derived, machine-generated): DeChambeau avg driving distance 320.9 yd (start of 2024 PGA Championship)",
+   "url": "https://www.pgatour.com/article/news/betting-profile/2024/pga-championship/bryson-dechambeau-pga-tour-betting-stats-pga-championship-2024",
+   "verified": "fetched",
+   "terms": "PGA Tour content; numbers cited only"
+  },
+  "golfcom_persimmon": {
+   "title": "GOLF.com 'How far would Bryson DeChambeau hit a persimmon' (secondary: tour avg ball speed 173.64 mph; Bryson 2024 avg ball speed ~172.2 mph derived; 338 yd avg at 2024 US Open)",
+   "url": "https://golf.com/gear/how-far-bryson-dechambeau-hit-persimmon-open/",
+   "verified": "fetched",
+   "terms": "Media article; secondary source, numbers cited only"
+  },
+  "thescore_2020": {
+   "title": "theScore 'Win at Winged Foot...' (2020: ~140 mph club, ~190 mph ball, 322.1 yd; tour avg 114.01 mph / 169.71 mph 2019-20)",
+   "url": "https://www.thescore.com/pga/news/2025658",
+   "verified": "search_snippet",
+   "terms": "Media article; low confidence, conflicts with Arccos 'approaching 150 mph'"
+  },
+  "arccos_2020": {
+   "title": "Arccos blog on DeChambeau at Winged Foot ('approaching 150 mph club, over 190 mph ball')",
+   "url": "https://www.arccosgolf.com/blogs/community/the-mathacre-at-winged-foot-dechambeau-strokes-gained-stats",
+   "verified": "search_snippet",
+   "terms": "Vendor blog; low confidence"
+  },
+  "sportsbox_bryson": {
+   "title": "Sportsbox AI case study (Cheetham): DeChambeau 128 mph avg club speed (video-AI estimate, NOT radar); tour group avg 117 mph",
+   "url": "https://help.sportsbox.ai/dechambeaus-swing",
+   "verified": "fetched",
+   "terms": "Vendor web content; numbers cited only. Measurement is video-based, not TrackMan"
+  },
+  "sportsbox_report_pdf": {
+   "title": "Sportsbox 'Swing Score Report' Bryson 14 Jul 2024 (pelvis 506, chest 961, arm 1292, shaft 2495 deg/s; tour ranges)",
+   "url": "https://moccasin-micheline-88.tiiny.site/Bryson-Driver-Swing-Score-Report-1.pdf",
+   "verified": "fetched_pdf",
+   "terms": "Third-party-hosted copy of a vendor PDF; provenance weak -> low confidence; cite numbers only"
+  },
+  "cheetham_2008": {
+   "title": "Cheetham, Rose, Neal et al. 'Comparison of Kinematic Sequence Parameters between Amateur and Professional Golfers' (pros: pelvis 477, thorax 727, arm 980, club 2254 deg/s; driver)",
+   "url": "https://www.academia.edu/5572510/Comparison_of_Kinematic_Sequence_Parameters_between_Amateur_and_Professional_Golfers",
+   "verified": "search_snippet",
+   "terms": "Academic paper (Science and Golf V proceedings); numbers cited only"
+  },
+  "tinmark_2010": {
+   "title": "Tinmark et al. 2010 Sports Biomech 9(4):236-244, Elite golfers' kinematic sequence",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/21309298/",
+   "doi": "10.1080/14763141.2010.535842",
+   "verified": "search_snippet",
+   "terms": "PubMed abstract; qualitative (proximal-to-distal sequence)"
+  },
+  "bourgain_2019": {
+   "title": "Bourgain et al. 2019 Acta Bioeng Biomech 'methodological effect of angular velocity component on kinematic sequence' (pelvis 480+-82, thorax 605+-87, lead arm 1310+-236, hand 1650+-211 deg/s; club speed 36-52 m/s)",
+   "url": "https://doi.org/10.5277/abb-01318-2019-02",
+   "doi": "10.5277/abb-01318-2019-02",
+   "verified": "search_snippet",
+   "terms": "Open-access article; numbers cited only"
+  },
+  "edwards_2022_lbp": {
+   "title": "Edwards, Dickin, Wang 'Low back pain and golf: a review of biomechanical risk factors' (L4-L5 compression 6.5-8+ BW after impact; PDS pelvis 488 -> hand 945 deg/s)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9219256/",
+   "verified": "fetched",
+   "terms": "PMC open access (check license on page); numbers cited only"
+  },
+  "hume_2005": {
+   "title": "Hume, Keogh, Reid 2005 Sports Med 35(5):429-449 (peak vertical/AP/ML GRF 1.6-2.0/0.4-0.6/0.2-0.3 BW)",
+   "url": "https://waddengolfacademy.com/biomechanics/Hume%20Keogh%20Role%20of%20golf_biomechanics.pdf",
+   "doi": "10.2165/00007256-200535050-00005",
+   "verified": "search_snippet",
+   "terms": "Journal article; numbers cited only (PDF fetch blocked)"
+  },
+  "han_2019_ground": {
+   "title": "Han, Kwon et al. 2019 Sports Biomech 'Effects of the golfer-ground interaction on clubhead speed in skilled male golfers' (n=63, hcp<=3; lead-foot GRF moment and trail-foot pivoting moment correlate with clubhead speed)",
+   "url": "https://doi.org/10.1080/14763141.2019.1586983",
+   "doi": "10.1080/14763141.2019.1586983",
+   "verified": "search_snippet",
+   "terms": "Abstract only; N*m magnitudes NOT retrieved -> unverified"
+  },
+  "nesbit_2005": {
+   "title": "Nesbit & Serrano 2005 J Sports Sci Med 4(4):520-533 'Work and Power Analysis of the Golf Swing'",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3899668/",
+   "verified": "fetched",
+   "terms": "Open access (JSSM); numbers cited only. n=4 amateurs, single swing each"
+  },
+  "sell_lbp_speed": {
+   "title": "Is average club head speed a risk factor for lower back injuries in professional golfers? Retrospective case-control (Phys Sportsmed 2020)",
+   "url": "https://www.tandfonline.com/doi/full/10.1080/00913847.2020.1809968",
+   "doi": "10.1080/00913847.2020.1809968",
+   "verified": "search_snippet",
+   "terms": "Abstract-level only; association not causation"
+  },
+  "par4_overspeed": {
+   "title": "Par4Success low-volume overspeed protocol research (randomized 6/8-week; no injury outcomes reported)",
+   "url": "https://par4success.com/wp-content/uploads/2019/09/Overspeed-Training-Low-Volume-Protocol-Research-1.pdf",
+   "verified": "search_snippet",
+   "terms": "Vendor-affiliated research; low confidence"
+  },
+  "repo_ball_flight": {
+   "title": "This repo env/ball_flight_analytic.py (drag+Magnus+bounce/roll; calibrated to TrackMan tour avg; our check: 167 mph/10.9 deg/2686 rpm -> 268 yd carry vs TrackMan 251 m = 275 yd)",
+   "url": "repo:env/ball_flight_analytic.py",
+   "verified": "run_locally",
+   "terms": "Project code"
+  },
+  "repo_xml_v3": {
+   "title": "This repo env/models/humanoid_golf_v3.xml actuator/joint definitions",
+   "url": "repo:env/models/humanoid_golf_v3.xml",
+   "verified": "read_locally",
+   "terms": "Project code"
+  }
+ },
+ "metrics": {
+  "club_head_speed_mph": {
+   "unit": "mph",
+   "min": 125,
+   "target": 130,
+   "max": 140,
+   "source_ids": [
+    "foresight_tables",
+    "sportsbox_bryson",
+    "repo_ball_flight"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": true,
+   "note": "350 yd-class total in the repo flight model needs ~130 mph (smash 1.48, ~13 deg, ~2100 rpm -> 351 yd); Bryson video-AI avg 128 mph (not radar); tour avg 113 (TrackMan)."
+  },
+  "ball_speed_mph": {
+   "unit": "mph",
+   "min": 185,
+   "target": 192,
+   "max": 207,
+   "source_ids": [
+    "trackman_tour_avg_pdf",
+    "foresight_tables",
+    "repo_ball_flight"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": true,
+   "note": "Foresight: 190 mph ball -> 342-372 yd carry, 378-401 total (optimistic vendor table); repo model: 192 mph -> ~351 total."
+  },
+  "smash_factor": {
+   "unit": "ratio",
+   "min": 1.46,
+   "target": 1.48,
+   "max": 1.5,
+   "source_ids": [
+    "trackman_tour_avg_pdf",
+    "trackman_smash"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "derived": true,
+   "note": "Tour avg 1.48 (PDF) / 1.49 (blog). Physics cap for center hit: (1+e)/(1+m_ball/m_head) = 1.83/1.23 = 1.49 with e=0.83, 200 g head; CT limit bounds e. The cap is why speed, not smash, must scale."
+  },
+  "launch_angle_deg": {
+   "unit": "deg",
+   "min": 10.0,
+   "target": 12.5,
+   "max": 14.5,
+   "source_ids": [
+    "foresight_tables",
+    "trackman_tour_avg_pdf"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Foresight optimum 10-14 deg at 190 mph ball speed; tour avg 10.9 deg at 167 mph."
+  },
+  "spin_rate_rpm": {
+   "unit": "rpm",
+   "min": 1600,
+   "target": 2200,
+   "max": 2600,
+   "source_ids": [
+    "foresight_tables",
+    "trackman_tour_avg_pdf"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Foresight optimum 1600-2600 rpm at 190 mph ball speed; tour avg 2686 (PDF) / 2545 (blog)."
+  },
+  "carry_yd": {
+   "unit": "yd",
+   "min": 320,
+   "target": 335,
+   "max": 372,
+   "source_ids": [
+    "foresight_tables",
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "unverified": false,
+   "derived": true,
+   "note": "Repo model carry 321-325 yd at 130 mph; Foresight 342-372 (vendor, optimistic). Wind/altitude/turf not modeled."
+  },
+  "total_distance_yd": {
+   "unit": "yd",
+   "min": 345,
+   "target": 350,
+   "max": 400,
+   "source_ids": [
+    "foresight_tables",
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "unverified": false,
+   "derived": true,
+   "note": "Repo model: 348-353 at 130 mph club; 391-399 at 150. ODS test (317 yd) assumes only 120 mph/10 deg/2520 rpm."
+  },
+  "attack_angle_deg": {
+   "unit": "deg",
+   "min": 0,
+   "target": 3,
+   "max": 6,
+   "source_ids": [],
+   "confidence": "low",
+   "unverified": true,
+   "derived": false,
+   "note": "Positive attack angle is standard long-drive advice; no verified published tour-driver value fetched (TrackMan tour avg is -1.3 deg)."
+  },
+  "pelvis_peak_speed_dps": {
+   "unit": "deg/s",
+   "min": 440,
+   "target": 500,
+   "max": 590,
+   "source_ids": [
+    "cheetham_2008",
+    "sportsbox_report_pdf",
+    "bourgain_2019"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Pros 477 (Cheetham); Bryson 506 (Sportsbox, 51st pct of tour); tour range 440-543 (Sportsbox); max 590 in Bourgain sample."
+  },
+  "thorax_peak_speed_dps": {
+   "unit": "deg/s",
+   "min": 750,
+   "target": 950,
+   "max": 1000,
+   "source_ids": [
+    "cheetham_2008",
+    "sportsbox_report_pdf",
+    "bourgain_2019"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Pros 727 (Cheetham); Bryson 961 (Sportsbox, 95th pct; tour range 754-857)."
+  },
+  "lead_arm_peak_speed_dps": {
+   "unit": "deg/s",
+   "min": 1050,
+   "target": 1290,
+   "max": 1400,
+   "source_ids": [
+    "cheetham_2008",
+    "sportsbox_report_pdf",
+    "bourgain_2019"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Pros 980 (Cheetham); Bryson 1292 (Sportsbox); tour range 1046-1231; Bourgain 1310+-236."
+  },
+  "club_shaft_peak_speed_dps": {
+   "unit": "deg/s",
+   "min": 2250,
+   "target": 2500,
+   "max": 2700,
+   "source_ids": [
+    "cheetham_2008",
+    "sportsbox_report_pdf"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Pros 2254 at 109 mph head speed (Cheetham); Bryson shaft 2495 (Sportsbox); tour range 2054-2356. Upper bound is extrapolation."
+  },
+  "hand_peak_speed_dps": {
+   "unit": "deg/s",
+   "min": 945,
+   "target": 1650,
+   "max": 2100,
+   "source_ids": [
+    "edwards_2022_lbp",
+    "bourgain_2019"
+   ],
+   "confidence": "low",
+   "unverified": false,
+   "derived": false,
+   "note": "Hand 945 (Neal 2007 as cited by Edwards 2022) vs 1650+-211 (Bourgain, range 1300-2100): different definitions (linear vs resultant)."
+  },
+  "wrist_hinge_uncock_peak_speed_dps": {
+   "unit": "deg/s",
+   "min": null,
+   "target": null,
+   "max": null,
+   "source_ids": [],
+   "confidence": "none",
+   "unverified": true,
+   "derived": false,
+   "note": "No verified isolated wrist-uncock rate fetched. Proxy: arm->club speed gain 1274 deg/s (Cheetham pros, 109 mph) scaled by v: ~1520 deg/s at 130 mph (derived, low)."
+  },
+  "seq_peak_time_before_impact_ms": {
+   "unit": "ms",
+   "pelvis": {
+    "mean": 87,
+    "sd": 19
+   },
+   "thorax": {
+    "mean": 68,
+    "sd": 14
+   },
+   "arm": {
+    "mean": 65,
+    "sd": 8
+   },
+   "source_ids": [
+    "cheetham_2008"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Pros, driver. Lags: pelvis->thorax 19 ms, thorax->arm 3 ms (timing differences between pros and amateurs not significant; amateurs' SDs >=2x). Speed gains pelvis->thorax 250, thorax->arm 253, arm->club 1274 deg/s."
+  },
+  "peak_vertical_grf_bw": {
+   "unit": "bodyweights",
+   "min": 1.6,
+   "target": 1.8,
+   "max": 2.0,
+   "source_ids": [
+    "hume_2005"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "Driver/5-iron vertical peak 1.6-2.0 BW; AP 0.4-0.6; ML 0.2-0.3 (Hume 2005, from search snippet of the PDF). Likely lower than a 130+ mph swing's needs: extrapolation unverified."
+  },
+  "ground_reaction_torque_nm": {
+   "unit": "N*m",
+   "min": null,
+   "target": null,
+   "max": null,
+   "source_ids": [],
+   "confidence": "none",
+   "unverified": true,
+   "derived": false,
+   "note": "Han 2019 shows lead-foot GRF moment (F/B axis) and trail-foot pivoting moment (vertical axis) correlate with clubhead speed, but N*m magnitudes were not retrieved."
+  },
+  "club_length_in": {
+   "unit": "in",
+   "min": 44.0,
+   "target": 45.5,
+   "max": 48.0,
+   "source_ids": [
+    "usga_equip_part2",
+    "usga_equip_faq"
+   ],
+   "confidence": "high",
+   "unverified": false,
+   "derived": false,
+   "note": "48 in. hard limit (verified, fetched). Tour/long-drive typical lengths NOT verified. Optional Local Rule G-10 caps at 46 in. Longer than 48 only with documented need and Local Committee approval (R&A)."
+  },
+  "driver_head_mass_g": {
+   "unit": "g",
+   "min": null,
+   "target": 200,
+   "max": null,
+   "source_ids": [],
+   "confidence": "low",
+   "unverified": true,
+   "derived": false,
+   "note": "~200 g is the repo assumption (also model XML); no rule limit on head mass; published driver mass not verified here."
+  },
+  "characteristic_time_us": {
+   "unit": "us",
+   "min": null,
+   "target": 239,
+   "max": 257,
+   "source_ids": [
+    "usga_ct_notice"
+   ],
+   "confidence": "medium",
+   "unverified": false,
+   "derived": false,
+   "note": "CT limit 239 us + 18 us test tolerance (search snippet of USGA notice)."
+  },
+  "head_volume_cc": {
+   "unit": "cc",
+   "min": null,
+   "target": null,
+   "max": 460,
+   "source_ids": [],
+   "confidence": "low",
+   "unverified": true,
+   "derived": false,
+   "note": "460 cc max is widely stated; only a retail guide surfaced in search - USGA page not fetched."
+  }
+ },
+ "ladder": [
+  {
+   "stage": "113mph",
+   "club_head_speed_mph": 113,
+   "ball_speed_mph": 167.2,
+   "smash_assumed": 1.48,
+   "best_launch_deg": 14,
+   "best_spin_rpm": 2000,
+   "sim_carry_yd": 279,
+   "sim_total_yd": 307,
+   "torque_scale_vs_113": 1.0,
+   "speed_scale_vs_113": 1.0,
+   "power_scale_vs_113": 1.0,
+   "source_ids": [
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "note": "TrackMan tour average (reference)."
+  },
+  {
+   "stage": "120mph",
+   "club_head_speed_mph": 120,
+   "ball_speed_mph": 177.6,
+   "smash_assumed": 1.48,
+   "best_launch_deg": 14,
+   "best_spin_rpm": 2000,
+   "sim_carry_yd": 299,
+   "sim_total_yd": 327,
+   "torque_scale_vs_113": 1.13,
+   "speed_scale_vs_113": 1.06,
+   "power_scale_vs_113": 1.2,
+   "source_ids": [
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "note": "Mason's stated club speed (self-reported, unverified): ~320-327 yd total in model; consistent with his 300+ yd claim."
+  },
+  {
+   "stage": "130mph",
+   "club_head_speed_mph": 130,
+   "ball_speed_mph": 192.4,
+   "smash_assumed": 1.48,
+   "best_launch_deg": 14,
+   "best_spin_rpm": 2000,
+   "sim_carry_yd": 325,
+   "sim_total_yd": 353,
+   "torque_scale_vs_113": 1.32,
+   "speed_scale_vs_113": 1.15,
+   "power_scale_vs_113": 1.52,
+   "source_ids": [
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "note": "~350 yd total in model: the '350-class' threshold; ~Bryson avg club speed per Sportsbox video-AI."
+  },
+  {
+   "stage": "140mph",
+   "club_head_speed_mph": 140,
+   "ball_speed_mph": 207.2,
+   "smash_assumed": 1.48,
+   "best_launch_deg": 14,
+   "best_spin_rpm": 2000,
+   "sim_carry_yd": 349,
+   "sim_total_yd": 377,
+   "torque_scale_vs_113": 1.53,
+   "speed_scale_vs_113": 1.24,
+   "power_scale_vs_113": 1.9,
+   "source_ids": [
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "note": "~370-377 yd in model; beyond any verified tour average (extrapolation)."
+  },
+  {
+   "stage": "150mph",
+   "club_head_speed_mph": 150,
+   "ball_speed_mph": 222.0,
+   "smash_assumed": 1.48,
+   "best_launch_deg": 14,
+   "best_spin_rpm": 2000,
+   "sim_carry_yd": 371,
+   "sim_total_yd": 399,
+   "torque_scale_vs_113": 1.76,
+   "speed_scale_vs_113": 1.33,
+   "power_scale_vs_113": 2.34,
+   "source_ids": [
+    "repo_ball_flight"
+   ],
+   "confidence": "low",
+   "note": "~391-399 yd in model; at/above Bryson's claimed peak (Arccos); unverified, injury-risk regime."
+  }
+ ],
+ "mason_gap": {
+  "mason_club_speed_mph_self_reported": 120,
+  "mason_total_yd_self_reported": 300,
+  "handedness": "left",
+  "verified": false,
+  "gap_to_350_class_club_speed_mph": 10,
+  "note": "Self-reported (+3 hcp, 120+ mph, 300+ yd), not independently measured; repo video data cannot measure club speed. A launch monitor session is the first step."
+ },
+ "humanoid_actuator_audit": {
+  "model": "env/models/humanoid_golf_v3.xml",
+  "source_ids": [
+   "repo_xml_v3"
+  ],
+  "actuators": {
+   "right_shoulder_pitch": {
+    "gear": 50.0,
+    "forcerange": 5.0,
+    "peak_torque_nm": 250.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -180.0,
+     180.0
+    ],
+    "no_load_speed_rad_s": 125.0,
+    "no_load_speed_dps": 7162,
+    "peak_power_w": 7812,
+    "speed_at_peak_power_rad_s": 62.5
+   },
+   "right_shoulder_roll": {
+    "gear": 40.0,
+    "forcerange": 3.75,
+    "peak_torque_nm": 150.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -90.0,
+     90.0
+    ],
+    "no_load_speed_rad_s": 75.0,
+    "no_load_speed_dps": 4297,
+    "peak_power_w": 2812,
+    "speed_at_peak_power_rad_s": 37.5
+   },
+   "right_elbow": {
+    "gear": 40.0,
+    "forcerange": 3.0,
+    "peak_torque_nm": 120.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     0.0,
+     150.0
+    ],
+    "no_load_speed_rad_s": 60.0,
+    "no_load_speed_dps": 3438,
+    "peak_power_w": 1800,
+    "speed_at_peak_power_rad_s": 30.0
+   },
+   "right_wrist": {
+    "gear": 20.0,
+    "forcerange": 3.0,
+    "peak_torque_nm": 60.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -120.0,
+     120.0
+    ],
+    "no_load_speed_rad_s": 30.0,
+    "no_load_speed_dps": 1719,
+    "peak_power_w": 450,
+    "speed_at_peak_power_rad_s": 15.0
+   },
+   "left_shoulder_pitch": {
+    "gear": 40.0,
+    "forcerange": 3.75,
+    "peak_torque_nm": 150.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -180.0,
+     180.0
+    ],
+    "no_load_speed_rad_s": 75.0,
+    "no_load_speed_dps": 4297,
+    "peak_power_w": 2812,
+    "speed_at_peak_power_rad_s": 37.5
+   },
+   "right_hip_pitch": {
+    "gear": 80.0,
+    "forcerange": 3.125,
+    "peak_torque_nm": 250.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -60.0,
+     60.0
+    ],
+    "no_load_speed_rad_s": 125.0,
+    "no_load_speed_dps": 7162,
+    "peak_power_w": 7812,
+    "speed_at_peak_power_rad_s": 62.5
+   },
+   "right_knee": {
+    "gear": 60.0,
+    "forcerange": 3.333,
+    "peak_torque_nm": 200.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     0.0,
+     140.0
+    ],
+    "no_load_speed_rad_s": 100.0,
+    "no_load_speed_dps": 5729,
+    "peak_power_w": 4999,
+    "speed_at_peak_power_rad_s": 50.0
+   },
+   "right_ankle": {
+    "gear": 30.0,
+    "forcerange": 2.667,
+    "peak_torque_nm": 80.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -40.0,
+     40.0
+    ],
+    "no_load_speed_rad_s": 40.0,
+    "no_load_speed_dps": 2292,
+    "peak_power_w": 800,
+    "speed_at_peak_power_rad_s": 20.0
+   },
+   "left_hip_pitch": {
+    "gear": 80.0,
+    "forcerange": 3.125,
+    "peak_torque_nm": 250.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -60.0,
+     60.0
+    ],
+    "no_load_speed_rad_s": 125.0,
+    "no_load_speed_dps": 7162,
+    "peak_power_w": 7812,
+    "speed_at_peak_power_rad_s": 62.5
+   },
+   "left_knee": {
+    "gear": 60.0,
+    "forcerange": 3.333,
+    "peak_torque_nm": 200.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     0.0,
+     140.0
+    ],
+    "no_load_speed_rad_s": 100.0,
+    "no_load_speed_dps": 5729,
+    "peak_power_w": 4999,
+    "speed_at_peak_power_rad_s": 50.0
+   },
+   "left_ankle": {
+    "gear": 30.0,
+    "forcerange": 2.667,
+    "peak_torque_nm": 80.0,
+    "joint_damping_nm_s_rad": 2.0,
+    "armature": 0.2,
+    "range_deg": [
+     -40.0,
+     40.0
+    ],
+    "no_load_speed_rad_s": 40.0,
+    "no_load_speed_dps": 2292,
+    "peak_power_w": 800,
+    "speed_at_peak_power_rad_s": 20.0
+   },
+   "chest_yaw": {
+    "gear": 60.0,
+    "forcerange": 2.0,
+    "peak_torque_nm": 120.0,
+    "joint_damping_nm_s_rad": 1.0,
+    "armature": 0.5,
+    "range_deg": [
+     -45.0,
+     45.0
+    ],
+    "no_load_speed_rad_s": 120.0,
+    "no_load_speed_dps": 6875,
+    "peak_power_w": 3600,
+    "speed_at_peak_power_rad_s": 60.0
+   }
+  },
+  "club": {
+   "shaft_len_m": 1.1,
+   "head_dist_m": 1.12,
+   "shaft_mass_kg": 0.1,
+   "head_mass_kg": 0.2,
+   "inertia_about_wrist_kg_m2": 0.291,
+   "total_club_mass_kg": 0.30000000000000004
+  },
+  "ladder_requirements": [
+   {
+    "club_head_speed_mph": 113,
+    "head_ke_j": 255.2,
+    "wrist_uncock_rate_rad_s": 23.1,
+    "wrist_net_torque_at_speed_nm": 13.9,
+    "wrist_net_torque_frac": 0.23,
+    "wrist_torque_needed_for_50pct_margin_nm": 92.2,
+    "wrist_max_damping_for_50pct_margin": 1.3,
+    "nesbit_scaled_peak_club_power_w": 3553,
+    "nesbit_scaled_peak_angular_power_w": 1054,
+    "nesbit_scaled_total_body_work_j": 1370,
+    "nesbit_scaled_club_ke_j": 315
+   },
+   {
+    "club_head_speed_mph": 120,
+    "head_ke_j": 287.8,
+    "wrist_uncock_rate_rad_s": 24.5,
+    "wrist_net_torque_at_speed_nm": 11.0,
+    "wrist_net_torque_frac": 0.18,
+    "wrist_torque_needed_for_50pct_margin_nm": 97.9,
+    "wrist_max_damping_for_50pct_margin": 1.23,
+    "nesbit_scaled_peak_club_power_w": 4254,
+    "nesbit_scaled_peak_angular_power_w": 1263,
+    "nesbit_scaled_total_body_work_j": 1545,
+    "nesbit_scaled_club_ke_j": 355
+   },
+   {
+    "club_head_speed_mph": 130,
+    "head_ke_j": 337.7,
+    "wrist_uncock_rate_rad_s": 26.5,
+    "wrist_net_torque_at_speed_nm": 7.0,
+    "wrist_net_torque_frac": 0.12,
+    "wrist_torque_needed_for_50pct_margin_nm": 106.1,
+    "wrist_max_damping_for_50pct_margin": 1.13,
+    "nesbit_scaled_peak_club_power_w": 5409,
+    "nesbit_scaled_peak_angular_power_w": 1605,
+    "nesbit_scaled_total_body_work_j": 1814,
+    "nesbit_scaled_club_ke_j": 417
+   },
+   {
+    "club_head_speed_mph": 140,
+    "head_ke_j": 391.7,
+    "wrist_uncock_rate_rad_s": 28.6,
+    "wrist_net_torque_at_speed_nm": 2.9,
+    "wrist_net_torque_frac": 0.05,
+    "wrist_torque_needed_for_50pct_margin_nm": 114.2,
+    "wrist_max_damping_for_50pct_margin": 1.05,
+    "nesbit_scaled_peak_club_power_w": 6756,
+    "nesbit_scaled_peak_angular_power_w": 2005,
+    "nesbit_scaled_total_body_work_j": 2103,
+    "nesbit_scaled_club_ke_j": 484
+   },
+   {
+    "club_head_speed_mph": 150,
+    "head_ke_j": 449.7,
+    "wrist_uncock_rate_rad_s": 30.6,
+    "wrist_net_torque_at_speed_nm": -1.2,
+    "wrist_net_torque_frac": -0.02,
+    "wrist_torque_needed_for_50pct_margin_nm": 122.4,
+    "wrist_max_damping_for_50pct_margin": 0.98,
+    "nesbit_scaled_peak_club_power_w": 8309,
+    "nesbit_scaled_peak_angular_power_w": 2466,
+    "nesbit_scaled_total_body_work_j": 2415,
+    "nesbit_scaled_club_ke_j": 555
+   }
+  ],
+  "assumptions": [
+   "Wrist uncock rate = Cheetham arm->club gain (1274 deg/s at 109 mph) scaled linearly with head speed (derived, low confidence).",
+   "Nesbit & Serrano (n=4, one swing each, scratch golfer 52.0 m/s = 116 mph): peak club power 3875 W, angular power 1150 W, total body work 1452 J, club KE 334 J; scaled by v^3 (power) and v^2 (work/energy) - extrapolation.",
+   "Motor model: MuJoCo <motor> is torque-only (no speed-torque curve); joint damping is a passive loss, so net torque at rate w is tau_max - b*w; no-load speed tau_max/b; max mechanical power tau_max^2/(4b).",
+   "XML defines no joint velocity limit; 'joint speed' limits here are damping-implied only."
+  ],
+  "findings": [
+   "right_wrist: tau_max 60 N*m but damping 2.0 N*m*s/rad gives no-load speed 30 rad/s (1719 deg/s) and max power 450 W; at the ~130 mph wrist rate (~26.5 rad/s) only ~12% of torque remains. Needs damping <=~1.1 (50% margin) or tau >=~106 N*m, or both.",
+   "right_wrist max power 450 W vs Nesbit-scaled angular power ~1.6 kW at 130 mph: ~3.6x short on wrist power alone.",
+   "chest_yaw: range +-45 deg (90 deg total) vs real shoulder turn ~94-112 deg back + follow-through (Sportsbox tour range 94-106, Bryson 112); only yaw DOF (no pelvis yaw, so no pelvis/thorax separation or X-factor 59-68 deg). 120 N*m / 3.6 kW is adequate for thorax speed 950 deg/s (16.6 rad/s, drag 17 N*m).",
+   "Hip actuators are pitch (sagittal) only: they cannot produce the pelvis rotation (440-590 deg/s) that carries the sequence; ground-reaction torque about the vertical axis is not controllable.",
+   "Model club: head 0.20 kg, shaft 0.10 kg, 1.12 m -> inertia about wrist 0.291 kg*m^2; real club length limit 48 in = 1.219 m (model 1.12 m ~ 44 in. to head centre)."
+  ]
+ },
+ "caveats": [
+  "Single-view ~30 fps video cannot verify any of these; the profile is a literature-based prior only.",
+  "Repo flight model: center-face, no wind, simplified roll; it under-predicts TrackMan tour-avg carry by ~2.5% (268 vs 275 yd).",
+  "Overspeed/injury: L4-L5 compression 6.5-8+ BW after impact (Edwards 2022); higher club speed associated with back injury in a small PGA case-control (association only); no injury-outcome trials of overspeed protocols were found.",
+  "Rule status: 48 in. max length; 460 cc, CT 239 us and ODS tests bound equipment; USGA 2028 ball test (125 mph/11 deg/2220 rpm) will trim ~13-15 yd for the longest hitters (USGA FAQ)."
+ ]
+}
