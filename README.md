@@ -222,6 +222,7 @@ Caveats: only 3 training seeds (51-53), one evaluation seed set (4000, 100 episo
 - Scripted swing, deterministic, 100 episodes (identical in both PPO run files): club speed 132.3 mph, contact 100%, mean carry 280.3 m (max 330.2 m) with all shots landed (900 flight steps), lateral std 2.41 m, launch 11.8 deg (90% inside 8-14 deg).
 - Residual PPO policies, 30k steps, seeds 61 and 62: mean carry 280.6 / 280.2 m (deterministic) and 280.4 / 280.2 m (stochastic), lateral std 2.40-2.44 m, i.e. indistinguishable from the scripted swing.
 - Shot files, 100 shots each (the files do not record whether the swing was scripted or a policy): seed 8000 mean carry 284.1 m, lateral std 2.56 m; seed 9000 mean carry 278.9 m but lateral std 17.6 m, which fails the 2.73 m lateral limit. These numbers rest on three evaluation seeds at most and are not a reliability claim.
+- Per-seed gate files, 100 episodes each, 900 flight steps: `results/gate_ppo_v4power_s{61,62}_seed{4000,8000,9000}.json` (each records its own seed). Both policies pass the gate on seeds 4000 and 8000 (lateral std 2.28-2.66 m, contact 100%, all shots landed) and fail seed 9000 on lateral spread (std 16.9-17.6 m, landed fraction 0.99). Effectively the scripted swing at `force_scale` 2, on a hypothetical power tier; not showcase passes. Preview renderer: `eval/render_power_preview.py`.
 - Only the 30 m carry showcase tier defines "PASS" in this README. These power-model runs are hypothetical and are not counted as showcase passes of the real model.
 
 
