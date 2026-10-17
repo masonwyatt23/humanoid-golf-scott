@@ -27,5 +27,6 @@
   "k_off": 0.4,
   "spin_k": 130,
   "k_side": 3500
- }
+ },
+ "flight_steps": 900
 }

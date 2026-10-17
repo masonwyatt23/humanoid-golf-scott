@@ -5,6 +5,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ## [Unreleased]
 
 ### Added
+- Trainer reconciliation: `train_residual.py --flight_steps` (and `flight_steps` in `eval/env_factory.py` arg replay), `configs/fast_scripted_v4_power_hypothetical.json` now sets `flight_steps` 900, opt-in `track_time_fix` / `key_weight` / `key_s` in `ResidualGolfEnv` (all default off), `eval/export_scripted.py`, `eval/diag_reset.py`, `eval/diag_shots.py`, `results/gate_ppo_v4power_s{61,62}.json` (seed 4000; s61 recorded with min_carry 30), `results/trajectories/v4power_scripted_seed4000*`, and TRAINING_NOTES Stage 13/14/14b.
 - `data/reference_sets/unified_v2.json` and `unified_v2_sampling.json`: unified_v1 plus the sampler honoring `handedness_unverified` / `exclude_pending_verification` (`mason_v2_p1_s11`, `mason_v2_p2_s10` excluded from train and val; weights renormalised). `data/unified_refset.py` takes a version (`build --version unified_v2`, `load_manifest(version=...)`, `load_sampling_config(version=...)`); `ResidualGolfEnv(track_set="unified_v2")` selects it. See `docs/REFERENCE_PATHS.md`.
 - `scripts/retag_multisense.py` (idempotent; changes only licence fields, asserts array equality).
 - Licence annotations in the unified manifest (`counsel_required`, `license_url`, CMU resale/acknowledgment fields, Mason handedness-verification fields) and `commercial_cleared()` in `data/provenance.py`.

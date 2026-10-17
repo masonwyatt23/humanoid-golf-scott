@@ -110,6 +110,7 @@ def main():
     ap.add_argument("--script_extra", default="{}", help='JSON of extra script params, e.g. {"wr_end":-0.01,"yaw_ff":0}')
     ap.add_argument("--contact_damp", type=float, default=None)
     ap.add_argument("--impact_model", default=None, help="JSON dict (v4 opt-in impact model)")
+    ap.add_argument("--flight_steps", type=int, default=450, help="post-swing flight horizon (steps); 450 default; 900 for ~130 mph power tier so balls land")
     ap.add_argument("--tempo_scale", type=float, default=0.3)
     ap.add_argument("--shot_pen", type=float, default=0.0)
     ap.add_argument("--act_l2", type=float, default=0.0)
@@ -124,7 +125,7 @@ def main():
               randomize_reset=True, ball_dz=a.ball_dz, handedness=a.handedness, gate_lo=a.gate_lo, gate_hi=a.gate_hi, seq_weight=a.seq_weight,
               analytic_ball=a.analytic_ball, lat_weight=a.lat_weight, elev_weight=a.elev_weight, az_weight=a.az_weight, carry_cap=a.carry_cap, elev_low_mult=a.elev_low_mult, ball_x=a.ball_x, ball_x_noise=a.ball_x_noise, lat_angular=a.lat_angular, elev_target_deg=a.elev_target, style_ref=(a.style_ref[0] if len(a.style_ref) == 1 else a.style_ref) if a.style_ref else None, style_weight=a.style_weight,
               style_prior=a.style_prior, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05)
-    kw.update(sh_noise=a.sh_noise, el_noise=a.el_noise, contact_damp=a.contact_damp, impact_model=(json.loads(a.impact_model) if a.impact_model else None), tempo_scale=a.tempo_scale, shot_pen=a.shot_pen, act_l2=a.act_l2)
+    kw.update(sh_noise=a.sh_noise, el_noise=a.el_noise, contact_damp=a.contact_damp, impact_model=(json.loads(a.impact_model) if a.impact_model else None), flight_steps=a.flight_steps, tempo_scale=a.tempo_scale, shot_pen=a.shot_pen, act_l2=a.act_l2)
     make_env = lambda: ResidualGolfEnv(**kw)
     import subprocess
     out = {"args": vars(a), "git_head": subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True, cwd=str(ROOT)).stdout.strip()}

@@ -9,6 +9,7 @@ contains the swing phase (progress of the scripted swing in [0,1]).
 Action (5): [d_shoulder, d_elbow, d_wrist, d_chest_yaw, tempo] in [-1,1]
   residual_scale rad per unit (default 0.4 / 0.4 / 0.4 / 0.25), tempo -> clock speed 1 + 0.3*a.
 """
+import json
 import numpy as np
 from pathlib import Path
 import mujoco
@@ -26,7 +27,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, track_time_fix=False, key_weight=0.0, key_s=2.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -43,6 +44,8 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.script_weight, self.track_weight = float(script_weight), float(track_weight)
         self._lscale = None if learn_scale is None else np.asarray(learn_scale, float)
         self._opt_blend = (self.script_weight != 1.0) or (self._lscale is not None)
+        self.track_time_fix, self.key_weight, self.key_s = bool(track_time_fix), float(key_weight), float(key_s)
+        self._key = self._load_keyframes() if key_weight > 0 else None
         self._track = self._load_track_shapes(track_set) if (track_set and track_weight > 0) else None
         self._st = np.zeros(4)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(5,), dtype=np.float32)
@@ -197,9 +200,14 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             if e.get("split") != "train" or e.get("weight_train", 0) <= 0: continue
             d = np.load(Path(__file__).resolve().parent.parent / e["path"], allow_pickle=True); w = float(e["weight_train"]); dt = float(d["dt"]); t = np.asarray(d["time"], float)
             if e["source"] == "mason":
-                t0 = float(d["t_start_in_video"]); i0 = 0; i_top = int(np.argmin(abs(t - (float(d["t_top"]) - t0)))); i_imp = int(np.argmin(abs(t - (float(d["t_impact"]) - t0))))
                 sig = {"sh": -np.asarray(d["joints"][:, 4], float)}
-                mov = np.where(abs(sig["sh"] - sig["sh"][0]) > 5.0)[0]; i0 = max(int(mov[0]) - 3, 0) if len(mov) else 0
+                if self.track_time_fix:   # opt-in: video-time events minus t_start_in_video are ~0.4 s LATE on the joint axis (verified: shoulder reads 0 at 'top'); use joint-axis events from mason_keyframe_targets.json
+                    ev_ = self._kf_events().get(Path(e["path"]).stem)
+                    if ev_ is None: continue
+                    i0 = max(int(round(ev_["takeaway"] / dt)), 0); i_top = min(int(round(ev_["top"] / dt)), len(t) - 1); i_imp = min(int(round(ev_["impact"] / dt)), len(t) - 1)
+                else:
+                    t0 = float(d["t_start_in_video"]); i0 = 0; i_top = int(np.argmin(abs(t - (float(d["t_top"]) - t0)))); i_imp = int(np.argmin(abs(t - (float(d["t_impact"]) - t0))))
+                    mov = np.where(abs(sig["sh"] - sig["sh"][0]) > 5.0)[0]; i0 = max(int(mov[0]) - 3, 0) if len(mov) else 0
             else:
                 ev = np.asarray(d["events"], float); i0 = int(round(float(d["takeaway_s"]) / dt)); i_top = int(round(ev[0] / dt)); i_imp = int(round(ev[1] / dt))
                 sig = {"yaw": np.asarray(d["thorax_rot_deg"], float)}
@@ -210,6 +218,29 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         out = {k: np.sum([w * sh for w, sh in v], 0) / np.sum([w for w, _ in v]) for k, v in acc.items()}
         self.track_counts = {k: len(v) for k, v in acc.items()}
         return out
+
+    def _kf_events(self):
+        return json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "mason_keyframe_targets.json"))["event_offsets_s"]
+
+    def _load_keyframes(self):
+        """Sparse keyframe targets (Mason keyframe medians, deg), converted to sign/offset-invariant normalised values at IMPACT: y=(q-q_addr)/(q_top-q_addr), sigma = sigma_suggested/|top-addr|. Joints: shoulder pitch, wrist (the env qtraj has no elbow column)."""
+        J = json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "mason_keyframe_targets.json"))["keyframes"]; out = {}
+        for k, col in (("right_shoulder_pitch", 1), ("right_wrist", 3)):
+            a, t, i = (J[n]["joints"][k] for n in ("address", "top", "impact")); den = t["median_deg"] - a["median_deg"]
+            out[col] = ((i["median_deg"] - a["median_deg"]) / den, i["sigma_suggested_deg"] / abs(den))
+        return out
+
+    def _key_score(self):
+        q = np.array(self._qtraj); s = self.script
+        if self._key is None or len(q) < 10: return 0.0
+        t_top = s["t_hold"] + s["t_back"] + s["t_pause"]; t_imp = t_top + s["t_down"]
+        i0 = int(np.argmax(q[:, 0] >= s["t_hold"])); i_top = int(np.argmax(q[:, 0] >= t_top)); i_imp = int(np.argmax(q[:, 0] >= t_imp)) if q[-1, 0] >= t_imp else len(q) - 1
+        e = []
+        for col, (mu, sg) in self._key.items():
+            den = q[i_top, col] - q[i0, col]
+            if abs(den) < 1e-6: return 0.0
+            y = (q[i_imp, col] - q[i0, col]) / den; e.append(((y - mu) / (self.key_s * sg)) ** 2)
+        return float(np.exp(-np.mean(e)))
 
     def _track_score(self):
         q = np.array(self._qtraj); s = self.script
@@ -349,6 +380,9 @@ class ResidualGolfEnv(HumanoidGolfEnv):
             if self._track is not None:
                 ts, parts = self._track_score(); info["track_score"] = ts; info["track_parts"] = parts
                 if self.true_contact: r += self.track_weight * g * ts
+            if self._key is not None:
+                ks = self._key_score(); info["key_score"] = ks
+                if self.true_contact: r += self.key_weight * g * ks
             if self.true_contact and self._ref_shape is not None:
                 sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:

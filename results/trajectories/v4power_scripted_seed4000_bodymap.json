@@ -1,0 +1,270 @@
+{
+ "note": "body index -> name (axis 1 of body_xpos/body_xquat, wxyz quats, world frame); joints list gives qpos address/type/range. 'pelvis_standin_joint' is the chest_yaw joint (rotates torso about vertical).",
+ "bodies": [
+  {
+   "index": 0,
+   "name": "world",
+   "parent": "world"
+  },
+  {
+   "index": 1,
+   "name": "target",
+   "parent": "world"
+  },
+  {
+   "index": 2,
+   "name": "ball",
+   "parent": "world"
+  },
+  {
+   "index": 3,
+   "name": "torso",
+   "parent": "world"
+  },
+  {
+   "index": 4,
+   "name": "right_hip",
+   "parent": "torso"
+  },
+  {
+   "index": 5,
+   "name": "right_knee",
+   "parent": "right_hip"
+  },
+  {
+   "index": 6,
+   "name": "right_ankle",
+   "parent": "right_knee"
+  },
+  {
+   "index": 7,
+   "name": "left_hip",
+   "parent": "torso"
+  },
+  {
+   "index": 8,
+   "name": "left_knee",
+   "parent": "left_hip"
+  },
+  {
+   "index": 9,
+   "name": "left_ankle",
+   "parent": "left_knee"
+  },
+  {
+   "index": 10,
+   "name": "chest",
+   "parent": "torso"
+  },
+  {
+   "index": 11,
+   "name": "right_shoulder",
+   "parent": "chest"
+  },
+  {
+   "index": 12,
+   "name": "right_elbow",
+   "parent": "right_shoulder"
+  },
+  {
+   "index": 13,
+   "name": "right_wrist",
+   "parent": "right_elbow"
+  },
+  {
+   "index": 14,
+   "name": "left_shoulder",
+   "parent": "chest"
+  },
+  {
+   "index": 15,
+   "name": "left_elbow",
+   "parent": "left_shoulder"
+  },
+  {
+   "index": 16,
+   "name": "left_hand",
+   "parent": "left_elbow"
+  }
+ ],
+ "joints": [
+  {
+   "name": "free_0",
+   "qpos_adr": 0,
+   "type": 0,
+   "range_rad": [
+    0.0,
+    0.0
+   ],
+   "body": "ball"
+  },
+  {
+   "name": "root",
+   "qpos_adr": 7,
+   "type": 0,
+   "range_rad": [
+    0.0,
+    0.0
+   ],
+   "body": "torso"
+  },
+  {
+   "name": "right_hip_pitch",
+   "qpos_adr": 14,
+   "type": 3,
+   "range_rad": [
+    -1.0471975511965976,
+    1.0471975511965976
+   ],
+   "body": "right_hip"
+  },
+  {
+   "name": "right_knee",
+   "qpos_adr": 15,
+   "type": 3,
+   "range_rad": [
+    0.0,
+    2.443460952792061
+   ],
+   "body": "right_knee"
+  },
+  {
+   "name": "right_ankle",
+   "qpos_adr": 16,
+   "type": 3,
+   "range_rad": [
+    -0.6981317007977318,
+    0.6981317007977318
+   ],
+   "body": "right_ankle"
+  },
+  {
+   "name": "left_hip_pitch",
+   "qpos_adr": 17,
+   "type": 3,
+   "range_rad": [
+    -1.0471975511965976,
+    1.0471975511965976
+   ],
+   "body": "left_hip"
+  },
+  {
+   "name": "left_knee",
+   "qpos_adr": 18,
+   "type": 3,
+   "range_rad": [
+    0.0,
+    2.443460952792061
+   ],
+   "body": "left_knee"
+  },
+  {
+   "name": "left_ankle",
+   "qpos_adr": 19,
+   "type": 3,
+   "range_rad": [
+    -0.6981317007977318,
+    0.6981317007977318
+   ],
+   "body": "left_ankle"
+  },
+  {
+   "name": "chest_yaw",
+   "qpos_adr": 20,
+   "type": 3,
+   "range_rad": [
+    -1.0471975511965976,
+    1.0471975511965976
+   ],
+   "body": "chest"
+  },
+  {
+   "name": "right_shoulder_pitch",
+   "qpos_adr": 21,
+   "type": 3,
+   "range_rad": [
+    -3.141592653589793,
+    3.141592653589793
+   ],
+   "body": "right_shoulder"
+  },
+  {
+   "name": "right_shoulder_roll",
+   "qpos_adr": 22,
+   "type": 3,
+   "range_rad": [
+    -1.5707963267948966,
+    1.5707963267948966
+   ],
+   "body": "right_shoulder"
+  },
+  {
+   "name": "right_elbow",
+   "qpos_adr": 23,
+   "type": 3,
+   "range_rad": [
+    0.0,
+    2.6179938779914944
+   ],
+   "body": "right_elbow"
+  },
+  {
+   "name": "right_wrist",
+   "qpos_adr": 24,
+   "type": 3,
+   "range_rad": [
+    -2.0943951023931953,
+    2.0943951023931953
+   ],
+   "body": "right_wrist"
+  },
+  {
+   "name": "left_shoulder_pitch",
+   "qpos_adr": 25,
+   "type": 3,
+   "range_rad": [
+    -3.141592653589793,
+    3.141592653589793
+   ],
+   "body": "left_shoulder"
+  },
+  {
+   "name": "left_shoulder_roll",
+   "qpos_adr": 26,
+   "type": 3,
+   "range_rad": [
+    -2.0943951023931953,
+    2.0943951023931953
+   ],
+   "body": "left_shoulder"
+  },
+  {
+   "name": "left_elbow",
+   "qpos_adr": 27,
+   "type": 3,
+   "range_rad": [
+    -0.17453292519943295,
+    2.6179938779914944
+   ],
+   "body": "left_elbow"
+  }
+ ],
+ "pelvis_standin_joint": "chest_yaw",
+ "spine_joints": [
+  "chest_yaw"
+ ],
+ "metadata": {
+  "config": "configs/fast_scripted_v4_power_hypothetical.json",
+  "description": "HYPOTHETICAL power tier (NOT realistic hardware/human): v4 contact/impact model + model variant humanoid_golf_v4_power.xml (wrist damping 0.5, wrist peak torque 120 N m, chest_yaw +-60 deg as stand-in for pelvis yaw) + wrist release wr_end -0.1, t_down 0.06 -> ~132 mph club head. dz0 re-centred to +0.017 (measured sweet spot moved with the wrist release). v3 and v4 configs unchanged.",
+  "model_xml": "humanoid_golf_v4_power.xml",
+  "seed": 4000,
+  "episode": 0,
+  "sample_dt_s": 0.01,
+  "handedness": "left",
+  "true_contact": true,
+  "ball_final_x": 301.9571127245998,
+  "peak_club_mph": 132.39833129844115,
+  "launch_deg": 12.649819575455277,
+  "note": "HYPOTHETICAL power tier; scripted v4 swing, zero residual. chest_yaw is a +-60deg stand-in for pelvis yaw (no pelvis-yaw DOF)."
+ }
+}
