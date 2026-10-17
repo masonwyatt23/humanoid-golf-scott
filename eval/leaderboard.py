@@ -328,6 +328,26 @@ def main():
         d_ = c.get("modes", {}).get("deterministic", {})
         if "mean_carry" not in d_: continue
         mt.append(f"| {'/'.join(c['names'][:2])[:60]} | {_motor(c)} | {_label(c)} | {d_['mean_carry']:.1f} ({d_['mean_carry']*1.09361:.0f}) | {d_['lateral_std']:.2f} | {d_['peak_club_mph_mean']:.1f} | {d_['landed_fraction']*100:.0f}% | {'yes' if c in qualifying else 'no'} |")
+    # --- sim carry vs launch-monitor-model carry (model-based; existing sim numbers are NOT changed) ---
+    try:
+        from sim.golf_simulator import shot_from_launch
+        _sp = load(RES / "ball_spin_measured.json", {})
+        mt += ["", "## Sim carry vs launch-monitor-model carry (MODEL-BASED; the MuJoCo carry columns elsewhere are unchanged)", "",
+               "MuJoCo carry = ball flown in MuJoCo with the env's own aero (Cd 0.26, Cl=min(1.7 S, 0.3)) and whatever spin the contact produced. 'Model carry' = `sim/golf_simulator.shot_from_launch` (analytic drag + Magnus, validated vs TrackMan within its stated tolerance) at the sim's own mean ball speed and launch with an ASSUMED tour backspin of 2700 rpm. 'Model carry @ smash 1.48' keeps the policy's club speed and launch but sets ball speed = 1.48 x club speed (a legal-driver smash), same 2700 rpm. Measured env backspin (6 det episodes, `results/ball_spin_measured.json`) is shown where available. Real-world reading: only the last column answers 'what would a 1.48-smash driver do at this club speed'; sim smash ~1.0 rows (v3 envs) are far SHORT of real distance, sim smash >1.5 rows (power tier, `impact_model` gain 1.28) are at/above the legal-driver limit.", "",
+               "| model | motor strength | club mph (peak) | sim ball mph | sim smash (impact) | launch deg | measured backspin rpm | MuJoCo carry m | model carry m (sim ball spd/launch, 2700 rpm) | model carry m @ smash 1.48 | MuJoCo / model |", "|---|---|---|---|---|---|---|---|---|---|---|"]
+        for c in sorted(cur, key=lambda c: (_fs(c), c.get("scripted", False), -score(c)[1])):
+            d_ = c.get("modes", {}).get("deterministic", {})
+            if not all(k in d_ for k in ("mean_peak_ball_speed", "peak_club_speed_mean", "launch_elev_mean_deg", "mean_carry")): continue
+            bm, cm, la = d_["mean_peak_ball_speed"] * 2.23694, d_["peak_club_speed_mean"] * 2.23694, d_["launch_elev_mean_deg"]
+            if bm < 20 or cm < 20 or not (0 < la < 40): continue
+            try: a1 = shot_from_launch(bm, la, 2700).carry_yd * 0.9144; a2 = shot_from_launch(1.48 * cm, la, 2700).carry_yd * 0.9144
+            except Exception: continue
+            imp = d_.get("impact_club_speed_mean") or 0; sm = f"{bm / (imp * 2.23694):.2f}" if imp > 0.05 else "n/a"
+            ms = next((v for k, v in _sp.items() if k in c["names"]), None); mspin = f"{ms['backspin_rpm']:.0f}" if ms else "n/m"
+            mt.append(f"| {'/'.join(c['names'][:2])[:60]} | {_motor(c)} | {cm:.0f} | {bm:.0f} | {sm} | {la:.1f} | {mspin} | {d_['mean_carry']:.0f} | {a1:.0f} | {a2:.0f} | {d_['mean_carry'] / a1:.2f} |")
+        mt += ["", "n/m = not measured. Spin for non-power rows is the contact-friction spin MuJoCo produced (tens to ~900 rpm in the v3 envs, far below a real driver's ~2700), which is why their MuJoCo carry is much shorter than the model carry at the same ball speed: low spin means little lift. Power-tier rows get ~3080 rpm from the hand-set `impact_model` (spin_k 130), and a ball speed 1.28x the contact result. The hypothetical club speed (132 mph, `t_down` 0.06 s) and smash ~1.55-1.59 are what make 300+ m, not a unit error: at the same inputs the analytic model gives ~307 m and a 1.48 smash would give ~295 m."]
+    except Exception as e:
+        mt += ["", f"(launch-monitor-model carry table unavailable: {type(e).__name__}: {e})"]
     L = ["# Leaderboard", "", best_line, "", rank_txt, "", f"Full ranking (scripted baseline included): {rk}", ""] + mt + [""] + [
          "Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). "
          "Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).", "",

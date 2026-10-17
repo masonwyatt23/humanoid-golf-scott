@@ -1,0 +1,42 @@
+{
+ "imit16_fs1_dart_s51": {
+  "n": 6,
+  "ball_mps": 44.239433551973384,
+  "launch": 11.57525687307377,
+  "backspin_rpm": 16.76555203448051,
+  "sidespin_rpm_mean_abs": 2.3844110591205205,
+  "spin_total": 141.8407734509473
+ },
+ "imit15_dart_s52": {
+  "n": 5,
+  "ball_mps": 54.15743560950328,
+  "launch": 11.632750021964936,
+  "backspin_rpm": 362.38335207551035,
+  "sidespin_rpm_mean_abs": 1.9694280035297567,
+  "spin_total": 362.3981331931331
+ },
+ "imit9_w000_s51": {
+  "n": 6,
+  "ball_mps": 54.60996708004408,
+  "launch": 12.916512933373403,
+  "backspin_rpm": 920.1792727087391,
+  "sidespin_rpm_mean_abs": 24.078255980377552,
+  "spin_total": 921.284951780305
+ },
+ "imit18_power_dart_s51": {
+  "n": 6,
+  "ball_mps": 94.3633643804233,
+  "launch": 12.57999059549762,
+  "backspin_rpm": 3087.9813982733394,
+  "sidespin_rpm_mean_abs": 33.96156299455246,
+  "spin_total": 3088.210775558784
+ },
+ "ppo_v4power48_s71": {
+  "n": 6,
+  "ball_mps": 94.0381933894493,
+  "launch": 12.577355844202877,
+  "backspin_rpm": 3076.69617520774,
+  "sidespin_rpm_mean_abs": 34.78623860055692,
+  "spin_total": 3076.9392658663196
+ }
+}
