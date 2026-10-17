@@ -27,7 +27,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, track_time_fix=False, strike_comp=None, key_weight=0.0, key_s=2.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, track_time_fix=False, strike_comp=None, key_arm="lead", key_wrist_sign=1.0, key_weight=0.0, key_s=2.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -45,7 +45,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._lscale = None if learn_scale is None else np.asarray(learn_scale, float)
         self._opt_blend = (self.script_weight != 1.0) or (self._lscale is not None)
         self.strike_comp = strike_comp   # OPT-IN physics change: dict(table=[[elbow_rad, face_dz_m],..], ref=m, k=gain): lowers/raises the BALL (+-~4 mm) by -k*(dz(el_start)-ref) to centre the strike (analytic baseline)
-        self.track_time_fix, self.key_weight, self.key_s = bool(track_time_fix), float(key_weight), float(key_s)
+        self.track_time_fix, self.key_weight, self.key_s = bool(track_time_fix), float(key_weight), float(key_s); self.key_arm, self.key_wrist_sign = key_arm, float(key_wrist_sign)
         self._key = self._load_keyframes() if key_weight > 0 else None
         self._track = self._load_track_shapes(track_set) if (track_set and track_weight > 0) else None
         self._st = np.zeros(4)
@@ -225,6 +225,10 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         return json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "mason_keyframe_targets.json"))["event_offsets_s"]
 
     def _load_keyframes(self):
+        if self.key_arm == "trail":   # OPT-IN role fix: env right_* is the TRAIL arm; Mason's stored cols 0-3 are his anatomical right = LEAD arm (left-hander). Use the trail-arm event targets (wrist_elbow_event_targets.json): wrist top/impact 0.703/0.977 rad (unsigned; key_wrist_sign picks same-side (+1) or opposite-side (-1) impact deflection), elbow flexion top/impact 1.126/0.853 rad.
+            T = json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "wrist_elbow_event_targets.json"))["env_targets_best_clip"]
+            g = {(t["env_joint"], t["event"]): t["value_rad"] for t in T}; e0 = float(self.elbow_base if self.elbow_base is not None else np.deg2rad(20.0))
+            return {4: ((g[("right_elbow", "impact")] - e0) / (g[("right_elbow", "top")] - e0), 0.25), 3: (self.key_wrist_sign * g[("right_wrist", "impact")] / g[("right_wrist", "top")], 0.25)}  # key_wrist_sign +1: impact on the same side as top (1.39x); -1: opposite side
         """Sparse keyframe targets (Mason keyframe medians, deg), converted to sign/offset-invariant normalised values at IMPACT: y=(q-q_addr)/(q_top-q_addr), sigma = sigma_suggested/|top-addr|. Joints: shoulder pitch, wrist (the env qtraj has no elbow column)."""
         J = json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "mason_keyframe_targets.json"))["keyframes"]; out = {}
         for k, col in (("right_shoulder_pitch", 1), ("right_wrist", 3)):
@@ -355,7 +359,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         if self.act_l2 > 0: r -= self.act_l2 * getattr(self, '_a2', 0.0)
         info["phase"] = self.phase
         d = self.data
-        self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]]), float(d.qpos[self._qa["chest_yaw"]]), float(d.qpos[self._qa["right_wrist"]])])
+        self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]]), float(d.qpos[self._qa["chest_yaw"]]), float(d.qpos[self._qa["right_wrist"]]), float(d.qpos[self._qa["right_elbow"]])])
         self._seq.append([self.clock, abs(d.qvel[self._da["chest_yaw"]]), abs(d.qvel[self._da["right_shoulder_pitch"]]),
                           float(np.linalg.norm(d.cvel[self._club_body_id][:3]))])
         if self.analytic_ball and self.true_contact and self._an is None and self._sep_v is not None:

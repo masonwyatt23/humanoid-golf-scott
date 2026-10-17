@@ -1,0 +1,26 @@
+{
+ "description": "Stage19 trail-arm script (see masontrail) with BC-teacher full elbow range (0.40+-0.17).",
+ "script": {
+  "q_back": 2.2,
+  "t_down": 0.08,
+  "t_back": 0.6,
+  "wr_end": -0.01,
+  "yaw_ff": 0.0,
+  "el_end": 0.853,
+  "elbow_back": 1.126,
+  "q_fin": -0.6
+ },
+ "ball_x": 0.396,
+ "ball_x_noise": 0.003,
+ "loft_deg": -31,
+ "ball_dz": 0.035,
+ "tee_height": 0.04,
+ "force_scale": 2.0,
+ "kp": 700,
+ "kd": 23.33,
+ "handedness": "left",
+ "model_xml": "humanoid_golf_v3.xml",
+ "sh_noise": 0.05,
+ "el_noise": 0.17,
+ "elbow_base": 0.4
+}
