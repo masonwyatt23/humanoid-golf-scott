@@ -10,7 +10,7 @@ NOT used as pass/fail: a 282 yd carry figure. It belongs to a different (2023-24
 """
 import json, os, datetime
 import numpy as np
-from sim.golf_simulator import shot_from_launch, shot_from_club
+from sim.golf_simulator import shot_from_launch, shot_from_club, SPIN_SCALE_TOUR_CAL
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 BENCH = dict(club_mph=113, attack_deg=-1.3, ball_mph=167, smash=1.48, launch_deg=10.9, spin_rpm=2686, apex_yd=32, land_angle_deg=38, carry_yd=275)
@@ -39,6 +39,16 @@ def run():
     i = int(np.argmin([abs(s.launch_deg - b["launch_deg"]) for s in sc])); s2 = sc[i]
     c2 = [_chk("ball_mph", s2.ball_mph, b["ball_mph"]), _chk("smash", s2.smash, b["smash"]), _chk("launch_deg", s2.launch_deg, b["launch_deg"]),
           _chk("backspin_rpm", s2.backspin_rpm, b["spin_rpm"]), _chk("carry_yd", s2.carry_yd, b["carry_yd"]), _chk("apex_yd", s2.apex_yd, b["apex_yd"])]
+    # 2b. same impact model with the Data Agent's spin calibration (R1): spin_scale 0.62 (fitted to this one tour point -> NOT an independent validation)
+    sc2 = [shot_from_club(b["club_mph"], b["attack_deg"], L, spin_scale=SPIN_SCALE_TOUR_CAL) for L in lofts]
+    j = int(np.argmin([abs(s.launch_deg - b["launch_deg"]) for s in sc2])); s2c = sc2[j]
+    c2c = [_chk("ball_mph", s2c.ball_mph, b["ball_mph"]), _chk("smash", s2c.smash, b["smash"]), _chk("launch_deg", s2c.launch_deg, b["launch_deg"]),
+           _chk("backspin_rpm", s2c.backspin_rpm, b["spin_rpm"]), _chk("carry_yd", s2c.carry_yd, b["carry_yd"]), _chk("apex_yd", s2c.apex_yd, b["apex_yd"])]
+    # 2c. + restitution e=0.845 (Data Agent R2, medium confidence: raises centre-hit smash toward 1.47)
+    sc3 = [shot_from_club(b["club_mph"], b["attack_deg"], L, e=0.845, spin_scale=SPIN_SCALE_TOUR_CAL) for L in lofts]
+    k = int(np.argmin([abs(s.launch_deg - b["launch_deg"]) for s in sc3])); s2d = sc3[k]
+    c2d = [_chk("ball_mph", s2d.ball_mph, b["ball_mph"]), _chk("smash", s2d.smash, b["smash"]), _chk("launch_deg", s2d.launch_deg, b["launch_deg"]),
+           _chk("backspin_rpm", s2d.backspin_rpm, b["spin_rpm"]), _chk("carry_yd", s2d.carry_yd, b["carry_yd"]), _chk("apex_yd", s2d.apex_yd, b["apex_yd"])]
     # 3. informational: secondary-source 2023-24 row (NOT verified from the primary table)
     s3 = shot_from_launch(171, 10.4, 2545, club_mph=115)
     # 4. sensitivity (model-internal sanity, not published benchmarks)
@@ -48,9 +58,13 @@ def run():
                benchmark=b, sources=SRC,
                flight_from_published_launch=dict(shot=s1.as_dict(), checks=c1),
                impact_model=dict(dynamic_loft_deg=float(lofts[i]), shot=s2.as_dict(), checks=c2),
+               impact_model_spin_calibrated=dict(spin_scale=SPIN_SCALE_TOUR_CAL, dynamic_loft_deg=float(lofts[j]), shot=s2c.as_dict(), checks=c2c, note="calibration R1 (data/references/impact_physics_calibration.json, medium confidence) fitted to ONE tour point; not independent validation"),
+               impact_model_spin_and_e_calibrated=dict(spin_scale=SPIN_SCALE_TOUR_CAL, e=0.845, dynamic_loft_deg=float(lofts[k]), shot=s2d.as_dict(), checks=c2d, note="R1+R2 (medium confidence), tuned on this one tour row: not independent validation"),
                secondary_row_info_only=dict(inputs="115 mph club, 171 mph ball, 10.4 deg, 2545 rpm (secondary reports, unverified)", shot=s3.as_dict(), reported_carry_yd_secondary=282),
                sensitivity=sens)
     out["all_flight_checks_passed"] = all(c["passed"] for c in c1)
+    out["all_impact_calibrated_checks_passed"] = all(c["passed"] for c in c2c)
+    out["all_impact_spin_e_calibrated_checks_passed"] = all(c["passed"] for c in c2d)
     out["all_impact_checks_passed"] = all(c["passed"] for c in c2)
     json.dump(out, open(os.path.join(ROOT, "results", "golf_simulator_validation.json"), "w"), indent=1)
     md = ["# Golf simulator validation (model-based, analytic ball model)", "",
@@ -62,6 +76,12 @@ def run():
     def rows(cs): return [f"| {c['metric']} | {c['model']:.2f} | {c['published']:.2f} | {c['error']*100 if c['error_kind'].startswith('%') else c['error']:+.1f}{'%' if c['error_kind'].startswith('%') else ''} | {c['tol']*100 if c['error_kind'].startswith('%') else c['tol']:.0f}{'%' if c['error_kind'].startswith('%') else ''} | {'PASS' if c['passed'] else 'FAIL'} |" for c in cs]
     md += rows(c1) + ["", f"Model total (carry + bounce/roll, fairway): {s1.total_yd:.0f} yd; hang {s1.hang_s:.1f} s. (TrackMan table above gives carry only; total is not benchmarked.)", "",
           f"## 2. Impact model (club 113 mph, AoA -1.3 deg, dynamic loft {lofts[i]:.2f} deg chosen so launch = 10.9 deg)", "", "| metric | model | published | error | tolerance | pass |", "|---|---|---|---|---|---|"] + rows(c2)
+    md += ["", f"### 2b. Same impact model with spin calibration spin_scale = {SPIN_SCALE_TOUR_CAL} (Data Agent R1, medium confidence; dynamic loft {lofts[j]:.2f} deg for launch 10.9)", "",
+           "Fitted to this single tour-average row, so agreement here is NOT an independent validation; raw spin above is ~60% high, calibrated spin removes that bias at tour conditions only.", "",
+           "| metric | model | published | error | tolerance | pass |", "|---|---|---|---|---|---|"] + rows(c2c)
+    md += ["", f"### 2c. Spin_scale {SPIN_SCALE_TOUR_CAL} AND restitution e = 0.845 (Data Agent R1 + R2, medium confidence; dynamic loft {lofts[k]:.2f} deg)", "",
+           "Also tuned on this single tour row (not independent). Shown to separate the two biases: spin (R1) and centre-hit smash (R2).", "",
+           "| metric | model | published | error | tolerance | pass |", "|---|---|---|---|---|---|"] + rows(c2d)
     md += ["", "Reading: the impact model gets smash/ball speed right but over-predicts backspin (simple center-hit friction model, no gear effect/loft-spin nuance), which lowers carry and raises apex. "
            "Use `shot_from_launch` when spin is known; treat `shot_from_club` spin as indicative only.", "",
           "## 3. Informational (secondary-source row, not pass/fail)", "", f"115 mph / 171 mph / 10.4 deg / 2545 rpm -> model carry {s3.carry_yd:.0f} yd, apex {s3.apex_yd:.0f} yd (secondary reports quote ~282 yd carry).", "",

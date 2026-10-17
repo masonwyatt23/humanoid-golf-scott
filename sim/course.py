@@ -80,10 +80,32 @@ def profiles_from_leaderboard(path=None, model_names=None):
     roll = val["flight_from_published_launch"]["shot"]["total_yd"] / val["flight_from_published_launch"]["shot"]["carry_yd"] - 1
     cv, ang = sd / carry, lat / carry
     force = m["env_kwargs"].get("force_scale")
-    note = f"{label} ({'scripted (not learned)' if m['scripted'] else 'learned'}); force_scale={force}"
-    return [Profile(f"A: sim as measured - {label}", carry, sd, lat, 0.0, note + "; MuJoCo ball, smash~1.0 artifact; HYPOTHETICAL ACTUATORS" if force and force > 1 else note),
+    kind = 'scripted (not learned)' if m['scripted'] else ('script-free imitation of the scripted v3 swing' if m['env_kwargs'].get('script_weight') == 0 else ('blend ' + str(round((1 - m['env_kwargs']['script_weight']) * 100)) + '% learned / ' + str(round(m['env_kwargs']['script_weight'] * 100)) + '% scripted' if m['env_kwargs'].get('script_weight') not in (None, 1.0) else 'learned residual'))
+    note = f"{label} ({kind}); force_scale={force}"
+    return [Profile(f"A: sim as measured - {label}", carry, sd, lat, 0.0, note + "; MuJoCo ball, smash~1.0 artifact; force_scale 2 (hypothetical-strength actuators)" if force and force > 1 else note),
             Profile(f"B: HYPOTHETICAL - {label} spread scaled to 275 yd tour-avg carry", 275.0, 275.0 * cv, 275.0 * ang, roll,
                     f"carry CV {cv:.2f} and lateral/carry {ang:.3f} from {label}; roll from analytic model at TrackMan avg launch; not something the sim achieves")]
+
+
+def profile_from_gates(name_prefix, seeds=(4000, 8000, 9000)):
+    """HYPOTHETICAL-tier profile pooled over the per-seed eval_gate JSONs (results/gate_<name>_seed<seed>.json or results/imit_private/...), det mode, 100 eps/seed:
+    carry = mean of seed means, carry sd = pooled std_distance, lateral sd = pooled sqrt(mean(lat_std^2 + mean_y^2)). Heavy tails (e.g. a single 160 m miss) inflate
+    the lateral sd and are then treated as Gaussian here, so this OVERSTATES typical spread and understates tail shape; flagged in the note."""
+    import glob
+    D = []
+    for sd_ in seeds:
+        for f in (f"results/gate_{name_prefix}_seed{sd_}.json", f"results/imit_private/gate_{name_prefix}_seed{sd_}.json", f"results/imit_private/gate_{name_prefix}.json" if sd_ == 4000 else None):
+            if f and os.path.exists(os.path.join(ROOT, f)):
+                j = json.load(open(os.path.join(ROOT, f)))
+                if j["seed"] == sd_: D.append(j); break
+    if len(D) < len(seeds): return None
+    P = [j["policy_det"] for j in D]; k = 1.09361
+    carry = float(np.mean([p["mean_carry"] for p in P])) * k
+    sdc = float(np.sqrt(np.mean([p["std_distance"] ** 2 for p in P]))) * k
+    lat = float(np.sqrt(np.mean([p["lateral_std"] ** 2 + p["mean_y"] ** 2 for p in P]))) * k
+    fs = D[0]["env_kwargs"].get("force_scale"); land = float(np.mean([p["landed_fraction"] for p in P]))
+    return Profile(f"C: HYPOTHETICAL gate-pooled 3 seeds - {name_prefix}", carry, sdc, lat, 0.0,
+                   f"{name_prefix} pooled over seeds {list(seeds)} x100 eps (det); force_scale={fs} (hypothetical-strength actuators); landed {land*100:.0f}%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0")
 
 
 def _shot(rng, prof, cfg, club_frac, target_carry, lie, aim_y=0.0, roll=0.0):
@@ -154,7 +176,14 @@ def simulate(course, prof, rounds=2000, seed=0, cfg=DEFAULTS):
 
 def run(rounds=2000, seed=0):
     course = example_course()
-    sims = [simulate(course, p, rounds, seed) for p in profiles_from_leaderboard()]
+    lb = json.load(open(os.path.join(ROOT, "results", "leaderboard.json"))); have = [m["names"] for m in lb["models"] if "modes" in m]
+    want = [n for n in (["imit9_w000_s51"], ["imit3_w050_s51"]) if any(n[0] in h for h in have)]    # presentation: imit9 (best lateral) and imit3_w050_s51 (best under noise); both imitate the script
+    profs = []
+    for n in want: profs += profiles_from_leaderboard(model_names=next(h for h in have if n[0] in h))
+    for nm in ("ppo_v4power_s61", "imit9_w000_s51"):
+        pg = profile_from_gates(nm)
+        if pg: profs.append(pg)
+    sims = [simulate(course, p, rounds, seed) for p in profs]
     out = dict(label=LABEL, course="SYNTHETIC EXAMPLE (invented)", holes=[dict(n=h.n, par=h.par, yards=h.yards, fw_halfwidth_yd=h.fw_halfwidth_yd, hazards=h.hazards) for h in course],
                total_yards=sum(h.yards for h in course), par=sum(h.par for h in course), assumptions=DEFAULTS, results=sims)
     json.dump(out, open(os.path.join(ROOT, "results", "course_estimates.json"), "w"), indent=1)

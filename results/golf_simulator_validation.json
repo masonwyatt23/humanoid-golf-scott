@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17T01:12:57",
+ "generated": "2026-10-17T07:38:04",
  "label": "model-based validation vs published TrackMan PGA Tour averages",
  "benchmark": {
   "club_mph": 113,
@@ -32,7 +32,8 @@
    "lateral_total_yd": 0.0,
    "land_angle_deg": 39.82578865427439,
    "hang_s": 6.7040000000005735,
-   "label": "model-based (analytic ball model), not measured"
+   "label": "model-based (analytic ball model), not measured",
+   "spin_scale": 1.0
   },
   "checks": [
    {
@@ -90,7 +91,8 @@
    "lateral_total_yd": 0.0,
    "land_angle_deg": 44.24277799455832,
    "hang_s": 6.800000000000606,
-   "label": "model-based (analytic ball model), not measured"
+   "label": "model-based (analytic ball model), not measured",
+   "spin_scale": 1.0
   },
   "checks": [
    {
@@ -149,6 +151,165 @@
    }
   ]
  },
+ "impact_model_spin_calibrated": {
+  "spin_scale": 0.62,
+  "dynamic_loft_deg": 14.0,
+  "shot": {
+   "club_mph": 113,
+   "ball_mph": 162.4527607728035,
+   "smash": 1.4376350510867566,
+   "launch_deg": 10.993922065210253,
+   "launch_dir_deg": 0.0,
+   "backspin_rpm": 2640.3183947002744,
+   "sidespin_rpm": -0.0,
+   "apex_yd": 31.035338774036475,
+   "carry_yd": 259.54408080268496,
+   "total_yd": 286.3438225337112,
+   "lateral_carry_yd": 0.0,
+   "lateral_total_yd": 0.0,
+   "land_angle_deg": 38.44516965699125,
+   "hang_s": 6.480000000000499,
+   "label": "model-based (analytic ball model), not measured",
+   "spin_scale": 0.62
+  },
+  "checks": [
+   {
+    "metric": "ball_mph",
+    "model": 162.4527607728035,
+    "published": 167.0,
+    "error": -0.027228977408362356,
+    "error_kind": "% /100",
+    "tol": 0.03,
+    "passed": true
+   },
+   {
+    "metric": "smash",
+    "model": 1.4376350510867566,
+    "published": 1.48,
+    "error": -0.028624965481921207,
+    "error_kind": "% /100",
+    "tol": 0.03,
+    "passed": true
+   },
+   {
+    "metric": "launch_deg",
+    "model": 10.993922065210253,
+    "published": 10.9,
+    "error": 0.09392206521025237,
+    "error_kind": "abs",
+    "tol": 1.0,
+    "passed": true
+   },
+   {
+    "metric": "backspin_rpm",
+    "model": 2640.3183947002744,
+    "published": 2686.0,
+    "error": -0.01700729906914578,
+    "error_kind": "% /100",
+    "tol": 0.1,
+    "passed": true
+   },
+   {
+    "metric": "carry_yd",
+    "model": 259.54408080268496,
+    "published": 275.0,
+    "error": -0.05620334253569106,
+    "error_kind": "% /100",
+    "tol": 0.05,
+    "passed": false
+   },
+   {
+    "metric": "apex_yd",
+    "model": 31.035338774036475,
+    "published": 32.0,
+    "error": -0.03014566331136015,
+    "error_kind": "% /100",
+    "tol": 0.1,
+    "passed": true
+   }
+  ],
+  "note": "calibration R1 (data/references/impact_physics_calibration.json, medium confidence) fitted to ONE tour point; not independent validation"
+ },
+ "impact_model_spin_and_e_calibrated": {
+  "spin_scale": 0.62,
+  "e": 0.845,
+  "dynamic_loft_deg": 13.75,
+  "shot": {
+   "club_mph": 113,
+   "ball_mph": 163.96710189286713,
+   "smash": 1.4510362999368773,
+   "launch_deg": 10.819282901408945,
+   "launch_dir_deg": 0.0,
+   "backspin_rpm": 2598.1813111286865,
+   "sidespin_rpm": -0.0,
+   "apex_yd": 31.161632528785887,
+   "carry_yd": 262.469574191937,
+   "total_yd": 289.4719892349003,
+   "lateral_carry_yd": 0.0,
+   "lateral_total_yd": 0.0,
+   "land_angle_deg": 38.37631121113867,
+   "hang_s": 6.505000000000507,
+   "label": "model-based (analytic ball model), not measured",
+   "spin_scale": 0.62
+  },
+  "checks": [
+   {
+    "metric": "ball_mph",
+    "model": 163.96710189286713,
+    "published": 167.0,
+    "error": -0.018161066509777637,
+    "error_kind": "% /100",
+    "tol": 0.03,
+    "passed": true
+   },
+   {
+    "metric": "smash",
+    "model": 1.4510362999368773,
+    "published": 1.48,
+    "error": -0.01957006761021801,
+    "error_kind": "% /100",
+    "tol": 0.03,
+    "passed": true
+   },
+   {
+    "metric": "launch_deg",
+    "model": 10.819282901408945,
+    "published": 10.9,
+    "error": -0.08071709859105525,
+    "error_kind": "abs",
+    "tol": 1.0,
+    "passed": true
+   },
+   {
+    "metric": "backspin_rpm",
+    "model": 2598.1813111286865,
+    "published": 2686.0,
+    "error": -0.03269496979572357,
+    "error_kind": "% /100",
+    "tol": 0.1,
+    "passed": true
+   },
+   {
+    "metric": "carry_yd",
+    "model": 262.469574191937,
+    "published": 275.0,
+    "error": -0.04556518475659273,
+    "error_kind": "% /100",
+    "tol": 0.05,
+    "passed": true
+   },
+   {
+    "metric": "apex_yd",
+    "model": 31.161632528785887,
+    "published": 32.0,
+    "error": -0.02619898347544103,
+    "error_kind": "% /100",
+    "tol": 0.1,
+    "passed": true
+   }
+  ],
+  "note": "R1+R2 (medium confidence), tuned on this one tour row: not independent validation"
+ },
  "secondary_row_info_only": {
   "inputs": "115 mph club, 171 mph ball, 10.4 deg, 2545 rpm (secondary reports, unverified)",
   "shot": {
@@ -166,7 +327,8 @@
    "lateral_total_yd": 0.0,
    "land_angle_deg": 39.424664460852334,
    "hang_s": 6.7460000000005875,
-   "label": "model-based (analytic ball model), not measured"
+   "label": "model-based (analytic ball model), not measured",
+   "spin_scale": 1.0
   },
   "reported_carry_yd_secondary": 282
  },
@@ -175,5 +337,7 @@
   "plus1000rpm_carry_yd": -9.58011674673088
  },
  "all_flight_checks_passed": true,
+ "all_impact_calibrated_checks_passed": false,
+ "all_impact_spin_e_calibrated_checks_passed": true,
  "all_impact_checks_passed": false
 }

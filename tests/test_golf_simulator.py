@@ -41,3 +41,18 @@ def test_course_reproducible_and_penalty_hazard():
     c = C.example_course(); p = C.Profile("t", 250.0, 15.0, 8.0, 0.05, "x")
     assert C.simulate(c, p, 50, 7)["mean_score"] == C.simulate(c, p, 50, 7)["mean_score"]
     h = c[0]; assert C.lie_at(h, 100, 80, C.DEFAULTS) == "ob" and C.lie_at(h, h.yards, 0, C.DEFAULTS) == "green"
+
+
+def test_spin_scale_reduces_backspin_and_keeps_ball_speed():
+    from sim.golf_simulator import shot_from_club, SPIN_SCALE_TOUR_CAL
+    raw = shot_from_club(113, -1.3, 14.0); cal = shot_from_club(113, -1.3, 14.0, spin_scale=SPIN_SCALE_TOUR_CAL)
+    assert abs(cal.ball_mph - raw.ball_mph) < 1e-6 and raw.spin_scale == 1.0 and cal.spin_scale == SPIN_SCALE_TOUR_CAL
+    assert abs(cal.backspin_rpm / raw.backspin_rpm - SPIN_SCALE_TOUR_CAL) < 0.02
+    assert abs(cal.backspin_rpm - 2686) / 2686 < 0.10        # Data Agent R1: calibrated spin within the validation tolerance at the TrackMan row
+    assert abs(raw.backspin_rpm - 2686) / 2686 > 0.10        # raw model is the ~60% high one
+
+
+def test_course_gate_pooled_profile_labels_hypothetical():
+    from sim.course import profile_from_gates
+    p = profile_from_gates("ppo_v4power_s61")
+    assert p is not None and "hypothetical-strength" in p.note and p.driver_carry_yd > 250 and p.lateral_sd_yd > 10   # seed-9000 outlier inflates pooled lateral sd

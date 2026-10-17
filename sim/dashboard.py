@@ -23,6 +23,16 @@ def hypo_html():
     return "".join(rows)
 
 
+def side_by_side(lb):
+    out = []
+    for nm, why in (("imit9_w000_s51", "best lateral spread (script-free imitation of the scripted v3 swing; passes 3-seed gate; noise-fragile)"), ("imit3_w050_s51", "best under noise (50% learned / 50% scripted)")):
+        m = next((m for m in lb["models"] if nm in m["names"] and "modes" in m), None)
+        if not m: continue
+        d = m["modes"]["deterministic"]; nr = {k: v for k, v in (m.get("noise_robust") or {}).items() if v and "mean_carry" in v}
+        out.append(f"<b>{nm}</b>: {why}; det carry {d['mean_carry_yd']:.0f} yd, lateral std {d['lateral_std']:.2f} m; quick noise carry " + (", ".join(f"{v['mean_carry']/d['mean_carry']*100:.0f}% at sigma {k}" for k, v in sorted(nr.items())) or "n/a") + ".")
+    return " ".join(out)
+
+
 def build():
     lb, val, crs = J("results/leaderboard.json"), J("results/golf_simulator_validation.json"), J("results/course_estimates.json")
     rows = []
@@ -62,6 +72,7 @@ table{{border-collapse:collapse;width:100%;background:#fff;font-size:13px}} th,t
 <h1>Humanoid golf: evaluation dashboard</h1>
 <p>Generated {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} (America/New_York) from <code>results/leaderboard.json</code>, <code>results/golf_simulator_validation.json</code>, <code>results/course_estimates.json</code>. Regenerate: <code>python -m sim.dashboard</code>.</p>
 <div class="note"><b>Honest labels.</b> Every leaderboard row uses boosted actuators (force_scale &gt; 1) unless marked otherwise: <b>force_scale 2 (hypothetical-strength actuators)</b>, not a real robot. Rows tagged SCRIPTED are a hand-written swing, not learned. Leaderboard yards use the MuJoCo-physics ball (smash about 1.0, a known artifact). Launch-monitor and course numbers are <b>model-based</b> (analytic ball model / Monte Carlo), not measured.</div>
+<div class="note"><b>Two models shown side by side, neither promoted as &quot;learned from Mason&quot;.</b> {side_by_side(lb)} Both imitate the scripted swing and run force_scale 2 (hypothetical-strength actuators).</div>
 <h2>Leaderboard (ranked by true contact, then mean carry; star = best qualifying learned model)</h2>
 <table><tr><th>#</th><th>Model</th><th>Contact det / stoch</th><th>Carry yd (det)</th><th>Total yd (det)</th><th>Lateral std m</th><th>Launch deg</th><th>Peak club mph</th><th>Smash</th></tr>{''.join(tr)}</table>
 <p>Episodes per row: {lb['episodes']}, seed base {lb['seed_base']}. Total equals carry when the episode ends at first landing (no roll). Qualification: {e(json.dumps(lb['qualify_criterion']))}.</p>

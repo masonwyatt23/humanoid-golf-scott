@@ -10,6 +10,7 @@ Two entry points:
   shot_from_launch(ball_mph, launch_deg, backspin_rpm, ...)   flight model only (this is the part validated against TrackMan averages)
   shot_from_club(club_mph, attack_deg, dynamic_loft_deg, ...) impact model + flight. The simple impact model OVER-predicts backspin
                                                               (see results/golf_simulator_validation.md); treat its spin/apex as indicative.
+                                                              Pass spin_scale=SPIN_SCALE_TOUR_CAL (0.62, Data Agent calibration R1, medium confidence) to correct spin.
 """
 from __future__ import annotations
 import importlib.util, os
@@ -24,6 +25,10 @@ MPS_TO_MPH = 2.23694
 M_TO_YD = 1.09361
 TEE_HEIGHT_M = 0.04
 MODEL_LABEL = "model-based (analytic ball model), not measured"
+# Data Agent impact calibration (data/references/impact_physics_calibration.json, recommendation R1, confidence MEDIUM): in env/ball_flight_analytic.impact the friction
+# term never binds, so backspin = vt/(1.4 R) is ~60% too high at tour conditions; a spin_scale ~0.62 (K~5.6 vs 3.5) gives 2553 rpm vs 2545 tour at 115 mph. It is fitted to
+# ONE tour-average point (not re-fit to Mason, who has no launch-monitor data). Default stays 1.0 (raw model) so existing numbers do not silently change.
+SPIN_SCALE_TOUR_CAL = 0.62
 
 
 @dataclass
@@ -43,6 +48,7 @@ class Shot:
     land_angle_deg: float | None
     hang_s: float | None
     label: str = MODEL_LABEL
+    spin_scale: float = 1.0      # 1.0 = raw analytic impact spin (known ~60% high); SPIN_SCALE_TOUR_CAL = calibrated (one tour point, medium confidence)
 
     def as_dict(self): return asdict(self)
 
@@ -72,12 +78,13 @@ def shot_from_launch(ball_mph, launch_deg, backspin_rpm, launch_dir_deg=0.0, sid
 
 
 def shot_from_club(club_mph, attack_deg=-1.3, dynamic_loft_deg=13.0, path_deg=0.0, face_deg=0.0, e=0.83, m_club=0.20, mu=0.22,
-                   wind=(0, 0, 0), fairway=True) -> Shot:
+                   wind=(0, 0, 0), fairway=True, spin_scale=1.0) -> Shot:
     cs = club_mph / MPS_TO_MPH; a, p, l, f = (np.radians(x) for x in (attack_deg, path_deg, dynamic_loft_deg, face_deg))
     vc = cs * np.array([np.cos(a) * np.cos(p), np.cos(a) * np.sin(p), np.sin(a)])
     n = np.array([np.cos(l) * np.cos(f), np.cos(l) * np.sin(f), np.sin(l)])
     v0, w0 = bf.impact(vc, n, m_club=m_club, e=e, mu=mu)
-    return _flight(v0, w0, club_mph, wind, fairway)
+    sh = _flight(v0, np.asarray(w0) * spin_scale, club_mph, wind, fairway); sh.spin_scale = float(spin_scale)
+    return sh
 
 
 def monte_carlo(n=200, seed=0, **kw):

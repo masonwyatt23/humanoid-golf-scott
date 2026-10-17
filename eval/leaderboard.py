@@ -282,6 +282,17 @@ def main():
     boosted = [("/".join(c["names"][:1]), c["env_kwargs"]["force_scale"]) for c in qualifying if c.get("env_kwargs", {}).get("force_scale", 1.0) > 1.0]
     best_line += (" **HYPOTHETICAL-STRENGTH ACTUATORS: " + ", ".join(f"{n} (force_scale {fs:g}, hypothetical-strength actuators)" for n, fs in boosted) + " run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.**") if boosted else ""
     best_line += " Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary."
+    def _by(nm): return next((c for c in cur if nm in c["names"] and "modes" in c), None)
+    def _noise(c):
+        nr = {k: v for k, v in (c.get("noise_robust") or {}).items() if v and "mean_carry" in v}; cl = c["modes"]["deterministic"]["mean_carry"]
+        return ", ".join(f"sigma {k}: {v['mean_carry']:.0f} m ({v['mean_carry']/cl*100:.0f}%)" for k, v in sorted(nr.items())) or "noise not measured"
+    pair = []
+    for nm, why in (("imit9_w000_s51", "best lateral spread (script-free imitation of the scripted v3 swing; passes the 3-seed headline gate for s51/s52/s53) but NOISE-FRAGILE"),
+                    ("imit3_w050_s51", "best under observation/action noise (50% learned / 50% scripted blend)")):
+        c = _by(nm)
+        if c: d_ = c["modes"]["deterministic"]; pair.append(f"{nm}: {why}: det carry {d_['mean_carry']:.1f} m / lat std {d_['lateral_std']:.2f} m; quick noise {_noise(c)} (10 eps, vs clean {d_['mean_carry']:.0f} m)")
+    if pair:
+        best_line += " **Shown side by side, neither promoted as 'learned from Mason' (both imitate the scripted swing; force_scale 2 hypothetical-strength actuators): " + " | ".join(pair) + ".**"
     L = ["# Leaderboard", "", best_line, "", rank_txt, "", f"Full ranking (scripted baseline included): {rk}", "",
          "Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). "
          "Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).", "",
