@@ -1,0 +1,966 @@
+{
+ "schema_version": 1,
+ "name": "targets_130mph_350yd_and_loft",
+ "built_for": "Orchestrator request (for Mason); Trainer reward shaping",
+ "honesty": [
+  "PUBLIC sources only; no Instagram-derived or Mason-clip data; no video used.",
+  "Mason's 120+ mph is self-reported and unverified; nothing here measures him.",
+  "TrackMan optimizer chart ends at 120 mph; all 130 mph TrackMan-style points are extrapolations (see launch_targets_120_132_limits.json).",
+  "No published TrackMan-type PGA-average-style source exists for a 130 mph club speed with total distance; totals at 130 are Foresight windows (interpolated) or model.",
+  "Model rows = repo env/ball_flight_analytic.py (read-only), not a source. Its spin is physically unreliable below ~8 deg spin loft (backspin collapses to ~0/negative at SL<=6): ignore those rows."
+ ],
+ "target_130_mph": {
+  "trackman_style_point_AoA0": {
+   "ball_mph": 194.0,
+   "smash": 1.492,
+   "launch_deg": 8.0,
+   "spin_rpm": 2790,
+   "carry_yd": 326,
+   "total_yd": null,
+   "basis": "extrapolated (from data/references/launch_targets_120_132_limits.json: 105 & 120 mph TrackMan rows); upper bound"
+  },
+  "foresight_window_130": {
+   "ball_mph": 189,
+   "launch_deg": [
+    10,
+    14
+   ],
+   "spin_rpm": [
+    1600,
+    2650
+   ],
+   "carry_yd": [
+    337,
+    367
+   ],
+   "total_yd": [
+    373,
+    399
+   ],
+   "basis": "interpolated between published Foresight 124 and 131 mph rows; ball 190 at 131 mph is published (smash 1.45)"
+  },
+  "long_drive_evidence": {
+   "club_mph": 145,
+   "ball_mph": 214,
+   "smash": 1.48,
+   "launch_deg": 11.2,
+   "spin_rpm": 2789,
+   "carry_yd": 352,
+   "basis": "published but unverified (search snippet, R&A WLD TrackMan report); different club speed"
+  },
+  "requirement_for_350_total": "Model K=5.6/e=0.845: 345 at AoA 0 (SL 10), 352-356 at AoA +4 (SL 8-10); K=4.0: 340-349. Needs Foresight-window-like delivery (ball ~190+, launch 10-14, spin <= ~2600, spin loft ~8-10 with AoA >= +3) OR ~134+ mph club speed at AoA 0 in the model. At AoA 0 and 130 mph the model and the extrapolated TrackMan row give ~336-340 total, i.e. 350 total is ~3% beyond AoA-0 optimum.",
+  "requirement_for_350_carry": "Not reached at 130 mph by the model (max carry ~324) or by the extrapolated TrackMan row (326); inside the Foresight window upper half (342-372, unverified as achievable for a real player). Published real evidence of 350+ carry is at 145 mph (WLD). Treat 350 carry at 130 mph as a stretch with all of: smash >=1.49, AoA >= +4, spin loft <= 8-9, spin ~2000-2400."
+ },
+ "model_grid_130mph_K4_e0845": [
+  {
+   "club_mph": 130,
+   "aoa_deg": -2,
+   "dynamic_loft_deg": 6,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 4.7,
+   "spin_rpm": 2261,
+   "carry_yd": 301.3,
+   "total_yd": 331.5,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": -2,
+   "dynamic_loft_deg": 8,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 6.3,
+   "spin_rpm": 2821,
+   "carry_yd": 304.5,
+   "total_yd": 331.7,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": -2,
+   "dynamic_loft_deg": 10,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 8.0,
+   "spin_rpm": 3378,
+   "carry_yd": 300.4,
+   "total_yd": 325.6,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": -2,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 9.6,
+   "spin_rpm": 3930,
+   "carry_yd": 291.6,
+   "total_yd": 314.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 8,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 6.7,
+   "spin_rpm": 2261,
+   "carry_yd": 310.5,
+   "total_yd": 339.7,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 10,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 8.3,
+   "spin_rpm": 2821,
+   "carry_yd": 309.5,
+   "total_yd": 336.2,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 10.0,
+   "spin_rpm": 3378,
+   "carry_yd": 302.9,
+   "total_yd": 327.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 14,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 11.6,
+   "spin_rpm": 3930,
+   "carry_yd": 292.4,
+   "total_yd": 315.6,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 2,
+   "dynamic_loft_deg": 10,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 8.7,
+   "spin_rpm": 2261,
+   "carry_yd": 316.8,
+   "total_yd": 345.2,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 2,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 10.3,
+   "spin_rpm": 2821,
+   "carry_yd": 312.6,
+   "total_yd": 338.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 2,
+   "dynamic_loft_deg": 14,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 12.0,
+   "spin_rpm": 3378,
+   "carry_yd": 304.0,
+   "total_yd": 328.8,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 2,
+   "dynamic_loft_deg": 16,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 13.6,
+   "spin_rpm": 3930,
+   "carry_yd": 292.0,
+   "total_yd": 315.3,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 10.7,
+   "spin_rpm": 2261,
+   "carry_yd": 320.8,
+   "total_yd": 348.7,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 14,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 12.3,
+   "spin_rpm": 2821,
+   "carry_yd": 314.1,
+   "total_yd": 340.2,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 16,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 14.0,
+   "spin_rpm": 3378,
+   "carry_yd": 303.9,
+   "total_yd": 328.6,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 18,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 15.6,
+   "spin_rpm": 3930,
+   "carry_yd": 290.7,
+   "total_yd": 314.0,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 6,
+   "dynamic_loft_deg": 14,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 12.7,
+   "spin_rpm": 2261,
+   "carry_yd": 323.0,
+   "total_yd": 350.4,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 6,
+   "dynamic_loft_deg": 16,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 14.3,
+   "spin_rpm": 2821,
+   "carry_yd": 314.2,
+   "total_yd": 340.1,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 6,
+   "dynamic_loft_deg": 18,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 16.0,
+   "spin_rpm": 3378,
+   "carry_yd": 302.7,
+   "total_yd": 327.4,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 6,
+   "dynamic_loft_deg": 20,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 17.6,
+   "spin_rpm": 3930,
+   "carry_yd": 288.5,
+   "total_yd": 311.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 8,
+   "dynamic_loft_deg": 16,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 14.7,
+   "spin_rpm": 2261,
+   "carry_yd": 323.7,
+   "total_yd": 350.8,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 8,
+   "dynamic_loft_deg": 18,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 16.3,
+   "spin_rpm": 2821,
+   "carry_yd": 313.2,
+   "total_yd": 339.0,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 8,
+   "dynamic_loft_deg": 20,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 18.0,
+   "spin_rpm": 3378,
+   "carry_yd": 300.6,
+   "total_yd": 325.3,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 8,
+   "dynamic_loft_deg": 22,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 19.6,
+   "spin_rpm": 3930,
+   "carry_yd": 285.4,
+   "total_yd": 308.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 10,
+   "dynamic_loft_deg": 18,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 16.7,
+   "spin_rpm": 2261,
+   "carry_yd": 323.0,
+   "total_yd": 349.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 10,
+   "dynamic_loft_deg": 20,
+   "spin_loft_deg": 10,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 18.3,
+   "spin_rpm": 2821,
+   "carry_yd": 311.1,
+   "total_yd": 336.9,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 10,
+   "dynamic_loft_deg": 22,
+   "spin_loft_deg": 12,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.469,
+   "launch_deg": 20.0,
+   "spin_rpm": 3378,
+   "carry_yd": 297.5,
+   "total_yd": 322.4,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 10,
+   "dynamic_loft_deg": 24,
+   "spin_loft_deg": 14,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 21.6,
+   "spin_rpm": 3930,
+   "carry_yd": 281.6,
+   "total_yd": 305.2,
+   "basis": "model (NOT a source)"
+  }
+ ],
+ "model_grid_130mph_K5p6_e0845": [
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 8,
+   "spin_loft_deg": 8,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 7.0,
+   "spin_rpm": 1615,
+   "carry_yd": 310.3,
+   "total_yd": 342.8,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 10,
+   "spin_loft_deg": 10,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 8.8,
+   "spin_rpm": 2015,
+   "carry_yd": 316.2,
+   "total_yd": 345.6,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 12,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.468,
+   "launch_deg": 10.6,
+   "spin_rpm": 2413,
+   "carry_yd": 315.0,
+   "total_yd": 342.5,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 14,
+   "spin_loft_deg": 14,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 12.3,
+   "spin_rpm": 2807,
+   "carry_yd": 309.7,
+   "total_yd": 335.7,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 8,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 193.2,
+   "smash": 1.486,
+   "launch_deg": 11.0,
+   "spin_rpm": 1615,
+   "carry_yd": 325.3,
+   "total_yd": 355.6,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 14,
+   "spin_loft_deg": 10,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 192.2,
+   "smash": 1.478,
+   "launch_deg": 12.8,
+   "spin_rpm": 2015,
+   "carry_yd": 323.8,
+   "total_yd": 352.0,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 16,
+   "spin_loft_deg": 12,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 190.9,
+   "smash": 1.468,
+   "launch_deg": 14.6,
+   "spin_rpm": 2413,
+   "carry_yd": 317.9,
+   "total_yd": 344.6,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 18,
+   "spin_loft_deg": 14,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 189.4,
+   "smash": 1.457,
+   "launch_deg": 16.3,
+   "spin_rpm": 2807,
+   "carry_yd": 309.2,
+   "total_yd": 335.0,
+   "basis": "model (NOT a source)"
+  }
+ ],
+ "model_club_speed_scan": [
+  {
+   "club_mph": 134,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 8,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 199.2,
+   "smash": 1.486,
+   "launch_deg": 6.7,
+   "spin_rpm": 2331,
+   "carry_yd": 321.8,
+   "total_yd": 350.5,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 136,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 8,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 202.2,
+   "smash": 1.486,
+   "launch_deg": 6.7,
+   "spin_rpm": 2365,
+   "carry_yd": 327.2,
+   "total_yd": 355.7,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 138,
+   "aoa_deg": 0,
+   "dynamic_loft_deg": 8,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 205.1,
+   "smash": 1.486,
+   "launch_deg": 6.7,
+   "spin_rpm": 2400,
+   "carry_yd": 332.4,
+   "total_yd": 360.7,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 134,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 199.2,
+   "smash": 1.486,
+   "launch_deg": 10.7,
+   "spin_rpm": 2331,
+   "carry_yd": 330.4,
+   "total_yd": 358.0,
+   "basis": "model (NOT a source)"
+  },
+  {
+   "club_mph": 136,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 12,
+   "spin_loft_deg": 8,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 202.2,
+   "smash": 1.486,
+   "launch_deg": 10.7,
+   "spin_rpm": 2365,
+   "carry_yd": 335.0,
+   "total_yd": 362.5,
+   "basis": "model (NOT a source)"
+  }
+ ],
+ "launch_from_aoa_and_spin_loft": [
+  {
+   "target_launch_deg": 8,
+   "aoa_deg": 0,
+   "spin_loft_deg": 8.9,
+   "dynamic_loft_deg": 8.9,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 8,
+   "aoa_deg": 2,
+   "spin_loft_deg": 6.6,
+   "dynamic_loft_deg": 8.6,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 8,
+   "aoa_deg": 4,
+   "spin_loft_deg": 4.3,
+   "dynamic_loft_deg": 8.3,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 8,
+   "aoa_deg": 6,
+   "spin_loft_deg": 2.1,
+   "dynamic_loft_deg": 8.1,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 9,
+   "aoa_deg": 0,
+   "spin_loft_deg": 10.1,
+   "dynamic_loft_deg": 10.1,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 9,
+   "aoa_deg": 2,
+   "spin_loft_deg": 7.7,
+   "dynamic_loft_deg": 9.7,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 9,
+   "aoa_deg": 4,
+   "spin_loft_deg": 5.4,
+   "dynamic_loft_deg": 9.4,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 9,
+   "aoa_deg": 6,
+   "spin_loft_deg": 3.2,
+   "dynamic_loft_deg": 9.2,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 10,
+   "aoa_deg": 0,
+   "spin_loft_deg": 11.4,
+   "dynamic_loft_deg": 11.4,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 10,
+   "aoa_deg": 2,
+   "spin_loft_deg": 8.9,
+   "dynamic_loft_deg": 10.9,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 10,
+   "aoa_deg": 4,
+   "spin_loft_deg": 6.6,
+   "dynamic_loft_deg": 10.6,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  },
+  {
+   "target_launch_deg": 10,
+   "aoa_deg": 6,
+   "spin_loft_deg": 4.3,
+   "dynamic_loft_deg": 10.3,
+   "basis": "derived (Tutelman launch=AoA+SL*(0.96-0.0071*SL), source fetched; solved here)"
+  }
+ ],
+ "loft_relations": {
+  "published": [
+   "spin loft ~= dynamic loft - AoA (TrackMan; 3-D angle, path/face-angle terms small)",
+   "launch ~= AoA + f*spin_loft, f = 0.96-0.0071*SL (Tutelman 3-D launch page, fetched) i.e. dynamic loft sets launch more than AoA (TrackMan 10 Fundamentals)",
+   "spin set mainly by spin loft and club speed (TrackMan); smash falls with spin loft: model/Tutelman ~ (1+e)/(1+m/M)*cos(SL)",
+   "tour driver: dyn loft 12.8, AoA -0.9, spin 2545-2686, launch 10.4-10.9, smash 1.48-1.49 (TrackMan/Pebble snippet)",
+   "driver strike location: 10 mm low = ~2 deg less dynamic loft (face roll)",
+   "shaft bend adds loft: ~2 deg stiff to ~5 deg flexible (Tutelman, unverified snippet)"
+  ],
+  "derived_here": [
+   "Per 1 deg AoA at fixed dynamic loft: launch +1 deg, spin loft -1 deg (spin -~280 rpm in the model at 130 mph).",
+   "Model slope: backspin ~280 rpm per deg spin loft at 130 mph (K=4.0); repo impact doc said ~316 at K=3.5.",
+   "Launch 8-10 deg at AoA 0 needs spin loft ~9-11 (Tutelman relation; see launch_from_aoa_and_spin_loft); with K=4.0 that gives spin 2400-3000 and total ~330-338 (model); with the repo-recommended K=5.6 it gives spin ~1800-2200, carry ~316, total ~345 (model).",
+   "To reach 350 total at 130 mph the model needs spin loft ~8-10 AND AoA ~+4 (K=5.6: total 352-356, launch 11-12.8, spin 1600-2000, carry 324-325; K=4.0: 340-349). So launch ends up ~11-13 deg, NOT 8-10: low launch (8-10) with AoA>=+4 means spin loft 4-7 where the model spin is unphysical (<=~1100 rpm; real balls rarely below ~1500) -- unverified region."
+  ],
+  "env_wrist_implications": [
+   "Env wrist: w=0 is a 90 deg L (club along -z, forearm +x), w>0 more cocked. Contact target w ~ 0.173 - 0.564*elbow_rad (+-0.1) is from the repo's earlier analysis (not re-derived here).",
+   "Less cocked / more released wrist at contact -> shaft closer to vertical in the swing plane -> LESS hand-ahead lean; more cocked = more forward shaft lean (hands ahead) = less dynamic loft. For a driver the target is NOT large forward lean: published coaching sources say neutral/slightly behind (unverified snippets) because AoA must be positive.",
+   "Env loft is set by loft_deg (head box rotation about y, env/humanoid_golf_env.py line ~120): static head loft; dynamic loft in the env = static loft +/- shaft-angle effects, NOT verified here. To log dynamic loft/spin loft per shot the env needs club-face normal and club velocity at contact (not exposed to me).",
+   "Practical knob order: (1) choose static loft_deg ~ 8-9 (published driver range 8-12), (2) get AoA +2..+5 from sequencing/ball position (hand path), (3) keep wrist near the w_contact band, (4) verify measured launch/spin vs table before touching rewards.",
+   "Wrist dynamic lag (0.06 s command lead) shifts effective w at impact by tens of degrees: lag, not sign error (earlier repo finding) -- re-check dynamic loft after the lead fix."
+  ],
+  "reward_suggestions": [
+   "Penalise spin_loft outside 7-11 deg and launch outside 8-14 deg (derived, gate-style), not dynamic loft alone.",
+   "Reward AoA in [+2,+6] for driver only; hard-fail smash>1.50 (existing gate).",
+   "Do not use 160*V*sin(SL) spin rule."
+  ]
+ },
+ "bc_prior_options": [
+  {
+   "id": "cmu_subject64",
+   "in_repo": true,
+   "files": "data/references/cmu_64_01..10.npz (+cmu_conversion_report.json, data/convert_cmu_mocap.py, env/style_prior.py)",
+   "license_flag": "counsel_required (project rule; CMU page text is permissive: 'free for all uses', commercial products OK, 'may not resell this data directly, even in converted form', ack required; home page vs FAQ wording differ). NOTE repo state: data/provenance.py tags cmu_mocap commercial_ok=True and the converted npz are tracked in the PUBLIC repo -- inconsistent with 'keep CMU counsel_required' and with the no-resale-of-converted-data reading; not changed here, flagged.",
+   "content": "10 trials (64_01-64_10), one unnamed subject, right-handed, no ball, no club-head, 120 Hz -> dt 0.01, 11 joint columns (deg). Downswing 0.43-0.60 s (tour ~0.25), peak hand speed 3.5-4.6 m/s, 3 trials flagged low_hand_speed.",
+   "use": "Sequencing/shape prior only (already done in env/style_prior.py: thorax-yaw and wrist-hinge curve shapes, time-normalised). Not a speed or impact target.",
+   "feasibility": "Retarget to the env's 11-column arm/torso model is DONE (kinematic, 3-D FK-derived). 10 demos is too few for a BC policy that generalises; usable as (a) DeepMimic-style tracking reference + RSI, (b) a residual-policy base clip (env/residual_golf_env.py), (c) pre-train/regularise sequencing only. Playing it at 130 mph needs ~2x time compression of the downswing: check torque/velocity limits first (docs/research_humanoid_actuators.md). Mirror for a left-hander (docs/HANDEDNESS.md; CMU is right-handed)."
+  },
+  {
+   "id": "multisensegolf",
+   "in_repo": true,
+   "license_flag": "counsel_required (CC0 label vs identifiable participants/consent)",
+   "content": "1,557 swings/24 participants available; 28 swings (P19/P20/P22) converted; IMU kinematics, no wrist data.",
+   "use": "Second real-human prior, weight 0.2 in unified refset.",
+   "feasibility": "Already converted; amateurs, not 130 mph."
+  },
+  {
+   "id": "bones_seed",
+   "in_repo": false,
+   "license_flag": "counsel_required (startup <$1M revenue clause, attribution, change-of-control termination, no public mirrors -- never commit to GitHub)",
+   "content": "142k motions, SOMA + Unitree G1 CSV; not golf-specific.",
+   "use": "General humanoid motion prior / balance, not golf.",
+   "feasibility": "Gated download needed; not fetched here."
+  },
+  {
+   "id": "100style",
+   "in_repo": false,
+   "license_flag": "cc_by (commercial OK with attribution; locomotion only)",
+   "content": "100 locomotion styles, BVH.",
+   "use": "Gait/balance prior only; no golf.",
+   "feasibility": "Not useful for a golf swing."
+  },
+  {
+   "id": "amass_golfdb_humanml",
+   "in_repo": false,
+   "license_flag": "EXCLUDED from commercial (AMASS/SMPL family forbids commercial training; GolfDB noncommercial; HumanML3D/Motion-X derive from AMASS)",
+   "content": "n/a",
+   "use": "Research-only comparison at most; never in commercial data.",
+   "feasibility": "Do not use."
+  },
+  {
+   "id": "lafan1_unitree_retarget",
+   "in_repo": false,
+   "license_flag": "noncommercial (LAFAN1 CC BY-NC-ND; BSD on the repo code does not relax data)",
+   "content": "Locomotion/dance retargets, no golf.",
+   "use": "None.",
+   "feasibility": "Do not use commercially."
+  },
+  {
+   "id": "scripted_plus_residual_not_bc",
+   "in_repo": true,
+   "license_flag": "none (own code)",
+   "content": "env/residual_golf_env.py: scripted swing + PD residual policy, tempo action.",
+   "use": "Non-script alternative path: reference tracking (DeepMimic/BeyondMimic style, docs/research_imitation_rl_methods.md R01-R07) with Mason-derived or physics-optimised references instead of BC from 10 slow demos.",
+   "feasibility": "Already implemented; recommended over pure BC."
+  }
+ ],
+ "sources": [
+  {
+   "id": "tm_optimizer_2010",
+   "url": "https://wishongolf.com/wp-content/uploads/2012/07/TrackMan-Driver-Optimization_2010.pdf",
+   "verification": "fetched",
+   "unverified": false,
+   "note": "TrackMan optimizer rows to 120 mph (see launch_targets_120_132_limits.json). 120 mph AoA 0: ball 178, 9.3 deg, 2890 rpm, carry 296, total 340."
+  },
+  {
+   "id": "foresight_ref_tables",
+   "url": "https://help.foresightsports.com/hc/en-us/articles/47208228295187-Ball-Launch-Data-Performance-Reference-Tables",
+   "verification": "fetched",
+   "unverified": false,
+   "note": "Optimized driver windows: 131 mph club: ball 190, launch 10-14, spin 2600-1600, carry 342-372, total 378-401 (vendor window, not a point; ball 190 = smash 1.45)."
+  },
+  {
+   "id": "randa_wld_trackman",
+   "url": "https://assets.randa.org/c42c7bf4-dca7-00ea-4f2e-373223f80f76/550ab9f6-5dd3-45b0-b58c-7563d4256c04/R07%20-%20Analysis%20of%20Trackman%20data%20gathered%20at%20World%20Long%20Drive.pdf",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "WLD men avg 145 mph club, 214 ball, smash 1.48, launch 11.2, spin 2789, carry 352 yd (first published carry >=350 evidence; at 145 not 130 mph)."
+  },
+  {
+   "id": "golfcom_burke",
+   "url": "https://golf.com/instruction/driving/long-drive-champ-golfer-trackman-numbers/",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "Single practice shot 141.3 mph, AoA ~+8, spin 1850, 409 yd total. Existence proof only."
+  },
+  {
+   "id": "tutelman_3dlaunch",
+   "url": "https://tutelman.com/golf/ballflight/3dlaunch.php",
+   "verification": "fetched",
+   "unverified": false,
+   "note": "Launch = AoA + SL*(0.96-0.0071*SL); ball speed = Vc*(1+e)/(1+m/M)*cos(SL); his 'dynamic loft' there = spin loft; spin 160*Vc*sin(SL) is a 2007 rule that over-predicts for modern balls (repo impact doc: do not use). He compared against TrackMan live in 2011, 'very consistent'."
+  },
+  {
+   "id": "tm_attack_angle",
+   "url": "https://www.trackman.com/blog/attack-angle",
+   "verification": "fetched",
+   "unverified": false,
+   "note": "AoA: PGA Tour driver -0.9, LPGA +2.8, male amateurs scratch -0.9/5 HCP -1.1/10 HCP -1.2; 'hitting up on the ball (positive AoA) is a must' for max driver distance; standard TrackMan assumption AoA 0 for driver."
+  },
+  {
+   "id": "tm_spin_loft",
+   "url": "https://www.trackman.com/blog/spin-loft",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "Spin loft = 3-D angle between club-head motion (AoA, path) and face orientation (dynamic loft, face angle) ~= dynamic loft - AoA; spin rate primarily from spin loft and club speed; optimizer driver 94 mph AoA 0 -> spin loft 15."
+  },
+  {
+   "id": "tm_dynamic_loft",
+   "url": "https://www.trackman.com/blog/dynamic-loft",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "Dynamic loft affected by AoA, shaft bend, release, face-to-path, impact location (high-face hit = more dynamic loft); optimizer driver 94 mph / AoA 0 -> dyn loft 15.6; 'dynamic loft has a greater impact than AoA on launch angle' (TrackMan 10 Fundamentals)."
+  },
+  {
+   "id": "tm_club_data_defs",
+   "url": "https://www.trackman.com/blog/club-data-definitions",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "10 mm low strike on a driver = ~2 deg less dynamic loft at impact location (face roll); for driver spin loft 10-15 the AoA becomes 4-6 deg steeper at ball separation than at first touch."
+  },
+  {
+   "id": "pebble_shaft_lean",
+   "url": "https://useswingiq.com/learn/shaft-lean-at-impact/",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "PGA Tour TrackMan dynamic loft driver 12.8 deg (LPGA 15.5); no published tour shaft-lean average; lead-wrist flexion at contact ~20 deg with driver in 12 female pros (Zhang et al., Qualisys 250 Hz); shaft lean as read from a video is camera dependent."
+  },
+  {
+   "id": "tutelman_swing_physics4",
+   "url": "https://www.tutelman.com/golf/swing/golfSwingPhysics4.php",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "Shaft bends forward/toe-down at impact: flexible shaft adds up to ~5 deg of loft, stiff ~2 deg."
+  },
+  {
+   "id": "mackenzie_2011",
+   "url": "http://www.sashomackenzie.com/publications/MacKenzie%202011%20How%20does%20shaft%20flexibility%20affect%20the%20delivery%20of%20the%20clubhead%20to%20the%20ball.pdf",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "Simulation: dynamic loft changes up to 0.65 deg with shaft stiffness at ~101 mph (4.82 vs 5.47 deg)."
+  },
+  {
+   "id": "mackenzie_2015",
+   "url": "http://www.sashomackenzie.com/publications/MacKenzie%202015%20Golfer%20Specific%20Responses%20to%20Shaft%20Stiffness%20-%20Author%20version.pdf",
+   "verification": "search_snippet",
+   "unverified": true,
+   "note": "Delivered loft change with shaft flex is predicted by butt-ahead-of-ball (ButtX) and grip twist about the shaft axis (r=.867 for grip twist), i.e. hands/forward lean alone do not set loft."
+  },
+  {
+   "id": "tutelman_launch_optimize",
+   "url": "https://www.tutelman.com/golf/ballflight/launchOptimize.php",
+   "verification": "fetched (earlier doc)",
+   "unverified": false,
+   "note": "Carry-optimal launch vs ball speed at AoA 0: 175 mph -> 8.5 deg, 190 mph -> 7 deg; dynamic loft includes shaft bend, face roll, cupped/bowed lead wrist."
+  },
+  {
+   "id": "trackman_pga_tour_pdf",
+   "url": "https://support.trackmangolf.com/hc/en-us/article_attachments/7349802113051/PGA_Tour_average.pdf",
+   "verification": "fetched",
+   "unverified": false,
+   "note": "PGA Tour driver 113 mph/167/1.48/10.9/2686 rpm/275 yd carry."
+  }
+ ],
+ "unverified_items": [
+  "All 130/132 mph TrackMan-style values (extrapolated).",
+  "Total distance at 130 mph as a point (none published).",
+  "Foresight 130 mph window values are interpolated and vendor-theoretical.",
+  "WLD 145 mph averages and Burke shot (search snippets).",
+  "Per-degree shaft-lean-to-dynamic-loft conversion (none published for driver).",
+  "Shaft-bend loft 2-5 deg and TrackMan pages quoted via search snippets.",
+  "Model spin below spin loft ~8 deg (unphysical); model carry runs ~5% below the extrapolated TrackMan row.",
+  "w_contact formula (earlier repo analysis).",
+  "Mason's 120+ mph club speed."
+ ]
+}
