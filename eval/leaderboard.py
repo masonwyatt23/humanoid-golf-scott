@@ -64,6 +64,7 @@ def discover():
 
 
 # results/TRAINING_NOTES.md CORRECTION: eval.eval_gate rebuilt these from train_residual-style args and dropped the v3 address/script settings -> rows are INVALID (superseded by imit2/imit3, which store env_kwargs_full)
+NOISE_PASS_CARRY_FRAC = 0.80   # noise PASS (QUICK) = contact stays 100% AND mean carry >= 80% of the clean full-N deterministic mean carry, at that sigma (N=NOISE_EPS det episodes)
 NOISE_SIGMAS, NOISE_EPS = (0.005, 0.01), 10   # QUICK noise-robustness columns (small N, labelled)
 INVALID_CONFIG = {"imit_w075_s51", "imit_w075_s52", "imit_w075_s53"}
 SCRIPTED_V3 = "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]"
@@ -95,6 +96,21 @@ def config_for(names):
             k = KNOWN_CONFIGS[n]
             return k["steps"], k["env"], k["source"]
     return None, None, "UNKNOWN"
+
+
+def track_score_run(name, kw, episodes, seed):
+    """Mean final info['track_score'] (trainer definition) over `episodes` deterministic episodes; plus mean per-signal parts."""
+    import numpy as np
+    from stable_baselines3 import PPO
+    from eval.env_factory import make_env
+    env = make_env(kw); model = PPO.load(str(ROOT / "models" / name), device="cpu"); vals, parts = [], {}
+    for ep in range(episodes):
+        obs, _ = env.reset(seed=seed + ep); done = False; info = {}; last = None
+        while not done:
+            obs, _, te, tr, info = env.step(model.predict(obs, deterministic=True)[0]); done = te or tr
+            if "track_score" in info: last = (info["track_score"], info.get("track_parts", {}))
+        if last: vals.append(last[0]); [parts.setdefault(k, []).append(v) for k, v in last[1].items()]
+    return {"defined": bool(vals), "mean": float(np.mean(vals)) if vals else None, "min": float(np.min(vals)) if vals else None, "parts": {k: float(np.mean(v)) for k, v in parts.items()}, "episodes": episodes, "n_with_score": len(vals)}
 
 
 def load(p, default):
@@ -188,6 +204,19 @@ def main():
                 nr[str(sg)] = {k: dn[k] for k in ("contact_rate", "mean_carry", "lateral_std", "launch_elev_mean_deg") if k in dn}; nr[str(sg)]["episodes"] = NOISE_EPS
             except Exception as e:
                 nr[str(sg)] = {"error": f"{type(e).__name__}: {e}"}
+        (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
+    # per-run track_score: the TRAINER's definition, env.ResidualGolfEnv._track_score: mean over tracked signals (shoulder pitch, chest yaw, wrist hinge) of exp(-mean((time-normalised swing shape - Mason/unified-refset reference shape)^2)/0.15); info["track_score"].
+    # It is DEFINED only when the run's env had track_set + track_weight>0 (imit* runs: unified_v1, weight 2); for other runs it is undefined (n/a), not 0. Reward-only quantity; evaluated here with the run's own track config, det policy, N=NOISE_EPS, seeds a.seed+.
+    for c in cur:
+        if c.get("scripted") or "track_score" in c and not a.force: continue
+        jj = RES / f"{c['names'][0]}.json"
+        ek = json.loads(jj.read_text()).get("env_kwargs_full") if jj.exists() else None
+        if not ek or not ek.get("track_set") or not (ek.get("track_weight") or 0) > 0:
+            c["track_score"] = {"defined": False}; continue
+        try:
+            c["track_score"] = track_score_run(c["names"][0], dict(c["env_kwargs"], track_set=ek["track_set"], track_weight=float(ek["track_weight"])), NOISE_EPS, a.seed)
+        except Exception as e:
+            c["track_score"] = {"defined": False, "error": f"{type(e).__name__}: {e}"}
         (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []
@@ -370,14 +399,21 @@ def main():
             D.append(f"| {'/'.join(c['names'])} | {m} | {v2m(v)} |")
     (RES / "dispersion_ladder_scripted.md").write_text("\n".join(D) + "\n")
     (RES / "dispersion_ladder_scripted.json").write_text(json.dumps([{k: c[k] for k in ("names", "steps", "config_source", "env_kwargs", "modes")} for c in det_rows], indent=1))
-    L += ["", f"## Noise robustness (QUICK GATE: {NOISE_EPS} deterministic episodes, seeds {a.seed}+, small N so noisy; screened models only)", "",
-          "Gaussian noise of the given sigma is added to EVERY observation and EVERY action (action clipped to [-1,1]). 'clean' columns are the full-N deterministic numbers above. Provisional: not used for ranking or qualification.", "",
-          "| model | kind | clean carry m / lat std | sigma 0.005: contact, carry m, lat std | sigma 0.01: contact, carry m, lat std |", "|---|---|---|---|---|"]
+    L += ["", f"## Noise robustness + track_score (QUICK GATE: {NOISE_EPS} deterministic episodes, seeds {a.seed}+, small N so noisy; screened models only)", "",
+          f"Gaussian noise of the given sigma is added to EVERY observation and EVERY action (action clipped to [-1,1]). **Noise PASS (QUICK) = contact stays 100% AND mean carry >= {NOISE_PASS_CARRY_FRAC*100:.0f}% of the clean full-N deterministic mean carry at that sigma** (threshold is my choice, not the trainer's; lateral spread is shown but not part of the pass). Provisional: not used for ranking or qualification.",
+          "track_score = trainer definition (`ResidualGolfEnv._track_score`: mean over shoulder-pitch / chest-yaw / wrist-hinge of exp(-MSE(time-normalised swing shape vs unified-refset reference shape)/0.15), 1 = identical shape); **defined only for runs trained with track_set + track_weight>0 (imit* runs); n/a for every other row (undefined, not zero)**. The trainer logs it in `info` but had not reported it per run; here: run's own track config, deterministic, N=%d." % NOISE_EPS, "",
+          "| model | kind | clean carry m / lat std | sigma 0.005: contact, carry m (% of clean), lat std | noise pass 0.005 | sigma 0.01: contact, carry m (% of clean), lat std | noise pass 0.01 | track_score (mean / min) |", "|---|---|---|---|---|---|---|---|"]
     for c in cur:
-        nr = c.get("noise_robust")
-        if not nr: continue
-        d0 = c["modes"]["deterministic"]; f = lambda v: "-" if not v or "error" in v else f"{v['contact_rate']*100:.0f}%, {v['mean_carry']:.1f}, {v['lateral_std']:.2f}"
-        L.append(f"| {'/'.join(c['names'][:1])} | {'SCRIPTED (not learned)' if c.get('scripted') else learned_note(c)[:60]} | {d0['mean_carry']:.1f} / {d0['lateral_std']:.2f} | {f(nr.get('0.005'))} | {f(nr.get('0.01'))} |")
+        nr = c.get("noise_robust"); ts = c.get("track_score")
+        if not nr and not (ts and ts.get("defined")): continue
+        d0 = c["modes"]["deterministic"]; cl = d0["mean_carry"]
+        def f(v):
+            if not v or "error" in v: return "-", "-"
+            ok = v["contact_rate"] >= 1.0 and v["mean_carry"] >= NOISE_PASS_CARRY_FRAC * cl
+            return f"{v['contact_rate']*100:.0f}%, {v['mean_carry']:.1f} ({v['mean_carry']/cl*100:.0f}%), {v['lateral_std']:.2f}", ("PASS" if ok else "FAIL")
+        (f5, p5), (f10, p10) = f((nr or {}).get("0.005")), f((nr or {}).get("0.01"))
+        tstr = f"{ts['mean']:.3f} / {ts['min']:.3f}" if ts and ts.get("defined") else "n/a (undefined: no track config)"
+        L.append(f"| {'/'.join(c['names'][:1])} | {'SCRIPTED (not learned)' if c.get('scripted') else learned_note(c)[:60]} | {cl:.1f} / {d0['lateral_std']:.2f} | {f5} | {p5} | {f10} | {p10} | {tstr} |")
     (RES / "leaderboard.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
     from eval.compare_styles import from_leaderboard
     from_leaderboard()

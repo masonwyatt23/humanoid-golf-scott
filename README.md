@@ -57,6 +57,8 @@ python -m eval.render_showcase --compare
 pytest tests
 ```
 
+The leaderboard also has a "Noise robustness + track_score" table (quick gate, 10 deterministic episodes). "Noise PASS" means contact stays 100% and mean carry is at least 80% of the clean deterministic carry with Gaussian noise (sigma 0.005 or 0.01) added to every observation and action. It is provisional and not used for ranking. `track_score` is the training loop's swing-shape match to the reference (1 = identical) and is n/a for runs trained without a track config.
+
 ## Licensing & data provenance
 
 - **GolfDB:** videos and annotations are research / non-commercial only. Not used in any recorded training run (`docs/GOLFDB_PLAN.md` is a plan). Do not use GolfDB-derived data commercially.

@@ -2789,6 +2789,82 @@
      "mean_distance": 127.76722719472691
     }
    }
+  },
+  {
+   "md5": "89250341cf631278ffa292a3085803da",
+   "names": [
+    "imit4_w000_s52"
+   ],
+   "steps": 10000,
+   "order": 1792218408.5200405,
+   "env_fingerprint": "30178ef58c6a",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 116.4626133433978
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 100.97247869676909
+    }
+   }
+  },
+  {
+   "md5": "5e83e89fcfa18a56767b25fa920da6c3",
+   "names": [
+    "imit4_w000_s51"
+   ],
+   "steps": 10000,
+   "order": 1792218425.7080405,
+   "env_fingerprint": "30178ef58c6a",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 121.42060229238835
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 107.42924325609174
+    }
+   }
+  },
+  {
+   "md5": "c6a3dd341a78ce62ccba1385c7f35493",
+   "names": [
+    "imit5_w000_s52"
+   ],
+   "steps": 0,
+   "order": 1792219027.2720404,
+   "env_fingerprint": "30178ef58c6a",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 126.53013962308012
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 111.15773152076899
+    }
+   }
+  },
+  {
+   "md5": "69114de0edf50d391d929fa0115d88c4",
+   "names": [
+    "imit5_w000_s51"
+   ],
+   "steps": 0,
+   "order": 1792219055.6360404,
+   "env_fingerprint": "30178ef58c6a",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 109.95783077467193
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 113.17590311487187
+    }
+   }
   }
  ]
 }

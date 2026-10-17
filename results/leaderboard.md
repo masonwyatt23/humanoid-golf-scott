@@ -1,10 +1,10 @@
 # Leaderboard
 
-**Current best model: ppo_v4yaw_s42** (30000 steps) - mean true contact over det+stoch 100%, mean carry 246.621 m. Peak club-head speed (best single swing over det+stoch): 57.52 m/s = 128.7 mph = 107.2% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v4yaw_s42** (mean contact 100%, mean carry 246.62 m, physics protocol). **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): ppo_v4yaw_s42.** Best overall incl. scripted baseline: ppo_v4yaw_s42. **HYPOTHETICAL ACTUATORS: ppo_v4yaw_s42 (force_scale 2), ppo_v4yaw_s43 (force_scale 2), ppo_v4yaw_s41 (force_scale 2), imit3_w050_s51 (force_scale 2), ppo_v3flt_yaw_s31 (force_scale 2), ppo_v3flt_yaw_s32 (force_scale 2), imit3_w075_s53 (force_scale 2), imit3_w075_s51 (force_scale 2), imit3_w050_s52 (force_scale 2), imit3_w075_s52 (force_scale 2), imit3_w025_s51 (force_scale 2) run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.** Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary.
+**Current best model: ppo_v4yaw_s42** (30000 steps) - mean true contact over det+stoch 100%, mean carry 246.621 m. Peak club-head speed (best single swing over det+stoch): 57.52 m/s = 128.7 mph = 107.2% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v4yaw_s42** (mean contact 100%, mean carry 246.62 m, physics protocol). **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): ppo_v4yaw_s42.** Best overall incl. scripted baseline: ppo_v4yaw_s42. **HYPOTHETICAL ACTUATORS: ppo_v4yaw_s42 (force_scale 2), ppo_v4yaw_s43 (force_scale 2), ppo_v4yaw_s41 (force_scale 2), imit3_w050_s51 (force_scale 2), ppo_v3flt_yaw_s31 (force_scale 2), ppo_v3flt_yaw_s32 (force_scale 2), imit3_w075_s53 (force_scale 2), imit3_w075_s51 (force_scale 2), imit3_w050_s52 (force_scale 2), imit3_w075_s52 (force_scale 2), imit3_w025_s51 (force_scale 2), imit4_w000_s52 (force_scale 2) run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.** Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary.
 
 Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; (2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.
 
-Full ranking (scripted baseline included): ppo_v4yaw_s42 > ppo_v4yaw_s43 > ppo_v4yaw_s41 > imit3_w050_s51 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > ppo_v3flt_yaw_s31 > ppo_v3flt_yaw_s32 > imit3_w075_s53 > imit3_w075_s51 > imit2_w075_s52 > imit3_w000_s51 > imit3_w050_s52 > imit3_w075_s52 > ppo_resid_v3_left_an3_s1 > imit2_w075_s53 > imit3_w025_s51 > ppo_resid_v3_left_an2_s0 > ppo_v3tiny_s22 > imit3_w000_s52 > ppo_v3tiny_s23 > ppo_resid_v3_left_an1_s0 > ppo_resid_v3_left_an4_s2 > ppo_v3flt_all_s33 > ppo_v3tiny_s21 > ppo_resid_v3_left_an6_s4 > ppo_resid_v3_left_an9_s7 > imit3_w025_s52 > ppo_resid_v3_r3_s0 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > imit2_w075_s51 > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > ppo_resid_v3_left_fast2_s11 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
+Full ranking (scripted baseline included): ppo_v4yaw_s42 > ppo_v4yaw_s43 > ppo_v4yaw_s41 > imit3_w050_s51 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > ppo_v3flt_yaw_s31 > ppo_v3flt_yaw_s32 > imit3_w075_s53 > imit3_w075_s51 > imit2_w075_s52 > imit3_w000_s51 > imit3_w050_s52 > imit3_w075_s52 > ppo_resid_v3_left_an3_s1 > imit2_w075_s53 > imit3_w025_s51 > imit5_w000_s52 > ppo_resid_v3_left_an2_s0 > ppo_v3tiny_s22 > imit3_w000_s52 > ppo_v3tiny_s23 > ppo_resid_v3_left_an1_s0 > ppo_resid_v3_left_an4_s2 > ppo_v3flt_all_s33 > ppo_v3tiny_s21 > imit5_w000_s51 > imit4_w000_s51 > ppo_resid_v3_left_an6_s4 > ppo_resid_v3_left_an9_s7 > imit3_w025_s52 > imit4_w000_s52 > ppo_resid_v3_r3_s0 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > imit2_w075_s51 > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > ppo_resid_v3_left_fast2_s11 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
 
 Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).
 
@@ -104,6 +104,14 @@ Current env fingerprint `30178ef58c6a` (env + XML hash). 50 episodes, seeds 4000
 | imit3_w000_s52 | 8000 | stoch | 100% | 119.80 | 291.44 | 91.859 | 90% | 1.613 | 6% | 10% | 50.95 | 53.37 | 0.95 (n=50) | 53.37 / 55.06 | 119.4 / 123.2 | 99.5% / 102.7% | 8.3 (7.7) | 2.103 / 1.575 | 1.123 | 1.119 | 1.127 | 1.121 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | 8000 | deter | 100% | 125.97 | 277.24 | 109.442 | 94% | 3.969 | 4% | 14% | 53.65 | 53.91 | 1.00 (n=50) | 53.91 / 54.04 | 120.6 / 120.9 | 100.5% / 100.7% | 11.2 (3.6) | 2.049 / 1.506 | 1.090 | 1.084 | 1.094 | 1.087 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | 8000 | stoch | 100% | 127.77 | 275.81 | 111.273 | 94% | 2.569 | 6% | 12% | 53.85 | 53.91 | 1.00 (n=50) | 53.91 / 54.04 | 120.6 / 120.9 | 100.5% / 100.8% | 11.5 (3.2) | 2.040 / 1.494 | 1.085 | 1.079 | 1.089 | 1.082 |
+| imit4_w000_s52 | 10000 | deter | 100% | 116.46 | 286.53 | 88.377 | 90% | 2.680 | 6% | 8% | 50.75 | 52.86 | 0.96 (n=50) | 52.86 / 54.53 | 118.2 / 122.0 | 98.6% / 101.7% | 9.9 (7.1) | 2.089 / 1.559 | 1.119 | 1.115 | 1.123 | 1.118 |
+| imit4_w000_s52 | 10000 | stoch | 100% | 100.97 | 275.83 | 84.570 | 94% | 6.943 | 2% | 10% | 48.27 | 53.19 | 0.91 (n=50) | 53.19 / 54.87 | 119.0 / 122.7 | 99.2% / 102.3% | 6.1 (10.0) | 2.170 / 1.657 | 1.180 | 1.176 | 1.183 | 1.177 |
+| imit4_w000_s51 | 10000 | deter | 100% | 121.42 | 284.65 | 93.506 | 90% | 5.426 | 6% | 4% | 51.32 | 52.75 | 0.97 (n=50) | 52.75 / 54.76 | 118.0 / 122.5 | 98.3% / 102.1% | 9.7 (6.2) | 2.072 / 1.536 | 1.105 | 1.100 | 1.109 | 1.102 |
+| imit4_w000_s51 | 10000 | stoch | 100% | 107.43 | 280.51 | 91.042 | 94% | 3.778 | 4% | 6% | 49.72 | 52.67 | 0.94 (n=50) | 52.67 / 54.08 | 117.8 / 121.0 | 98.2% / 100.8% | 9.0 (7.7) | 2.119 / 1.600 | 1.149 | 1.145 | 1.152 | 1.149 |
+| imit5_w000_s52 | 0 | deter | 100% | 126.53 | 294.69 | 103.883 | 92% | 4.425 | 2% | 6% | 53.38 | 54.03 | 0.99 (n=50) | 54.03 / 55.40 | 120.9 / 123.9 | 100.7% / 103.3% | 11.1 (3.6) | 2.040 / 1.493 | 1.083 | 1.078 | 1.087 | 1.081 |
+| imit5_w000_s52 | 0 | stoch | 100% | 111.16 | 278.38 | 105.590 | 98% | 4.785 | 4% | 14% | 52.75 | 53.95 | 0.98 (n=50) | 53.95 / 55.44 | 120.7 / 124.0 | 100.6% / 103.4% | 10.6 (5.4) | 2.092 / 1.564 | 1.133 | 1.129 | 1.136 | 1.133 |
+| imit5_w000_s51 | 0 | deter | 100% | 109.96 | 278.07 | 93.871 | 94% | 4.800 | 0% | 4% | 51.78 | 53.34 | 0.97 (n=50) | 53.34 / 55.12 | 119.3 / 123.3 | 99.4% / 102.8% | 9.9 (6.3) | 2.102 / 1.580 | 1.138 | 1.134 | 1.141 | 1.138 |
+| imit5_w000_s51 | 0 | stoch | 100% | 113.18 | 272.43 | 91.578 | 92% | 6.295 | 0% | 2% | 51.99 | 53.44 | 0.97 (n=50) | 53.44 / 55.13 | 119.6 / 123.3 | 99.6% / 102.8% | 10.1 (5.7) | 2.095 / 1.572 | 1.135 | 1.131 | 1.137 | 1.134 |
 
 ## Per-row summary: learned fraction, style distance, sequencing (proxy)
 
@@ -203,6 +211,14 @@ Learned fraction = what the JSON args record (residual caps / env type), never g
 | imit3_w000_s52 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.103 | -15 / 5 / -14 / 15 / 45 / -4 | 0% (n=50) | 0.060 | 0.030 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.049 | -15 / 1 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.040 | -15 / 1 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit4_w000_s52 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.089 | -14 / 11 / -14 / 15 / 46 / -4 | 0% (n=50) | 0.060 | 0.030 |
+| imit4_w000_s52 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.170 | -14 / -79 / -14 / 14 / 45 / -4 | 0% (n=50) | 0.060 | 0.025 |
+| imit4_w000_s51 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.072 | -15 / -38 / -14 / -1 / 45 / -2 | 0% (n=50) | 0.060 | 0.015 |
+| imit4_w000_s51 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.119 | -15 / -99 / -15 / 5 / 45 / -2 | 0% (n=50) | 0.060 | 0.020 |
+| imit5_w000_s52 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.040 | -15 / 4 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit5_w000_s52 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.092 | -15 / 1 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit5_w000_s51 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.102 | -14 / 2 / -14 / 16 / 45 / -4 | 0% (n=50) | 0.060 | 0.030 |
+| imit5_w000_s51 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.095 | -14 / 1 / -14 / 15 / 45 / -4 | 0% (n=50) | 0.060 | 0.030 |
 
 **Mason reference (proxy, `data/references/mason_target_features.json`, file mtime 2026-10-16 11:30; schema mason_target_features/v1; self-filmed ~30 fps 2D MediaPipe angles, ?-swing set, events +-1 frame, tempo +-15%):** arm-only sequencing, times in seconds from takeoff within [top, impact+0.15 s]: shoulder_R peak 0.94, elbow_R 1.09, wrist_R 1.04; wrist-minus-shoulder lag median 0.05 s; elbow-minus-shoulder (from medians) 0.15 s. Pelvis/thorax sequencing is UNAVAILABLE for Mason (reported 'unavailable'), so hips/torso rows cannot be compared. The Data Agent's regenerated (0.4 s timing fix) version is used only if the file in this tree is that version (check the mtime above); no sequencing number is taken from anywhere else. Sim lags and Mason lags are different windows/definitions: indicative only.
 
@@ -304,6 +320,14 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 | imit3_w000_s52 | stoch | 91.9 | 100.5 | 119.4 | 130.6 | nan | 318 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | deter | 109.4 | 119.7 | 125.6 | 137.3 | nan | 303 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | stoch | 111.3 | 121.7 | 127.4 | 139.3 | nan | 301 |
+| imit4_w000_s52 | deter | 88.4 | 96.6 | 116.1 | 126.9 | nan | 313 |
+| imit4_w000_s52 | stoch | 84.6 | 92.5 | 100.6 | 110.0 | nan | 301 |
+| imit4_w000_s51 | deter | 93.5 | 102.3 | 121.0 | 132.4 | nan | 311 |
+| imit4_w000_s51 | stoch | 91.0 | 99.6 | 107.0 | 117.1 | nan | 306 |
+| imit5_w000_s52 | deter | 103.9 | 113.6 | 126.1 | 137.9 | nan | 322 |
+| imit5_w000_s52 | stoch | 105.6 | 115.5 | 110.8 | 121.1 | nan | 304 |
+| imit5_w000_s51 | deter | 93.9 | 102.7 | 109.6 | 119.8 | nan | 304 |
+| imit5_w000_s51 | stoch | 91.6 | 100.2 | 112.8 | 123.3 | nan | 297 |
 
 ## Configs used (each model evaluated with its own)
 
@@ -353,6 +377,10 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 - **imit3_w025_s51** (8000 steps): results/imit3_w025_s51.json env_kwargs_full (script_weight=0.25, learn_scale=[1.8, 0.525, 0.1125, 0.1125]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.25, "learn_scale": [1.8, 0.525, 0.1125, 0.1125], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
 - **imit3_w000_s52** (8000 steps): results/imit3_w000_s52.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
 - **imit3_w000_s51/best_imit_scriptfree_s51_NOTPASS_lat3.56** (8000 steps): results/imit3_w000_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
+- **imit4_w000_s52** (10000 steps): results/imit4_w000_s52.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.2, "lat_angular": true, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
+- **imit4_w000_s51** (10000 steps): results/imit4_w000_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.2, "lat_angular": true, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
+- **imit5_w000_s52** (0 steps): results/imit5_w000_s52.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
+- **imit5_w000_s51** (0 steps): results/imit5_w000_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
 
 ## Showcase qualification criterion
 
@@ -375,6 +403,7 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_resid_v3_left_an3_s1 | yes | yes | NO | yes | no |
 | imit2_w075_s53 | yes | yes | NO | yes | no |
 | imit3_w025_s51 | yes | yes | yes | yes | **YES** |
+| imit5_w000_s52 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | yes | yes | NO | yes | no |
 | ppo_v3tiny_s22 | yes | yes | NO | yes | no |
 | imit3_w000_s52 | yes | yes | NO | yes | no |
@@ -383,9 +412,12 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_resid_v3_left_an4_s2 | yes | yes | NO | yes | no |
 | ppo_v3flt_all_s33 | yes | yes | NO | yes | no |
 | ppo_v3tiny_s21 | yes | yes | NO | yes | no |
+| imit5_w000_s51 | yes | yes | NO | yes | no |
+| imit4_w000_s51 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an6_s4 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an9_s7 | yes | yes | NO | yes | no |
 | imit3_w025_s52 | yes | yes | NO | yes | no |
+| imit4_w000_s52 | yes | yes | yes | yes | **YES** |
 | ppo_resid_v3_r3_s0 | yes | yes | NO | yes | no |
 | ppo_resid_v3_ladder_s0 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an10_s8 | yes | yes | NO | yes | no |
@@ -403,7 +435,7 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_scott_final2/ppo_scott_prev2_backup | NO | NO | yes | yes | no |
 | ppo_scott_baseline | NO | NO | yes | yes | no |
 
-Qualifying: ppo_v4yaw_s42, ppo_v4yaw_s43, ppo_v4yaw_s41/best_v4yaw_s41, imit3_w050_s51, ppo_v3flt_yaw_s31/best_learned_yaw_s31, ppo_v3flt_yaw_s32/best_learned_yaw_s32, imit3_w075_s53, imit3_w075_s51, imit3_w050_s52, imit3_w075_s52, imit3_w025_s51
+Qualifying: ppo_v4yaw_s42, ppo_v4yaw_s43, ppo_v4yaw_s41/best_v4yaw_s41, imit3_w050_s51, ppo_v3flt_yaw_s31/best_learned_yaw_s31, ppo_v3flt_yaw_s32/best_learned_yaw_s32, imit3_w075_s53, imit3_w075_s51, imit3_w050_s52, imit3_w075_s52, imit3_w025_s51, imit4_w000_s52
 
 Flat/negative-launch flag (mean elevation < 5 deg or >= 50% of shots below it): ppo_scott_prev_backup [sto 4.7 deg], scripted_baseline[ladder cfg: right, loft 6, default ball_x] [det 9.2 deg, sto 9.2 deg], ppo_resid_v3_left_an5_s3 [det -3.8 deg, sto -3.3 deg], ppo_resid_v3_left_an7_s5 [det -3.3 deg, sto -4.0 deg], ppo_resid_v3_left_an8_s6 [det -5.1 deg, sto -4.6 deg], ppo_resid_v3_left_an10_s8 [sto 15.4 deg], ppo_resid_v3_left_fast1_s10 [det -5.2 deg, sto -5.0 deg], ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph [det -5.2 deg, sto -4.9 deg], imit2_w075_s51 [det 1.4 deg]
 
@@ -508,6 +540,15 @@ Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`
 | imit3_w000_s51 | verified (this run, det) | 100% | 94% | 109.44 | 3.97 | 120.6 | FAIL |
 | imit3_w000_s51 | trainer gate JSON (det) | 100% | 100% | 113.77 | 3.56 | 120.7 | FAIL |
 | imit3_w000_s51 | trainer analytic (100 eps) | 100% | 78% | 84.30 | 1.33 | 120.4 (impact) | n/a |
+| imit4_w000_s52 | verified (this run, det) | 100% | 90% | 88.38 | 2.68 | 118.2 | PASS |
+| imit4_w000_s52 | trainer analytic (100 eps) | 100% | 90% | 88.85 | 3.58 | 117.9 (impact) | n/a |
+| imit4_w000_s51 | verified (this run, det) | 100% | 90% | 93.51 | 5.43 | 118.0 | FAIL |
+| imit4_w000_s51 | trainer analytic (100 eps) | 100% | 94% | 69.38 | 3.82 | 110.8 (impact) | n/a |
+| imit5_w000_s52 | verified (this run, det) | 100% | 92% | 103.88 | 4.42 | 120.9 | FAIL |
+| imit5_w000_s52 | trainer analytic (100 eps) | 100% | 99% | 115.92 | 3.83 | 120.3 (impact) | n/a |
+| imit5_w000_s51 | verified (this run, det) | 100% | 94% | 93.87 | 4.80 | 119.3 | FAIL |
+| imit5_w000_s51 | trainer gate JSON (det) | 100% | 100% | 110.40 | 1.26 | 120.4 | PASS |
+| imit5_w000_s51 | trainer analytic (100 eps) | 100% | 100% | 104.64 | 0.41 | 120.4 (impact) | n/a |
 
 ## DTW vs NATIVE Mason v2 references (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)
 
@@ -609,6 +650,14 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | imit3_w000_s52 | stoch | 1.995 / 1.559 | 2.522 / 1.859 | 2.298 / 1.694 | 2.209 / 1.711 | 2.090 / 1.504 | 1.904 / 1.430 | 2.019 / 1.481 | 2.005 / 1.530 | 2.019 / 1.536 | 1.920 / 1.398 | 2.147 / 1.625 | 2.103 / 1.575 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | deter | 1.967 / 1.518 | 2.431 / 1.740 | 2.258 / 1.640 | 2.158 / 1.651 | 2.023 / 1.411 | 1.866 / 1.369 | 1.959 / 1.400 | 1.944 / 1.449 | 1.950 / 1.462 | 1.871 / 1.329 | 2.120 / 1.594 | 2.049 / 1.506 |
 | imit3_w000_s51<br>best_imit_scriptfree_s51_NOTPASS_lat3.56 | stoch | 1.963 / 1.512 | 2.416 / 1.720 | 2.250 / 1.631 | 2.149 / 1.641 | 2.011 / 1.395 | 1.859 / 1.358 | 1.948 / 1.386 | 1.933 / 1.436 | 1.937 / 1.449 | 1.862 / 1.319 | 2.114 / 1.588 | 2.040 / 1.494 |
+| imit4_w000_s52 | deter | 1.995 / 1.562 | 2.494 / 1.823 | 2.296 / 1.694 | 2.206 / 1.715 | 2.068 / 1.477 | 1.891 / 1.406 | 1.999 / 1.455 | 1.986 / 1.506 | 1.995 / 1.518 | 1.901 / 1.372 | 2.154 / 1.620 | 2.089 / 1.559 |
+| imit4_w000_s52 | stoch | 2.025 / 1.617 | 2.627 / 1.996 | 2.359 / 1.748 | 2.286 / 1.804 | 2.170 / 1.610 | 1.959 / 1.493 | 2.088 / 1.569 | 2.074 / 1.619 | 2.093 / 1.626 | 1.967 / 1.462 | 2.224 / 1.680 | 2.170 / 1.657 |
+| imit4_w000_s51 | deter | 1.978 / 1.541 | 2.469 / 1.791 | 2.280 / 1.664 | 2.185 / 1.686 | 2.051 / 1.452 | 1.874 / 1.390 | 1.985 / 1.433 | 1.967 / 1.484 | 1.974 / 1.495 | 1.887 / 1.356 | 2.138 / 1.602 | 2.072 / 1.536 |
+| imit4_w000_s51 | stoch | 2.010 / 1.594 | 2.547 / 1.893 | 2.324 / 1.730 | 2.242 / 1.761 | 2.102 / 1.526 | 1.906 / 1.436 | 2.030 / 1.500 | 2.014 / 1.548 | 2.027 / 1.562 | 1.924 / 1.407 | 2.186 / 1.639 | 2.119 / 1.600 |
+| imit5_w000_s52 | deter | 1.961 / 1.509 | 2.414 / 1.718 | 2.251 / 1.629 | 2.152 / 1.639 | 2.008 / 1.392 | 1.860 / 1.357 | 1.946 / 1.384 | 1.931 / 1.434 | 1.936 / 1.447 | 1.861 / 1.318 | 2.115 / 1.590 | 2.040 / 1.493 |
+| imit5_w000_s52 | stoch | 2.003 / 1.573 | 2.502 / 1.833 | 2.305 / 1.709 | 2.220 / 1.728 | 2.062 / 1.475 | 1.892 / 1.407 | 1.994 / 1.454 | 1.981 / 1.506 | 1.994 / 1.521 | 1.899 / 1.373 | 2.163 / 1.627 | 2.092 / 1.564 |
+| imit5_w000_s51 | deter | 2.008 / 1.584 | 2.520 / 1.859 | 2.309 / 1.720 | 2.223 / 1.741 | 2.080 / 1.499 | 1.893 / 1.421 | 2.011 / 1.477 | 1.996 / 1.528 | 2.008 / 1.539 | 1.912 / 1.391 | 2.158 / 1.624 | 2.102 / 1.580 |
+| imit5_w000_s51 | stoch | 2.009 / 1.582 | 2.507 / 1.843 | 2.305 / 1.718 | 2.218 / 1.738 | 2.070 / 1.488 | 1.888 / 1.413 | 2.002 / 1.466 | 1.989 / 1.518 | 2.000 / 1.530 | 1.906 / 1.382 | 2.154 / 1.620 | 2.095 / 1.572 |
 
 ## Contact regressions (vs best earlier-trained checkpoint, same mode)
 
@@ -768,43 +817,52 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | imit3_w025_s52 | 8000 | 30178ef58c6a | 100% | 100% |
 | imit3_w025_s51 | 8000 | 30178ef58c6a | 100% | 100% |
 | imit3_w000_s51, best_imit_scriptfree_s51_NOTPASS_lat3.56 | 8000 | 30178ef58c6a | 100% | 100% |
+| imit4_w000_s52 | 10000 | 30178ef58c6a | 100% | 100% |
+| imit4_w000_s51 | 10000 | 30178ef58c6a | 100% | 100% |
+| imit5_w000_s52 | 0 | 30178ef58c6a | 100% | 100% |
+| imit5_w000_s51 | 0 | 30178ef58c6a | 100% | 100% |
 
-## Noise robustness (QUICK GATE: 10 deterministic episodes, seeds 4000+, small N so noisy; screened models only)
+## Noise robustness + track_score (QUICK GATE: 10 deterministic episodes, seeds 4000+, small N so noisy; screened models only)
 
-Gaussian noise of the given sigma is added to EVERY observation and EVERY action (action clipped to [-1,1]). 'clean' columns are the full-N deterministic numbers above. Provisional: not used for ranking or qualification.
+Gaussian noise of the given sigma is added to EVERY observation and EVERY action (action clipped to [-1,1]). **Noise PASS (QUICK) = contact stays 100% AND mean carry >= 80% of the clean full-N deterministic mean carry at that sigma** (threshold is my choice, not the trainer's; lateral spread is shown but not part of the pass). Provisional: not used for ranking or qualification.
+track_score = trainer definition (`ResidualGolfEnv._track_score`: mean over shoulder-pitch / chest-yaw / wrist-hinge of exp(-MSE(time-normalised swing shape vs unified-refset reference shape)/0.15), 1 = identical shape); **defined only for runs trained with track_set + track_weight>0 (imit* runs); n/a for every other row (undefined, not zero)**. The trainer logs it in `info` but had not reported it per run; here: run's own track config, deterministic, N=10.
 
-| model | kind | clean carry m / lat std | sigma 0.005: contact, carry m, lat std | sigma 0.01: contact, carry m, lat std |
-|---|---|---|---|---|
-| ppo_resid_v3_s0 | residual on scripted swing: cap +-[0.4, 0.4, 0.4, 0.25] rad  | 57.1 / 31.46 | 100%, 50.0, 29.41 | 100%, 57.6, 27.39 |
-| ppo_resid_v3_r2_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 86.9 / 8.45 | 100%, 89.3, 6.13 | 100%, 91.6, 10.93 |
-| ppo_resid_v3_r3_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 103.4 / 8.91 | 100%, 104.2, 7.50 | 100%, 97.8, 5.45 |
-| ppo_resid_v3_ladder_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 99.6 / 8.23 | 100%, 95.3, 5.75 | 100%, 101.1, 10.95 |
-| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | SCRIPTED (not learned) | 115.7 / 1.70 | 100%, 91.9, 9.00 | 100%, 109.5, 1.83 |
-| ppo_resid_v3_left_an1_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 108.9 / 6.90 | 100%, 105.4, 5.86 | 100%, 107.1, 6.86 |
-| ppo_resid_v3_left_an2_s0 | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad  | 111.9 / 7.62 | 100%, 111.9, 8.41 | 100%, 110.8, 6.91 |
-| ppo_resid_v3_left_an3_s1 | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad  | 110.8 / 7.20 | 100%, 115.6, 6.57 | 100%, 100.7, 5.73 |
-| ppo_resid_v3_left_an4_s2 | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad  | 95.4 / 6.57 | 100%, 91.6, 6.05 | 100%, 100.7, 7.79 |
-| ppo_resid_v3_left_an6_s4 | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.03] ra | 105.5 / 8.94 | 100%, 89.2, 6.10 | 100%, 104.6, 7.95 |
-| ppo_resid_v3_left_an9_s7 | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] ra | 102.1 / 7.92 | 100%, 107.8, 9.10 | 100%, 106.5, 8.84 |
-| ppo_resid_v3_left_an10_s8 | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] ra | 107.0 / 5.44 | 100%, 96.5, 6.31 | 100%, 100.2, 3.83 |
-| ppo_v3tiny_s22 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 99.2 / 6.32 | 100%, 102.5, 3.96 | 100%, 115.8, 6.20 |
-| ppo_v3tiny_s21 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 84.6 / 4.41 | 100%, 117.5, 2.61 | 100%, 87.8, 11.42 |
-| ppo_v3tiny_s23 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 91.0 / 2.81 | 100%, 111.0, 4.94 | 100%, 87.6, 0.14 |
-| ppo_v3flt_all_s33 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 95.0 / 5.13 | 100%, 102.7, 10.80 | 100%, 104.4, 10.44 |
-| ppo_v3flt_yaw_s32 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 113.9 / 1.59 | 100%, 109.5, 1.60 | 100%, 109.6, 1.59 |
-| ppo_v3flt_yaw_s31 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 114.3 / 1.61 | 100%, 109.5, 1.60 | 100%, 109.6, 1.59 |
-| ppo_v4yaw_s41 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.6 / 1.67 | 100%, 213.8, 1.80 | 100%, 213.1, 1.87 |
-| ppo_v4yaw_s42 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.3 / 1.66 | 100%, 215.1, 1.80 | 100%, 215.1, 1.80 |
-| ppo_v4yaw_s43 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.0 / 1.65 | 100%, 212.7, 1.77 | 100%, 212.7, 1.77 |
-| imit2_w075_s53 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 116.9 / 3.57 | 100%, 78.9, 0.82 | 100%, 86.7, 6.45 |
-| imit2_w075_s51 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 49.3 / 0.58 | 100%, 87.1, 12.29 | 100%, 87.4, 3.21 |
-| imit2_w075_s52 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 117.8 / 2.96 | 100%, 97.4, 1.76 | 100%, 79.3, 0.03 |
-| imit3_w075_s51 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 113.1 / 0.73 | 100%, 90.6, 0.70 | 100%, 106.6, 3.74 |
-| imit3_w075_s52 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 108.4 / 1.10 | 100%, 91.2, 0.81 | 100%, 90.1, 0.03 |
-| imit3_w050_s51 | IMITATION OF THE SCRIPT, 50% script: BLEND: executed command | 119.4 / 2.20 | 100%, 88.9, 4.43 | 100%, 105.4, 3.43 |
-| imit3_w050_s52 | IMITATION OF THE SCRIPT, 50% script: BLEND: executed command | 107.7 / 0.23 | 100%, 101.4, 3.17 | 100%, 87.3, 0.38 |
-| imit3_w075_s53 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 112.0 / 2.27 | 100%, 101.9, 1.33 | 100%, 72.7, 2.12 |
-| imit3_w025_s52 | IMITATION OF THE SCRIPT, 25% script: BLEND: executed command | 88.9 / 5.31 | 100%, 95.0, 0.04 | 100%, 106.8, 6.01 |
-| imit3_w025_s51 | IMITATION OF THE SCRIPT, 25% script: BLEND: executed command | 105.1 / 0.11 | 100%, 82.2, 3.16 | 100%, 99.0, 8.55 |
-| imit3_w000_s52 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 105.1 / 5.53 | 100%, 106.1, 17.04 | 100%, 84.5, 1.08 |
-| imit3_w000_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 109.4 / 3.97 | 100%, 102.6, 12.49 | 100%, 107.2, 5.24 |
+| model | kind | clean carry m / lat std | sigma 0.005: contact, carry m (% of clean), lat std | noise pass 0.005 | sigma 0.01: contact, carry m (% of clean), lat std | noise pass 0.01 | track_score (mean / min) |
+|---|---|---|---|---|---|---|---|
+| ppo_resid_v3_s0 | residual on scripted swing: cap +-[0.4, 0.4, 0.4, 0.25] rad  | 57.1 / 31.46 | 100%, 50.0 (88%), 29.41 | PASS | 100%, 57.6 (101%), 27.39 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_r2_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 86.9 / 8.45 | 100%, 89.3 (103%), 6.13 | PASS | 100%, 91.6 (105%), 10.93 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_r3_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 103.4 / 8.91 | 100%, 104.2 (101%), 7.50 | PASS | 100%, 97.8 (95%), 5.45 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_ladder_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 99.6 / 8.23 | 100%, 95.3 (96%), 5.75 | PASS | 100%, 101.1 (101%), 10.95 | PASS | n/a (undefined: no track config) |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | SCRIPTED (not learned) | 115.7 / 1.70 | 100%, 91.9 (79%), 9.00 | FAIL | 100%, 109.5 (95%), 1.83 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an1_s0 | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad ( | 108.9 / 6.90 | 100%, 105.4 (97%), 5.86 | PASS | 100%, 107.1 (98%), 6.86 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an2_s0 | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad  | 111.9 / 7.62 | 100%, 111.9 (100%), 8.41 | PASS | 100%, 110.8 (99%), 6.91 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an3_s1 | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad  | 110.8 / 7.20 | 100%, 115.6 (104%), 6.57 | PASS | 100%, 100.7 (91%), 5.73 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an4_s2 | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad  | 95.4 / 6.57 | 100%, 91.6 (96%), 6.05 | PASS | 100%, 100.7 (106%), 7.79 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an6_s4 | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.03] ra | 105.5 / 8.94 | 100%, 89.2 (85%), 6.10 | PASS | 100%, 104.6 (99%), 7.95 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an9_s7 | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] ra | 102.1 / 7.92 | 100%, 107.8 (106%), 9.10 | PASS | 100%, 106.5 (104%), 8.84 | PASS | n/a (undefined: no track config) |
+| ppo_resid_v3_left_an10_s8 | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] ra | 107.0 / 5.44 | 100%, 96.5 (90%), 6.31 | PASS | 100%, 100.2 (94%), 3.83 | PASS | n/a (undefined: no track config) |
+| ppo_v3tiny_s22 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 99.2 / 6.32 | 100%, 102.5 (103%), 3.96 | PASS | 100%, 115.8 (117%), 6.20 | PASS | n/a (undefined: no track config) |
+| ppo_v3tiny_s21 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 84.6 / 4.41 | 100%, 117.5 (139%), 2.61 | PASS | 100%, 87.8 (104%), 11.42 | PASS | n/a (undefined: no track config) |
+| ppo_v3tiny_s23 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 91.0 / 2.81 | 100%, 111.0 (122%), 4.94 | PASS | 100%, 87.6 (96%), 0.14 | PASS | n/a (undefined: no track config) |
+| ppo_v3flt_all_s33 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 95.0 / 5.13 | 100%, 102.7 (108%), 10.80 | PASS | 100%, 104.4 (110%), 10.44 | PASS | n/a (undefined: no track config) |
+| ppo_v3flt_yaw_s32 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 113.9 / 1.59 | 100%, 109.5 (96%), 1.60 | PASS | 100%, 109.6 (96%), 1.59 | PASS | n/a (undefined: no track config) |
+| ppo_v3flt_yaw_s31 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 114.3 / 1.61 | 100%, 109.5 (96%), 1.60 | PASS | 100%, 109.6 (96%), 1.59 | PASS | n/a (undefined: no track config) |
+| ppo_v4yaw_s41 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.6 / 1.67 | 100%, 213.8 (88%), 1.80 | PASS | 100%, 213.1 (87%), 1.87 | PASS | n/a (undefined: no track config) |
+| ppo_v4yaw_s42 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.3 / 1.66 | 100%, 215.1 (88%), 1.80 | PASS | 100%, 215.1 (88%), 1.80 | PASS | n/a (undefined: no track config) |
+| ppo_v4yaw_s43 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.0 / 1.65 | 100%, 212.7 (88%), 1.77 | PASS | 100%, 212.7 (88%), 1.77 | PASS | n/a (undefined: no track config) |
+| imit2_w075_s53 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 116.9 / 3.57 | 100%, 78.9 (67%), 0.82 | FAIL | 100%, 86.7 (74%), 6.45 | FAIL | 0.058 / 0.013 |
+| imit2_w075_s51 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 49.3 / 0.58 | 100%, 87.1 (177%), 12.29 | PASS | 100%, 87.4 (177%), 3.21 | PASS | 0.052 / 0.007 |
+| imit2_w075_s52 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 117.8 / 2.96 | 100%, 97.4 (83%), 1.76 | PASS | 100%, 79.3 (67%), 0.03 | FAIL | 0.196 / 0.005 |
+| imit3_w075_s51 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 113.1 / 0.73 | 100%, 90.6 (80%), 0.70 | PASS | 100%, 106.6 (94%), 3.74 | PASS | 0.085 / 0.003 |
+| imit3_w075_s52 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 108.4 / 1.10 | 100%, 91.2 (84%), 0.81 | PASS | 100%, 90.1 (83%), 0.03 | PASS | 0.166 / 0.016 |
+| imit3_w050_s51 | IMITATION OF THE SCRIPT, 50% script: BLEND: executed command | 119.4 / 2.20 | 100%, 88.9 (74%), 4.43 | FAIL | 100%, 105.4 (88%), 3.43 | PASS | 0.067 / 0.014 |
+| imit3_w050_s52 | IMITATION OF THE SCRIPT, 50% script: BLEND: executed command | 107.7 / 0.23 | 100%, 101.4 (94%), 3.17 | PASS | 100%, 87.3 (81%), 0.38 | PASS | 0.091 / 0.018 |
+| imit3_w075_s53 | IMITATION OF THE SCRIPT, 75% script: BLEND: executed command | 112.0 / 2.27 | 100%, 101.9 (91%), 1.33 | PASS | 100%, 72.7 (65%), 2.12 | FAIL | 0.060 / 0.002 |
+| imit3_w025_s52 | IMITATION OF THE SCRIPT, 25% script: BLEND: executed command | 88.9 / 5.31 | 100%, 95.0 (107%), 0.04 | PASS | 100%, 106.8 (120%), 6.01 | PASS | 0.015 / 0.000 |
+| imit3_w025_s51 | IMITATION OF THE SCRIPT, 25% script: BLEND: executed command | 105.1 / 0.11 | 100%, 82.2 (78%), 3.16 | FAIL | 100%, 99.0 (94%), 8.55 | PASS | 0.092 / 0.072 |
+| imit3_w000_s52 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 105.1 / 5.53 | 100%, 106.1 (101%), 17.04 | PASS | 100%, 84.5 (80%), 1.08 | PASS | 0.023 / 0.000 |
+| imit3_w000_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 109.4 / 3.97 | 100%, 102.6 (94%), 12.49 | PASS | 100%, 107.2 (98%), 5.24 | PASS | 0.109 / 0.003 |
+| imit4_w000_s52 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 88.4 / 2.68 | 100%, 64.9 (73%), 0.75 | FAIL | 100%, 80.6 (91%), 0.09 | PASS | 0.004 / 0.000 |
+| imit4_w000_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 93.5 / 5.43 | 100%, 94.3 (101%), 1.48 | PASS | 100%, 93.0 (99%), 8.06 | PASS | 0.002 / 0.000 |
+| imit5_w000_s52 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 103.9 / 4.42 | 100%, 88.2 (85%), 14.42 | PASS | 100%, 120.1 (116%), 12.19 | PASS | 0.048 / 0.001 |
+| imit5_w000_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 93.9 / 4.80 | 100%, 91.2 (97%), 0.05 | PASS | 100%, 113.2 (121%), 3.39 | PASS | 0.064 / 0.029 |
