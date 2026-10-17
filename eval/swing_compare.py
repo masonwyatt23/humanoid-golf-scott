@@ -106,6 +106,45 @@ def score_profile(med, prof):
     return dict(label=prof["label"], n_within=n_in, n_scored=n_sc, rows=rows)
 
 
+# ---------------------------------------------------------------- Data Agent style profiles (data/references/pro_swing_profiles.json, main a5df07b)
+PRO_MAP = {"club_head_speed_mph": "peak_club_mph", "ball_speed_mph": "ball_speed_mph", "attack_angle_deg": "attack_deg", "launch_angle_deg": "launch_deg",
+           "backswing_s": "backswing_s", "downswing_s": "downswing_s", "tempo_ratio": "tempo_ratio", "smash_factor": "smash"}
+CONF_W = {"high": 1.0, "medium": 0.6, "low": 0.3, "none": 0.0}   # my weighting choice; unverified or null-target features get weight 0 (listed as skipped)
+PRO_NOT_MEASURED = ("x_factor_top_deg", "pelvis_turn_top_deg", "thorax_turn_top_deg", "pelvis_peak_speed_dps", "thorax_peak_speed_dps", "arm_peak_speed_dps", "spin_rate_rpm",
+                    "driving_distance_yd", "pelvis_sway_top_in", "pelvis_sway_impact_in")   # no sim counterpart (pelvis fixed / no spin readout - ball-model spin is ~60% high vs tour data per impact_physics_calibration.json / total != carry)
+
+
+def load_pro_profiles():
+    """Reads data/references/pro_swing_profiles.json; falls back to `git show origin/main:` (file lives on main, a5df07b) so no copy is needed in this branch."""
+    import subprocess
+    f = ROOT / "data/references/pro_swing_profiles.json"
+    txt = f.read_text() if f.exists() else subprocess.run(["git", "show", "origin/main:data/references/pro_swing_profiles.json"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+    return json.loads(txt)
+
+
+def score_pro_profiles(med, pro):
+    """Confidence-weighted score per style profile. Feature scored iff: sim feature exists, target not null, unverified is False, confidence weight > 0.
+    Band = [min, max] if both given, else target +-10% (my tolerance). Reported: weighted fraction within band, weighted mean |normalised deviation| (|x-target| / half-band), and the skipped list with reasons."""
+    out = {}
+    for pid, prof in pro["profiles"].items():
+        rows, skipped, wsum, win, wdev = [], [], 0.0, 0.0, 0.0
+        for f, spec in prof["features"].items():
+            sf = PRO_MAP.get(f)
+            if f in PRO_NOT_MEASURED or sf is None: skipped.append((f, "no sim counterpart / proxy only")); continue
+            if spec.get("target") is None: skipped.append((f, "null target")); continue
+            if spec.get("unverified"): skipped.append((f, "unverified")); continue
+            w = CONF_W.get(spec.get("confidence"), 0.0)
+            if w <= 0: skipped.append((f, f"confidence {spec.get('confidence')}")); continue
+            x = med.get(sf)
+            if x is None or not np.isfinite(x): skipped.append((f, "not measured in this run")); continue
+            t = spec["target"]; lo, hi = (spec["min"], spec["max"]) if spec.get("min") is not None and spec.get("max") is not None else (t - abs(t) * POINT_TOL, t + abs(t) * POINT_TOL)
+            half = max((hi - lo) / 2, 1e-9); inside = lo <= x <= hi; dev = abs(x - t) / half
+            wsum += w; win += w * inside; wdev += w * dev
+            rows.append(dict(feature=f, sim=float(x), target=t, band=[float(lo), float(hi)], inside=bool(inside), norm_dev=float(dev), weight=w, confidence=spec["confidence"], note=spec.get("note", "")))
+        out[pid] = dict(weighted_within=(win / wsum if wsum else None), weighted_norm_dev=(wdev / wsum if wsum else None), n_scored=len(rows), weight_sum=wsum, rows=rows, skipped=skipped)
+    return out
+
+
 # ---------------------------------------------------------------- rollout + features
 def _fp():
     from eval.leaderboard import env_fingerprint
@@ -225,11 +264,12 @@ def main():
     ap.add_argument("--models", nargs="*", default=DEFAULT_MODELS); ap.add_argument("--force", action="store_true"); a = ap.parse_args()
     mp = mason_profile(); out = {"generated": time.strftime("%Y-%m-%d %H:%M"), "episodes": a.episodes, "seed": a.seed, "mason_profile": mp,
                                  "published_profiles": {k: {"label": v["label"], "features": v["features"], "qualitative": v["qualitative"], "point_tolerance": POINT_TOL} for k, v in PROFILES.items()}, "models": {}}
+    pro = load_pro_profiles()
     for n in a.models:
         try: r = collect(n, a.episodes, a.seed, True, a.force)
         except Exception as e: print("SKIP", n, type(e).__name__, e); continue
         feat = features_from_rollout(r); med = {f: (feat[f]["median"] if feat.get(f) else None) for f in FEATS}
-        out["models"][r["meta"]["label"] if not r["meta"]["scripted"] else n] = dict(meta=r["meta"], features=feat, vs_mason=score_mason(feat, mp),
+        out["models"][r["meta"]["label"] if not r["meta"]["scripted"] else n] = dict(meta=r["meta"], features=feat, vs_mason=score_mason(feat, mp), vs_pro_style_profiles=score_pro_profiles(med, pro),
                                                                                     vs_published={k: score_profile(med, p) for k, p in PROFILES.items()})
         print("done", n, feat["n_contact"], "/", feat["n_episodes"])
     (RES / "swing_compare.json").write_text(json.dumps(out, indent=1))
@@ -256,6 +296,17 @@ def main():
             for r in sp["rows"]:
                 cells.append("-" if r["status"] == "not measured" else f"{r['sim_median']:.2f} ({r['status']}{'' if r['pct_outside'] is None else f' {r['pct_outside']:+.1f}{'deg' if r['feature'] in ('attack_deg', 'launch_deg') else '%'}'}{', ctx' if r['context_only'] else ''})")
             L.append(f"| {n} | " + " | ".join(cells) + f" | {sp['n_within']}/{sp['n_scored']} |")
+    L += ["", "## vs Data Agent style profiles (data/references/pro_swing_profiles.json, schema pro_swing_profiles/v1, main a5df07b)", "",
+          "STYLE PROFILES = statistical summaries of published numbers (some from single shots / 30 fps video / search snippets), NOT simulations or claims about any person; internal labels only (names are file ids, do not use externally; legal review before any external use - see the file's legal_likeness_cautions).",
+          "Scoring: only features with a non-null target, `unverified` == false and confidence != none; weight high 1.0 / medium 0.6 / low 0.3 (my choice). Band = [min,max] if given else target +-10%. 'within' = confidence-weighted fraction of scored features inside the band; 'dev' = weighted mean |x-target|/half-band (0 = on target, 1 = band edge). Not scored: pelvis/thorax/X-factor/peak segment speeds (sim has no pelvis yaw; chest-yaw proxy only), spin (sim spin is ~60% high vs tour data: data/references/impact_physics_calibration.json), driving distance (total vs carry).",
+          "Sim rows are boosted actuators (HYPOTHETICAL ACTUATORS) with sim smash ~1.0 (contact artifact) and sim tempo ~5:1, so low scores reflect those, not 'style'. Mason's inputs to the Data Agent's comparison are Instagram screen recordings (~30 fps): tempo is a loose band, durations are unreliable (see docs/MASON_VS_PROFILES.md); Mason is not scored here.",
+          "Licensing note: reference MOTION data licences differ (data/references/mocap_dataset_licenses.json); only CMU (and 100STYLE, CC BY) are commercial-clean; Mason/MultiSense refs used for DTW/overlays here are internal diagnostics only.", "",
+          "| Model | " + " | ".join(pro["profiles"]) + " |", "|---|" + "---|" * len(pro["profiles"])]
+    for n, m in out["models"].items():
+        L.append(f"| {n} | " + " | ".join("-" if m["vs_pro_style_profiles"][k]["weighted_within"] is None else f"{m['vs_pro_style_profiles'][k]['weighted_within']*100:.0f}% within, dev {m['vs_pro_style_profiles'][k]['weighted_norm_dev']:.2f} (n={m['vs_pro_style_profiles'][k]['n_scored']})" for k in pro["profiles"]) + " |")
+    first = next(iter(out["models"].values()), None)
+    if first:
+        L += ["", "Skipped per profile (reason): " + "; ".join(f"{k}: " + ", ".join(f"{f} ({r})" for f, r in v["skipped"] if r not in ("no sim counterpart / proxy only",)) for k, v in first["vs_pro_style_profiles"].items())]
     (RES / "swing_compare.md").write_text("\n".join(L) + "\n"); print("\n".join(L[:12]))
 
 

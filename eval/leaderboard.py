@@ -98,7 +98,15 @@ def load(p, default):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--episodes", type=int, default=50); ap.add_argument("--seed", type=int, default=4000)
-    ap.add_argument("--force", action="store_true"); a = ap.parse_args()
+    ap.add_argument("--force", action="store_true")
+    ap.add_argument("--workers", type=int, default=0, help="parallel episode workers per evaluation (0 = auto: min(4, cores - 1min load average), at least 1)")
+    ap.add_argument("--quick", action="store_true", help="QUICK GATE: --quick-episodes episodes (default 10) per mode; labelled provisional, cached separately, writes only results/leaderboard_quick.md and NEVER touches leaderboard.md/json/history (not ranked until a full-gate run)")
+    ap.add_argument("--quick-episodes", type=int, default=10); a = ap.parse_args()
+    if a.quick: a.episodes = a.quick_episodes
+    import os
+    if a.workers <= 0:
+        a.workers = max(1, min(4, (os.cpu_count() or 2) - int(os.getloadavg()[0])))
+    print(f"[leaderboard] mode={'QUICK (provisional)' if a.quick else 'FULL'} episodes={a.episodes} workers={a.workers}", flush=True)
     import eval.dispersion_report as dr
     refs = sorted(p.name[:-len("_swing.npz")] for p in (ROOT / "data/references").glob("*_swing.npz"))
     dr.REFS = refs
@@ -108,8 +116,7 @@ def main():
     groups = discover()
     for h, g in groups.items():
         key = f"{h}:{fp}:{a.episodes}:{a.seed}:s12"
-        if key in cache and not a.force:
-            print("skip (cached)", g["names"]); continue
+        cfg_hash_cached = cache.get(key, {}).get("config_hash")
         if g.get("scripted_cfg") in ("lofted", "v3"):
             import eval.eval_scripted_cfg as esc
             cf = "fast_scripted_v3.json" if g["scripted_cfg"] == "v3" else "fast_scripted_v2_lofted.json"
@@ -123,27 +130,40 @@ def main():
             steps, kw, src = 0, resid_kw_from_args(json.loads((RES / f"{SCRIPTED_SRC}.json").read_text())["args"]), f"zero-residual action with results/{SCRIPTED_SRC}.json args"
         else:
             steps, kw, src = config_for(g["names"])
+        chash = hashlib.md5(json.dumps(kw, sort_keys=True, default=str).encode()).hexdigest()[:12] if kw is not None else None
+        if key in cache and not a.force and cache[key].get("config_hash", chash) == chash:   # hit = same checkpoint md5 + env fingerprint + episodes/seed + env-config hash
+            print("skip (cached)", g["names"]); continue
         if kw is None:
             cache[key] = {"md5": h, "names": g["names"], "config_source": "UNKNOWN", "error": "training config unknown; not evaluated"}
             continue
-        print("evaluating", g["names"], kw)
+        print("evaluating", g["names"], kw, flush=True); t0 = time.time()
         modes = {}
         for det in (True, False):
             try:
-                d, _ = dr.run(g["names"][0], kw, a.episodes, a.seed, det, scripted=bool(g.get("scripted")))
+                d, _ = dr.run(g["names"][0], kw, a.episodes, a.seed, det, scripted=bool(g.get("scripted")), workers=a.workers)
             except Exception as e:
                 d = {"error": f"{type(e).__name__}: {e}"}
             modes["deterministic" if det else "stochastic"] = d
         if any("error" in v for v in modes.values()):
             print("ERROR (not cached):", g["names"], {m: v.get("error") for m, v in modes.items()}); continue
         cache[key] = {"md5": h, "names": g["names"], "steps": steps, "env_kwargs": kw, "config_source": src,
-                      "env_fingerprint": fp, "episodes": a.episodes, "seed_base": a.seed, "mtime": g["mtime"], "modes": modes, "scripted": bool(g.get("scripted")),
+                      "env_fingerprint": fp, "config_hash": chash, "quick": bool(a.quick), "eval_seconds": round(time.time() - t0, 1), "workers": a.workers, "episodes": a.episodes, "seed_base": a.seed, "mtime": g["mtime"], "modes": modes, "scripted": bool(g.get("scripted")),
                       "evaluated_at": time.strftime("%Y-%m-%d %H:%M:%S")}
         (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
         if not g.get("scripted") and not any(e["md5"] == h and e.get("env_fingerprint") == fp for e in hist["entries"]):
             hist["entries"].append({"md5": h, "names": g["names"], "steps": steps, "order": g["mtime"], "env_fingerprint": fp,
                                     "modes": {m: {"contact_rate": v.get("contact_rate"), "mean_distance": v.get("mean_distance")} for m, v in modes.items()}})
     (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
+    if a.quick:
+        rows = [c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"] and "modes" in c]
+        Lq = ["# QUICK GATE (provisional) - NOT a leaderboard", "", f"{a.episodes} episodes per mode, seeds {a.seed}+, env fingerprint `{fp}`. Small N: lateral std / miss rates are noisy. Models here are NOT ranked and NOT promoted; run `python -m eval.leaderboard` (full N) for rank/qualification.", "",
+              "| model | kind | det contact | det carry m | det lat std | det launch | stoch contact | stoch carry m | eval s | provisional pass (contact 100% both, det carry>=30, lat std<=2.73) |", "|---|---|---|---|---|---|---|---|---|---|"]
+        for c in sorted(rows, key=lambda c: c.get("mtime", 0)):
+            d, st = c["modes"].get("deterministic", {}), c["modes"].get("stochastic", {})
+            if "contact_rate" not in d or "contact_rate" not in st: continue
+            ok = d["contact_rate"] >= 1 and st["contact_rate"] >= 1 and d["mean_carry"] >= 30 and d["lateral_std"] <= 2.73 and not d.get("launch_flat_flag")
+            Lq.append(f"| {'/'.join(c['names'])[:70]} | {'SCRIPTED (not learned)' if c.get('scripted') else 'LEARNED'} | {d['contact_rate']*100:.0f}% | {d['mean_carry']:.1f} | {d['lateral_std']:.2f} | {d['launch_elev_mean_deg']:.1f} | {st['contact_rate']*100:.0f}% | {st['mean_carry']:.1f} | {c.get('eval_seconds','-')} | {'PROVISIONAL YES' if ok else 'no'} |")
+        (RES / "leaderboard_quick.md").write_text("\n".join(Lq) + "\n"); print("\n".join(Lq)); return
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
     cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"]],

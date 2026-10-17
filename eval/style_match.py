@@ -59,6 +59,15 @@ def reference_path(style: str) -> Path:
     return REF_DIR / (f"{style}.npz" if style.startswith("mason_") else f"{style}_swing.npz")
 
 
+SIM_DT = 0.02   # env control step; refs are stored at 0.01 s (Data Agent timing audit) -> linearly resampled to the sim step before DTW
+
+
+def _to_sim_dt(j: np.ndarray, dt: float) -> np.ndarray:
+    if abs(dt - SIM_DT) < 1e-9 or len(j) < 2: return j
+    t = np.arange(len(j)) * dt; tn = np.arange(0.0, t[-1] + 1e-9, SIM_DT)
+    return np.stack([np.interp(tn, t, j[:, k]) for k in range(j.shape[1])], 1)
+
+
 def load_reference(style: str) -> np.ndarray:
     """(T, 11) radians. Synthetic refs: key 'joints_rad'. Mason video refs: key 'joints' is DEGREES (same 11-col
     order as env qpos[14:25]); converted with deg2rad and only frames with valid_mask kept (DTW tolerates the gaps/tempo)."""
@@ -66,12 +75,13 @@ def load_reference(style: str) -> np.ndarray:
     if not path.exists():
         raise FileNotFoundError(f"no reference for style '{style}': {path}")
     d = np.load(path, allow_pickle=True)
+    dt = float(d["dt"]) if "dt" in d.files else 0.01
     if "joints_rad" in d.files:
-        return d["joints_rad"]
+        return _to_sim_dt(d["joints_rad"], dt)
     j = np.deg2rad(d["joints"].astype(float))
     if "valid_mask" in d.files and d["valid_mask"].any():
         j = j[d["valid_mask"].astype(bool)]
-    return j
+    return _to_sim_dt(j, dt)
 
 
 def style_match_stats(trajs: Sequence[np.ndarray], style: str, cols=None) -> Dict[str, float]:

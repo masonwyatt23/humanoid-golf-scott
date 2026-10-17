@@ -1,6 +1,6 @@
 # Swing comparison: sim features vs Mason refs and published-stats profiles
 
-20 deterministic episodes per model, seeds 4000+, evaluator protocol; medians over contact episodes. Feature definitions + caveats: docstring of `eval/swing_compare.py`. Generated 2026-10-17 00:44 (box time, America/New_York).
+20 deterministic episodes per model, seeds 4000+, evaluator protocol; medians over contact episodes. Feature definitions + caveats: docstring of `eval/swing_compare.py`. Generated 2026-10-17 01:20 (box time, America/New_York).
 
 **Read this first:** (1) every learned/scripted row here is a boosted-actuator sim (force_scale 2 > 1 => HYPOTHETICAL ACTUATORS) so absolute speeds/tempo are not human-attainable evidence; (2) sim smash ~1.0 is a contact-model artifact; (3) sim X-factor is a chest-yaw proxy (pelvis fixed); (4) Mason features are 2D-video proxies, tempo +-15% at best, and Mason speed/launch/attack/X-factor are unavailable so are never scored; (5) published profiles are summary averages of populations, not any individual's swing; 'within' uses published range, or +-10% around a published point value (my tolerance choice).
 
@@ -90,3 +90,22 @@ Sources (per number):
 | fast v3 Stage 6 | 2.66 (within) | 119.06 (below -40.7%) | 1/2 |
 | fast v2 lofted | 2.66 (within) | 80.11 (below -60.1%) | 1/2 |
 | trainer cfg: left, loft 7 | 4.31 (above +1.2deg) | 40.22 (below -80.0%) | 0/2 |
+
+## vs Data Agent style profiles (data/references/pro_swing_profiles.json, schema pro_swing_profiles/v1, main a5df07b)
+
+STYLE PROFILES = statistical summaries of published numbers (some from single shots / 30 fps video / search snippets), NOT simulations or claims about any person; internal labels only (names are file ids, do not use externally; legal review before any external use - see the file's legal_likeness_cautions).
+Scoring: only features with a non-null target, `unverified` == false and confidence != none; weight high 1.0 / medium 0.6 / low 0.3 (my choice). Band = [min,max] if given else target +-10%. 'within' = confidence-weighted fraction of scored features inside the band; 'dev' = weighted mean |x-target|/half-band (0 = on target, 1 = band edge). Not scored: pelvis/thorax/X-factor/peak segment speeds (sim has no pelvis yaw; chest-yaw proxy only), spin (sim spin is ~60% high vs tour data: data/references/impact_physics_calibration.json), driving distance (total vs carry).
+Sim rows are boosted actuators (HYPOTHETICAL ACTUATORS) with sim smash ~1.0 (contact artifact) and sim tempo ~5:1, so low scores reflect those, not 'style'. Mason's inputs to the Data Agent's comparison are Instagram screen recordings (~30 fps): tempo is a loose band, durations are unreliable (see docs/MASON_VS_PROFILES.md); Mason is not scored here.
+Licensing note: reference MOTION data licences differ (data/references/mocap_dataset_licenses.json); only CMU (and 100STYLE, CC BY) are commercial-clean; Mason/MultiSense refs used for DTW/overlays here are internal diagnostics only.
+
+| Model | adam_scott_style | bryson_dechambeau_style | chris_gotterup_style | rory_mcilroy_style | scottie_scheffler_style | tiger_woods_style | tour_average |
+|---|---|---|---|---|---|---|---|
+| ppo_v3flt_yaw_s31 | 29% within, dev 9.15 (n=5) | 0% within, dev 2.77 (n=3) | 0% within, dev 7.65 (n=2) | 100% within, dev 0.23 (n=1) | 100% within, dev 0.04 (n=1) | 25% within, dev 10.92 (n=7) | 17% within, dev 6.39 (n=8) |
+| ppo_v3flt_yaw_s32 | 29% within, dev 9.15 (n=5) | 0% within, dev 2.77 (n=3) | 0% within, dev 7.65 (n=2) | 100% within, dev 0.23 (n=1) | 100% within, dev 0.04 (n=1) | 25% within, dev 10.92 (n=7) | 17% within, dev 6.39 (n=8) |
+| ppo_resid_v3_left_an3_s1 | 0% within, dev 13.11 (n=5) | 40% within, dev 2.36 (n=3) | 0% within, dev 16.70 (n=2) | 100% within, dev 0.69 (n=1) | 100% within, dev 0.43 (n=1) | 0% within, dev 14.57 (n=7) | 17% within, dev 9.98 (n=8) |
+| ppo_resid_v3_left_fast2_s11 | 0% within, dev 9.45 (n=5) | 0% within, dev 3.52 (n=3) | 0% within, dev 3.41 (n=2) | 100% within, dev 0.03 (n=1) | 100% within, dev 0.30 (n=1) | 12% within, dev 13.75 (n=7) | 17% within, dev 7.51 (n=8) |
+| fast v3 Stage 6 | 29% within, dev 9.16 (n=5) | 0% within, dev 2.76 (n=3) | 0% within, dev 7.64 (n=2) | 100% within, dev 0.23 (n=1) | 100% within, dev 0.04 (n=1) | 25% within, dev 10.91 (n=7) | 17% within, dev 6.39 (n=8) |
+| fast v2 lofted | 29% within, dev 9.57 (n=5) | 0% within, dev 2.78 (n=3) | 0% within, dev 7.67 (n=2) | 100% within, dev 0.23 (n=1) | 100% within, dev 0.04 (n=1) | 12% within, dev 11.72 (n=7) | 27% within, dev 6.25 (n=8) |
+| trainer cfg: left, loft 7 | 0% within, dev 14.36 (n=5) | 40% within, dev 2.50 (n=3) | 0% within, dev 26.22 (n=2) | 0% within, dev 1.25 (n=1) | 0% within, dev 1.01 (n=1) | 0% within, dev 12.08 (n=7) | 17% within, dev 7.95 (n=8) |
+
+Skipped per profile (reason): adam_scott_style: ball_speed_mph (null target), launch_angle_deg (null target), smash_factor (null target); bryson_dechambeau_style: launch_angle_deg (null target), smash_factor (null target), tempo_ratio (null target); chris_gotterup_style: attack_angle_deg (null target), launch_angle_deg (null target), smash_factor (unverified), tempo_ratio (null target); rory_mcilroy_style: tempo_ratio (unverified); scottie_scheffler_style: tempo_ratio (unverified); tiger_woods_style: attack_angle_deg (null target); tour_average: 

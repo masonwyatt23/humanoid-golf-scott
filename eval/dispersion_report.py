@@ -21,18 +21,21 @@ MASON_QUALITY_ORIG = {"mason_swing_part1_s05_refined": 0.86, "mason_swing_part2_
                  "mason_swing_part2_s05_refined": 0.77, "mason_swing_part2_s02_refined": 0.75}  # quality_score per docs/REFERENCE_PATHS.md
 
 
-def run(name, kw, episodes, seed, det, scripted=False):
-    """name = models/<name>.zip (ignored if scripted=True: zero-residual action on the residual env)."""
+def _chunk(args):
+    """Run episodes [ep0, ep1) serially (episode i uses env.reset(seed=seed+i), so any split gives identical per-episode seeds). Returns (shots, joint trajectories)."""
+    name, kw, ep0, ep1, seed, det, scripted = args
     import numpy as np
-    from eval.style_match import style_match_stats
+    try:
+        import torch; torch.set_num_threads(1)
+    except Exception: pass
     from eval.env_factory import make_env, joint_qpos_idx
     env = make_env(kw)
     zero = np.zeros(env.action_space.shape, dtype=np.float32)
-    model = None if scripted else PPO.load(str(ROOT / "models" / name))
+    model = None if scripted else PPO.load(str(ROOT / "models" / name), device="cpu")
     qi = joint_qpos_idx(env)
     ft, shots, jt = FlightTracker(env).install(), [], []
     try:
-        for ep in range(episodes):
+        for ep in range(ep0, ep1):
             obs, _ = env.reset(seed=seed + ep); ft.reset(); done = False; info = {}; tr_ = [env.data.qpos[qi].copy()]
             while not done:
                 a = zero if scripted else model.predict(obs, deterministic=det)[0]
@@ -41,6 +44,25 @@ def run(name, kw, episodes, seed, det, scripted=False):
             shots.append(sh); jt.append(np.array(tr_))
     finally:
         ft.close()
+    return shots, jt
+
+
+def run(name, kw, episodes, seed, det, scripted=False, workers=1):
+    """name = models/<name>.zip (ignored if scripted=True: zero-residual action on the residual env). workers>1: episodes split into contiguous chunks run in separate
+    processes (spawn); per-episode seeds are unchanged so the result equals the serial run."""
+    import numpy as np
+    from eval.style_match import style_match_stats
+    workers = max(1, min(int(workers), episodes))
+    if workers == 1:
+        shots, jt = _chunk((name, kw, 0, episodes, seed, det, scripted))
+    else:
+        import multiprocessing as mp
+        from concurrent.futures import ProcessPoolExecutor
+        edges = [round(i * episodes / workers) for i in range(workers + 1)]
+        jobs = [(name, kw, edges[i], edges[i + 1], seed, det, scripted) for i in range(workers)]
+        with ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn")) as ex:
+            res = list(ex.map(_chunk, jobs))
+        shots = [x for r in res for x in r[0]]; jt = [x for r in res for x in r[1]]
     d = dispersion(shots)
     d["mean_max_ball_x"] = float(np.mean([s["max_ball_x"] for s in shots]))
     d['dtw_to_reference_style_rad'] = {r: style_match_stats(jt, r) for r in REFS}

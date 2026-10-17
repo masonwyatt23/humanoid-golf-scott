@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17 00:44",
+ "generated": "2026-10-17 01:20",
  "episodes": 20,
  "seed": 4000,
  "mason_profile": {
@@ -272,6 +272,648 @@
      "ratio_to_mason_median": 1.1999999999998678
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.2857142857142857,
+     "weighted_norm_dev": 9.150090445694282,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.651940982393275,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 34.1085543853934,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.250000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": true,
+       "norm_dev": 0.2349282561201136,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 5.555555555556044,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 10.833333333334982,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 2.7690607424386595,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.651940982393275,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": false,
+       "norm_dev": 3.69611803521345,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63284698525786,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 4.4357151767317635,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 1.0086762325173178,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 7.64845083584821,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63284698525786,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 3.3966966891825283,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 11.90020498251389,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.23236591596754916,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": true,
+       "norm_dev": 0.23236591596754916,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.036244021343343036,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": true,
+       "norm_dev": 0.036244021343343036,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.25,
+     "weighted_norm_dev": 10.915072650271108,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.250000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63284698525786,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 11.673430602948429,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": true,
+       "norm_dev": 0.12426521603431898,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 5.505617977528585,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 12.679871060623245,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": true,
+       "norm_dev": 0.4928110930797303,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.0111775404152492,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 23.94112297923752,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 21.666666666669965,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.16666666666666666,
+     "weighted_norm_dev": 6.386957785364074,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.651940982393275,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 30.39954601840978,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 2.6000000000005663,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63284698525786,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 2.716595988906717,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492825612012,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.6579582527539928,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 14.00000000000131,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 12.679871060623245,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": false,
+       "norm_dev": 1.6329092299295829,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.0111775404152492,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 3.167719321518588,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 4.3333333333339965,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
@@ -606,6 +1248,648 @@
      "ratio_to_mason_median": 1.1999999999998678
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.2857142857142857,
+     "weighted_norm_dev": 9.15008541169045,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.651938675145513,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 34.10853341041374,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.250000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": true,
+       "norm_dev": 0.23492112459652503,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 5.555555555556044,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 10.833333333334982,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 2.7690489315941362,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.651938675145513,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": false,
+       "norm_dev": 3.6961226497089736,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63364709372536,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 4.435644991778474,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 1.0086771833871295,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 7.648439305268162,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63364709372536,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 3.3966532522407533,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 11.90022535829557,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.23236649435551257,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": true,
+       "norm_dev": 0.23236649435551254,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.036243427049710654,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": true,
+       "norm_dev": 0.036243427049710654,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.25,
+     "weighted_norm_dev": 10.915011487685154,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.250000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63364709372536,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 11.67327058125493,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": true,
+       "norm_dev": 0.12426317845615083,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 5.505617977528585,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 12.679894513294087,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": true,
+       "norm_dev": 0.49281946903360235,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.011184252762646,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 23.940787361867677,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 21.666666666669965,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.16666666666666666,
+     "weighted_norm_dev": 6.386942512930349,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.651938675145513,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 30.39952827035007,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 2.6000000000005663,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.63364709372536,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 2.71654807822004,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.43492112459653,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.6579576216457106,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 14.00000000000131,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 12.679894513294087,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": false,
+       "norm_dev": 1.6329307461413642,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.011184252762646,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 3.1676739678199612,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 4.3333333333339965,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
@@ -940,6 +2224,648 @@
      "ratio_to_mason_median": 1.0999999999998786
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 13.105943620567475,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 4.617058392297588,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 51.973258111796234,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6499999999999738,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 1.8750000000003262,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": false,
+       "norm_dev": 5.365074088271157,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.12499999999998623,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 5.370370370370879,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.179282868526259,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 10.896414342631283,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.39999999999999997,
+     "weighted_norm_dev": 2.362704070132152,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 4.617058392297588,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": true,
+       "norm_dev": 0.2341167845951766,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 82.88555591958162,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 7.834600357931432,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 1.7553432117694874,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 16.70022647232048,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 82.88555591958162,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 5.500241263866364,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 27.900211680774596,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.6865429106464844,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": true,
+       "norm_dev": 0.6865429106464844,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.4304228406892629,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": true,
+       "norm_dev": 0.4304228406892629,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 14.569786711347502,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6499999999999738,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 1.8750000000003262,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 82.88555591958162,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 19.422888816083677,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": false,
+       "norm_dev": 1.4757354537917584,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.12499999999998623,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 5.318352059925609,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 29.68031382590619,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": false,
+       "norm_dev": 6.564397794966497,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 0.723674756090259,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 38.31626219548701,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.179282868526259,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 21.792828685262567,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.16666666666666666,
+     "weighted_norm_dev": 9.978651454387832,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 4.617058392297588,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 45.51583378690449,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6499999999999738,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 2.000000000000522,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 82.88555591958162,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 5.036793058707691,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 114.83492591172885,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.16238282404680052,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.12499999999998623,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 13.500000000001366,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 29.68031382590619,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": false,
+       "norm_dev": 17.229645711840543,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 0.723674756090259,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 5.110305702092847,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.179282868526259,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 4.358565737052517,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
@@ -1274,6 +3200,648 @@
      "ratio_to_mason_median": 1.1999999999998678
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 9.452132704280663,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 1.7605695048377024,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 26.005177316706373,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6299999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.125000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": false,
+       "norm_dev": 3.4285360423387345,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11524999999998731,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 5.73148148148195,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.544619804709852,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 12.723099023549247,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 3.5204080499026773,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 1.7605695048377024,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": false,
+       "norm_dev": 5.478860990324595,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 109.74402216623832,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 5.478594546821196,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 0.5828618610215017,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 3.408869112915843,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 109.74402216623832,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 4.0421269182281065,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 2.77561130760358,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.026645258908251437,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": true,
+       "norm_dev": 0.02664525890825144,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.30237800352822813,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": true,
+       "norm_dev": 0.30237800352822813,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.125,
+     "weighted_norm_dev": 13.751296897303268,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6299999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.125000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 109.74402216623832,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 14.051195566752336,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": true,
+       "norm_dev": 1.0367245835253536,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11524999999998731,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 5.683520599251412,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": -6.182069719743907,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": false,
+       "norm_dev": 6.243596328479968,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 0.8904411598756048,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 29.977942006219735,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.544619804709852,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 25.446198047098495,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.16666666666666666,
+     "weighted_norm_dev": 7.509968180714715,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 1.7605695048377024,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 23.54284234490538,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6299999999999716,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 2.400000000000566,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 109.74402216623832,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 3.4285016666923185,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 123.62853604233874,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.9405784108264372,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11524999999998731,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 14.475000000001257,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": -6.182069719743907,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": false,
+       "norm_dev": 15.671623596095328,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 0.8904411598756048,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 3.9835056765161863,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.544619804709852,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 5.089239609419703,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
@@ -1608,6 +4176,648 @@
      "ratio_to_mason_median": 1.1999999999998678
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.2857142857142857,
+     "weighted_norm_dev": 9.160910265437403,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.6584212185958807,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 34.1674656235989,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.250000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": true,
+       "norm_dev": 0.24334200611828294,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 5.555555555556044,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 10.833333333334982,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 2.762619530827117,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.6584212185958807,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": false,
+       "norm_dev": 3.6831575628082387,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.67891947628254,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 4.431673730150651,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 1.0075543991842286,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 7.635180582488125,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.67891947628254,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 3.394195468171416,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 11.876165696804833,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.23168353559462382,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": true,
+       "norm_dev": 0.23168353559462382,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.03694516717652382,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": true,
+       "norm_dev": 0.03694516717652382,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.25,
+     "weighted_norm_dev": 10.91208224461752,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 2.250000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.67891947628254,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 11.664216104743492,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": true,
+       "norm_dev": 0.12666914460522452,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 5.505617977528585,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 12.675741555627898,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": true,
+       "norm_dev": 0.49133626986710616,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.01149029746289,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 23.925485126855474,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 21.666666666669965,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.16666666666666666,
+     "weighted_norm_dev": 6.39087581619922,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.6584212185958807,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 30.449393989199052,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6199999999999716,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 2.6000000000005663,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 121.67891947628254,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 2.7138371571088316,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44334200611829,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.6587028323998485,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 14.00000000000131,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 12.675741555627898,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": false,
+       "norm_dev": 1.6291206932366034,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.01149029746289,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 3.1656060982237175,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.166666666666998,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 4.3333333333339965,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
@@ -1942,6 +5152,648 @@
      "ratio_to_mason_median": 1.1999999999998678
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.2857142857142857,
+     "weighted_norm_dev": 9.565844404068654,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.6584849679215052,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 34.16804516292276,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6599999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 1.750000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": true,
+       "norm_dev": 0.2436550549988823,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 5.555555555556044,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.5000000000003695,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 12.500000000001837,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 2.7830623983667295,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.6584849679215052,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": false,
+       "norm_dev": 3.6830300641569895,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 120.5098173886791,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 4.534226544852707,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 1.007512659333482,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 7.666467954155611,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 120.5098173886791,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 3.45766463687953,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 11.875271271431693,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.23165814639100668,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": true,
+       "norm_dev": 0.23165814639100668,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 1.0,
+     "weighted_norm_dev": 0.03697125458324043,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": true,
+       "norm_dev": 0.03697125458324043,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.125,
+     "weighted_norm_dev": 11.72368180540448,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6599999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 1.750000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 120.5098173886791,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 11.898036522264182,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": true,
+       "norm_dev": 0.1267585871425386,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 5.505617977528585,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 10.78416032262384,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": false,
+       "norm_dev": 0.18422845620577152,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.0035037419982582,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 24.324812900087068,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.5000000000003695,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 25.000000000003674,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.26666666666666666,
+     "weighted_norm_dev": 6.245973116333912,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 2.6584849679215052,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 30.449884368626936,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6599999999999716,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 1.8000000000005663,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 120.5098173886791,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 2.7838432701389784,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 120.44365505499889,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.6587305358406095,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.11999999999998678,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 14.00000000000131,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 10.78416032262384,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": true,
+       "norm_dev": 0.10627493337262374,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 1.0035037419982582,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 3.2195693108225814,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.5000000000003695,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 5.000000000000739,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
@@ -2276,6 +6128,648 @@
      "ratio_to_mason_median": 1.0999999999998786
     }
    ],
+   "vs_pro_style_profiles": {
+    "adam_scott_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 14.36073123472074,
+     "n_scored": 5,
+     "weight_sum": 2.1,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 4.308060761615276,
+       "target": -1.1,
+       "band": [
+        -1.2100000000000002,
+        -0.9900000000000001
+       ],
+       "inside": false,
+       "norm_dev": 49.16418874195704,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "One TrackMan driver shot (circa 2019)."
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6799999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 1.500000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2014 video, 30 fps."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 120.2,
+       "band": [
+        120.0,
+        122.0
+       ],
+       "inside": false,
+       "norm_dev": 12.347473287291947,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.13549999999998508,
+       "target": 0.27,
+       "band": [
+        0.24300000000000002,
+        0.29700000000000004
+       ],
+       "inside": false,
+       "norm_dev": 4.981481481482033,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.018450184502188,
+       "target": 3.0,
+       "band": [
+        2.8,
+        3.2
+       ],
+       "inside": false,
+       "norm_dev": 10.092250922510932,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "3:1 from 30 fps video (quantized)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "ball_speed_mph",
+       "null target"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_impact_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_sway_top_in",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "bryson_dechambeau_style": {
+     "weighted_within": 0.39999999999999997,
+     "weighted_norm_dev": 2.5033993239460233,
+     "n_scored": 3,
+     "weight_sum": 1.5,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 4.308060761615276,
+       "target": 4.5,
+       "band": [
+        4.0,
+        5.0
+       ],
+       "inside": true,
+       "norm_dev": 0.3838784767694481,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 99.50698659878753,
+       "target": 172.2,
+       "band": [
+        172.2,
+        195.0
+       ],
+       "inside": false,
+       "norm_dev": 6.37658012291337,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 128,
+       "band": [
+        125.0,
+        140.0
+       ],
+       "inside": false,
+       "norm_dev": 2.686329771638926,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "null target"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "chris_gotterup_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 26.223903570834548,
+     "n_scored": 2,
+     "weight_sum": 1.2,
+     "rows": [
+      {
+       "feature": "ball_speed_mph",
+       "sim": 99.50698659878753,
+       "target": 184.2,
+       "band": [
+        165.78,
+        202.61999999999998
+       ],
+       "inside": false,
+       "norm_dev": 4.597883463692319,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 124.6,
+       "band": [
+        124.5,
+        125.2
+       ],
+       "inside": false,
+       "norm_dev": 47.849923677976776,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "driving_distance_yd",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "launch_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "smash_factor",
+       "unverified"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "tempo_ratio",
+       "null target"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "rory_mcilroy_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 1.252836438547603,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 123.3,
+       "band": [
+        110.97,
+        135.63
+       ],
+       "inside": false,
+       "norm_dev": 1.252836438547603,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 123.33."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "scottie_scheffler_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 1.0122894406076621,
+     "n_scored": 1,
+     "weight_sum": 0.6,
+     "rows": [
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 120.0,
+       "band": [
+        108.0,
+        132.0
+       ],
+       "inside": false,
+       "norm_dev": 1.0122894406076621,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "2025 avg 120.03."
+      }
+     ],
+     "skipped": [
+      [
+       "tempo_ratio",
+       "unverified"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tiger_woods_style": {
+     "weighted_within": 0.0,
+     "weighted_norm_dev": 12.080463421565058,
+     "n_scored": 7,
+     "weight_sum": 2.4,
+     "rows": [
+      {
+       "feature": "backswing_s",
+       "sim": 0.6799999999999716,
+       "target": 0.8,
+       "band": [
+        0.72,
+        0.8800000000000001
+       ],
+       "inside": false,
+       "norm_dev": 1.500000000000354,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 99.50698659878753,
+       "target": 180,
+       "band": [
+        175.0,
+        185.0
+       ],
+       "inside": false,
+       "norm_dev": 16.098602680242493,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 120,
+       "band": [
+        118.0,
+        125.0
+       ],
+       "inside": false,
+       "norm_dev": 3.4707066535119844,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.13549999999998508,
+       "target": 0.267,
+       "band": [
+        0.2403,
+        0.2937
+       ],
+       "inside": false,
+       "norm_dev": 4.925093632959361,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "8 frames/30 fps (+-1 frame = +-0.033 s)."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 5.7638786639284465,
+       "target": 11.3,
+       "band": [
+        10.9,
+        16.5
+       ],
+       "inside": false,
+       "norm_dev": 1.9771861914541267,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": "11 typical; 16.5 outlier shot."
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 0.9239377095138314,
+       "target": 1.49,
+       "band": [
+        1.47,
+        1.51
+       ],
+       "inside": false,
+       "norm_dev": 28.303114524308405,
+       "weight": 0.3,
+       "confidence": "low",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.018450184502188,
+       "target": 3.0,
+       "band": [
+        2.9,
+        3.1
+       ],
+       "inside": false,
+       "norm_dev": 20.184501845021863,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2)."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "attack_angle_deg",
+       "null target"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    },
+    "tour_average": {
+     "weighted_within": 0.16666666666666666,
+     "weighted_norm_dev": 7.949487398812788,
+     "n_scored": 8,
+     "weight_sum": 6.0,
+     "rows": [
+      {
+       "feature": "attack_angle_deg",
+       "sim": 4.308060761615276,
+       "target": -1.3,
+       "band": [
+        -1.4300000000000002,
+        -1.17
+       ],
+       "inside": false,
+       "norm_dev": 43.138928935502086,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "backswing_s",
+       "sim": 0.6799999999999716,
+       "target": 0.75,
+       "band": [
+        0.7,
+        0.8
+       ],
+       "inside": false,
+       "norm_dev": 1.4000000000005661,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "0.72-0.80 s takeaway->top."
+      },
+      {
+       "feature": "ball_speed_mph",
+       "sim": 99.50698659878753,
+       "target": 167,
+       "band": [
+        150.3,
+        183.7
+       ],
+       "inside": false,
+       "norm_dev": 4.041497808455839,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year)."
+      },
+      {
+       "feature": "club_head_speed_mph",
+       "sim": 107.85252671270806,
+       "target": 113,
+       "band": [
+        101.7,
+        124.3
+       ],
+       "inside": true,
+       "norm_dev": 0.45552860949486246,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": "TrackMan tour driver average."
+      },
+      {
+       "feature": "downswing_s",
+       "sim": 0.13549999999998508,
+       "target": 0.26,
+       "band": [
+        0.25,
+        0.27
+       ],
+       "inside": false,
+       "norm_dev": 12.450000000001483,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "~0.25-0.27 s top->impact."
+      },
+      {
+       "feature": "launch_angle_deg",
+       "sim": 5.7638786639284465,
+       "target": 10.9,
+       "band": [
+        9.81,
+        11.99
+       ],
+       "inside": false,
+       "norm_dev": 4.712037923001426,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": ""
+      },
+      {
+       "feature": "smash_factor",
+       "sim": 0.9239377095138314,
+       "target": 1.48,
+       "band": [
+        1.332,
+        1.628
+       ],
+       "inside": false,
+       "norm_dev": 3.7571776384200604,
+       "weight": 1.0,
+       "confidence": "high",
+       "note": ""
+      },
+      {
+       "feature": "tempo_ratio",
+       "sim": 5.018450184502188,
+       "target": 3.0,
+       "band": [
+        2.5,
+        3.5
+       ],
+       "inside": false,
+       "norm_dev": 4.0369003690043765,
+       "weight": 0.6,
+       "confidence": "medium",
+       "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5."
+      }
+     ],
+     "skipped": [
+      [
+       "arm_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "pelvis_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "spin_rate_rpm",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_peak_speed_dps",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "thorax_turn_top_deg",
+       "no sim counterpart / proxy only"
+      ],
+      [
+       "x_factor_top_deg",
+       "no sim counterpart / proxy only"
+      ]
+     ]
+    }
+   },
    "vs_published": {
     "pga_tour_driver": {
      "label": "PGA Tour driver averages (TrackMan) + Tour Tempo",
