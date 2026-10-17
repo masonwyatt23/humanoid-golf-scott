@@ -72,6 +72,7 @@ def build():
     for i, (cr, carry, m, d, s, name, scripted, fs) in enumerate(rows, 1):
         tag = '<span class="b sc">SCRIPTED (not learned)</span>' if scripted else '<span class="b ln">learned</span>'
         hyp = '<span class="b hy">force_scale %g (hypothetical-strength actuators)</span>' % fs if fs and fs > 1 else ("" if fs else '<span class="b">default env</span>')
+        if m.get("verdict"): tag = tag + ' <span class="b sc">' + e(m["verdict"]) + '</span>'
         if m.get("hypo_demoted"): tag = '<span class="b hy">HYPOTHETICAL: effectively scripted (yaw-only residual, fs2 + impact gain 1.28); not a stock-motor policy</span>'
         star = " &#9733;" if (not scripted and m["names"][:1] == best[:1] and (len(best) < 2 or best[1] in m["names"])) else ""
         tr.append(f"<tr><td>{i}</td><td>{e(' / '.join(m['names']))[:110]}{star}<br>{tag} {hyp}</td><td>{f(d['contact_rate']*100,0,'%')} / {f(s['contact_rate']*100,0,'%')}</td>"

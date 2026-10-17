@@ -7753,6 +7753,44 @@
      "mean_distance": 139.1340734587607
     }
    }
+  },
+  {
+   "md5": "1b1558bb92215727a87f136d0ecb70bc",
+   "names": [
+    "ppo15_klres_s101"
+   ],
+   "steps": 0,
+   "order": 1792278265.4761567,
+   "env_fingerprint": "c66fd89099c7",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 112.86426978142103
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 115.77324192421392
+    }
+   }
+  },
+  {
+   "md5": "2a9bcc59422a05205ace247647a80d34",
+   "names": [
+    "ppo20_klres_s111"
+   ],
+   "steps": 0,
+   "order": 1792278265.4801567,
+   "env_fingerprint": "c66fd89099c7",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 139.62878659428554
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 139.3196937477257
+    }
+   }
   }
  ]
 }
