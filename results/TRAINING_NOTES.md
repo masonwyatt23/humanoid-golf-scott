@@ -216,3 +216,4 @@ CORRECTION: the 6 rows above named imit_w075_s5x (FAIL, launch ~38 deg, lateral 
 | imit2_w075_s52 | 0.75 | 0.25 / 0.002 | det 112.6 / 132.1 | stoch 93.1 / 135.0 | 2.82 / 2.85 | 11.3 / 8.8 | 1.00 | 120.5 | FAIL |
 (imit2_* rows: also FAIL; diagnosed as BC precision + stochastic noise: strike window ~1 mm => policy std e^-5 (0.016 rad shoulder at w=0) breaks stochastic eval. Pure-BC probe in the training env, 50 eps, det: w=0.75 carry 106.9/lat 0.64/launch 12.2; w=0.0 (SCRIPT-FREE) carry 82.8/lat 2.23/launch 9.2/contact 100%. Changes: error weighted in radians + cosine LR, 200 eps x 400 epochs, log_std -8, PPO lr 1e-5 / 8k steps; prefix imit3.)
 | imit3_w075_s51 | 0.75 | 0.25 / 0.001 | det 113.4 / 113.4 | stoch 113.6 / 113.6 | 1.51 / 1.52 | 12.1 / 12.1 | 1.00 | 120.2 | PASS |
+| imit3_w075_s52 | 0.75 | 0.25 / 0.001 | det 110.8 / 119.2 | stoch 111.4 / 119.8 | 1.73 / 1.68 | 11.8 / 11.8 | 1.00 | 120.3 | PASS |
