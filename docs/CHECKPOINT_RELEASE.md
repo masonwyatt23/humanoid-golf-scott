@@ -17,6 +17,8 @@ Status: **BLOCKED. Do not publish a GitHub Release yet.** Trained checkpoints (`
 
 Not used in any recorded training run: **GolfDB** (plan/research only, `docs/GOLFDB_PLAN.md`). Before Stage 10, CMU mocap was reachable only through `--style_prior` (`false`/unset in every earlier run) and MultiSenseGolf was never passed as `style_ref`; **Stage 10 `imit*` runs use `unified_v1`, which includes CMU and MultiSense references**, **CaddieSet** (only a feature summary JSON exists; no policy uses it).
 
+See also: [`UNIFIED_V1_LICENSE_AUDIT.md`](UNIFIED_V1_LICENSE_AUDIT.md) (licence tags and per-model source dependencies for `unified_v1`) and [`PROVENANCE_AUDIT.md`](PROVENANCE_AUDIT.md) (which runs record complete training args). Both are engineering diligence, not legal advice.
+
 ## Blockers (all must be cleared)
 
 1. [ ] **Models predate the loft/edge-strike fix.** `results/TRAINING_NOTES.md` Stage 5 says results with positive loft / `ball_dz >= 0` are edge-strike artefacts. Every trained checkpoint was trained or evaluated in that regime, so publishing them as "golf swing policies" would mislead. `results/strike_regime_rerun.md` shows their numbers change materially under the fixed config (e.g. `an3_s1` 108.6 m -> 81.1 m carry), so earlier numbers hold only under their original configs. Only the Stage 7-10 runs (`ppo_v3tiny_s21-23`, a negative result, then `ppo_v3flt_*`, `ppo_v4yaw_*`, `imit*`) were trained on the fixed regime (`configs/fast_scripted_v3.json` base). Retrain on the fixed regime, or label every checkpoint clearly as a research artefact.
