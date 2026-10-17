@@ -1,7 +1,7 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `7a2ffa104b56`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
-Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_left_an3_s1**; best overall incl. scripted baseline: **ppo_resid_v3_left_an3_s1**.
+Env fingerprint `737c4d124c92`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_left_an3_s1**; best overall incl. scripted baseline: **scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -27,6 +27,10 @@ Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_lef
 | scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | stoch | 100% | 178.15 | 328.02 | 38.07 | 56% | 2.94 | 8% | 22% | 107.9 / 108.1 | 90.1% |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | deter | 100% | 117.44 | 326.09 | 53.06 | 80% | 1.98 | 4% | 12% | 107.8 / 108.0 | 90.0% |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | stoch | 100% | 117.44 | 326.09 | 53.06 | 80% | 1.98 | 4% | 12% | 107.8 / 108.0 | 90.0% |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | deter | 100% | 79.89 | 275.96 | 68.87 | 96% | 0.01 | 0% | 0% | 120.3 / 120.6 | 100.5% |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | stoch | 100% | 79.89 | 275.96 | 68.87 | 96% | 0.01 | 0% | 0% | 120.3 / 120.6 | 100.5% |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | deter | 100% | 113.83 | 186.42 | 113.83 | 100% | 1.66 | 2% | 12% | 120.3 / 120.6 | 100.5% |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | stoch | 100% | 113.83 | 186.42 | 113.83 | 100% | 1.66 | 2% | 12% | 120.3 / 120.6 | 100.5% |
 | ppo_resid_v3_left_an1_s0 | 150000 | left | deter | 100% | 110.28 | 162.27 | 110.28 | 100% | 7.53 | 52% | 46% | 114.5 / 115.4 | 96.2% |
 | ppo_resid_v3_left_an1_s0 | 150000 | left | stoch | 100% | 105.46 | 344.17 | 84.94 | 94% | 12.43 | 44% | 46% | 113.3 / 119.4 | 99.5% |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | 150000 | left | deter | 100% | 114.29 | 160.27 | 114.29 | 100% | 7.42 | 46% | 46% | 114.7 / 115.5 | 96.2% |

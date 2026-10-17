@@ -56,9 +56,15 @@ def discover():
         groups["scripted-" + SCRIPTED_SRC] = {"names": [SCRIPTED], "mtime": j.stat().st_mtime - 1, "scripted": True}
     if (RES / "ppo_resid_v3_left_an10_s8.json").exists():   # trainer's scripted config (TRAINING_NOTES: ball_x 0.422, noise 0.005, loft 7, left; eval/eval_scripted_cfg.py base)
         groups["scripted-bx0422"] = {"names": [SCRIPTED_BX], "mtime": j.stat().st_mtime - 0.5, "scripted": True, "scripted_cfg": "bx0422"}
+    if (ROOT / "configs/fast_scripted_v2_lofted.json").exists():   # trainer's lofted scripted swing (commit ffc6271), zero residual
+        groups["scripted-lofted"] = {"names": [SCRIPTED_LOFT], "mtime": j.stat().st_mtime - 0.25, "scripted": True, "scripted_cfg": "lofted"}
+    if (ROOT / "configs/fast_scripted_v3.json").exists():   # trainer Stage 6 scripted config (commit 9ffa35b), zero residual
+        groups["scripted-v3"] = {"names": [SCRIPTED_V3], "mtime": j.stat().st_mtime - 0.2, "scripted": True, "scripted_cfg": "v3"}
     return groups
 
 
+SCRIPTED_V3 = "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]"
+SCRIPTED_LOFT = "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]"
 SCRIPTED = "scripted_baseline[ladder cfg: right, loft 6, default ball_x]"   # pseudo-checkpoint: ResidualGolfEnv with the LADDER run's exact config and a ZERO residual action
 SCRIPTED_SRC = "ppo_resid_v3_ladder_s0"
 SCRIPTED_BX = "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]"
@@ -104,7 +110,12 @@ def main():
         key = f"{h}:{fp}:{a.episodes}:{a.seed}:s10"
         if key in cache and not a.force:
             print("skip (cached)", g["names"]); continue
-        if g.get("scripted_cfg") == "bx0422":
+        if g.get("scripted_cfg") in ("lofted", "v3"):
+            import eval.eval_scripted_cfg as esc
+            cf = "fast_scripted_v3.json" if g["scripted_cfg"] == "v3" else "fast_scripted_v2_lofted.json"
+            cfg = {k: v for k, v in json.loads((ROOT / "configs" / cf).read_text()).items() if k != "description"}
+            steps, kw, src = 0, dict(esc.base, **cfg), f"zero-residual; configs/{cf} (trainer) applied over eval/eval_scripted_cfg.py base (as the trainer's eval_scripted_cfg usage)"
+        elif g.get("scripted_cfg") == "bx0422":
             import eval.eval_scripted_cfg as esc
             steps, kw, src = 0, dict(esc.base, ball_x=0.422, ball_x_noise=0.005, loft_deg=7.0), "zero-residual action; trainer config from TRAINING_NOTES / eval/eval_scripted_cfg.py base + ball_x 0.422, ball_x_noise 0.005, loft 7, left"
         elif g.get("scripted"):

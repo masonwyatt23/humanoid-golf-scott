@@ -1755,6 +1755,197 @@
      "mean_distance": 15.201265429390107
     }
    }
+  },
+  {
+   "md5": "f579a192e507cd6a508dfdc1e0d3c213",
+   "names": [
+    "ppo_resid_v3_left_an3_s1"
+   ],
+   "steps": 150000,
+   "order": 1792142600.4388678,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 108.60151224472655
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 116.6827492393691
+    }
+   }
+  },
+  {
+   "md5": "d029dd4b4a6a13adbd960be9107ca818",
+   "names": [
+    "ppo_resid_v3_left_an4_s2"
+   ],
+   "steps": 150000,
+   "order": 1792144257.0948677,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 96.12886886581101
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 100.01685092535445
+    }
+   }
+  },
+  {
+   "md5": "0e199901d76131f91cfda571dade4eca",
+   "names": [
+    "ppo_resid_v3_left_an5_s3"
+   ],
+   "steps": 150000,
+   "order": 1792146458.0816238,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 108.0418973819974
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 133.60633526546297
+    }
+   }
+  },
+  {
+   "md5": "349d77986570c2bd4e0c057cefa8f1b5",
+   "names": [
+    "ppo_resid_v3_left_an6_s4"
+   ],
+   "steps": 150000,
+   "order": 1792150480.2353973,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 106.50412287951666
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 131.66044744487942
+    }
+   }
+  },
+  {
+   "md5": "3ef54b33032f174de23d49127db97ef7",
+   "names": [
+    "ppo_resid_v3_left_an7_s5"
+   ],
+   "steps": 120000,
+   "order": 1792151791.6833973,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 127.21964805636902
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 141.355946125113
+    }
+   }
+  },
+  {
+   "md5": "0228935d56cd54487fbd5753b4409638",
+   "names": [
+    "ppo_resid_v3_left_an8_s6"
+   ],
+   "steps": 120000,
+   "order": 1792153158.2353973,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 75.60251752182809
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 82.61333638144342
+    }
+   }
+  },
+  {
+   "md5": "c29f64e9ae47d948ecb856e87d5ccf87",
+   "names": [
+    "ppo_resid_v3_left_an9_s7"
+   ],
+   "steps": 120000,
+   "order": 1792154447.3193974,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 103.03209373000746
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 126.63005965094493
+    }
+   }
+  },
+  {
+   "md5": "b15b48bd8e6d773c63697116344702e4",
+   "names": [
+    "ppo_resid_v3_left_an10_s8"
+   ],
+   "steps": 120000,
+   "order": 1792155792.0873973,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 128.79857974527434
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 126.19464478795722
+    }
+   }
+  },
+  {
+   "md5": "41c212556a50b4b75ea951004fc32bfe",
+   "names": [
+    "ppo_resid_v3_left_fast1_s10"
+   ],
+   "steps": 100000,
+   "order": 1792157945.8833973,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 22.544355826930296
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 18.576853562087408
+    }
+   }
+  },
+  {
+   "md5": "0fbd364c4ad9d411c2e72e98d55f55fb",
+   "names": [
+    "ppo_resid_v3_left_fast2_s11",
+    "best_gate_flat_123mph"
+   ],
+   "steps": 100000,
+   "order": 1792159269.2795079,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 15.242426591541069
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 15.201265429390107
+    }
+   }
   }
  ]
 }

@@ -10,6 +10,10 @@
 | scripted_baseline[ladder cfg: right, loft 6, default ball_x] | stochastic | 100% | 178.15 | 128.88 | 328.02 | 178.15 | 38.065 | 56% | 2.945 | -0.635 | 8% | 22% | 48.22 / 48.33 | 107.9 / 108.1 | 90.1% | 0 | 9.1 (13.2) | FLAT |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | deterministic | 100% | 117.44 | 110.71 | 326.09 | 117.44 | 53.056 | 80% | 1.980 | -0.204 | 4% | 12% | 48.21 / 48.27 | 107.8 / 108.0 | 90.0% | 0 | 11.0 (11.3) | no |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | stochastic | 100% | 117.44 | 110.71 | 326.09 | 117.44 | 53.056 | 80% | 1.980 | -0.204 | 4% | 12% | 48.21 / 48.27 | 107.8 / 108.0 | 90.0% | 0 | 11.0 (11.3) | no |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | deterministic | 100% | 79.89 | 42.31 | 275.96 | 79.89 | 68.872 | 96% | 0.013 | -0.001 | 0% | 0% | 53.80 / 53.93 | 120.3 / 120.6 | 100.5% | 0 | 9.0 (2.9) | no |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | stochastic | 100% | 79.89 | 42.31 | 275.96 | 79.89 | 68.872 | 96% | 0.013 | -0.001 | 0% | 0% | 53.80 / 53.93 | 120.3 / 120.6 | 100.5% | 0 | 9.0 (2.9) | no |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | deterministic | 100% | 113.83 | 26.54 | 186.42 | 113.83 | 113.827 | 100% | 1.664 | -0.340 | 2% | 12% | 53.80 / 53.90 | 120.3 / 120.6 | 100.5% | 0 | 12.2 (1.4) | no |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | stochastic | 100% | 113.83 | 26.54 | 186.42 | 113.83 | 113.827 | 100% | 1.664 | -0.340 | 2% | 12% | 53.80 / 53.90 | 120.3 / 120.6 | 100.5% | 0 | 12.2 (1.4) | no |
 | ppo_resid_v3_left_an1_s0 | deterministic | 100% | 110.28 | 14.50 | 162.27 | 110.28 | 110.280 | 100% | 7.530 | +0.425 | 52% | 46% | 51.20 / 51.59 | 114.5 / 115.4 | 96.2% | 0 | 32.0 (3.6) | no |
 | ppo_resid_v3_left_an1_s0 | stochastic | 100% | 105.46 | 66.91 | 344.17 | 105.46 | 84.943 | 94% | 12.430 | -2.190 | 44% | 46% | 50.65 / 53.38 | 113.3 / 119.4 | 99.5% | 0 | 30.3 (15.8) | no |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | deterministic | 100% | 114.29 | 17.54 | 160.27 | 114.29 | 114.289 | 100% | 7.420 | -0.081 | 46% | 46% | 51.25 / 51.62 | 114.7 / 115.5 | 96.2% | 0 | 31.7 (4.1) | no |
@@ -45,6 +49,10 @@ DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboa
 | scripted_baseline[ladder cfg: right, loft 6, default ball_x] | stochastic | 2.103 / 1.569 |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | deterministic | 2.222 / 1.738 |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | stochastic | 2.222 / 1.738 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | deterministic | 2.412 / 1.971 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | stochastic | 2.412 / 1.971 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | deterministic | 2.338 / 1.832 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | stochastic | 2.338 / 1.832 |
 | ppo_resid_v3_left_an1_s0 | deterministic | 2.093 / 1.533 |
 | ppo_resid_v3_left_an1_s0 | stochastic | 2.112 / 1.566 |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | deterministic | 2.084 / 1.520 |

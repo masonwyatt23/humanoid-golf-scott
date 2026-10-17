@@ -142,7 +142,7 @@ class Recorder:
             ov = img.copy(); self.cv2.rectangle(ov, (0, 30), (1280, 30 + 24 * len(self.banner) + 6), (0, 0, 0), -1)
             img = self.cv2.addWeighted(ov, 0.65, img, 0.35, 0)
             for i, t in enumerate(self.banner):
-                self.cv2.putText(img, t, (10, 50 + 24 * i), self.cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 220, 255) if i == 0 else (255, 255, 255), 2 if i == 0 else 1, self.cv2.LINE_AA)
+                self.cv2.putText(img, t, (10, 50 + 24 * i), self.cv2.FONT_HERSHEY_SIMPLEX, 0.6, (getattr(self, 'banner_color', None) or (0, 220, 255)) if i == 0 else (255, 255, 255), 2 if i == 0 else 1, self.cv2.LINE_AA)
         for _ in range(hold): self.w.write(img)
         self.last = img
 
