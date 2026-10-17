@@ -1,0 +1,34 @@
+# Install: pip install pre-commit && pre-commit install
+# Run all: pre-commit run --all-files
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.10
+    hooks:
+      # Blocking lint = real errors only (config in pyproject.toml).
+      - id: ruff
+      # Formatting is opt-in for now so existing code is not reformatted:
+      #   pre-commit run ruff-format --hook-stage manual --files <files>
+      - id: ruff-format
+        stages: [manual]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=5120"]
+      - id: check-merge-conflict
+      - id: check-yaml
+  - repo: local
+    hooks:
+      # Forbid videos / archives / model weights / logs by extension (fails on any staged match).
+      - id: forbid-media-archives-logs
+        name: forbid videos, archives, model weights, logs
+        language: fail
+        entry: "Forbidden file type (video/zip/model weights/log). Keep it out of git (see .gitignore)."
+        files: '(?i)\.(mp4|mov|m4v|mkv|webm|avi|gif|zip|tar|gz|7z|pt|pth|h5|hdf5|log)$|MUJOCO_LOG'
+      # Repo-wide hygiene gate (stdlib only): compile, size, forbidden files, JSON, README links.
+      - id: repo-smoke-test
+        name: scripts/smoke_test.py
+        language: system
+        entry: python3 scripts/smoke_test.py
+        pass_filenames: false
+        always_run: true

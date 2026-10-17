@@ -13,8 +13,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.pinned.txt
+            pyproject.toml
       # Dependency-light on purpose: no mujoco, torch or stable-baselines3.
-      - run: python -m pip install numpy scipy pytest
+      - run: python -m pip install numpy scipy pytest ruff
+      - name: Lint (blocking rules only - E9, F63, F7, F82)
+        run: ruff check .
       - name: Smoke test (stdlib only)
         run: python scripts/smoke_test.py
       - name: Results dashboard is up to date

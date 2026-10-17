@@ -1,0 +1,34 @@
+# Tooling config only (lint / format / typecheck). Not a build config: the repo is
+# not packaged yet (see the layout plan). Nothing here changes runtime behaviour.
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+extend-exclude = ["data/raw_mocap", "results", "logs"]
+
+[tool.ruff.lint]
+# Blocking set = real errors only (syntax errors, bad comparisons/asserts, undefined names).
+# This passes on the current code. Widen gradually via `make lint-strict`.
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["F"]
+
+[tool.ruff.format]
+# Existing code is NOT reformatted by CI or pre-commit; `make format` only previews a diff.
+quote-style = "double"
+
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+check_untyped_defs = false
+disallow_untyped_defs = false
+allow_untyped_globals = true
+warn_unused_ignores = false
+follow_imports = "silent"
+exclude = ["^results/", "^data/raw_mocap/", "^docs/"]
+# Advisory only: `make typecheck` does not fail CI by default (see Makefile).
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
