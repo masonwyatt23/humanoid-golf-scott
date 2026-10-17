@@ -104,8 +104,9 @@ def profile_from_gates(name_prefix, seeds=(4000, 8000, 9000)):
     sdc = float(np.sqrt(np.mean([p["std_distance"] ** 2 for p in P]))) * k
     lat = float(np.sqrt(np.mean([p["lateral_std"] ** 2 + p["mean_y"] ** 2 for p in P]))) * k
     fs = D[0]["env_kwargs"].get("force_scale"); land = float(np.mean([p["landed_fraction"] for p in P]))
-    return Profile(f"C: HYPOTHETICAL gate-pooled 3 seeds - {name_prefix}", carry, sdc, lat, 0.0,
-                   f"{name_prefix} pooled over seeds {list(seeds)} x100 eps (det); force_scale={fs} (hypothetical-strength actuators); landed {land*100:.0f}%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0")
+    hyp = (fs or 1.0) > 1.0
+    return Profile(f"C: {'HYPOTHETICAL (force_scale 2, hypothetical-strength actuators)' if hyp else 'STOCK motors (force_scale 1)'} gate-pooled 3 seeds - {name_prefix}", carry, sdc, lat, 0.0,
+                   f"{name_prefix} pooled over seeds {list(seeds)} x100 eps (det); force_scale={fs}" + (" (hypothetical-strength actuators)" if hyp else " (stock motors)") + f"; landed {land*100:.0f}%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0")
 
 
 def _shot(rng, prof, cfg, club_frac, target_carry, lie, aim_y=0.0, roll=0.0):
@@ -180,7 +181,7 @@ def run(rounds=2000, seed=0):
     want = [n for n in (["imit9_w000_s51"], ["imit3_w050_s51"]) if any(n[0] in h for h in have)]    # presentation: imit9 (best lateral) and imit3_w050_s51 (best under noise); both imitate the script
     profs = []
     for n in want: profs += profiles_from_leaderboard(model_names=next(h for h in have if n[0] in h))
-    for nm in ("ppo_v4power_s61", "imit9_w000_s51"):
+    for nm in ("imit16_fs1_dart_s51", "imit15_dart_s52", "imit15_dart_s53", "imit9_w000_s51", "ppo_v4power_s61"):
         pg = profile_from_gates(nm)
         if pg: profs.append(pg)
     sims = [simulate(course, p, rounds, seed) for p in profs]
