@@ -1,14 +1,14 @@
 # Leaderboard
 
-**Current best model: ppo_v4yaw_s42** (30000 steps) - mean true contact over det+stoch 100%, mean carry 246.621 m. Peak club-head speed (best single swing over det+stoch): 57.52 m/s = 128.7 mph = 107.2% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v4yaw_s42** (mean contact 100%, mean carry 246.62 m, physics protocol). **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): ppo_v4yaw_s42.** Best overall incl. scripted baseline: ppo_v4yaw_s42. **HYPOTHETICAL ACTUATORS: ppo_v4yaw_s42 (force_scale 2), ppo_v4yaw_s43 (force_scale 2), best_v4yaw_s41 (force_scale 2), imit3_w050_s51 (force_scale 2), best_learned_yaw_s31 (force_scale 2), best_learned_yaw_s32 (force_scale 2), imit3_w075_s53 (force_scale 2), imit3_w075_s51 (force_scale 2), best_imit_w050_s52 (force_scale 2), imit3_w075_s52 (force_scale 2), imit3_w025_s51 (force_scale 2), imit4_w000_s52 (force_scale 2) run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.** Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary.
+**Current best model: ppo_v4power48_s71** (30000 steps) - mean true contact over det+stoch 100%, mean carry 311.272 m. Peak club-head speed (best single swing over det+stoch): 59.19 m/s = 132.4 mph = 110.3% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v4power48_s71** (mean contact 100%, mean carry 311.27 m, physics protocol). **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): ppo_v4power48_s71.** Best overall incl. scripted baseline: ppo_v4power48_s71. **HYPOTHETICAL ACTUATORS: ppo_v4power48_s71 (force_scale 2), ppo_v4power_s62 (force_scale 2), ppo_v4power_s61 (force_scale 2), ppo_v4yaw_s42 (force_scale 2), ppo_v4yaw_s43 (force_scale 2), best_v4yaw_s41 (force_scale 2), imit3_w050_s51 (force_scale 2), imit9_w000_s52 (force_scale 2), best_imit_scriptfree_elbow48_s51 (force_scale 2), imit9_w000_s53 (force_scale 2), best_learned_yaw_s31 (force_scale 2), best_learned_yaw_s32 (force_scale 2), imit3_w075_s53 (force_scale 2), imit3_w075_s51 (force_scale 2), best_imit_w050_s52 (force_scale 2), imit3_w075_s52 (force_scale 2), imit3_w025_s51 (force_scale 2), imit8_w000_s51 (force_scale 2), imit4_w000_s52 (force_scale 2) run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.** Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary.
 
 Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; (2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.
 
-Full ranking (scripted baseline included): ppo_v4yaw_s42 > ppo_v4yaw_s43 > best_v4yaw_s41 > imit3_w050_s51 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > best_learned_yaw_s31 > best_learned_yaw_s32 > imit3_w075_s53 > imit3_w075_s51 > imit2_w075_s52 > best_imit_scriptfree_s51_NOTPASS_lat3.56 > best_imit_w050_s52 > imit3_w075_s52 > imit2_w075_s53 > ppo_resid_v3_left_an3_s1 > imit3_w025_s51 > imit5_w000_s52 > ppo_v3tiny_s22 > best_carry_analytic > imit3_w000_s52 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an1_s0 > ppo_v3flt_all_s33 > ppo_v3tiny_s23 > ppo_v3tiny_s21 > ppo_resid_v3_left_an6_s4 > best_imit_scriptfree_s51_seed4000-8000only > ppo_resid_v3_left_an9_s7 > imit4_w000_s51 > imit3_w025_s52 > imit4_w000_s52 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > imit2_w075_s51 > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > best_gate_flat_123mph > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_prev2_backup > ppo_scott_baseline
+Full ranking (scripted baseline included): ppo_v4power48_s71 > ppo_v4power_s62 > ppo_v4power_s61 > ppo_v4yaw_s42 > ppo_v4yaw_s43 > best_v4yaw_s41 > imit3_w050_s51 > imit9_w000_s52 > best_imit_scriptfree_elbow48_s51 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > imit9_w000_s53 > best_learned_yaw_s31 > best_learned_yaw_s32 > imit3_w075_s53 > imit3_w075_s51 > imit2_w075_s52 > best_imit_scriptfree_s51_NOTPASS_lat3.56 > best_imit_w050_s52 > imit3_w075_s52 > imit2_w075_s53 > ppo_resid_v3_left_an3_s1 > imit3_w025_s51 > imit5_w000_s52 > ppo_v3tiny_s22 > best_carry_analytic > imit3_w000_s52 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an1_s0 > ppo_v3flt_all_s33 > ppo_v3tiny_s23 > imit7_w000_s51 > imit8_w000_s51 > ppo_v3tiny_s21 > ppo_resid_v3_left_an6_s4 > best_imit_scriptfree_s51_seed4000-8000only > ppo_resid_v3_left_an9_s7 > imit4_w000_s51 > imit3_w025_s52 > imit4_w000_s52 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > imit2_w075_s51 > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > best_gate_flat_123mph > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_prev2_backup > ppo_scott_baseline
 
 Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).
 
-Current env fingerprint `53db5ffb5eff` (env + XML hash). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
+Current env fingerprint `2341d588d952` (env + XML hash). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
 
 | Model(s) | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak ball spd (m/s) | Impact club spd (m/s) | Smash | Peak club spd mean/max (m/s) | Peak club mph mean/max | % of 120 mph mean/max | Launch elev mean deg (std) [flat?] | DTW native Mason v2, mean of 11 refs (11j / upper5) | DTW average | DTW rory | DTW scheffler | DTW scott |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -104,6 +104,10 @@ Current env fingerprint `53db5ffb5eff` (env + XML hash). 50 episodes, seeds 4000
 | ppo_scott_prev_backup | 30000 | stoch | 52% | 4.58 | 13.62 | 0.000 | 0% | 1.244 | 20% | 16% | 2.00 | 2.96 | 0.60 (n=26) | 22.77 / 30.50 | 50.9 / 68.2 | 42.5% / 56.9% | 4.7 (6.3) FLAT | 3.414 / 2.566 | 2.963 | 2.963 | 2.974 | 2.956 |
 | ppo_v3tiny_s21 | 60000 | deter | 100% | 111.78 | 276.21 | 84.489 | 90% | 4.427 | 4% | 6% | 50.02 | 53.18 | 0.94 (n=50) | 53.18 / 53.31 | 119.0 / 119.3 | 99.1% / 99.4% | 8.5 (7.3) | 2.119 / 1.602 | 1.145 | 1.142 | 1.149 | 1.144 |
 | ppo_v3tiny_s21 | 60000 | stoch | 100% | 118.70 | 271.57 | 102.636 | 94% | 8.955 | 12% | 10% | 52.11 | 53.16 | 0.98 (n=50) | 53.16 / 54.13 | 118.9 / 121.1 | 99.1% / 100.9% | 10.5 (5.5) | 2.069 / 1.536 | 1.103 | 1.099 | 1.107 | 1.102 |
+| ppo_v4power_s62 | 30000 | deter | 100% | 279.69 | 332.25 | 279.685 | 100% | 1.856 | 56% | 36% | 88.73 | 59.15 | 1.50 (n=50) | 59.15 / 59.27 | 132.3 / 132.6 | 110.3% / 110.5% | 11.7 (2.1) | 1.830 / 1.161 | 0.872 | 0.859 | 0.893 | 0.853 |
+| ppo_v4power_s62 | 30000 | stoch | 100% | 279.20 | 332.23 | 279.199 | 100% | 1.934 | 54% | 40% | 88.72 | 59.15 | 1.50 (n=50) | 59.15 / 59.27 | 132.3 / 132.6 | 110.3% / 110.5% | 11.7 (2.1) | 1.832 / 1.163 | 0.874 | 0.861 | 0.894 | 0.855 |
+| ppo_v4power_s61 | 30000 | deter | 100% | 279.19 | 332.27 | 279.194 | 100% | 1.822 | 42% | 38% | 88.69 | 59.15 | 1.50 (n=50) | 59.15 / 59.27 | 132.3 / 132.6 | 110.3% / 110.5% | 11.7 (2.1) | 1.831 / 1.163 | 0.874 | 0.861 | 0.894 | 0.855 |
+| ppo_v4power_s61 | 30000 | stoch | 100% | 279.59 | 332.24 | 279.591 | 100% | 1.883 | 48% | 38% | 88.76 | 59.15 | 1.50 (n=50) | 59.15 / 59.27 | 132.3 / 132.6 | 110.3% / 110.5% | 11.7 (2.1) | 1.831 / 1.162 | 0.873 | 0.860 | 0.893 | 0.854 |
 | ppo_v3tiny_s22 | 60000 | deter | 100% | 127.22 | 278.96 | 105.669 | 92% | 4.668 | 10% | 20% | 52.62 | 52.91 | 0.99 (n=50) | 52.91 / 53.03 | 118.4 / 118.6 | 98.6% / 98.9% | 11.3 (3.6) | 2.039 / 1.497 | 1.079 | 1.074 | 1.083 | 1.077 |
 | ppo_v3tiny_s22 | 60000 | stoch | 100% | 121.65 | 275.49 | 100.002 | 92% | 8.377 | 10% | 18% | 51.61 | 53.02 | 0.97 (n=50) | 53.02 / 53.90 | 118.6 / 120.6 | 98.9% / 100.5% | 9.8 (6.1) | 2.072 / 1.536 | 1.106 | 1.102 | 1.111 | 1.104 |
 | ppo_v3tiny_s23 | 60000 | deter | 100% | 116.38 | 281.28 | 94.311 | 92% | 2.836 | 6% | 10% | 51.11 | 53.19 | 0.96 (n=50) | 53.19 / 53.75 | 119.0 / 120.2 | 99.2% / 100.2% | 9.8 (6.4) | 2.088 / 1.560 | 1.121 | 1.117 | 1.125 | 1.121 |
@@ -112,6 +116,18 @@ Current env fingerprint `53db5ffb5eff` (env + XML hash). 50 episodes, seeds 4000
 | ppo_v4yaw_s42 | 30000 | stoch | 100% | 262.03 | 309.50 | 249.951 | 96% | 1.654 | 44% | 40% | 82.55 | 57.36 | 1.44 (n=50) | 57.36 / 57.52 | 128.3 / 128.7 | 106.9% / 107.2% | 10.9 (2.0) | 1.843 / 1.184 | 0.906 | 0.894 | 0.917 | 0.892 |
 | ppo_v4yaw_s43 | 30000 | deter | 100% | 261.13 | 309.87 | 243.011 | 94% | 1.648 | 42% | 38% | 82.60 | 57.36 | 1.44 (n=50) | 57.36 / 57.52 | 128.3 / 128.7 | 106.9% / 107.2% | 10.9 (2.0) | 1.847 / 1.190 | 0.910 | 0.898 | 0.921 | 0.896 |
 | ppo_v4yaw_s43 | 30000 | stoch | 100% | 262.39 | 309.87 | 244.277 | 94% | 1.739 | 44% | 40% | 82.70 | 57.36 | 1.44 (n=50) | 57.36 / 57.52 | 128.3 / 128.7 | 106.9% / 107.2% | 10.9 (2.0) | 1.843 / 1.184 | 0.906 | 0.894 | 0.917 | 0.891 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | 0 | deter | 100% | 119.97 | 184.51 | 119.973 | 100% | 0.958 | 2% | 4% | 54.22 | 53.85 | 1.01 (n=50) | 53.85 / 53.86 | 120.5 / 120.5 | 100.4% / 100.4% | 12.9 (0.2) | 2.030 / 1.469 | 1.077 | 1.070 | 1.083 | 1.072 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | 0 | stoch | 100% | 116.98 | 185.76 | 116.976 | 100% | 0.645 | 2% | 0% | 54.21 | 53.85 | 1.01 (n=50) | 53.85 / 53.88 | 120.5 / 120.5 | 100.4% / 100.5% | 12.9 (0.2) | 2.043 / 1.487 | 1.090 | 1.084 | 1.095 | 1.086 |
+| imit7_w000_s51 | 0 | deter | 100% | 117.15 | 281.65 | 89.213 | 90% | 8.020 | 2% | 8% | 50.63 | 53.95 | 0.94 (n=50) | 53.95 / 55.03 | 120.7 / 123.1 | 100.6% / 102.6% | 8.4 (7.9) | 2.102 / 1.576 | 1.132 | 1.127 | 1.135 | 1.129 |
+| imit7_w000_s51 | 0 | stoch | 100% | 102.33 | 176.46 | 102.333 | 100% | 5.806 | 2% | 2% | 52.33 | 53.95 | 0.97 (n=50) | 53.95 / 54.92 | 120.7 / 122.8 | 100.6% / 102.4% | 10.7 (5.9) | 2.110 / 1.590 | 1.152 | 1.147 | 1.154 | 1.151 |
+| imit9_w000_s52 | 0 | deter | 100% | 120.08 | 185.44 | 120.078 | 100% | 0.991 | 2% | 6% | 54.24 | 53.85 | 1.01 (n=50) | 53.85 / 53.86 | 120.5 / 120.5 | 100.4% / 100.4% | 12.9 (0.2) | 2.032 / 1.471 | 1.078 | 1.071 | 1.084 | 1.073 |
+| imit9_w000_s52 | 0 | stoch | 100% | 119.28 | 186.35 | 119.285 | 100% | 0.969 | 4% | 4% | 54.23 | 53.85 | 1.01 (n=50) | 53.85 / 53.87 | 120.4 / 120.5 | 100.4% / 100.4% | 12.9 (0.3) | 2.036 / 1.478 | 1.082 | 1.076 | 1.088 | 1.078 |
+| imit8_w000_s51 | 0 | deter | 100% | 124.65 | 288.52 | 96.635 | 90% | 0.248 | 2% | 0% | 51.39 | 54.21 | 0.95 (n=50) | 54.21 / 54.51 | 121.3 / 121.9 | 101.1% / 101.6% | 9.9 (6.9) | 2.057 / 1.504 | 1.091 | 1.085 | 1.097 | 1.087 |
+| imit8_w000_s51 | 0 | stoch | 100% | 132.60 | 288.68 | 93.571 | 86% | 0.877 | 0% | 4% | 51.65 | 54.24 | 0.95 (n=50) | 54.24 / 54.66 | 121.3 / 122.3 | 101.1% / 101.9% | 10.0 (6.3) | 2.043 / 1.485 | 1.082 | 1.075 | 1.088 | 1.077 |
+| imit9_w000_s53 | 0 | deter | 100% | 115.87 | 183.26 | 115.871 | 100% | 0.696 | 2% | 4% | 54.20 | 53.86 | 1.01 (n=50) | 53.86 / 53.87 | 120.5 / 120.5 | 100.4% / 100.4% | 12.9 (0.2) | 2.051 / 1.500 | 1.094 | 1.088 | 1.099 | 1.090 |
+| imit9_w000_s53 | 0 | stoch | 100% | 113.84 | 186.08 | 113.842 | 100% | 0.732 | 2% | 2% | 53.69 | 53.89 | 1.00 (n=50) | 53.89 / 55.44 | 120.6 / 124.0 | 100.5% / 103.3% | 12.4 (3.5) | 2.061 / 1.514 | 1.102 | 1.097 | 1.107 | 1.099 |
+| ppo_v4power48_s71 | 30000 | deter | 100% | 311.39 | 330.99 | 311.393 | 100% | 2.151 | 54% | 36% | 93.81 | 59.18 | 1.59 (n=50) | 59.18 / 59.19 | 132.4 / 132.4 | 110.3% / 110.3% | 12.6 (0.0) | 1.783 / 1.082 | 0.840 | 0.826 | 0.863 | 0.817 |
+| ppo_v4power48_s71 | 30000 | stoch | 100% | 311.15 | 330.94 | 311.152 | 100% | 2.143 | 52% | 36% | 93.71 | 59.18 | 1.58 (n=50) | 59.18 / 59.19 | 132.4 / 132.4 | 110.3% / 110.3% | 12.6 (0.0) | 1.783 / 1.082 | 0.840 | 0.826 | 0.863 | 0.817 |
 
 ## Per-row summary: learned fraction, style distance, sequencing (proxy)
 
@@ -211,6 +227,10 @@ Learned fraction = what the JSON args record (residual caps / env type), never g
 | ppo_scott_prev_backup | stoch | direct policy control (HumanoidGolfEnv; no scripted base) | 3.414 | 5 / nan / 14 / 25 / -16 / 41 | 0% (n=16) | -0.030 | 0.000 |
 | ppo_v3tiny_s21 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.119 | -15 / 49 / -15 / 14 / 44 / -1 | 0% (n=50) | 0.060 | 0.030 |
 | ppo_v3tiny_s21 | stoch | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.069 | -14 / -6 / -13 / 14 / 45 / -2 | 0% (n=50) | 0.060 | 0.027 |
+| ppo_v4power_s62 | deter | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.830 | -13 / -33 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
+| ppo_v4power_s62 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.832 | -13 / -73 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
+| ppo_v4power_s61 | deter | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.831 | -13 / -28 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
+| ppo_v4power_s61 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.831 | -13 / -93 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
 | ppo_v3tiny_s22 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.039 | -13 / 1 / -13 / 16 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
 | ppo_v3tiny_s22 | stoch | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.072 | -13 / -113 / -13 / 16 / 45 / -2 | 0% (n=50) | 0.060 | 0.030 |
 | ppo_v3tiny_s23 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.088 | -13 / 1 / -13 / 15 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
@@ -219,6 +239,18 @@ Learned fraction = what the JSON args record (residual caps / env type), never g
 | ppo_v4yaw_s42 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.843 | -15 / -165 / -15 / -5 / 44 / -0 | 0% (n=50) | 0.060 | 0.010 |
 | ppo_v4yaw_s43 | deter | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.847 | -15 / 4 / -15 / -5 / 44 / -0 | 0% (n=50) | 0.060 | 0.010 |
 | ppo_v4yaw_s43 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.843 | -15 / -85 / -15 / -5 / 44 / -0 | 0% (n=50) | 0.060 | 0.010 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.030 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.043 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit7_w000_s51 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.102 | -15 / 5 / -15 / 15 / 45 / -4 | 0% (n=50) | 0.060 | 0.030 |
+| imit7_w000_s51 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.110 | -15 / 3 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit9_w000_s52 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.032 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit9_w000_s52 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.036 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit8_w000_s51 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.057 | -15 / 5 / -15 / 15 / 42 / -3 | 0% (n=50) | 0.057 | 0.030 |
+| imit8_w000_s51 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.043 | -15 / 5 / -15 / 14 / 44 / -1 | 0% (n=50) | 0.060 | 0.030 |
+| imit9_w000_s53 | deter | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.051 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| imit9_w000_s53 | stoch | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.061 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v4power48_s71 | deter | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.783 | -13 / -28 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
+| ppo_v4power48_s71 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 1.783 | -13 / -113 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
 
 **Mason reference (proxy, `data/references/mason_target_features.json`, file mtime 2026-10-17 02:45; schema mason_target_features/v1; self-filmed ~30 fps 2D MediaPipe angles, ?-swing set, events +-1 frame, tempo +-15%):** arm-only sequencing, times in seconds from takeoff within [top, impact+0.15 s]: shoulder_R peak 0.60, elbow_R 0.67, wrist_R 0.64; wrist-minus-shoulder lag median 0.02 s; elbow-minus-shoulder (from medians) 0.07 s. Pelvis/thorax sequencing is UNAVAILABLE for Mason (reported 'unavailable'), so hips/torso rows cannot be compared. The Data Agent's regenerated (0.4 s timing fix) version is used only if the file in this tree is that version (check the mtime above); no sequencing number is taken from anywhere else. Sim lags and Mason lags are different windows/definitions: indicative only.
 
@@ -320,6 +352,10 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 | ppo_scott_prev_backup | stoch | 0.0 | 0.0 | 4.1 | 4.5 | nan | 14 |
 | ppo_v3tiny_s21 | deter | 84.5 | 92.4 | 111.4 | 121.8 | nan | 302 |
 | ppo_v3tiny_s21 | stoch | 102.6 | 112.2 | 118.3 | 129.4 | nan | 297 |
+| ppo_v4power_s62 | deter | 279.7 | 305.9 | 279.3 | 305.4 | 0.0 | 363 |
+| ppo_v4power_s62 | stoch | 279.2 | 305.3 | 278.8 | 304.9 | 0.0 | 363 |
+| ppo_v4power_s61 | deter | 279.2 | 305.3 | 278.8 | 304.9 | 0.0 | 363 |
+| ppo_v4power_s61 | stoch | 279.6 | 305.8 | 279.2 | 305.3 | 0.0 | 363 |
 | ppo_v3tiny_s22 | deter | 105.7 | 115.6 | 126.8 | 138.7 | nan | 305 |
 | ppo_v3tiny_s22 | stoch | 100.0 | 109.4 | 121.3 | 132.6 | nan | 301 |
 | ppo_v3tiny_s23 | deter | 94.3 | 103.1 | 116.0 | 126.8 | nan | 307 |
@@ -328,6 +364,18 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 | ppo_v4yaw_s42 | stoch | 250.0 | 273.3 | 261.6 | 286.1 | nan | 338 |
 | ppo_v4yaw_s43 | deter | 243.0 | 265.8 | 260.7 | 285.1 | nan | 338 |
 | ppo_v4yaw_s43 | stoch | 244.3 | 267.1 | 262.0 | 286.5 | nan | 338 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | deter | 120.0 | 131.2 | 119.6 | 130.8 | 0.0 | 201 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | stoch | 117.0 | 127.9 | 116.6 | 127.5 | 0.0 | 203 |
+| imit7_w000_s51 | deter | 89.2 | 97.6 | 116.8 | 127.7 | nan | 308 |
+| imit7_w000_s51 | stoch | 102.3 | 111.9 | 101.9 | 111.5 | 0.0 | 193 |
+| imit9_w000_s52 | deter | 120.1 | 131.3 | 119.7 | 130.9 | 0.0 | 202 |
+| imit9_w000_s52 | stoch | 119.3 | 130.5 | 118.9 | 130.0 | 0.0 | 203 |
+| imit8_w000_s51 | deter | 96.6 | 105.7 | 124.3 | 135.9 | nan | 315 |
+| imit8_w000_s51 | stoch | 93.6 | 102.3 | 132.2 | 144.6 | nan | 315 |
+| imit9_w000_s53 | deter | 115.9 | 126.7 | 115.5 | 126.3 | 0.0 | 200 |
+| imit9_w000_s53 | stoch | 113.8 | 124.5 | 113.4 | 124.1 | 0.0 | 203 |
+| ppo_v4power48_s71 | deter | 311.4 | 340.5 | 311.0 | 340.1 | 0.0 | 362 |
+| ppo_v4power48_s71 | stoch | 311.2 | 340.3 | 310.8 | 339.8 | 0.0 | 361 |
 
 ## Configs used (each model evaluated with its own)
 
@@ -377,10 +425,19 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 - **ppo_v3flt_all_s33** (30000 steps): results/ppo_v3flt_all_s33.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.02, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_scott_prev_backup** (30000 steps): results/train_scott_prev_backup.json; env = `{"curriculum": true, "pin_torso": true, "address_pose": "fixed", "torque_scale": 3.0}`
 - **ppo_v3tiny_s21** (60000 steps): results/ppo_v3tiny_s21.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v4power_s62** (30000 steps): results/ppo_v4power_s62.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "contact_damp": 0.3, "flight_steps": 900, "impact_model": {"gain": 1.28, "dz0": 0.017, "k_off": 0.4, "spin_k": 130, "k_side": 3500}, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.06, "t_back": 0.6, "wr_end": -0.1, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v4_power.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v4power_s61** (30000 steps): results/ppo_v4power_s61.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "contact_damp": 0.3, "flight_steps": 900, "impact_model": {"gain": 1.28, "dz0": 0.017, "k_off": 0.4, "spin_k": 130, "k_side": 3500}, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.06, "t_back": 0.6, "wr_end": -0.1, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v4_power.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_v3tiny_s22** (60000 steps): results/ppo_v3tiny_s22.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_v3tiny_s23** (60000 steps): results/ppo_v3tiny_s23.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_v4yaw_s42** (30000 steps): results/ppo_v4yaw_s42.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "contact_damp": 0.3, "impact_model": {"gain": 1.28, "dz0": -0.019, "k_off": 0.4, "spin_k": 130, "k_side": 3500}, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.065, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_v4yaw_s43** (30000 steps): results/ppo_v4yaw_s43.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "contact_damp": 0.3, "impact_model": {"gain": 1.28, "dz0": -0.019, "k_off": 0.4, "spin_k": 130, "k_side": 3500}, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.065, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **best_imit_scriptfree_elbow48_s51/imit9_w000_s51** (0 steps): results/imit9_w000_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "elbow_base": 0.48, "_env": "residual"}`
+- **imit7_w000_s51** (0 steps): results/imit7_w000_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual"}`
+- **imit9_w000_s52** (0 steps): results/imit9_w000_s52.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "elbow_base": 0.48, "_env": "residual"}`
+- **imit8_w000_s51** (0 steps): results/imit8_w000_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "elbow_base": 0.48, "_env": "residual"}`
+- **imit9_w000_s53** (0 steps): results/imit9_w000_s53.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.1, "elbow_base": 0.48, "_env": "residual"}`
+- **ppo_v4power48_s71** (30000 steps): results/ppo_v4power48_s71.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "contact_damp": 0.3, "flight_steps": 900, "elbow_base": 0.48, "impact_model": {"gain": 1.28, "dz0": 0.017, "k_off": 0.4, "spin_k": 130, "k_side": 3500}, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.06, "t_back": 0.6, "wr_end": -0.1, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v4_power.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- ['imit10_w000_s51_tr']: training config UNKNOWN, not evaluated.
 
 ## Showcase qualification criterion
 
@@ -388,10 +445,16 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 
 | Model | contact==100% (det and stoch) | mean carry >= 30 m (det) | lateral std <= 2.73 m (det) | mean launch elev >= 5 deg, not flat (det) | Qualifies |
 |---|---|---|---|---|---|
+| ppo_v4power48_s71 | yes | yes | yes | yes | **YES** |
+| ppo_v4power_s62 | yes | yes | yes | yes | **YES** |
+| ppo_v4power_s61 | yes | yes | yes | yes | **YES** |
 | ppo_v4yaw_s42 | yes | yes | yes | yes | **YES** |
 | ppo_v4yaw_s43 | yes | yes | yes | yes | **YES** |
 | best_v4yaw_s41/ppo_v4yaw_s41 | yes | yes | yes | yes | **YES** |
 | imit3_w050_s51 | yes | yes | yes | yes | **YES** |
+| imit9_w000_s52 | yes | yes | yes | yes | **YES** |
+| best_imit_scriptfree_elbow48_s51/imit9_w000_s51 | yes | yes | yes | yes | **YES** |
+| imit9_w000_s53 | yes | yes | yes | yes | **YES** |
 | best_learned_yaw_s31/ppo_v3flt_yaw_s31 | yes | yes | yes | yes | **YES** |
 | best_learned_yaw_s32/ppo_v3flt_yaw_s32 | yes | yes | yes | yes | **YES** |
 | imit3_w075_s53 | yes | yes | yes | yes | **YES** |
@@ -411,6 +474,8 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_resid_v3_left_an1_s0 | yes | yes | NO | yes | no |
 | ppo_v3flt_all_s33 | yes | yes | NO | yes | no |
 | ppo_v3tiny_s23 | yes | yes | NO | yes | no |
+| imit7_w000_s51 | yes | yes | NO | yes | no |
+| imit8_w000_s51 | yes | yes | yes | yes | **YES** |
 | ppo_v3tiny_s21 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an6_s4 | yes | yes | NO | yes | no |
 | best_imit_scriptfree_s51_seed4000-8000only/imit5_w000_s51 | yes | yes | NO | yes | no |
@@ -435,7 +500,7 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_scott_prev2_backup/ppo_scott_final2 | NO | NO | yes | yes | no |
 | ppo_scott_baseline | NO | NO | yes | yes | no |
 
-Qualifying: ppo_v4yaw_s42, ppo_v4yaw_s43, best_v4yaw_s41/ppo_v4yaw_s41, imit3_w050_s51, best_learned_yaw_s31/ppo_v3flt_yaw_s31, best_learned_yaw_s32/ppo_v3flt_yaw_s32, imit3_w075_s53, imit3_w075_s51, best_imit_w050_s52/imit3_w050_s52, imit3_w075_s52, imit3_w025_s51, imit4_w000_s52
+Qualifying: ppo_v4power48_s71, ppo_v4power_s62, ppo_v4power_s61, ppo_v4yaw_s42, ppo_v4yaw_s43, best_v4yaw_s41/ppo_v4yaw_s41, imit3_w050_s51, imit9_w000_s52, best_imit_scriptfree_elbow48_s51/imit9_w000_s51, imit9_w000_s53, best_learned_yaw_s31/ppo_v3flt_yaw_s31, best_learned_yaw_s32/ppo_v3flt_yaw_s32, imit3_w075_s53, imit3_w075_s51, best_imit_w050_s52/imit3_w050_s52, imit3_w075_s52, imit3_w025_s51, imit8_w000_s51, imit4_w000_s52
 
 Flat/negative-launch flag (mean elevation < 5 deg or >= 50% of shots below it): scripted_baseline[ladder cfg: right, loft 6, default ball_x] [det 9.2 deg, sto 9.2 deg], best_gate_flat_123mph/ppo_resid_v3_left_fast2_s11 [det -5.4 deg, sto -5.0 deg], imit2_w075_s51 [det 1.4 deg], ppo_resid_v3_left_an5_s3 [det -3.8 deg, sto -1.1 deg], ppo_resid_v3_left_an7_s5 [det -3.4 deg, sto -3.2 deg], ppo_resid_v3_left_an8_s6 [det -5.1 deg, sto -4.9 deg], ppo_resid_v3_left_fast1_s10 [det -5.1 deg, sto -5.0 deg], ppo_scott_prev_backup [sto 4.7 deg]
 
@@ -521,6 +586,12 @@ Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`
 | ppo_v3tiny_s21 | verified (this run, det) | 100% | 90% | 84.49 | 4.43 | 119.0 | FAIL |
 | ppo_v3tiny_s21 | trainer gate JSON (det) | 100% | 88% | 86.42 | 6.45 | 118.9 | FAIL |
 | ppo_v3tiny_s21 | trainer analytic (100 eps) | 100% | 100% | 120.95 | 0.10 | 119.0 (impact) | n/a |
+| ppo_v4power_s62 | verified (this run, det) | 100% | 100% | 279.69 | 1.86 | 132.3 | PASS |
+| ppo_v4power_s62 | trainer gate JSON (det) | 100% | 100% | 278.02 | 2.28 | 132.3 | PASS |
+| ppo_v4power_s62 | trainer analytic (100 eps) | 100% | 100% | 280.18 | 2.40 | 132.3 (impact) | n/a |
+| ppo_v4power_s61 | verified (this run, det) | 100% | 100% | 279.19 | 1.82 | 132.3 | PASS |
+| ppo_v4power_s61 | trainer gate JSON (det) | 100% | 100% | 278.05 | 2.34 | 132.3 | PASS |
+| ppo_v4power_s61 | trainer analytic (100 eps) | 100% | 100% | 280.59 | 2.40 | 132.3 (impact) | n/a |
 | ppo_v3tiny_s22 | verified (this run, det) | 100% | 92% | 105.67 | 4.67 | 118.4 | FAIL |
 | ppo_v3tiny_s22 | trainer gate JSON (det) | 100% | 94% | 105.08 | 5.23 | 118.4 | FAIL |
 | ppo_v3tiny_s22 | trainer analytic (100 eps) | 100% | 100% | 140.62 | 0.14 | 118.4 (impact) | n/a |
@@ -533,6 +604,19 @@ Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`
 | ppo_v4yaw_s43 | verified (this run, det) | 100% | 94% | 243.01 | 1.65 | 128.3 | PASS |
 | ppo_v4yaw_s43 | trainer gate JSON (det) | 100% | 94% | 242.63 | 2.31 | 128.3 | PASS |
 | ppo_v4yaw_s43 | trainer analytic (100 eps) | 100% | 94% | 246.47 | 2.14 | 128.3 (impact) | n/a |
+| best_imit_scriptfree_elbow48_s51 | verified (this run, det) | 100% | 100% | 119.97 | 0.96 | 120.5 | PASS |
+| imit7_w000_s51 | verified (this run, det) | 100% | 90% | 89.21 | 8.02 | 120.7 | FAIL |
+| imit7_w000_s51 | trainer gate JSON (det) | 100% | 100% | 109.50 | 4.55 | 120.4 | FAIL |
+| imit7_w000_s51 | trainer analytic (100 eps) | 100% | 98% | 104.34 | 1.48 | 120.3 (impact) | n/a |
+| imit9_w000_s52 | verified (this run, det) | 100% | 100% | 120.08 | 0.99 | 120.5 | PASS |
+| imit9_w000_s52 | trainer analytic (100 eps) | 100% | 100% | 116.20 | 0.30 | 120.5 (impact) | n/a |
+| imit8_w000_s51 | verified (this run, det) | 100% | 90% | 96.63 | 0.25 | 121.3 | PASS |
+| imit8_w000_s51 | trainer gate JSON (det) | 100% | 79% | 81.62 | 1.42 | 121.7 | FAIL |
+| imit8_w000_s51 | trainer analytic (100 eps) | 100% | 86% | 79.67 | 0.77 | 122.2 (impact) | n/a |
+| imit9_w000_s53 | verified (this run, det) | 100% | 100% | 115.87 | 0.70 | 120.5 | PASS |
+| imit9_w000_s53 | trainer analytic (100 eps) | 100% | 100% | 119.23 | 1.18 | 120.4 (impact) | n/a |
+| ppo_v4power48_s71 | verified (this run, det) | 100% | 100% | 311.39 | 2.15 | 132.4 | PASS |
+| ppo_v4power48_s71 | trainer analytic (100 eps) | 100% | 100% | 303.90 | 2.58 | 132.4 (impact) | n/a |
 
 ## DTW vs NATIVE Mason v2 references (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)
 
@@ -634,6 +718,10 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_scott_prev_backup | stoch | 3.384 / 2.627 | 3.528 / 2.695 | 3.531 / 2.590 | 3.474 / 2.612 | 3.416 / 2.547 | 3.371 / 2.507 | 3.412 / 2.545 | 3.369 / 2.538 | 3.375 / 2.570 | 3.334 / 2.484 | 3.358 / 2.510 | 3.414 / 2.566 |
 | ppo_v3tiny_s21 | deter | 2.010 / 1.590 | 2.552 / 1.901 | 2.321 / 1.723 | 2.237 / 1.752 | 2.108 / 1.535 | 1.904 / 1.443 | 2.036 / 1.509 | 2.019 / 1.555 | 2.031 / 1.565 | 1.930 / 1.415 | 2.162 / 1.630 | 2.119 / 1.602 |
 | ppo_v3tiny_s21 | stoch | 1.982 / 1.544 | 2.464 / 1.786 | 2.276 / 1.668 | 2.179 / 1.685 | 2.048 / 1.450 | 1.871 / 1.392 | 1.983 / 1.435 | 1.966 / 1.484 | 1.972 / 1.494 | 1.890 / 1.359 | 2.125 / 1.598 | 2.069 / 1.536 |
+| ppo_v4power_s62 | deter | 1.705 / 1.136 | 2.086 / 1.270 | 2.020 / 1.208 | 1.871 / 1.181 | 1.799 / 1.015 | 1.803 / 1.155 | 1.740 / 1.039 | 1.724 / 1.100 | 1.708 / 1.103 | 1.688 / 1.054 | 1.991 / 1.512 | 1.830 / 1.161 |
+| ppo_v4power_s62 | stoch | 1.706 / 1.138 | 2.088 / 1.273 | 2.021 / 1.211 | 1.873 / 1.184 | 1.800 / 1.017 | 1.804 / 1.157 | 1.741 / 1.040 | 1.725 / 1.102 | 1.709 / 1.105 | 1.689 / 1.055 | 1.993 / 1.513 | 1.832 / 1.163 |
+| ppo_v4power_s61 | deter | 1.706 / 1.138 | 2.088 / 1.273 | 2.021 / 1.211 | 1.873 / 1.184 | 1.800 / 1.017 | 1.804 / 1.156 | 1.741 / 1.040 | 1.725 / 1.102 | 1.709 / 1.105 | 1.689 / 1.055 | 1.993 / 1.513 | 1.831 / 1.163 |
+| ppo_v4power_s61 | stoch | 1.705 / 1.137 | 2.087 / 1.271 | 2.021 / 1.210 | 1.872 / 1.183 | 1.800 / 1.016 | 1.803 / 1.156 | 1.740 / 1.040 | 1.724 / 1.101 | 1.708 / 1.104 | 1.689 / 1.055 | 1.992 / 1.513 | 1.831 / 1.162 |
 | ppo_v3tiny_s22 | deter | 1.963 / 1.515 | 2.417 / 1.724 | 2.250 / 1.632 | 2.149 / 1.640 | 2.013 / 1.401 | 1.848 / 1.361 | 1.952 / 1.394 | 1.934 / 1.442 | 1.937 / 1.453 | 1.866 / 1.326 | 2.104 / 1.575 | 2.039 / 1.497 |
 | ppo_v3tiny_s22 | stoch | 1.978 / 1.540 | 2.473 / 1.797 | 2.279 / 1.657 | 2.184 / 1.683 | 2.052 / 1.454 | 1.872 / 1.392 | 1.987 / 1.437 | 1.967 / 1.485 | 1.977 / 1.497 | 1.889 / 1.360 | 2.130 / 1.597 | 2.072 / 1.536 |
 | ppo_v3tiny_s23 | deter | 1.993 / 1.563 | 2.497 / 1.830 | 2.294 / 1.690 | 2.205 / 1.709 | 2.068 / 1.479 | 1.885 / 1.409 | 2.000 / 1.460 | 1.984 / 1.509 | 1.993 / 1.519 | 1.904 / 1.377 | 2.144 / 1.613 | 2.088 / 1.560 |
@@ -642,6 +730,18 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_v4yaw_s42 | stoch | 1.737 / 1.174 | 2.099 / 1.283 | 2.032 / 1.231 | 1.883 / 1.210 | 1.819 / 1.051 | 1.787 / 1.163 | 1.765 / 1.083 | 1.741 / 1.126 | 1.727 / 1.134 | 1.705 / 1.078 | 1.980 / 1.490 | 1.843 / 1.184 |
 | ppo_v4yaw_s43 | deter | 1.741 / 1.180 | 2.105 / 1.291 | 2.036 / 1.239 | 1.888 / 1.218 | 1.823 / 1.058 | 1.789 / 1.167 | 1.768 / 1.088 | 1.745 / 1.132 | 1.731 / 1.140 | 1.708 / 1.082 | 1.984 / 1.492 | 1.847 / 1.190 |
 | ppo_v4yaw_s43 | stoch | 1.737 / 1.174 | 2.099 / 1.283 | 2.032 / 1.232 | 1.883 / 1.211 | 1.820 / 1.052 | 1.787 / 1.163 | 1.766 / 1.084 | 1.742 / 1.127 | 1.728 / 1.135 | 1.705 / 1.078 | 1.980 / 1.490 | 1.843 / 1.184 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | deter | 1.951 / 1.484 | 2.389 / 1.677 | 2.247 / 1.614 | 2.141 / 1.624 | 1.993 / 1.361 | 1.870 / 1.335 | 1.926 / 1.346 | 1.918 / 1.402 | 1.926 / 1.422 | 1.840 / 1.281 | 2.132 / 1.608 | 2.030 / 1.469 |
+| best_imit_scriptfree_elbow48_s51<br>imit9_w000_s51 | stoch | 1.964 / 1.504 | 2.409 / 1.703 | 2.261 / 1.639 | 2.158 / 1.650 | 2.005 / 1.381 | 1.875 / 1.347 | 1.937 / 1.363 | 1.929 / 1.420 | 1.939 / 1.440 | 1.849 / 1.294 | 2.143 / 1.617 | 2.043 / 1.487 |
+| imit7_w000_s51 | deter | 1.998 / 1.570 | 2.521 / 1.858 | 2.306 / 1.695 | 2.217 / 1.729 | 2.085 / 1.500 | 1.899 / 1.422 | 2.015 / 1.477 | 1.998 / 1.525 | 2.014 / 1.540 | 1.910 / 1.388 | 2.162 / 1.626 | 2.102 / 1.576 |
+| imit7_w000_s51 | stoch | 2.016 / 1.597 | 2.533 / 1.874 | 2.320 / 1.735 | 2.237 / 1.763 | 2.084 / 1.506 | 1.903 / 1.424 | 2.013 / 1.480 | 2.001 / 1.533 | 2.016 / 1.550 | 1.912 / 1.391 | 2.178 / 1.641 | 2.110 / 1.590 |
+| imit9_w000_s52 | deter | 1.953 / 1.487 | 2.392 / 1.680 | 2.249 / 1.617 | 2.143 / 1.627 | 1.995 / 1.364 | 1.870 / 1.337 | 1.928 / 1.349 | 1.919 / 1.404 | 1.928 / 1.424 | 1.842 / 1.283 | 2.133 / 1.609 | 2.032 / 1.471 |
+| imit9_w000_s52 | stoch | 1.957 / 1.494 | 2.399 / 1.689 | 2.254 / 1.626 | 2.149 / 1.636 | 1.999 / 1.371 | 1.872 / 1.341 | 1.931 / 1.355 | 1.923 / 1.411 | 1.932 / 1.431 | 1.845 / 1.288 | 2.136 / 1.612 | 2.036 / 1.478 |
+| imit8_w000_s51 | deter | 1.962 / 1.503 | 2.437 / 1.741 | 2.266 / 1.637 | 2.165 / 1.651 | 2.029 / 1.412 | 1.886 / 1.366 | 1.960 / 1.391 | 1.949 / 1.444 | 1.961 / 1.462 | 1.864 / 1.316 | 2.148 / 1.619 | 2.057 / 1.504 |
+| imit8_w000_s51 | stoch | 1.953 / 1.490 | 2.414 / 1.710 | 2.252 / 1.615 | 2.149 / 1.629 | 2.013 / 1.389 | 1.876 / 1.353 | 1.945 / 1.372 | 1.934 / 1.424 | 1.945 / 1.442 | 1.854 / 1.302 | 2.136 / 1.610 | 2.043 / 1.485 |
+| imit9_w000_s53 | deter | 1.974 / 1.518 | 2.421 / 1.720 | 2.269 / 1.655 | 2.169 / 1.668 | 2.012 / 1.396 | 1.879 / 1.356 | 1.944 / 1.376 | 1.938 / 1.434 | 1.948 / 1.454 | 1.856 / 1.305 | 2.149 / 1.622 | 2.051 / 1.500 |
+| imit9_w000_s53 | stoch | 1.978 / 1.526 | 2.439 / 1.743 | 2.278 / 1.663 | 2.179 / 1.680 | 2.026 / 1.414 | 1.888 / 1.368 | 1.956 / 1.392 | 1.949 / 1.449 | 1.961 / 1.469 | 1.865 / 1.317 | 2.156 / 1.630 | 2.061 / 1.514 |
+| ppo_v4power48_s71 | deter | 1.641 / 1.048 | 2.014 / 1.165 | 1.967 / 1.109 | 1.813 / 1.075 | 1.749 / 0.921 | 1.798 / 1.101 | 1.687 / 0.951 | 1.671 / 1.015 | 1.652 / 1.018 | 1.644 / 0.983 | 1.977 / 1.510 | 1.783 / 1.082 |
+| ppo_v4power48_s71 | stoch | 1.642 / 1.048 | 2.015 / 1.166 | 1.967 / 1.110 | 1.813 / 1.075 | 1.749 / 0.921 | 1.798 / 1.101 | 1.687 / 0.951 | 1.672 / 1.016 | 1.653 / 1.018 | 1.644 / 0.983 | 1.977 / 1.510 | 1.783 / 1.082 |
 
 ## Contact regressions (vs best earlier-trained checkpoint, same mode)
 
@@ -809,56 +909,113 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | imit5_w000_s52 | 0 | 30178ef58c6a | 100% | 100% |
 | imit5_w000_s51 | 0 | 30178ef58c6a | 100% | 100% |
 | best_carry_analytic, ppo_resid_v3_left_an2_s0 | 150000 | 53db5ffb5eff | 100% | 100% |
+| best_carry_analytic, ppo_resid_v3_left_an2_s0 | 150000 | 2341d588d952 | 100% | 100% |
 | best_gate_flat_123mph, ppo_resid_v3_left_fast2_s11 | 100000 | 53db5ffb5eff | 100% | 100% |
+| best_gate_flat_123mph, ppo_resid_v3_left_fast2_s11 | 100000 | 2341d588d952 | 100% | 100% |
 | best_imit_scriptfree_s51_NOTPASS_lat3.56, imit3_w000_s51 | 8000 | 53db5ffb5eff | 100% | 100% |
+| best_imit_scriptfree_s51_NOTPASS_lat3.56, imit3_w000_s51 | 8000 | 2341d588d952 | 100% | 100% |
 | best_imit_scriptfree_s51_seed4000-8000only, imit5_w000_s51 | 0 | 53db5ffb5eff | 100% | 100% |
+| best_imit_scriptfree_s51_seed4000-8000only, imit5_w000_s51 | 0 | 2341d588d952 | 100% | 100% |
 | best_imit_w050_s52, imit3_w050_s52 | 8000 | 53db5ffb5eff | 100% | 100% |
+| best_imit_w050_s52, imit3_w050_s52 | 8000 | 2341d588d952 | 100% | 100% |
 | best_learned_yaw_s31, ppo_v3flt_yaw_s31 | 30000 | 53db5ffb5eff | 100% | 100% |
 | best_v4yaw_s41, ppo_v4yaw_s41 | 30000 | 53db5ffb5eff | 100% | 100% |
 | best_learned_yaw_s32, ppo_v3flt_yaw_s32 | 30000 | 53db5ffb5eff | 100% | 100% |
+| best_learned_yaw_s31, ppo_v3flt_yaw_s31 | 30000 | 2341d588d952 | 100% | 100% |
+| best_v4yaw_s41, ppo_v4yaw_s41 | 30000 | 2341d588d952 | 100% | 100% |
+| best_learned_yaw_s32, ppo_v3flt_yaw_s32 | 30000 | 2341d588d952 | 100% | 100% |
 | imit2_w075_s51 | 15000 | 53db5ffb5eff | 100% | 100% |
 | imit2_w075_s52 | 15000 | 53db5ffb5eff | 100% | 100% |
+| imit2_w075_s51 | 15000 | 2341d588d952 | 100% | 100% |
+| imit2_w075_s52 | 15000 | 2341d588d952 | 100% | 100% |
 | imit2_w075_s53 | 15000 | 53db5ffb5eff | 100% | 100% |
+| imit2_w075_s53 | 15000 | 2341d588d952 | 100% | 100% |
 | imit3_w000_s52 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w000_s52 | 8000 | 2341d588d952 | 100% | 100% |
 | imit3_w025_s51 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w025_s51 | 8000 | 2341d588d952 | 100% | 100% |
 | imit3_w025_s52 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w025_s52 | 8000 | 2341d588d952 | 100% | 100% |
 | imit3_w050_s51 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w050_s51 | 8000 | 2341d588d952 | 100% | 100% |
 | imit3_w075_s51 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w075_s51 | 8000 | 2341d588d952 | 100% | 100% |
 | imit3_w075_s52 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w075_s52 | 8000 | 2341d588d952 | 100% | 100% |
 | imit3_w075_s53 | 8000 | 53db5ffb5eff | 100% | 100% |
+| imit3_w075_s53 | 8000 | 2341d588d952 | 100% | 100% |
 | imit4_w000_s51 | 10000 | 53db5ffb5eff | 100% | 100% |
+| imit4_w000_s51 | 10000 | 2341d588d952 | 100% | 100% |
 | imit4_w000_s52 | 10000 | 53db5ffb5eff | 100% | 100% |
+| imit4_w000_s52 | 10000 | 2341d588d952 | 100% | 100% |
 | imit5_w000_s52 | 0 | 53db5ffb5eff | 100% | 100% |
+| imit5_w000_s52 | 0 | 2341d588d952 | 100% | 100% |
 | imit_w075_s51 | 0 | 53db5ffb5eff | 100% | 100% |
+| imit_w075_s51 | 0 | 2341d588d952 | 100% | 100% |
 | imit_w075_s52 | 0 | 53db5ffb5eff | 100% | 100% |
+| imit_w075_s52 | 0 | 2341d588d952 | 100% | 100% |
 | imit_w075_s53 | 0 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_ladder_s0 | 150000 | 53db5ffb5eff | 100% | 100% |
+| imit_w075_s53 | 0 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_ladder_s0 | 150000 | 2341d588d952 | 100% | 100% |
 | ppo_resid_v3_left_an1_s0 | 150000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_an10_s8 | 120000 | 53db5ffb5eff | 100% | 100% |
+| ppo_resid_v3_left_an1_s0 | 150000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_an10_s8 | 120000 | 2341d588d952 | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_an5_s3 | 150000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_an4_s2 | 150000 | 53db5ffb5eff | 100% | 100% |
+| ppo_resid_v3_left_an3_s1 | 150000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_an5_s3 | 150000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_an4_s2 | 150000 | 2341d588d952 | 100% | 100% |
 | ppo_resid_v3_left_an7_s5 | 120000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_an8_s6 | 120000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_an9_s7 | 120000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_an6_s4 | 150000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_left_fast1_s10 | 100000 | 53db5ffb5eff | 100% | 100% |
+| ppo_resid_v3_left_an7_s5 | 120000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_an8_s6 | 120000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_an9_s7 | 120000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_an6_s4 | 150000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_left_fast1_s10 | 100000 | 2341d588d952 | 100% | 100% |
 | ppo_resid_v3_r2_s0 | 60000 | 53db5ffb5eff | 100% | 100% |
+| ppo_resid_v3_r2_s0 | 60000 | 2341d588d952 | 100% | 100% |
 | ppo_resid_v3_r3_s0 | 100000 | 53db5ffb5eff | 100% | 100% |
 | ppo_resid_v3_s0 | 60000 | 53db5ffb5eff | 100% | 64% |
+| ppo_resid_v3_r3_s0 | 100000 | 2341d588d952 | 100% | 100% |
+| ppo_resid_v3_s0 | 60000 | 2341d588d952 | 100% | 64% |
 | ppo_scott, ppo_scott_carry1 | 100000 | 53db5ffb5eff | 98% | 68% |
 | ppo_scott_baseline | 30000 | 53db5ffb5eff | 0% | 0% |
+| ppo_scott, ppo_scott_carry1 | 100000 | 2341d588d952 | 98% | 68% |
+| ppo_scott_baseline | 30000 | 2341d588d952 | 0% | 0% |
 | ppo_scott_curr | 30000 | 53db5ffb5eff | 100% | 36% |
 | ppo_scott_prev2_backup, ppo_scott_final2 | 60000 | 53db5ffb5eff | 48% | 46% |
+| ppo_scott_curr | 30000 | 2341d588d952 | 100% | 36% |
+| ppo_scott_prev2_backup, ppo_scott_final2 | 60000 | 2341d588d952 | 48% | 46% |
 | ppo_v3flt_all_s33 | 30000 | 53db5ffb5eff | 100% | 100% |
 | ppo_scott_prev_backup | 30000 | 53db5ffb5eff | 100% | 52% |
+| ppo_v3flt_all_s33 | 30000 | 2341d588d952 | 100% | 100% |
+| ppo_scott_prev_backup | 30000 | 2341d588d952 | 100% | 52% |
 | ppo_v3tiny_s21 | 60000 | 53db5ffb5eff | 100% | 100% |
+| ppo_v3tiny_s21 | 60000 | 2341d588d952 | 100% | 100% |
 | ppo_v4power_s62 | 30000 | 53db5ffb5eff | 100% | 100% |
 | ppo_v4power_s61 | 30000 | 53db5ffb5eff | 100% | 100% |
 | ppo_v3tiny_s22 | 60000 | 53db5ffb5eff | 100% | 100% |
 | ppo_v3tiny_s23 | 60000 | 53db5ffb5eff | 100% | 100% |
+| ppo_v4power_s62 | 30000 | 2341d588d952 | 100% | 100% |
+| ppo_v4power_s61 | 30000 | 2341d588d952 | 100% | 100% |
+| ppo_v3tiny_s22 | 60000 | 2341d588d952 | 100% | 100% |
+| ppo_v3tiny_s23 | 60000 | 2341d588d952 | 100% | 100% |
 | ppo_v4yaw_s42 | 30000 | 53db5ffb5eff | 100% | 100% |
 | ppo_v4yaw_s43 | 30000 | 53db5ffb5eff | 100% | 100% |
+| ppo_v4yaw_s42 | 30000 | 2341d588d952 | 100% | 100% |
+| ppo_v4yaw_s43 | 30000 | 2341d588d952 | 100% | 100% |
+| best_imit_scriptfree_elbow48_s51, imit9_w000_s51 | 0 | 2341d588d952 | 100% | 100% |
+| imit7_w000_s51 | 0 | 2341d588d952 | 100% | 100% |
+| imit8_w000_s51 | 0 | 2341d588d952 | 100% | 100% |
+| imit9_w000_s52 | 0 | 2341d588d952 | 100% | 100% |
+| ppo_v4power48_s71 | 30000 | 2341d588d952 | 100% | 100% |
+| imit9_w000_s53 | 0 | 2341d588d952 | 100% | 100% |
 
 ## Noise robustness + track_score (QUICK GATE: 10 deterministic episodes, seeds 4000+, small N so noisy; screened models only)
 
@@ -900,20 +1057,36 @@ track_score = trainer definition (`ResidualGolfEnv._track_score`: mean over shou
 | ppo_resid_v3_s0 | residual on scripted swing: cap +-[0.4, 0.4, 0.4, 0.25] rad  | 57.1 / 31.46 | 100%, 50.0 (88%), 29.41 | PASS | 100%, 57.6 (101%), 27.39 | PASS | n/a (undefined: no track config) |
 | ppo_v3flt_all_s33 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 95.0 / 5.13 | 100%, 102.7 (108%), 10.80 | PASS | 100%, 104.4 (110%), 10.44 | PASS | n/a (undefined: no track config) |
 | ppo_v3tiny_s21 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 84.5 / 4.43 | 100%, 117.5 (139%), 2.61 | PASS | 100%, 87.8 (104%), 11.42 | PASS | n/a (undefined: no track config) |
+| ppo_v4power_s62 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 279.7 / 1.86 | 100%, 254.2 (91%), 1.91 | PASS | 100%, 254.2 (91%), 1.91 | PASS | n/a (undefined: no track config) |
+| ppo_v4power_s61 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 279.2 / 1.82 | 100%, 255.7 (92%), 1.90 | PASS | 100%, 253.7 (91%), 1.88 | PASS | n/a (undefined: no track config) |
 | ppo_v3tiny_s22 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 105.7 / 4.67 | 100%, 102.5 (97%), 3.96 | PASS | 100%, 115.8 (110%), 6.20 | PASS | n/a (undefined: no track config) |
 | ppo_v3tiny_s23 | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] r | 94.3 / 2.84 | 100%, 111.0 (118%), 4.94 | PASS | 100%, 87.6 (93%), 0.14 | PASS | n/a (undefined: no track config) |
 | ppo_v4yaw_s42 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.3 / 1.66 | 100%, 215.1 (88%), 1.80 | PASS | 100%, 215.1 (88%), 1.80 | PASS | n/a (undefined: no track config) |
 | ppo_v4yaw_s43 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 243.0 / 1.65 | 100%, 212.7 (88%), 1.77 | PASS | 100%, 212.7 (88%), 1.77 | PASS | n/a (undefined: no track config) |
+| best_imit_scriptfree_elbow48_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 120.0 / 0.96 | 100%, 69.1 (58%), 0.05 | FAIL | 90%, 35.6 (30%), 1.44 | FAIL | n/a (undefined: no track config) |
+| imit7_w000_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 89.2 / 8.02 | 100%, 81.9 (92%), 1.33 | PASS | 100%, 97.5 (109%), 2.85 | PASS | 0.029 / 0.000 |
+| imit9_w000_s52 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 120.1 / 0.99 | 100%, 74.2 (62%), 0.05 | FAIL | 100%, 85.0 (71%), 0.88 | FAIL | 0.000 / 0.000 |
+| imit8_w000_s51 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 96.6 / 0.25 | 100%, 85.8 (89%), 0.05 | PASS | 100%, 80.4 (83%), 0.06 | PASS | 0.010 / 0.000 |
+| imit9_w000_s53 | IMITATION OF THE SCRIPT, 0% script: BLEND: executed command  | 115.9 / 0.70 | 100%, 82.8 (71%), 0.66 | FAIL | 100%, 73.0 (63%), 0.08 | FAIL | 0.013 / 0.000 |
+| ppo_v4power48_s71 | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad  | 311.4 / 2.15 | 100%, 312.3 (100%), 2.04 | PASS | 100%, 312.3 (100%), 2.04 | PASS | n/a (undefined: no track config) |
 
-Note: ppo_v4power_s61/s62 are deliberately NOT leaderboard rows (their env config - flight_steps 900, impact_model, power XML - cannot be rebuilt by this tree's env_factory; a row would silently use the 450-step default and show a false ~36% landed). They appear only in the hypothetical tier below, from 3-seed eval_gate runs.
 ## HYPOTHETICAL TIER (force_scale > 1): 3-seed headline gate, kept separate from learned vs scripted
 
 **HYPOTHETICAL ACTUATORS**: boosted actuator force caps; not human- or robot-attainable. Source: `results/gate_<name>_seed<seed>.json` (eval_gate, headline tier: det AND stoch contact>=99%, lateral std<=2.73 m, launch 5-20 deg, carry>=min_carry, landed>=90%). 'Effectively scripted' = policy det carry within 1% and lateral std within 15% (or 0.3 m) of the zero-residual script in the same file on every seed; such rows are NOT learned drives. A model counts as passing only if ALL of seeds 4000/8000/9000 pass.
 
 | model | label | force_scale | flight_steps | residual cap (res_scale) | seed | episodes | det carry m / yd | det lat std m | stoch lat std m | landed (det) | launch deg | club mph | script lat std m | headline |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| imit5_w000_s51 | POLICY DIFFERS FROM SCRIPT (hypothetical actuators; learned fraction: see leaderboard row) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 96.6 / 106 | 2.42 | 1.51 | 94% | 9.4 | 122.0 | 0.01 | PASS (min_carry 11.98) |
-| imit5_w000_s51 | POLICY DIFFERS FROM SCRIPT (hypothetical actuators; learned fraction: see leaderboard row) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 60.5 / 66 | 0.08 | 0.21 | 75% | 4.6 | 119.8 | 0.01 | FAIL (min_carry 11.98) |
+| imit5_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 96.6 / 106 | 2.42 | 1.51 | 94% | 9.4 | 122.0 | 0.01 | PASS (min_carry 11.98) |
+| imit5_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 60.5 / 66 | 0.08 | 0.21 | 75% | 4.6 | 119.8 | 0.01 | FAIL (min_carry 11.98) |
+| imit7_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 104.0 / 114 | 7.10 | 4.43 | 92% | 9.8 | 120.9 | 0.01 | FAIL (min_carry 30.0) |
+| imit7_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 89.4 / 98 | 1.50 | 2.78 | 82% | 9.8 | 120.1 | 0.01 | FAIL (min_carry 30.0) |
+| imit8_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 107.6 / 118 | 0.03 | 0.03 | 100% | 13.2 | 120.9 | 0.01 | PASS (min_carry 30.0) |
+| imit9_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 4000 | 100 | 119.3 / 130 | 1.17 | 1.30 | 100% | 12.9 | 120.4 | 0.01 | PASS (min_carry 30.0) |
+| imit9_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 120.7 / 132 | 1.39 | 1.15 | 100% | 13.0 | 120.5 | 0.01 | PASS (min_carry 30.0) |
+| imit9_w000_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 118.2 / 129 | 1.27 | 1.57 | 100% | 12.9 | 120.5 | 0.01 | PASS (min_carry 30.0) |
+| ppo_v4power48_s71 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 4000 | 100 | 308.4 / 337 | 2.32 | 2.33 | 100% | 12.6 | 132.4 | 2.32 | PASS (min_carry 30.0) |
+| ppo_v4power48_s71 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 8000 | 100 | 307.2 / 336 | 2.36 | 2.39 | 100% | 12.6 | 132.4 | 2.36 | PASS (min_carry 30.0) |
+| ppo_v4power48_s71 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 9000 | 100 | 305.3 / 334 | 2.51 | 2.55 | 100% | 12.6 | 132.4 | 2.51 | PASS (min_carry 30.0) |
 | ppo_v4power_s61 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 4000 | 100 | 277.9 / 304 | 2.38 | 2.48 | 100% | 11.6 | 132.3 | 2.29 | PASS (min_carry 11.98) |
 | ppo_v4power_s61 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 8000 | 100 | 283.4 / 310 | 2.53 | 2.66 | 100% | 12.3 | 132.3 | 2.51 | PASS (min_carry 11.98) |
 | ppo_v4power_s61 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 9000 | 100 | 278.7 / 305 | 17.13 | 17.44 | 99% | 11.5 | 132.3 | 17.58 | FAIL (min_carry 11.98) |
@@ -921,5 +1094,5 @@ Note: ppo_v4power_s61/s62 are deliberately NOT leaderboard rows (their env confi
 | ppo_v4power_s62 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 8000 | 100 | 283.2 / 310 | 2.51 | 2.46 | 100% | 12.3 | 132.3 | 2.51 | PASS (min_carry 11.98) |
 | ppo_v4power_s62 | EFFECTIVELY SCRIPTED (hypothetical actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 9000 | 100 | 278.1 / 304 | 17.59 | 16.87 | 99% | 11.5 | 132.3 | 17.58 | FAIL (min_carry 11.98) |
 
-3/3-seed pass: imit5_w000_s51: NO, ppo_v4power_s61: NO, ppo_v4power_s62: NO
+3/3-seed pass: imit5_w000_s51: NO, imit7_w000_s51: NO, imit8_w000_s51: NO, imit9_w000_s51: YES, ppo_v4power48_s71: YES, ppo_v4power_s61: NO, ppo_v4power_s62: NO
 

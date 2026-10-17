@@ -9,7 +9,8 @@ TOL_CARRY, TOL_LAT_REL, TOL_LAT_ABS = 0.01, 0.15, 0.3
 
 def tier():
     by = {}
-    for f in sorted(glob.glob(str(ROOT / "results/gate_*_seed*.json"))):
+    fs = sorted(glob.glob(str(ROOT / "results/gate_*_seed*.json")) + glob.glob(str(ROOT / "results/imit_private/gate_*.json")) + glob.glob(str(ROOT / "results/power48_private/gate_*.json")))   # *_private = Trainer's GATE_OUT dirs; seed-4000 file there has no _seed suffix
+    for f in fs:
         d = json.loads(Path(f).read_text()); kw = d.get("env_kwargs", {})
         if not (kw.get("force_scale", 1.0) or 1.0) > 1.0 or "policy_det" not in d: continue
         by.setdefault(d["name"], {})[d["seed"]] = d
@@ -32,7 +33,8 @@ def md():
          "'Effectively scripted' = policy det carry within 1% and lateral std within 15% (or 0.3 m) of the zero-residual script in the same file on every seed; such rows are NOT learned drives. A model counts as passing only if ALL of seeds 4000/8000/9000 pass.", "",
          "| model | label | force_scale | flight_steps | residual cap (res_scale) | seed | episodes | det carry m / yd | det lat std m | stoch lat std m | landed (det) | launch deg | club mph | script lat std m | headline |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in R:
-        lab = "EFFECTIVELY SCRIPTED (hypothetical actuators)" if r["effectively_scripted"] else "POLICY DIFFERS FROM SCRIPT (hypothetical actuators; learned fraction: see leaderboard row)"
+        sw = next(iter(r["seeds"].values()))["env_kwargs"].get("script_weight")
+        lab = "SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; hypothetical actuators)" if (sw == 0 and r["name"].startswith("imit")) and not r["effectively_scripted"] else "EFFECTIVELY SCRIPTED (hypothetical actuators)" if r["effectively_scripted"] else "POLICY DIFFERS FROM SCRIPT (hypothetical actuators; learned fraction: see leaderboard row)"
         for s, d in sorted(r["seeds"].items()):
             p, st, z = d["policy_det"], d["policy_stoch"], d.get("scripted_zero_residual", {})
             L.append(f"| {r['name']} | {lab} | {r['force_scale']:g} | {r['flight_steps']} | {r['res_scale']} | {s} | {d['episodes']} | {p['mean_carry']:.1f} / {p['mean_carry']*1.09361:.0f} | {p['lateral_std']:.2f} | {st['lateral_std']:.2f} | {p['landed_fraction']*100:.0f}% | {p['launch_elev_mean_deg']:.1f} | {p['peak_club_mph_mean']:.1f} | {z.get('lateral_std', float('nan')):.2f} | {'PASS' if d['gate_pass'] else 'FAIL'} (min_carry {d['min_carry']}) |")

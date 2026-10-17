@@ -1,7 +1,7 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `53db5ffb5eff`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
-Best trained: **ppo_v4yaw_s42**; best left-handed: **ppo_v4yaw_s42**; best overall incl. scripted baseline: **ppo_v4yaw_s42**.
+Env fingerprint `2341d588d952`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Best trained: **ppo_v4power48_s71**; best left-handed: **ppo_v4power48_s71**; best overall incl. scripted baseline: **ppo_v4power48_s71**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -97,6 +97,10 @@ Best trained: **ppo_v4yaw_s42**; best left-handed: **ppo_v4yaw_s42**; best overa
 | ppo_scott_prev_backup | 30000 | right | stoch | 52% | 4.58 | 13.62 | 0.00 | 0% | 1.24 | 20% | 16% | 50.9 / 68.2 | 56.9% |
 | ppo_v3tiny_s21 | 60000 | left | deter | 100% | 111.78 | 276.21 | 84.49 | 90% | 4.43 | 4% | 6% | 119.0 / 119.3 | 99.4% |
 | ppo_v3tiny_s21 | 60000 | left | stoch | 100% | 118.70 | 271.57 | 102.64 | 94% | 8.96 | 12% | 10% | 118.9 / 121.1 | 100.9% |
+| ppo_v4power_s62 | 30000 | left | deter | 100% | 279.69 | 332.25 | 279.69 | 100% | 1.86 | 56% | 36% | 132.3 / 132.6 | 110.5% |
+| ppo_v4power_s62 | 30000 | left | stoch | 100% | 279.20 | 332.23 | 279.20 | 100% | 1.93 | 54% | 40% | 132.3 / 132.6 | 110.5% |
+| ppo_v4power_s61 | 30000 | left | deter | 100% | 279.19 | 332.27 | 279.19 | 100% | 1.82 | 42% | 38% | 132.3 / 132.6 | 110.5% |
+| ppo_v4power_s61 | 30000 | left | stoch | 100% | 279.59 | 332.24 | 279.59 | 100% | 1.88 | 48% | 38% | 132.3 / 132.6 | 110.5% |
 | ppo_v3tiny_s22 | 60000 | left | deter | 100% | 127.22 | 278.96 | 105.67 | 92% | 4.67 | 10% | 20% | 118.4 / 118.6 | 98.9% |
 | ppo_v3tiny_s22 | 60000 | left | stoch | 100% | 121.65 | 275.49 | 100.00 | 92% | 8.38 | 10% | 18% | 118.6 / 120.6 | 100.5% |
 | ppo_v3tiny_s23 | 60000 | left | deter | 100% | 116.38 | 281.28 | 94.31 | 92% | 2.84 | 6% | 10% | 119.0 / 120.2 | 100.2% |
@@ -105,3 +109,15 @@ Best trained: **ppo_v4yaw_s42**; best left-handed: **ppo_v4yaw_s42**; best overa
 | ppo_v4yaw_s42 | 30000 | left | stoch | 100% | 262.03 | 309.50 | 249.95 | 96% | 1.65 | 44% | 40% | 128.3 / 128.7 | 107.2% |
 | ppo_v4yaw_s43 | 30000 | left | deter | 100% | 261.13 | 309.87 | 243.01 | 94% | 1.65 | 42% | 38% | 128.3 / 128.7 | 107.2% |
 | ppo_v4yaw_s43 | 30000 | left | stoch | 100% | 262.39 | 309.87 | 244.28 | 94% | 1.74 | 44% | 40% | 128.3 / 128.7 | 107.2% |
+| best_imit_scriptfree_elbow48_s51/imit9_w000_s51 | 0 | left | deter | 100% | 119.97 | 184.51 | 119.97 | 100% | 0.96 | 2% | 4% | 120.5 / 120.5 | 100.4% |
+| best_imit_scriptfree_elbow48_s51/imit9_w000_s51 | 0 | left | stoch | 100% | 116.98 | 185.76 | 116.98 | 100% | 0.65 | 2% | 0% | 120.5 / 120.5 | 100.5% |
+| imit7_w000_s51 | 0 | left | deter | 100% | 117.15 | 281.65 | 89.21 | 90% | 8.02 | 2% | 8% | 120.7 / 123.1 | 102.6% |
+| imit7_w000_s51 | 0 | left | stoch | 100% | 102.33 | 176.46 | 102.33 | 100% | 5.81 | 2% | 2% | 120.7 / 122.8 | 102.4% |
+| imit9_w000_s52 | 0 | left | deter | 100% | 120.08 | 185.44 | 120.08 | 100% | 0.99 | 2% | 6% | 120.5 / 120.5 | 100.4% |
+| imit9_w000_s52 | 0 | left | stoch | 100% | 119.28 | 186.35 | 119.28 | 100% | 0.97 | 4% | 4% | 120.4 / 120.5 | 100.4% |
+| imit8_w000_s51 | 0 | left | deter | 100% | 124.65 | 288.52 | 96.63 | 90% | 0.25 | 2% | 0% | 121.3 / 121.9 | 101.6% |
+| imit8_w000_s51 | 0 | left | stoch | 100% | 132.60 | 288.68 | 93.57 | 86% | 0.88 | 0% | 4% | 121.3 / 122.3 | 101.9% |
+| imit9_w000_s53 | 0 | left | deter | 100% | 115.87 | 183.26 | 115.87 | 100% | 0.70 | 2% | 4% | 120.5 / 120.5 | 100.4% |
+| imit9_w000_s53 | 0 | left | stoch | 100% | 113.84 | 186.08 | 113.84 | 100% | 0.73 | 2% | 2% | 120.6 / 124.0 | 103.3% |
+| ppo_v4power48_s71 | 30000 | left | deter | 100% | 311.39 | 330.99 | 311.39 | 100% | 2.15 | 54% | 36% | 132.4 / 132.4 | 110.3% |
+| ppo_v4power48_s71 | 30000 | left | stoch | 100% | 311.15 | 330.94 | 311.15 | 100% | 2.14 | 52% | 36% | 132.4 / 132.4 | 110.3% |
