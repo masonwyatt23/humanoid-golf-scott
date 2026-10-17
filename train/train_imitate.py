@@ -19,36 +19,49 @@ def env_kwargs(a):
     cfg = json.load(open(ROOT / a.config)); cfg.pop("description", None); cfg.pop("hypothetical", None)
     kw = dict(script=dict(cfg["script"]), residual_scale=tuple(a.res_scale), flight_model=True, curriculum=True, carry_reward=True,
               forward_reward=True, randomize_reset=True, gate_lo=15.0, gate_hi=35.0, seq_weight=a.seq_weight, style_prior=False, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05,
-              analytic_ball=False, lat_weight=0.0, elev_weight=0.0, carry_cap=a.carry_cap, tempo_scale=0.0, shot_pen=a.shot_pen, act_l2=0.0,
+              analytic_ball=False, lat_weight=a.lat_weight, lat_angular=a.lat_angular, elev_weight=0.0, carry_cap=a.carry_cap, tempo_scale=0.0, shot_pen=a.shot_pen, act_l2=0.0,
               script_weight=a.stage_w, learn_scale=list(a.learn_scale), track_set="unified_v1", track_weight=a.track_weight)
     for k in ("ball_x", "ball_x_noise", "loft_deg", "ball_dz", "tee_height", "force_scale", "kp", "kd", "handedness", "model_xml", "sh_noise", "el_noise", "contact_damp", "impact_model"):
         if k in cfg: kw[k] = cfg[k]
     return kw
 
 
-def distill(model, kw, a):
+def _collect(model, kw, a, eps, seed0, use_student, noise_hi):
+    """Roll out (teacher+noise, or the student mean+noise = DAgger) and label every visited state with the teacher action a* = (1-w)*script(t)/s."""
     env = ResidualGolfEnv(**kw); ls = np.asarray(kw["learn_scale"], float); w = kw["script_weight"]; X, Y = [], []
-    rng = np.random.default_rng(a.seed)
-    for ep in range(a.bc_eps):
-        obs, _ = env.reset(seed=10000 + a.seed * 1000 + ep); env.set_progress(1.0); done = False
-        nz = rng.uniform(0, a.bc_noise)
+    rng = np.random.default_rng(seed0)
+    for ep in range(eps):
+        obs, _ = env.reset(seed=seed0 + ep); env.set_progress(1.0); done = False; nz = rng.uniform(0, noise_hi)
         while not done:
             tgt = np.clip((1.0 - w) * env.targets(env.clock) / ls, -1, 1)
-            ideal = np.concatenate([tgt, [0.0]]).astype(np.float32)
-            X.append(obs.copy()); Y.append(ideal)
-            act = np.clip(ideal + rng.normal(0, nz, 5), -1, 1).astype(np.float32); act[4] = 0.0
+            ideal = np.concatenate([tgt, [0.0]]).astype(np.float32); X.append(obs.copy()); Y.append(ideal)
+            base = model.predict(obs, deterministic=True)[0] if use_student else ideal
+            act = np.clip(base + rng.normal(0, nz, 5), -1, 1).astype(np.float32); act[4] = 0.0
             obs, _, done, trunc, _ = env.step(act); done = done or trunc
-    X = torch.tensor(np.array(X)); Y = torch.tensor(np.array(Y))
-    pol = model.policy; opt = torch.optim.Adam(pol.parameters(), lr=a.bc_lr); n = len(X); hist = []; lst = torch.tensor(ls, dtype=torch.float32)
-    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=a.bc_epochs, eta_min=a.bc_lr * 0.01)
-    for epoch in range(a.bc_epochs):
+    return X, Y
+
+
+def _fit(model, X, Y, ls, a, epochs, lr):
+    X = torch.tensor(np.array(X)); Y = torch.tensor(np.array(Y)); pol = model.policy; opt = torch.optim.Adam(pol.parameters(), lr=lr); n = len(X)
+    lst = torch.tensor(ls, dtype=torch.float32) * torch.tensor(a.w_vec, dtype=torch.float32); sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs, eta_min=lr * 0.01)
+    for epoch in range(epochs):
         perm = torch.randperm(n)
         for i in range(0, n, 512):
             idx = perm[i:i + 512]; mean = pol.get_distribution(X[idx]).distribution.mean
-            loss = 1e3 * (((mean[:, :4] - Y[idx][:, :4]) * lst) ** 2).mean(); opt.zero_grad(); loss.backward(); opt.step()  # error measured in RADIANS (strike window is ~1 mm)
-        sched.step(); hist.append(float(loss.detach()))
-    with torch.no_grad(): rm = float(torch.sqrt(((pol.get_distribution(X).distribution.mean[:, :4] - Y[:, :4]) ** 2).mean()))
-    return dict(n_samples=n, final_batch_mse=hist[-1], rmse_action=rm, rmse_rad_shoulder=float(rm * ls[0]))
+            loss = 1e3 * (((mean[:, :4] - Y[idx][:, :4]) * lst) ** 2).mean(); opt.zero_grad(); loss.backward(); opt.step()  # error in RADIANS, extra weight on shoulder/yaw (w_vec)
+        sched.step()
+    with torch.no_grad(): rm = float(torch.sqrt((((pol.get_distribution(X).distribution.mean[:, :4] - Y[:, :4]) * torch.tensor(ls, dtype=torch.float32)) ** 2).mean()))
+    return rm
+
+
+def distill(model, kw, a):
+    ls = np.asarray(kw["learn_scale"], float)
+    X, Y = _collect(model, kw, a, a.bc_eps, 10000 + a.seed * 1000, False, a.bc_noise)
+    rm = _fit(model, X, Y, ls, a, a.bc_epochs, a.bc_lr); hist = [rm]
+    for it in range(a.dagger_iters):   # DAgger: states from the STUDENT (with injected action noise), teacher labels, aggregate, refit
+        Xn, Yn = _collect(model, kw, a, a.dagger_eps, 50000 + a.seed * 1000 + it * 100, True, a.dagger_noise)
+        X += Xn; Y += Yn; rm = _fit(model, X, Y, ls, a, max(a.bc_epochs // 2, 50), a.bc_lr * 0.5); hist.append(rm)
+    return dict(n_samples=len(X), rmse_rad_per_iter=hist, rmse_rad_mean_joint=rm, dagger_iters=a.dagger_iters)
 
 
 def main():
@@ -58,6 +71,8 @@ def main():
     ap.add_argument("--init_model", default=None); ap.add_argument("--res_scale", type=float, nargs=4, default=[0.01, 0.01, 0.01, 0.01])
     ap.add_argument("--bc_eps", type=int, default=200); ap.add_argument("--bc_epochs", type=int, default=400); ap.add_argument("--bc_lr", type=float, default=1e-3); ap.add_argument("--bc_noise", type=float, default=0.01)
     ap.add_argument("--ppo_steps", type=int, default=20000); ap.add_argument("--lr", type=float, default=1e-5); ap.add_argument("--log_std", type=float, default=-8.0)
+    ap.add_argument("--dagger_iters", type=int, default=0); ap.add_argument("--dagger_eps", type=int, default=60); ap.add_argument("--dagger_noise", type=float, default=0.01)
+    ap.add_argument("--w_vec", type=float, nargs=4, default=[3.0, 1.0, 2.0, 2.0]); ap.add_argument("--lat_weight", type=float, default=0.0); ap.add_argument("--lat_angular", action="store_true")
     ap.add_argument("--n_envs", type=int, default=2); ap.add_argument("--track_weight", type=float, default=2.0); ap.add_argument("--seq_weight", type=float, default=0.0)
     ap.add_argument("--shot_pen", type=float, default=1.0); ap.add_argument("--carry_cap", type=float, default=120.0); ap.add_argument("--eval_episodes", type=int, default=100)
     a = ap.parse_args(); torch.set_num_threads(1)
