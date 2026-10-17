@@ -39,3 +39,14 @@ Status: written by the Golf Style Evaluator from the code in this tree. It descr
 - Style columns (DTW to references, `track_score`, key_score) are NOT performance measures. The arm columns (cols 0-3) of `dtw_mason_v2` and the shoulder/wrist parts of `track_score` use the lead/trail arm mapping the Trainer found wrong: VOID (see leaderboard.md).
 - Launch-monitor numbers (`sim/golf_simulator.py`) and course estimates (`sim/course.py`) are analytic/model-based, not from the MuJoCo rollout.
 - `force_scale > 1` results are hypothetical-strength actuators, not human- or robot-attainable.
+
+## 7. Reconciliation: imit16 (stock) and imit15_s52 numbers from different sources (2026-10-17)
+All lateral figures are `lateral_std` as defined in section 1 (population std of final y over the episodes).
+
+| source | protocol | imit16_fs1_dart_s51 (force_scale 1) det | imit15_dart_s52 (force_scale 2) det |
+|---|---|---|---|
+| Evaluator gate JSONs (`results/gate_*_seed*.json`) | eval_gate, 100 eps x seeds 4000/8000/9000 | club 98.1/98.4/98.4 mph, carry 74.2/73.7/74.8 m, lateral 1.23/0.21/0.18 m, headline PASS 3/3 | carry 113.0/113.3/109.0 m, lateral 1.50/0.91/2.11 m, headline PASS 3/3 |
+| Evaluator leaderboard row | 50 eps, seeds 4000-4049 | carry 72.8 m, lateral **3.15** m, contact 100% det / 98% stoch, max abs y 19.3 m, fails | carry 113.6 m, lateral 1.69 m, contact 98%, max abs y 10.5 m |
+| Trainer "own JSON" / Orchestrator quote | training-time eval in `results/<name>.json` (`policy` / `policy_stochastic` blocks) | 98.3 mph, 74 m, 0.47 m lateral (100 eps, analytic launch) | carry 115.2 m, lateral **4.37** m (stoch 4.53) |
+
+What is verified: imit16's lateral std is dominated by rare outliers, so it swings between 0.18 and 3.15 m depending on which episodes are included: a single 19.3 m miss among 50 episodes alone contributes ~2.7 m of std (19.3 / sqrt(50)); the gate's 100-episode seed 4000 run gives 1.23 m. imit15_s52 passes the gate in all three of the Evaluator's gate seeds (max 2.11 m) and in the leaderboard (1.69 m), so the Trainer's 4.37 m is NOT reproduced by the Evaluator's protocol. What is NOT verified: why the Trainer's own JSON differs (candidate causes: different episode seeds, a different address distribution or `GATE_OVERRIDE`, or the post-distill vs final policy block; not investigated). Agreed reading until the Trainer confirms: both models are heavy-tailed in lateral error, "passes the headline gate on 3 seeds" holds for both under this document's protocol, imit16 additionally fails the stricter leaderboard criteria (contact 100% in both modes and det lateral <= 2.73 at N=50), and no number from a different protocol should be quoted next to a gate number without naming the protocol.

@@ -251,7 +251,7 @@ def main():
         return 3.0 if "power" in str(ek.get("model_xml", "")) else float(ek.get("force_scale", 1.0) or 1.0)
     def _motor(c):
         ek = c.get("env_kwargs", {}) or {}
-        if "power" in str(ek.get("model_xml", "")): return "power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)"
+        if "power" in str(ek.get("model_xml", "")): return "power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60; distances INFLATED: impact gain " + str((ek.get("impact_model") or {}).get("gain", "?")) + ", smash ~1.6)"
         f = float(ek.get("force_scale", 1.0) or 1.0)
         return "stock (force_scale 1)" if f <= 1.0 else f"{f:g}x (force_scale {f:g}, hypothetical-strength actuators)"
     def _label(c):

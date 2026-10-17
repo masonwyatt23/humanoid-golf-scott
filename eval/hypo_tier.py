@@ -40,6 +40,7 @@ def noise_cell(name):
 def md():
     R = tier()
     L = ["## HYPOTHETICAL TIER (force_scale > 1): 3-seed headline gate, kept separate from learned vs scripted", "",
+         "**DISTANCES INFLATED for power-tier rows** (env impact_model gain 1.28 gives smash ~1.55-1.60 > the ~1.48 legal limit; see results/ball_flight_audit.md); do not quote them as real-world distance. "
          "**force_scale 2 (hypothetical-strength actuators)**: boosted actuator force caps; not human- or robot-attainable. Source: `results/gate_<name>_seed<seed>.json` (eval_gate, headline tier: det AND stoch contact>=99%, lateral std<=2.73 m, launch 5-20 deg, carry>=min_carry, landed>=90%). "
          "'Effectively scripted' = policy det carry within 1% and lateral std within 15% (or 0.3 m) of the zero-residual script in the same file on every seed; such rows are NOT learned drives. A model counts as passing only if ALL of seeds 4000/8000/9000 pass.", "",
          "| model | label | force_scale | flight_steps | residual cap (res_scale) | seed | episodes | det carry m / yd | det lat std m | stoch lat std m | landed (det) | launch deg | club mph | script lat std m | noise quick (carry m, % of clean; sigma 0.005 / 0.01) | headline |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]

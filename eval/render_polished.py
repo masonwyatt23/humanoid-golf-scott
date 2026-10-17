@@ -79,6 +79,8 @@ def actuator_tags(kw):
     fs, ts = kw.get("force_scale", 1.0), kw.get("torque_scale", None)
     if fs and fs > 1.0: tags.append(f"force_scale {fs:g} (hypothetical-strength actuators)")
     if ts and ts > 1.0: tags.append(f"torque_scale {ts:g} (boosted)")
+    g = (kw.get("impact_model") or {}).get("gain", 1.0)
+    if g and g > 1.05: tags.append(f"impact gain {g:g}: ball speed/smash INFLATED (smash ~1.6), distances inflated")
     td = (kw.get("script") or {}).get("t_down")
     if td is not None and td < 0.08: tags.append(f"t_down {td:g} s (65-80 ms downswing: not a human tempo)")
     return tags
