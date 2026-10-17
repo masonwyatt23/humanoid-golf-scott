@@ -262,11 +262,7 @@ def main():
         return "LEARNED residual on scripted swing"
     stock_tr = [c for c in ranked if _fs(c) <= 1.0]; stock_sc = [c for c in ranked_all if c.get("scripted") and _fs(c) <= 1.0]
     hyp_tr = [c for c in ranked if _fs(c) > 1.0]
-    best_line = ""
-    if stock_tr: best_line += "**Stock-motor (force_scale 1) best trained model: " + " / ".join(stock_tr[0]["names"]) + f"** - mean contact {score(stock_tr[0])[0]*100:.0f}%, mean carry {score(stock_tr[0])[1]:.1f} m. "
-    else:
-        best_line += "**No trained model on STOCK motors (force_scale 1) is on this leaderboard yet.** "
-        if stock_sc: best_line += f"Stock-motor scripted (not learned) reference: det carry {stock_sc[0]['modes']['deterministic']['mean_carry']:.1f} m, {stock_sc[0]['modes']['deterministic']['peak_club_mph_mean']:.1f} mph. "
+    best_line = "@@STOCK@@"
     if hyp_tr: best_line += "**Best under HYPOTHETICAL-strength actuators (force_scale>1 / power tier; NOT a realistic-motor result): " + " / ".join(hyp_tr[0]["names"]) + f"** ({hyp_tr[0]['steps']} steps; {_motor(hyp_tr[0])}) - mean true contact over det+stoch {score(hyp_tr[0])[0]*100:.0f}%, mean carry {score(hyp_tr[0])[1]:.3f} m."
     if not ranked: best_line = "No evaluated models."
     left = [c for c in ranked if c.get("env_kwargs", {}).get("handedness") == "left"]
@@ -295,6 +291,13 @@ def main():
             best_line += (f" Peak club-head speed (best single swing over det+stoch): {mx:.2f} m/s = {mx*2.23694:.1f} mph = {mx/53.64*100:.1f}% of the 120 mph (53.64 m/s) target.")
     if left:
         best_line += f" **Best left-handed model: {' / '.join(left[0]['names'])} [{_motor(left[0])}]** (mean contact {score(left[0])[0]*100:.0f}%, mean carry {score(left[0])[1]:.2f} m, physics protocol)."
+    _sb = ""
+    stock_q = [c for c in stock_tr if any(c["names"][0] in q_["names"] for q_ in qualifying)]
+    if stock_q: _sb += "**Stock-motor (force_scale 1) best QUALIFYING trained model: " + " / ".join(stock_q[0]["names"]) + f"** - mean contact {score(stock_q[0])[0]*100:.0f}%, mean carry {score(stock_q[0])[1]:.1f} m. "
+    else:
+        _sb += "**NO trained model on STOCK motors (force_scale 1) meets the showcase criterion.**" + (f" (Best stock-motor trained row, not qualifying: {' / '.join(stock_tr[0]['names'])}, mean carry {score(stock_tr[0])[1]:.1f} m.)" if stock_tr else "") + " "
+        if stock_sc: _sb += f"Stock-motor scripted (not learned) reference: det carry {stock_sc[0]['modes']['deterministic']['mean_carry']:.1f} m, {stock_sc[0]['modes']['deterministic']['peak_club_mph_mean']:.1f} mph. "
+    best_line = best_line.replace("@@STOCK@@", _sb)
     best_line += (f" **Best model meeting the showcase criterion (hypothetical-strength actuators if force_scale>1; real carry AND tight lateral AND not-flat launch AND 100% contact; see below): {' / '.join(qualifying[0]['names'])} [{_motor(qualifying[0])}].**"
                   if qualifying else " **NO model meets the showcase criterion (hypothetical-strength actuators if force_scale>1; carry >= %g m, lateral std <= %g m, launch elev >= %g deg, contact 100%%); see qualification table.**" % (Q_CARRY, Q_LAT, Q_ELEV))
     rank_txt = ("Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; "

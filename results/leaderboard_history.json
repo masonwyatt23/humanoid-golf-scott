@@ -4938,6 +4938,177 @@
      "mean_distance": 113.84175111910179
     }
    }
+  },
+  {
+   "md5": "ea7b82b952d36153c04b624af23f64c0",
+   "names": [
+    "imit7_w000_s51"
+   ],
+   "steps": 0,
+   "order": 1792239896.9637578,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 117.14639640039177
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 102.33316279654412
+    }
+   }
+  },
+  {
+   "md5": "3574ac9fd33158bdd8b4b900364d5032",
+   "names": [
+    "ppo_v4power48_s71"
+   ],
+   "steps": 30000,
+   "order": 1792239896.971758,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 311.3929275520358
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 311.1516289689865
+    }
+   }
+  },
+  {
+   "md5": "e11e389cfa6f8ea49788c9bca94a134a",
+   "names": [
+    "imit8_w000_s51"
+   ],
+   "steps": 0,
+   "order": 1792239896.9757578,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 124.65260219398324
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 132.5968424004059
+    }
+   }
+  },
+  {
+   "md5": "79350def21604b728f21c2cb792edb90",
+   "names": [
+    "imit9_w000_s53"
+   ],
+   "steps": 0,
+   "order": 1792239897.2197578,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 115.87060860784531
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 113.84175111910179
+    }
+   }
+  },
+  {
+   "md5": "dd5192c3c24a94863c013cb956d5de62",
+   "names": [
+    "imit9_w000_s52"
+   ],
+   "steps": 0,
+   "order": 1792239897.2437577,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 120.07835434552771
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 119.28496191677296
+    }
+   }
+  },
+  {
+   "md5": "aa779d37bc4e98ac2150fe064eee8616",
+   "names": [
+    "imit13_w000_s51"
+   ],
+   "steps": 0,
+   "order": 1792239897.5437577,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 0.96,
+     "mean_distance": 110.7437326588542
+    },
+    "stochastic": {
+     "contact_rate": 0.98,
+     "mean_distance": 111.12535520916397
+    }
+   }
+  },
+  {
+   "md5": "1b426432680391dc8e4423db80952a4f",
+   "names": [
+    "imit13_w000_s52"
+   ],
+   "steps": 0,
+   "order": 1792239897.5477579,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 118.7823786823646
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 117.13279928883217
+    }
+   }
+  },
+  {
+   "md5": "288ac24a94bbd37c281a16860e371d08",
+   "names": [
+    "imit14_w000_s51"
+   ],
+   "steps": 0,
+   "order": 1792240355.8197577,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 0.96,
+     "mean_distance": 116.12307494657894
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 119.48208627285587
+    }
+   }
+  },
+  {
+   "md5": "73a87babf4e636c5a161b3eefb8fb65e",
+   "names": [
+    "imit15_dart_s51"
+   ],
+   "steps": 0,
+   "order": 1792240355.823758,
+   "env_fingerprint": "30fc5e622b69",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 117.1067866596334
+    },
+    "stochastic": {
+     "contact_rate": 0.98,
+     "mean_distance": 115.72088377365435
+    }
+   }
   }
  ]
 }

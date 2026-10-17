@@ -1,18 +1,10 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `2341d588d952`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Env fingerprint `30fc5e622b69`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
 Best trained: **ppo_v4power48_s71**; best left-handed: **ppo_v4power48_s71**; best overall incl. scripted baseline: **ppo_v4power48_s71**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | deter | 100% | 177.22 | 331.62 | 36.67 | 56% | 2.73 | 8% | 20% | 107.9 / 108.1 | 90.1% |
-| scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | stoch | 100% | 177.22 | 331.62 | 36.67 | 56% | 2.73 | 8% | 20% | 107.9 / 108.1 | 90.1% |
-| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | deter | 100% | 118.44 | 326.09 | 53.93 | 80% | 1.98 | 4% | 10% | 107.8 / 108.0 | 90.0% |
-| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | stoch | 100% | 118.44 | 326.09 | 53.93 | 80% | 1.98 | 4% | 10% | 107.8 / 108.0 | 90.0% |
-| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | deter | 100% | 80.70 | 289.84 | 69.41 | 96% | 0.01 | 0% | 0% | 120.4 / 120.7 | 100.6% |
-| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | stoch | 100% | 80.70 | 289.84 | 69.41 | 96% | 0.01 | 0% | 0% | 120.4 / 120.7 | 100.6% |
-| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | deter | 100% | 115.71 | 186.55 | 115.71 | 100% | 1.70 | 2% | 12% | 120.3 / 120.6 | 100.5% |
-| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | stoch | 100% | 115.71 | 186.55 | 115.71 | 100% | 1.70 | 2% | 12% | 120.3 / 120.6 | 100.5% |
 | best_carry_analytic/ppo_resid_v3_left_an2_s0 | 150000 | left | deter | 100% | 112.35 | 160.27 | 112.35 | 100% | 7.40 | 46% | 48% | 114.6 / 115.3 | 96.1% |
 | best_carry_analytic/ppo_resid_v3_left_an2_s0 | 150000 | left | stoch | 100% | 115.29 | 353.00 | 88.09 | 92% | 7.28 | 52% | 36% | 114.4 / 117.9 | 98.3% |
 | best_gate_flat_123mph/ppo_resid_v3_left_fast2_s11 | 100000 | left | deter | 100% | 15.02 | 22.08 | 15.02 | 100% | 0.02 | 0% | 0% | 123.6 / 123.8 | 103.1% |
@@ -109,15 +101,35 @@ Best trained: **ppo_v4power48_s71**; best left-handed: **ppo_v4power48_s71**; be
 | ppo_v4yaw_s42 | 30000 | left | stoch | 100% | 262.03 | 309.50 | 249.95 | 96% | 1.65 | 44% | 40% | 128.3 / 128.7 | 107.2% |
 | ppo_v4yaw_s43 | 30000 | left | deter | 100% | 261.13 | 309.87 | 243.01 | 94% | 1.65 | 42% | 38% | 128.3 / 128.7 | 107.2% |
 | ppo_v4yaw_s43 | 30000 | left | stoch | 100% | 262.39 | 309.87 | 244.28 | 94% | 1.74 | 44% | 40% | 128.3 / 128.7 | 107.2% |
+| imit10_w000_s51_tr | 20000 | left | deter | 94% | 101.52 | 126.68 | 101.49 | 94% | 0.05 | 0% | 0% | 112.2 / 120.0 | 100.0% |
+| imit10_w000_s51_tr | 20000 | left | stoch | 98% | 105.44 | 275.15 | 93.06 | 84% | 1.08 | 4% | 8% | 109.3 / 122.3 | 101.9% |
 | best_imit_scriptfree_elbow48_s51/imit9_w000_s51 | 0 | left | deter | 100% | 119.97 | 184.51 | 119.97 | 100% | 0.96 | 2% | 4% | 120.5 / 120.5 | 100.4% |
 | best_imit_scriptfree_elbow48_s51/imit9_w000_s51 | 0 | left | stoch | 100% | 116.98 | 185.76 | 116.98 | 100% | 0.65 | 2% | 0% | 120.5 / 120.5 | 100.5% |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | deter | 100% | 177.22 | 331.62 | 36.67 | 56% | 2.73 | 8% | 20% | 107.9 / 108.1 | 90.1% |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] (scripted) | 0 | right | stoch | 100% | 177.22 | 331.62 | 36.67 | 56% | 2.73 | 8% | 20% | 107.9 / 108.1 | 90.1% |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | deter | 100% | 118.44 | 326.09 | 53.93 | 80% | 1.98 | 4% | 10% | 107.8 / 108.0 | 90.0% |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] (scripted) | 0 | left | stoch | 100% | 118.44 | 326.09 | 53.93 | 80% | 1.98 | 4% | 10% | 107.8 / 108.0 | 90.0% |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | deter | 100% | 80.70 | 289.84 | 69.41 | 96% | 0.01 | 0% | 0% | 120.4 / 120.7 | 100.6% |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | stoch | 100% | 80.70 | 289.84 | 69.41 | 96% | 0.01 | 0% | 0% | 120.4 / 120.7 | 100.6% |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | deter | 100% | 115.71 | 186.55 | 115.71 | 100% | 1.70 | 2% | 12% | 120.3 / 120.6 | 100.5% |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] (scripted) | 0 | left | stoch | 100% | 115.71 | 186.55 | 115.71 | 100% | 1.70 | 2% | 12% | 120.3 / 120.6 | 100.5% |
+| scripted (not learned) [STOCK motors force_scale 1: fast v3 swing, default elbow] (scripted) | 0 | left | deter | 100% | 74.83 | 87.24 | 74.83 | 100% | 1.29 | 6% | 2% | 98.3 / 98.6 | 82.2% |
+| scripted (not learned) [STOCK motors force_scale 1: fast v3 swing, default elbow] (scripted) | 0 | left | stoch | 100% | 74.83 | 87.24 | 74.83 | 100% | 1.29 | 6% | 2% | 98.3 / 98.6 | 82.2% |
 | imit7_w000_s51 | 0 | left | deter | 100% | 117.15 | 281.65 | 89.21 | 90% | 8.02 | 2% | 8% | 120.7 / 123.1 | 102.6% |
 | imit7_w000_s51 | 0 | left | stoch | 100% | 102.33 | 176.46 | 102.33 | 100% | 5.81 | 2% | 2% | 120.7 / 122.8 | 102.4% |
-| imit9_w000_s52 | 0 | left | deter | 100% | 120.08 | 185.44 | 120.08 | 100% | 0.99 | 2% | 6% | 120.5 / 120.5 | 100.4% |
-| imit9_w000_s52 | 0 | left | stoch | 100% | 119.28 | 186.35 | 119.28 | 100% | 0.97 | 4% | 4% | 120.4 / 120.5 | 100.4% |
+| ppo_v4power48_s71 | 30000 | left | deter | 100% | 311.39 | 330.99 | 311.39 | 100% | 2.15 | 54% | 36% | 132.4 / 132.4 | 110.3% |
+| ppo_v4power48_s71 | 30000 | left | stoch | 100% | 311.15 | 330.94 | 311.15 | 100% | 2.14 | 52% | 36% | 132.4 / 132.4 | 110.3% |
 | imit8_w000_s51 | 0 | left | deter | 100% | 124.65 | 288.52 | 96.63 | 90% | 0.25 | 2% | 0% | 121.3 / 121.9 | 101.6% |
 | imit8_w000_s51 | 0 | left | stoch | 100% | 132.60 | 288.68 | 93.57 | 86% | 0.88 | 0% | 4% | 121.3 / 122.3 | 101.9% |
 | imit9_w000_s53 | 0 | left | deter | 100% | 115.87 | 183.26 | 115.87 | 100% | 0.70 | 2% | 4% | 120.5 / 120.5 | 100.4% |
 | imit9_w000_s53 | 0 | left | stoch | 100% | 113.84 | 186.08 | 113.84 | 100% | 0.73 | 2% | 2% | 120.6 / 124.0 | 103.3% |
-| ppo_v4power48_s71 | 30000 | left | deter | 100% | 311.39 | 330.99 | 311.39 | 100% | 2.15 | 54% | 36% | 132.4 / 132.4 | 110.3% |
-| ppo_v4power48_s71 | 30000 | left | stoch | 100% | 311.15 | 330.94 | 311.15 | 100% | 2.14 | 52% | 36% | 132.4 / 132.4 | 110.3% |
+| imit9_w000_s52 | 0 | left | deter | 100% | 120.08 | 185.44 | 120.08 | 100% | 0.99 | 2% | 6% | 120.5 / 120.5 | 100.4% |
+| imit9_w000_s52 | 0 | left | stoch | 100% | 119.28 | 186.35 | 119.28 | 100% | 0.97 | 4% | 4% | 120.4 / 120.5 | 100.4% |
+| imit13_w000_s51 | 0 | left | deter | 96% | 110.74 | 183.55 | 110.73 | 96% | 1.63 | 2% | 12% | 118.9 / 121.4 | 101.2% |
+| imit13_w000_s51 | 0 | left | stoch | 98% | 111.13 | 183.78 | 111.12 | 98% | 1.63 | 2% | 8% | 119.7 / 120.5 | 100.4% |
+| imit13_w000_s52 | 0 | left | deter | 100% | 118.78 | 282.45 | 113.13 | 98% | 1.67 | 4% | 10% | 120.3 / 120.5 | 100.4% |
+| imit13_w000_s52 | 0 | left | stoch | 100% | 117.13 | 285.62 | 111.42 | 98% | 1.33 | 2% | 10% | 120.4 / 123.0 | 102.5% |
+| imit14_w000_s51 | 0 | left | deter | 96% | 116.12 | 185.60 | 116.11 | 96% | 5.77 | 22% | 28% | 117.8 / 119.5 | 99.6% |
+| imit14_w000_s51 | 0 | left | stoch | 100% | 119.48 | 186.82 | 118.08 | 98% | 5.40 | 22% | 32% | 118.2 / 119.5 | 99.6% |
+| imit15_dart_s51 | 0 | left | deter | 100% | 117.11 | 183.56 | 117.11 | 100% | 1.63 | 4% | 10% | 120.3 / 120.5 | 100.4% |
+| imit15_dart_s51 | 0 | left | stoch | 98% | 115.72 | 183.55 | 115.71 | 98% | 1.60 | 2% | 10% | 120.3 / 120.5 | 100.4% |
