@@ -1,7 +1,7 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
 Env fingerprint `737c4d124c92`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
-Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_left_an3_s1**; best overall incl. scripted baseline: **scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]**.
+Best trained: **ppo_v3tiny_s22**; best left-handed: **ppo_v3tiny_s22**; best overall incl. scripted baseline: **scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -55,3 +55,9 @@ Best trained: **ppo_resid_v3_left_an3_s1**; best left-handed: **ppo_resid_v3_lef
 | ppo_resid_v3_left_fast1_s10 | 100000 | left | stoch | 100% | 18.58 | 124.50 | 18.58 | 100% | 0.92 | 4% | 0% | 122.0 / 123.3 | 102.8% |
 | ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | 100000 | left | deter | 100% | 15.24 | 22.08 | 15.24 | 100% | 0.02 | 0% | 0% | 123.6 / 123.8 | 103.2% |
 | ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph | 100000 | left | stoch | 100% | 15.20 | 24.89 | 15.20 | 100% | 0.03 | 0% | 0% | 123.5 / 124.7 | 104.0% |
+| ppo_v3tiny_s22 | 60000 | left | deter | 100% | 117.09 | 190.49 | 117.09 | 100% | 6.10 | 10% | 20% | 118.4 / 118.6 | 98.9% |
+| ppo_v3tiny_s22 | 60000 | left | stoch | 100% | 121.38 | 272.74 | 99.87 | 92% | 9.21 | 16% | 8% | 118.9 / 121.4 | 101.2% |
+| ppo_v3tiny_s21 | 60000 | left | deter | 100% | 121.21 | 283.77 | 82.60 | 86% | 7.89 | 6% | 8% | 119.0 / 119.3 | 99.4% |
+| ppo_v3tiny_s21 | 60000 | left | stoch | 100% | 110.68 | 276.51 | 94.51 | 94% | 10.30 | 8% | 6% | 118.9 / 121.1 | 100.9% |
+| ppo_v3tiny_s23 | 60000 | left | deter | 100% | 125.02 | 280.26 | 97.65 | 90% | 2.94 | 6% | 16% | 119.0 / 120.2 | 100.2% |
+| ppo_v3tiny_s23 | 60000 | left | stoch | 100% | 123.10 | 276.12 | 95.83 | 90% | 7.46 | 10% | 4% | 119.4 / 122.4 | 102.0% |

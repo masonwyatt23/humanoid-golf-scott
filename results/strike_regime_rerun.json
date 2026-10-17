@@ -1,0 +1,233 @@
+{
+ "episodes": 50,
+ "seed": 4000,
+ "rows": [
+  {
+   "label": "ppo_resid_v3_left_an3_s1 OLD regime (own config; loft 8.0, ball_dz 0.008)",
+   "kind": "LEARNED",
+   "source": "leaderboard.json",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 108.60151224472655,
+    "landed": 1.0,
+    "lat_std": 6.742734023031227,
+    "left": 0.54,
+    "right": 0.36,
+    "launch": 30.69878024826618,
+    "flat": 0.02,
+    "mph": 114.61809320773494,
+    "mph_max": 115.15768955841415
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 97.20805877920509,
+    "landed": 0.94,
+    "lat_std": 7.490926745111518,
+    "left": 0.54,
+    "right": 0.36,
+    "launch": 29.758604541652257,
+    "flat": 0.1,
+    "mph": 113.99391591973611,
+    "mph_max": 118.74908509898874
+   }
+  },
+  {
+   "label": "ppo_resid_v3_left_an3_s1 NEW regime (loft -26, ball_dz -0.01; OOD)",
+   "kind": "LEARNED",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 81.09499228495025,
+    "landed": 1.0,
+    "lat_std": 5.913180103399609,
+    "left": 0.1,
+    "right": 0.06,
+    "launch": 11.698468687581324,
+    "flat": 0.04,
+    "mph": 114.80669055156388,
+    "mph_max": 115.56125773155301
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 87.19045998600257,
+    "landed": 1.0,
+    "lat_std": 7.6556245835868495,
+    "left": 0.14,
+    "right": 0.24,
+    "launch": 11.079783036042318,
+    "flat": 0.08,
+    "mph": 114.14110029660617,
+    "mph_max": 117.26518944382673
+   }
+  },
+  {
+   "label": "ppo_resid_v3_left_an2_s0 OLD regime (own config; loft 8.0, ball_dz 0.008)",
+   "kind": "LEARNED",
+   "source": "leaderboard.json",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 114.28929624900155,
+    "landed": 1.0,
+    "lat_std": 7.4204010980340565,
+    "left": 0.46,
+    "right": 0.46,
+    "launch": 31.65939470051757,
+    "flat": 0.0,
+    "mph": 114.65066715942683,
+    "mph_max": 115.47001082344381
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 90.80857510295081,
+    "landed": 0.94,
+    "lat_std": 7.568230572307604,
+    "left": 0.4,
+    "right": 0.48,
+    "launch": 28.81827117051854,
+    "flat": 0.14,
+    "mph": 114.61184813789555,
+    "mph_max": 118.76552960076057
+   }
+  },
+  {
+   "label": "ppo_resid_v3_left_an2_s0 NEW regime (loft -26, ball_dz -0.01; OOD)",
+   "kind": "LEARNED",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 78.78331381308615,
+    "landed": 1.0,
+    "lat_std": 1.2752758363952466,
+    "left": 0.04,
+    "right": 0.06,
+    "launch": 11.902387945013794,
+    "flat": 0.02,
+    "mph": 114.75492291357179,
+    "mph_max": 115.34759162617027
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 89.87287599692665,
+    "landed": 1.0,
+    "lat_std": 4.288639049838773,
+    "left": 0.24,
+    "right": 0.14,
+    "launch": 11.613581473243157,
+    "flat": 0.02,
+    "mph": 114.82682318007052,
+    "mph_max": 118.47535248630231
+   }
+  },
+  {
+   "label": "ppo_resid_v3_left_fast2_s11 OLD regime (own config; loft 9.0, ball_dz 0.008)",
+   "kind": "LEARNED",
+   "source": "leaderboard.json",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 15.242426591541069,
+    "landed": 1.0,
+    "lat_std": 0.016586123054456055,
+    "left": 0.0,
+    "right": 0.0,
+    "launch": -5.755029495104403,
+    "flat": 1.0,
+    "mph": 123.55927048803498,
+    "mph_max": 123.78464805154935
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 15.201265429390107,
+    "landed": 1.0,
+    "lat_std": 0.02710103219938689,
+    "left": 0.0,
+    "right": 0.0,
+    "launch": -5.43739568508958,
+    "flat": 1.0,
+    "mph": 123.49776031868518,
+    "mph_max": 124.74302428846099
+   }
+  },
+  {
+   "label": "ppo_resid_v3_left_fast2_s11 NEW regime (loft -26, ball_dz -0.01; OOD)",
+   "kind": "LEARNED",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 33.80875348105483,
+    "landed": 0.8,
+    "lat_std": 0.06857802280734153,
+    "left": 0.0,
+    "right": 0.0,
+    "launch": -0.5193816433797077,
+    "flat": 0.6,
+    "mph": 123.54415691196105,
+    "mph_max": 123.8635456760558
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 28.351013268522955,
+    "landed": 0.86,
+    "lat_std": 0.11911035735580149,
+    "left": 0.0,
+    "right": 0.02,
+    "launch": -3.514273911467626,
+    "flat": 0.7,
+    "mph": 123.35185787508651,
+    "mph_max": 124.73615372741025
+   }
+  },
+  {
+   "label": "scripted fast OLD regime (loft +8, ball_dz +0.008, yaw_ff -3; trainer pre-fix cfg)",
+   "kind": "SCRIPTED (not learned)",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 45.89622850597619,
+    "landed": 0.56,
+    "lat_std": 6.24679927840682,
+    "left": 0.38,
+    "right": 0.46,
+    "launch": 10.438395414976446,
+    "flat": 0.64,
+    "mph": 120.36162512268125,
+    "mph_max": 120.44001981857828
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 45.89622850597619,
+    "landed": 0.56,
+    "lat_std": 6.24679927840682,
+    "left": 0.38,
+    "right": 0.46,
+    "launch": 10.438395414976446,
+    "flat": 0.64,
+    "mph": 120.36162512268125,
+    "mph_max": 120.44001981857828
+   }
+  },
+  {
+   "label": "scripted fast NEW regime (configs/fast_scripted_v2_lofted.json)",
+   "kind": "SCRIPTED (not learned)",
+   "deterministic": {
+    "contact": 1.0,
+    "carry": 68.87163049306399,
+    "landed": 0.96,
+    "lat_std": 0.012798986056937014,
+    "left": 0.0,
+    "right": 0.0,
+    "launch": 9.046278933456742,
+    "flat": 0.08,
+    "mph": 120.3438703475187,
+    "mph_max": 120.63464550547216
+   },
+   "stochastic": {
+    "contact": 1.0,
+    "carry": 68.87163049306399,
+    "landed": 0.96,
+    "lat_std": 0.012798986056937014,
+    "left": 0.0,
+    "right": 0.0,
+    "launch": 9.046278933456742,
+    "flat": 0.08,
+    "mph": 120.3438703475187,
+    "mph_max": 120.63464550547216
+   }
+  }
+ ]
+}

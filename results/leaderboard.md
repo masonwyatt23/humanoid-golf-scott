@@ -1,10 +1,10 @@
 # Leaderboard
 
-**Current best model: ppo_resid_v3_left_an3_s1** (150000 steps) - mean true contact over det+stoch 100%, mean carry 102.905 m. Peak club-head speed (best single swing over det+stoch): 53.09 m/s = 118.7 mph = 99.0% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_resid_v3_left_an3_s1** (mean contact 100%, mean carry 102.90 m, physics protocol). **NO model meets the showcase criterion (carry >= 30 m, lateral std <= 2.73 m, launch elev >= 5 deg, contact 100%); see qualification table.** **Best overall (incl. scripted, no-learning baseline): scripted_baseline[ladder cfg: right, loft 6, default ball_x]** - mean contact 100%, mean carry 113.827 m (no trained checkpoint beats it).
+**Current best model: ppo_v3tiny_s22** (60000 steps) - mean true contact over det+stoch 100%, mean carry 108.484 m. Peak club-head speed (best single swing over det+stoch): 54.26 m/s = 121.4 mph = 101.2% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v3tiny_s22** (mean contact 100%, mean carry 108.48 m, physics protocol). **NO model meets the showcase criterion (carry >= 30 m, lateral std <= 2.73 m, launch elev >= 5 deg, contact 100%); see qualification table.** **Best overall (incl. scripted, no-learning baseline): scripted_baseline[ladder cfg: right, loft 6, default ball_x]** - mean contact 100%, mean carry 113.827 m (no trained checkpoint beats it).
 
 Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; (2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.
 
-Full ranking (scripted baseline included): scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > ppo_resid_v3_left_an3_s1 > ppo_resid_v3_left_an2_s0 > ppo_resid_v3_left_an1_s0 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an6_s4 > ppo_resid_v3_left_an9_s7 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > ppo_resid_v3_left_fast2_s11 > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
+Full ranking (scripted baseline included): scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > ppo_v3tiny_s22 > ppo_resid_v3_left_an3_s1 > ppo_resid_v3_left_an2_s0 > ppo_resid_v3_left_an1_s0 > ppo_v3tiny_s23 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an6_s4 > ppo_resid_v3_left_an9_s7 > ppo_v3tiny_s21 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > ppo_resid_v3_left_fast2_s11 > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
 
 Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).
 
@@ -62,6 +62,12 @@ Current env fingerprint `737c4d124c92` (env + XML hash). 50 episodes, seeds 4000
 | ppo_resid_v3_left_fast1_s10 | 100000 | stoch | 100% | 18.58 | 124.50 | 18.577 | 100% | 0.925 | 4% | 0% | 47.15 | 54.56 | 0.86 (n=50) | 54.56 / 55.14 | 122.0 / 123.3 | 101.7% / 102.8% | -3.5 (6.8) FLAT | 2.391 / 1.997 | 1.607 | 1.610 | 1.598 | 1.605 |
 | ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | 100000 | deter | 100% | 15.24 | 22.08 | 15.242 | 100% | 0.017 | 0% | 0% | 48.99 | 55.24 | 0.89 (n=50) | 55.24 / 55.34 | 123.6 / 123.8 | 103.0% / 103.2% | -5.8 (1.4) FLAT | 2.390 / 2.001 | 1.624 | 1.626 | 1.617 | 1.617 |
 | ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | 100000 | stoch | 100% | 15.20 | 24.89 | 15.201 | 100% | 0.027 | 0% | 0% | 47.22 | 55.21 | 0.86 (n=50) | 55.21 / 55.77 | 123.5 / 124.7 | 102.9% / 104.0% | -5.4 (1.4) FLAT | 2.390 / 2.002 | 1.623 | 1.627 | 1.617 | 1.620 |
+| ppo_v3tiny_s22 | 60000 | deter | 100% | 117.09 | 190.49 | 117.093 | 100% | 6.099 | 10% | 20% | 53.15 | 52.91 | 1.00 (n=50) | 52.91 / 53.04 | 118.4 / 118.6 | 98.6% / 98.9% | 12.1 (2.3) | 2.308 / 1.813 | 1.430 | 1.434 | 1.410 | 1.444 |
+| ppo_v3tiny_s22 | 60000 | stoch | 100% | 121.38 | 272.74 | 99.875 | 92% | 9.212 | 16% | 8% | 51.62 | 53.17 | 0.97 (n=50) | 53.17 / 54.26 | 118.9 / 121.4 | 99.1% / 101.2% | 9.7 (6.6) | 2.293 / 1.796 | 1.418 | 1.421 | 1.400 | 1.429 |
+| ppo_v3tiny_s21 | 60000 | deter | 100% | 121.21 | 283.77 | 82.600 | 86% | 7.886 | 6% | 8% | 49.84 | 53.18 | 0.94 (n=50) | 53.18 / 53.31 | 119.0 / 119.3 | 99.1% / 99.4% | 8.0 (7.4) | 2.295 / 1.798 | 1.430 | 1.432 | 1.409 | 1.442 |
+| ppo_v3tiny_s21 | 60000 | stoch | 100% | 110.68 | 276.51 | 94.506 | 94% | 10.305 | 8% | 6% | 51.10 | 53.17 | 0.96 (n=50) | 53.17 / 54.13 | 118.9 / 121.1 | 99.1% / 100.9% | 9.5 (7.0) | 2.325 / 1.839 | 1.462 | 1.465 | 1.442 | 1.474 |
+| ppo_v3tiny_s23 | 60000 | deter | 100% | 125.02 | 280.26 | 97.646 | 90% | 2.936 | 6% | 16% | 51.53 | 53.18 | 0.97 (n=50) | 53.18 / 53.75 | 119.0 / 120.2 | 99.1% / 100.2% | 10.0 (5.9) | 2.292 / 1.795 | 1.410 | 1.412 | 1.391 | 1.422 |
+| ppo_v3tiny_s23 | 60000 | stoch | 100% | 123.10 | 276.12 | 95.829 | 90% | 7.460 | 10% | 4% | 52.18 | 53.38 | 0.98 (n=50) | 53.38 / 54.71 | 119.4 / 122.4 | 99.5% / 102.0% | 10.2 (5.2) | 2.305 / 1.806 | 1.431 | 1.434 | 1.412 | 1.444 |
 
 ## Configs used (each model evaluated with its own)
 
@@ -90,6 +96,9 @@ Current env fingerprint `737c4d124c92` (env + XML hash). 50 episodes, seeds 4000
 - **ppo_resid_v3_left_an10_s8** (120000 steps): results/ppo_resid_v3_left_an10_s8.json args; env = `{"ball_x": 0.422, "ball_x_noise": 0.005, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.12, "t_back": 0.6}, "residual_scale": [0.1, 0.08, 0.05, 0.05], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": 7.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": 0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 1.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_resid_v3_left_fast1_s10** (100000 steps): results/ppo_resid_v3_left_fast1_s10.json args; env = `{"ball_x": 0.39, "ball_x_noise": 0.005, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6}, "residual_scale": [0.02, 0.02, 0.01, 0.02], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": 9.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": 0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.5, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph** (100000 steps): results/ppo_resid_v3_left_fast2_s11.json args; env = `{"ball_x": 0.39, "ball_x_noise": 0.005, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6}, "residual_scale": [0.02, 0.02, 0.01, 0.02], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": 9.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": 0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.5, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v3tiny_s22** (60000 steps): results/ppo_v3tiny_s22.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v3tiny_s21** (60000 steps): results/ppo_v3tiny_s21.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v3tiny_s23** (60000 steps): results/ppo_v3tiny_s23.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 
 ## Showcase qualification criterion
 
@@ -97,12 +106,15 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 
 | Model | contact==100% (det and stoch) | mean carry >= 30 m (det) | lateral std <= 2.73 m (det) | mean launch elev >= 5 deg, not flat (det) | Qualifies |
 |---|---|---|---|---|---|
+| ppo_v3tiny_s22 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an3_s1 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an1_s0 | yes | yes | NO | yes | no |
+| ppo_v3tiny_s23 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an4_s2 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an6_s4 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an9_s7 | yes | yes | NO | yes | no |
+| ppo_v3tiny_s21 | yes | yes | NO | yes | no |
 | ppo_resid_v3_ladder_s0 | yes | yes | NO | yes | no |
 | ppo_resid_v3_r3_s0 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an10_s8 | yes | yes | NO | yes | no |
@@ -161,10 +173,19 @@ Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`
 | ppo_resid_v3_left_fast2_s11 | verified (this run, det) | 100% | 100% | 15.24 | 0.02 | 123.6 | PASS |
 | ppo_resid_v3_left_fast2_s11 | trainer gate JSON (det) | 100% | 100% | 15.24 | 0.02 | 123.6 | PASS |
 | ppo_resid_v3_left_fast2_s11 | trainer analytic (100 eps) | 100% | 100% | 31.25 | 0.04 | 123.6 (impact) | n/a |
+| ppo_v3tiny_s22 | verified (this run, det) | 100% | 100% | 117.09 | 6.10 | 118.4 | FAIL |
+| ppo_v3tiny_s22 | trainer gate JSON (det) | 100% | 94% | 105.08 | 5.23 | 118.4 | FAIL |
+| ppo_v3tiny_s22 | trainer analytic (100 eps) | 100% | 100% | 140.62 | 0.14 | 118.4 (impact) | n/a |
+| ppo_v3tiny_s21 | verified (this run, det) | 100% | 86% | 82.60 | 7.89 | 119.0 | FAIL |
+| ppo_v3tiny_s21 | trainer gate JSON (det) | 100% | 88% | 86.42 | 6.45 | 118.9 | FAIL |
+| ppo_v3tiny_s21 | trainer analytic (100 eps) | 100% | 100% | 120.95 | 0.10 | 119.0 (impact) | n/a |
+| ppo_v3tiny_s23 | verified (this run, det) | 100% | 90% | 97.65 | 2.94 | 119.0 | FAIL |
+| ppo_v3tiny_s23 | trainer gate JSON (det) | 100% | 87% | 93.63 | 4.43 | 118.9 | FAIL |
+| ppo_v3tiny_s23 | trainer analytic (100 eps) | 100% | 100% | 131.80 | 0.14 | 118.9 (impact) | n/a |
 
 ## DTW vs NATIVE Mason v2 references (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)
 
-**CAVEATS: 2D-proxy joint angles from single-view MediaPipe, screen-recorded ~30 fps (tempo +-15%), not retargeted to the MuJoCo humanoid, no club data, leg joints weak; native left-handed footage, `right_*` columns = anatomical right = LEAD arm of a left-hander, whereas the env's `right_*` joints are the swinging arm of its own model (mapping/sign conventions NOT calibrated). Indicative only. MultiSense (right-handed, CC0, different protocol) deliberately NOT scored here.**
+**DTW provenance:** scored against `data/references/mason_v2_*.npz` (npz mtimes unchanged, 2026-10-16 03:39); these do NOT read `mason_target_features.json` or `mason_impact_geometry_targets.json`, so the Data Agent regeneration (0.4 s timing fix) does not alter any DTW number here, and no DTW value used pre-fix target values. `mason_impact_geometry_targets.json` was not present in this working tree when this was generated.  **CAVEATS: 2D-proxy joint angles from single-view MediaPipe, screen-recorded ~30 fps (tempo +-15%), not retargeted to the MuJoCo humanoid, no club data, leg joints weak; native left-handed footage, `right_*` columns = anatomical right = LEAD arm of a left-hander, whereas the env's `right_*` joints are the swinging arm of its own model (mapping/sign conventions NOT calibrated). Indicative only. MultiSense (right-handed, CC0, different protocol) deliberately NOT scored here.**
 
 Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mirrored=False), `p2_s02` (q=0.75, down_the_line, mirrored=False), `p2_s01` (q=0.7, down_the_line, mirrored=False), `p1_s04` (q=0.69, down_the_line, mirrored=False), `p1_s03` (q=0.69, down_the_line, mirrored=False), `p2_s13` (q=0.68, down_the_line, mirrored=False), `p2_s10` (q=0.68, down_the_line, mirrored=False), `p1_s05` (q=0.66, down_the_line, mirrored=False), `p2_s11` (q=0.66, down_the_line, mirrored=False), `p3_s09_unmirrored` (q=0.83, down_the_line, mirrored=True)
 
@@ -220,6 +241,12 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_resid_v3_left_fast1_s10 | stoch | 2.089 / 1.805 | 3.010 / 2.529 | 2.501 / 2.005 | 2.456 / 2.033 | 2.393 / 1.994 | 2.126 / 1.748 | 2.440 / 2.067 | 2.336 / 2.041 | 2.272 / 1.909 | 2.294 / 1.929 | 2.382 / 1.905 | 2.391 / 1.997 |
 | ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | deter | 2.082 / 1.800 | 3.040 / 2.565 | 2.493 / 1.999 | 2.446 / 2.021 | 2.390 / 1.992 | 2.123 / 1.747 | 2.449 / 2.080 | 2.333 / 2.048 | 2.268 / 1.906 | 2.295 / 1.940 | 2.368 / 1.917 | 2.390 / 2.001 |
 | ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | stoch | 2.083 / 1.802 | 3.032 / 2.558 | 2.494 / 2.002 | 2.448 / 2.024 | 2.391 / 1.995 | 2.125 / 1.749 | 2.450 / 2.082 | 2.335 / 2.050 | 2.269 / 1.908 | 2.296 / 1.940 | 2.368 / 1.917 | 2.390 / 2.002 |
+| ppo_v3tiny_s22 | deter | 2.134 / 1.809 | 2.896 / 2.336 | 2.510 / 1.985 | 2.451 / 2.011 | 2.236 / 1.720 | 1.942 / 1.465 | 2.143 / 1.656 | 2.134 / 1.727 | 2.166 / 1.734 | 1.978 / 1.476 | 2.802 / 2.021 | 2.308 / 1.813 |
+| ppo_v3tiny_s22 | stoch | 2.116 / 1.784 | 2.871 / 2.307 | 2.488 / 1.952 | 2.425 / 1.977 | 2.231 / 1.712 | 1.941 / 1.466 | 2.144 / 1.655 | 2.127 / 1.718 | 2.153 / 1.720 | 1.981 / 1.483 | 2.750 / 1.982 | 2.293 / 1.796 |
+| ppo_v3tiny_s21 | deter | 2.103 / 1.769 | 2.886 / 2.329 | 2.476 / 1.935 | 2.414 / 1.961 | 2.237 / 1.727 | 1.950 / 1.486 | 2.164 / 1.680 | 2.139 / 1.738 | 2.162 / 1.733 | 2.002 / 1.514 | 2.713 / 1.909 | 2.295 / 1.798 |
+| ppo_v3tiny_s21 | stoch | 2.131 / 1.811 | 2.928 / 2.384 | 2.512 / 1.990 | 2.456 / 2.019 | 2.267 / 1.769 | 1.960 / 1.499 | 2.182 / 1.711 | 2.168 / 1.778 | 2.188 / 1.768 | 2.011 / 1.527 | 2.771 / 1.969 | 2.325 / 1.839 |
+| ppo_v3tiny_s23 | deter | 2.117 / 1.784 | 2.868 / 2.301 | 2.491 / 1.956 | 2.429 / 1.980 | 2.221 / 1.698 | 1.937 / 1.459 | 2.137 / 1.644 | 2.120 / 1.708 | 2.148 / 1.712 | 1.973 / 1.472 | 2.768 / 2.030 | 2.292 / 1.795 |
+| ppo_v3tiny_s23 | stoch | 2.123 / 1.792 | 2.898 / 2.340 | 2.496 / 1.963 | 2.435 / 1.990 | 2.241 / 1.728 | 1.946 / 1.474 | 2.153 / 1.667 | 2.140 / 1.735 | 2.166 / 1.736 | 1.987 / 1.490 | 2.770 / 1.952 | 2.305 / 1.806 |
 
 ## Contact regressions (vs best earlier-trained checkpoint, same mode)
 
@@ -336,3 +363,6 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_resid_v3_left_fast1_s10 | 100000 | 737c4d124c92 | 100% | 100% |
 | ppo_resid_v3_left_fast2_s11, best_gate_flat_123mph | 100000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_fast2_s11, best_gate_flat_123mph | 100000 | 737c4d124c92 | 100% | 100% |
+| ppo_v3tiny_s22 | 60000 | 737c4d124c92 | 100% | 100% |
+| ppo_v3tiny_s21 | 60000 | 737c4d124c92 | 100% | 100% |
+| ppo_v3tiny_s23 | 60000 | 737c4d124c92 | 100% | 100% |

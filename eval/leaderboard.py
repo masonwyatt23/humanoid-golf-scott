@@ -73,7 +73,7 @@ SCRIPTED_BX = "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]"
 def config_for(names):
     for n in names:                       # residual-PPO models: exact env flags from results/<name>.json "args"
         j = RES / f"{n}.json"
-        if n.startswith("ppo_resid") and j.exists():
+        if n.startswith(("ppo_resid", "ppo_v3tiny")) and j.exists():
             from eval.env_factory import resid_kw_from_args
             args = json.loads(j.read_text())["args"]
             assert args.get("name", n) == n, f"{j} args.name mismatch"
@@ -258,6 +258,7 @@ def main():
     L += G
     # native Mason v2 refs
     V = ["", "## DTW vs NATIVE Mason v2 references (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)", "",
+         "**DTW provenance:** scored against `data/references/mason_v2_*.npz` (npz mtimes unchanged, 2026-10-16 03:39); these do NOT read `mason_target_features.json` or `mason_impact_geometry_targets.json`, so the Data Agent regeneration (0.4 s timing fix) does not alter any DTW number here, and no DTW value used pre-fix target values. `mason_impact_geometry_targets.json` was not present in this working tree when this was generated.  "
          "**CAVEATS: 2D-proxy joint angles from single-view MediaPipe, screen-recorded ~30 fps (tempo +-15%), not retargeted to the MuJoCo humanoid, no club data, leg joints weak; native left-handed footage, `right_*` columns = anatomical right = LEAD arm of a left-hander, whereas the env's `right_*` joints are the swinging arm of its own model (mapping/sign conventions NOT calibrated). Indicative only. MultiSense (right-handed, CC0, different protocol) deliberately NOT scored here.**", "",
          "Refs: " + ", ".join(f"`{r.replace('mason_v2_','')}` (q={dr.MASON_V2_INFO[r]['quality']}, {dr.MASON_V2_INFO[r]['view']}, mirrored={dr.MASON_V2_INFO[r]['mirrored']})" for r in dr.MASON_V2_REFS), "",
          "| Model(s) | Mode | " + " | ".join(r.replace("mason_v2_", "") for r in dr.MASON_V2_REFS) + " | mean over refs |", "|---|---|" + "---|" * (len(dr.MASON_V2_REFS) + 1)]

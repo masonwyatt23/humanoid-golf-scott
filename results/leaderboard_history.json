@@ -1946,6 +1946,63 @@
      "mean_distance": 15.201265429390107
     }
    }
+  },
+  {
+   "md5": "79fc92e3c710672f47a6f85b48b9cd03",
+   "names": [
+    "ppo_v3tiny_s22"
+   ],
+   "steps": 60000,
+   "order": 1792206405.7995586,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 117.09342119621873
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 121.37625634682605
+    }
+   }
+  },
+  {
+   "md5": "c32c9eaf474a386916282ae0e533fa6d",
+   "names": [
+    "ppo_v3tiny_s21"
+   ],
+   "steps": 60000,
+   "order": 1792206406.1395586,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 121.2134228076615
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 110.67974013471411
+    }
+   }
+  },
+  {
+   "md5": "dbd3e51e63312e66db998c4687866a31",
+   "names": [
+    "ppo_v3tiny_s23"
+   ],
+   "steps": 60000,
+   "order": 1792206413.1715586,
+   "env_fingerprint": "737c4d124c92",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 125.01803094449835
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 123.09666950426339
+    }
+   }
   }
  ]
 }
