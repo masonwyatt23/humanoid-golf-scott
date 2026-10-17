@@ -9,6 +9,17 @@ from eval import render_polished as rp
 from eval.render_polished import ROOT, FPS, card, wrap, PRec, style_scene, actuator_tags
 
 
+def ensure_gl():
+    """Same as render_polished.ensure_gl but re-execs THIS module (render_polished's version re-execs render_polished itself)."""
+    import os, sys, subprocess
+    if os.environ.get("_RS_GL"): return
+    r = subprocess.run([sys.executable, "-c", "import mujoco;from env.humanoid_golf_env import HumanoidGolfEnv as E;e=E();mujoco.Renderer(e.model,64,64)"], cwd=ROOT, env={**os.environ, "MUJOCO_GL": "egl"}, capture_output=True)
+    if r.returncode == 0:
+        os.environ["MUJOCO_GL"] = "egl"; os.environ["_RS_GL"] = "egl"; return
+    env = {**os.environ, "MUJOCO_GL": "glfw", "_RS_GL": "glfw"}
+    os.execvpe("xvfb-run", ["xvfb-run", "-a", "-s", "-screen 0 1280x720x24", sys.executable, "-m", "eval.render_power_preview", *sys.argv[1:]], env)
+
+
 def run_seed(env, pol, seed, FT):
     ft = FT(env).install()
     try:
@@ -22,7 +33,7 @@ def run_seed(env, pol, seed, FT):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--name", default="ppo_v4power_s61"); ap.add_argument("--swings", type=int, default=12)
-    ap.add_argument("--out", default="results/videos/showcase_power_preview.mp4"); a = ap.parse_args(); rp.ensure_gl()
+    ap.add_argument("--out", default="results/videos/showcase_power_preview.mp4"); a = ap.parse_args(); ensure_gl()
     from stable_baselines3 import PPO
     from eval.env_factory import make_env, joint_qpos_idx
     from eval.flight_tracker import FlightTracker
