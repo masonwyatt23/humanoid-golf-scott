@@ -7734,6 +7734,25 @@
      "mean_distance": 120.45049308304802
     }
    }
+  },
+  {
+   "md5": "894886bbf5b6ac632f19540718cbd1c2",
+   "names": [
+    "imit20_fs1_q23_dart_s51"
+   ],
+   "steps": 0,
+   "order": 1792274101.0596662,
+   "env_fingerprint": "c66fd89099c7",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 139.62878659428554
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 139.1340734587607
+    }
+   }
   }
  ]
 }

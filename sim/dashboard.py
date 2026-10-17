@@ -52,7 +52,7 @@ def build():
         carry = d.get("mean_carry_yd"); carry = 0.0 if carry is None or not math.isfinite(carry) else carry
         rows.append((cr, carry, m, d, s, name, scripted, fs))
     rows.sort(key=lambda r: (-r[0], -r[1]))
-    best = lb["best_qualifying"]
+    best = lb["best_qualifying"] or []
     tr = []
     for i, (cr, carry, m, d, s, name, scripted, fs) in enumerate(rows, 1):
         tag = '<span class="b sc">SCRIPTED (not learned)</span>' if scripted else '<span class="b ln">learned</span>'

@@ -1,0 +1,45 @@
+{
+ "args": {},
+ "env_kwargs_full": {
+  "script": {
+   "q_back": 2.3,
+   "t_down": 0.095,
+   "t_back": 0.6,
+   "wr_end": -0.01,
+   "yaw_ff": 0.0
+  },
+  "residual_scale": [
+   0.1,
+   0.08,
+   0.05,
+   0.05
+  ],
+  "model_xml": "humanoid_golf_v3.xml",
+  "flight_model": true,
+  "tee_height": 0.04,
+  "force_scale": 1.0,
+  "kp": 700,
+  "kd": 23.33,
+  "loft_deg": -41,
+  "curriculum": true,
+  "carry_reward": true,
+  "forward_reward": true,
+  "randomize_reset": true,
+  "ball_dz": -0.016,
+  "handedness": "left",
+  "gate_lo": 15.0,
+  "gate_hi": 35.0,
+  "seq_weight": 0.0,
+  "style_prior": false,
+  "yaw_amp": 0.1,
+  "wrist_amp": 0.0,
+  "style_lead": 0.05,
+  "ball_x": 0.396,
+  "ball_x_noise": 0.003,
+  "sh_noise": 0.05,
+  "el_noise": 0.17,
+  "elbow_base": 0.4,
+  "flight_steps": 900
+ },
+ "note": "SCRIPTED zero-residual stub for eval_gate (not a learned policy)"
+}
