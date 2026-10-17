@@ -282,6 +282,7 @@ def main():
            "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked[0]["names"] if ranked else None), "best_overall": (ranked_all[0]["names"] if ranked_all else None), "best_left": (left[0]["names"] if left else None), "qualifying": [c["names"] for c in qualifying], "best_qualifying": (qualifying[0]["names"] if qualifying else None),
            "qualify_criterion": {"carry_m_min": Q_CARRY, "lateral_std_m_max": Q_LAT, "launch_elev_deg_min": Q_ELEV, "contact": "100% in both modes", "mode": "deterministic for carry/lateral/launch"},
            "ranking": ["/".join(c["names"]) for c in ranked], "ranking_incl_scripted": ["/".join(c["names"]) for c in ranked_all],
+           "track_score_caveat": "VOID/UNVERIFIED: every models[].track_score (mean/min/parts sh,yaw,wr) was computed with the lead/trail arm mapping the Trainer found wrong (trail key scores 0.02). Do not read track_score or any 'Mason-shaped wrist' claim as valid; only the yaw part is unaffected. See the noise/track_score section of leaderboard.md.",
            "history": hist["entries"]}
     (RES / "leaderboard.json").write_text(json.dumps(out, indent=1))
     if ranked:

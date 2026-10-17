@@ -397,4 +397,4 @@ force_scale labels: v3 configs = force_scale 2 (BOOSTED, 120 N·m wrist). "stock
 
 **(4) 0.02 m lateral std (fs1 + H1-2, t_down 0.17) — explained, not a result.** eval/lat_probe.py: corr(start ball y, final lateral)=0.86-1.00 and std(lat) ≈ std of the ±0.02 m uniform ball_y start noise (0.0094). In slow/straight-swing cases the shot has no face/path dispersion, so lateral ≈ initial offset (masontrail also 0.008). Fast swings: lateral std 0.8-1.4 m. So tiny lateral std there reflects a deterministic slow swing, not accuracy; compare only at equal speed.
 
-**Pending (lost to 8:15 restart, relaunched afterwards if noted below):** imit16 stock fs1 policy gate, imit15 DART s52/s53 gates.
+**Status update (repo port, Oct 17):** the `imit16_fs1_dart_s51` stock-motor policy gate (seeds 4000/8000/9000, 100 eps, `force_scale` 1.0) and the `imit15_dart_s52` gates (seeds 4000/8000/9000, 100 eps, `force_scale` 2.0) are now committed under `results/` (`gate_imit16_fs1_dart_s51*.json`, `gate_imit15_dart_s52*.json`, plus the two result JSONs). **imit15 DART s53 is still not committed** and remains pending.

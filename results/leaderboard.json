@@ -42398,6 +42398,7 @@
   "ppo_scott_final2/ppo_scott_prev2_backup",
   "ppo_scott_baseline"
  ],
+ "track_score_caveat": "VOID/UNVERIFIED: every models[].track_score (mean/min/parts sh,yaw,wr) was computed with the lead/trail arm mapping the Trainer found wrong (trail key scores 0.02). Do not read track_score or any 'Mason-shaped wrist' claim as valid; only the yaw part is unaffected. See the noise/track_score section of leaderboard.md.",
  "history": [
   {
    "md5": "79f83863b227a1267fbdcab08642473f",
