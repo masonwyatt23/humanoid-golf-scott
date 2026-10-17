@@ -36,7 +36,7 @@ Legend: GREEN = commercial use stated OK. AMBER = ambiguous or conditional. RED 
 
 **CMU** (http://mocap.cs.cmu.edu/, fetched 2026-10-16):
 > "This dataset of motions is free for all uses."
-> "This data is free for use in research projects. You may include this data in commercially-sold products, but you may not resell this data directly, even in converted form. If you publish results obtained using this data, we would appreciate it if you would send the citation to your published paper to jkh+mocap@cs.cmu.edu, and also would add this text to your acknowledgments section: The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217."
+> "This data is free for use in research projects. You may include this data in commercially-sold products, but you may not resell this data directly, even in converted form. If you publish results obtained using this data, we would appreciate it if you would send the citation to your published paper to contact per CMU terms (http://mocap.cs.cmu.edu), and also would add this text to your acknowledgments section: The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217."
 
 FAQ page (http://mocap.cs.cmu.edu/faqs.php): "The motion capture data may be copied, modified, or redistributed without permission."
 
@@ -46,9 +46,9 @@ Obligations to follow: (a) don't resell or publish the converted `.npz` files as
 > "To use the Dataset for the sole purpose of performing non-commercial scientific research, non-commercial education, or non-commercial artistic projects; Any other use, in particular any use for commercial purposes, is prohibited. This includes, without limitation, incorporation in a commercial product, use in a commercial service, or production of other artefacts for commercial purposes."
 > "This license also prohibits the use of the Dataset to train methods/algorithms/neural networks/etc. for commercial use of any kind."
 
-Commercial licensing contact stated: ps-license@tue.mpg.de. The `.npz` files we derive from AMASS would count as "other artefacts". **Do not use AMASS-derived data**, including AMASS-derived collections such as HumanML3D.
+Commercial licensing contact stated: contact per the licensor terms (see the license URL above). The `.npz` files we derive from AMASS would count as "other artefacts". **Do not use AMASS-derived data**, including AMASS-derived collections such as HumanML3D.
 
-**BEDLAM** (https://bedlam.is.tue.mpg.de/license.html): "...in particular any use for commercial, pornographic, military, or surveillance, purposes is prohibited. This includes, without limitation, incorporation in a commercial product, use in a commercial service, or production of other artifacts for commercial purposes." Commercial contact: smpl@max-planck-innovation.de.
+**BEDLAM** (https://bedlam.is.tue.mpg.de/license.html): "...in particular any use for commercial, pornographic, military, or surveillance, purposes is prohibited. This includes, without limitation, incorporation in a commercial product, use in a commercial service, or production of other artifacts for commercial purposes." Commercial contact: the licensor contact named on the BEDLAM license page.
 
 **Motion-X** (GitHub LICENSE, fetched via search result; annotations PDF): "Any other use, in particular any use for commercial, pornographic, military, or surveillance, purposes is prohibited." Annotations are CC BY-NC-SA 4.0: "You may not use the material for commercial purposes." It also says each sub-dataset has its own license (AMASS, GRAB custom licenses; BAUM, AIST++, EgoBody CC-BY 4.0; HuMMan S-Lab; IDEA400 CC BY-SA 4.0). The source videos are "from online source", so there is third-party video copyright too.
 
@@ -62,13 +62,13 @@ Commercial licensing contact stated: ps-license@tue.mpg.de. The `.npz` files we 
 
 **CaddieSet** (https://github.com/damilab/CaddieSet): LICENSE is the standard MIT text. The data is "Swing videos and ball flight estimates of 8 individuals" with joint features (2D, camera-based) and ball data (Distance, Carry, DirectionAngle, SpinBack, SpinSide, BallSpeed). Caveat: MIT covers the repo, but I could not confirm whether the human participants consented to commercial reuse. The README only describes the data as "intended for research and analysis". Treat as GREEN for ball-flight statistics (non-personal numbers), AMBER for joint features. Cite: Jung et al., CVPRW 2025.
 
-**GolfPose** (https://github.com/MingHanLee/GolfPose): README says "Please email mhlee.cs09@nycu.edu.tw to authorize the dataset download." The repo shows no license text. Data contains `data_3d_golf_gt.npz`. No license means all rights reserved, so ask the authors for a written commercial grant before use. High value if granted (real 3D golf keypoints with club).
+**GolfPose** (https://github.com/MingHanLee/GolfPose): README says "Please email the contact given in the GolfPose README (https://github.com/MingHanLee/GolfPose) to authorize the dataset download." The repo shows no license text. Data contains `data_3d_golf_gt.npz`. No license means all rights reserved, so ask the authors for a written commercial grant before use. High value if granted (real 3D golf keypoints with club).
 
 **Mixamo** [secondary, Adobe FAQ via search]: royalty-free for personal, commercial and nonprofit projects, but you may not distribute raw character or animation files separately. Animations are keyframed or captured by Mixamo, not elite swings, and carry no verified golf swing quality. Low priority. Also check Adobe's current terms on ML training use, which I did not verify.
 
 ### 1.2 Recommendation for the dataset
 1. **Tier 1 (use now):** CMU subject 64 (sequencing prior), Mason's own swings (best), published biomechanics numbers (targets, Section 2).
-2. **Tier 2 (ask first, in writing):** GolfPose authors (3D golf), KIT H²T (golf mocap), AMASS commercial license (ps-license@tue.mpg.de) if the budget exists.
+2. **Tier 2 (ask first, in writing):** GolfPose authors (3D golf), KIT H²T (golf mocap), AMASS commercial license (contact per the licensor terms (see the license URL above)) if the budget exists.
 3. **Tier 3 (never for the product):** GolfDB, Motion-X, BEDLAM, HuMMan, Human3.6M, Kaggle Golf-Pose, AMASS-derived data.
 4. **Collect our own:** the cleanest long-term answer. A few hundred swings from consenting golfers (signed release that covers commercial ML use), from phone video plus a pose lifter chosen for license cleanliness. Check the pose model's license too (several, e.g. SMPL-family models, are non-commercial).
 
@@ -174,7 +174,7 @@ These are public rules. Values from search summaries of the official pages. Veri
 1. Counsel review of CMU's two statements (redistribute vs resell) and the acknowledgment text.
 2. Written commercial terms from KIT H²T and from the GolfPose authors.
 3. Verify TrackMan PDF values, USGA CT/MOI/COR from the official PDF, and the golfsim coefficients against Smits & Smith / Bearman & Harvey.
-4. Decide whether to buy an AMASS commercial license (ps-license@tue.mpg.de).
+4. Decide whether to buy an AMASS commercial license (contact per the licensor terms (see the license URL above)).
 5. Read the Cochran & Stobbs, McTeigue et al., and Cheetham et al. 2000 originals before leaning on tempo and X-factor-stretch constants.
 
 ## Sources (all fetched or surfaced 2026-10-16)

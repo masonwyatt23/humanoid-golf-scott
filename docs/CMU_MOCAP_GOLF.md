@@ -15,7 +15,7 @@ Official pages, fetched live:
   > "This data is free for use in research projects. You may include this data in
   > commercially-sold products, but you may not resell this data directly, even in
   > converted form. If you publish results obtained using this data, we would appreciate it
-  > if you would send the citation to your published paper to jkh+mocap@cs.cmu.edu, and also
+  > if you would send the citation to your published paper to contact per CMU terms (http://mocap.cs.cmu.edu), and also
   > would add this text to your acknowledgments section: The data used in this project was
   > obtained from mocap.cs.cmu.edu. The database was created with funding from NSF
   > EIA-0196217."

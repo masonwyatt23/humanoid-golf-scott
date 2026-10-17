@@ -177,7 +177,7 @@ Here's the relevant paragraph from mocap.cs.cmu.edu:
   Use this data!  This data is free for use in research and commercial
   projects worldwide.  If you publish results obtained using this data,
   we would appreciate it if you would send the citation to your
-  published paper to jkh+mocap@cs.cmu.edu, and also would add this text
+  published paper to contact per CMU terms (http://mocap.cs.cmu.edu), and also would add this text
   to your acknowledgments section: "The data used in this project was
   obtained from mocap.cs.cmu.edu.  The database was created with funding
   from NSF EIA-0196217."
@@ -274,7 +274,7 @@ CONTACT INFO AND WHERE TO FIND STUFF:
   BVHacker free BVH editing software: http://davedub.co.uk/bvhacker
     BVHacker is designed primarily to create BVH files for SecondLife.
 
-To contact the creator of this BVH conversion release: hahne@io.com
+To contact the creator of this BVH conversion release: see the original release notes (no contact address reproduced here)
 
 If you like this BVH conversion release, feel free to drop me email
 and let me know what you're doing with it.
