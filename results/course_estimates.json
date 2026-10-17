@@ -1,0 +1,494 @@
+{
+ "label": "model-based estimate, not a real round (synthetic example course; assumed short game)",
+ "course": "SYNTHETIC EXAMPLE (invented)",
+ "holes": [
+  {
+   "n": 1,
+   "par": 4,
+   "yards": 430,
+   "fw_halfwidth_yd": 15,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 249.39999999999998,
+     "x1": 279.4,
+     "y0": 11,
+     "y1": 23
+    },
+    {
+     "type": "bunker",
+     "x0": 412,
+     "x1": 426,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "par": 5,
+   "yards": 565,
+   "fw_halfwidth_yd": 17,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 282.5,
+     "x1": 312.5,
+     "y0": -13,
+     "y1": -25
+    },
+    {
+     "type": "bunker",
+     "x0": 547,
+     "x1": 561,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "par": 3,
+   "yards": 185,
+   "fw_halfwidth_yd": 0,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 167,
+     "x1": 181,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "par": 4,
+   "yards": 395,
+   "fw_halfwidth_yd": 14,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 229.1,
+     "x1": 259.1,
+     "y0": -10,
+     "y1": -22
+    },
+    {
+     "type": "water",
+     "x0": 355,
+     "x1": 383,
+     "y0": -60,
+     "y1": -12
+    },
+    {
+     "type": "bunker",
+     "x0": 377,
+     "x1": 391,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "par": 4,
+   "yards": 455,
+   "fw_halfwidth_yd": 15,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 263.9,
+     "x1": 293.9,
+     "y0": 11,
+     "y1": 23
+    },
+    {
+     "type": "bunker",
+     "x0": 437,
+     "x1": 451,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "par": 3,
+   "yards": 215,
+   "fw_halfwidth_yd": 0,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 197,
+     "x1": 211,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "par": 5,
+   "yards": 590,
+   "fw_halfwidth_yd": 17,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 295.0,
+     "x1": 325.0,
+     "y0": 13,
+     "y1": 25
+    },
+    {
+     "type": "bunker",
+     "x0": 572,
+     "x1": 586,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "par": 4,
+   "yards": 410,
+   "fw_halfwidth_yd": 14,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 237.79999999999998,
+     "x1": 267.79999999999995,
+     "y0": -10,
+     "y1": -22
+    },
+    {
+     "type": "bunker",
+     "x0": 392,
+     "x1": 406,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "par": 4,
+   "yards": 440,
+   "fw_halfwidth_yd": 15,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 255.2,
+     "x1": 285.2,
+     "y0": 11,
+     "y1": 23
+    },
+    {
+     "type": "bunker",
+     "x0": 422,
+     "x1": 436,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "par": 4,
+   "yards": 420,
+   "fw_halfwidth_yd": 15,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 243.6,
+     "x1": 273.6,
+     "y0": -11,
+     "y1": -23
+    },
+    {
+     "type": "bunker",
+     "x0": 402,
+     "x1": 416,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "par": 3,
+   "yards": 175,
+   "fw_halfwidth_yd": 0,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 157,
+     "x1": 171,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "par": 5,
+   "yards": 545,
+   "fw_halfwidth_yd": 16,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 272.5,
+     "x1": 302.5,
+     "y0": -12,
+     "y1": -24
+    },
+    {
+     "type": "water",
+     "x0": 505,
+     "x1": 533,
+     "y0": 12,
+     "y1": 60
+    },
+    {
+     "type": "bunker",
+     "x0": 527,
+     "x1": 541,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "par": 4,
+   "yards": 470,
+   "fw_halfwidth_yd": 14,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 272.59999999999997,
+     "x1": 302.59999999999997,
+     "y0": 10,
+     "y1": 22
+    },
+    {
+     "type": "bunker",
+     "x0": 452,
+     "x1": 466,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "par": 4,
+   "yards": 385,
+   "fw_halfwidth_yd": 13,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 223.29999999999998,
+     "x1": 253.29999999999998,
+     "y0": -9,
+     "y1": -21
+    },
+    {
+     "type": "bunker",
+     "x0": 367,
+     "x1": 381,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "par": 3,
+   "yards": 230,
+   "fw_halfwidth_yd": 0,
+   "hazards": [
+    {
+     "type": "water",
+     "x0": 190,
+     "x1": 218,
+     "y0": -60,
+     "y1": -12
+    },
+    {
+     "type": "bunker",
+     "x0": 212,
+     "x1": 226,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 16,
+   "par": 4,
+   "yards": 445,
+   "fw_halfwidth_yd": 15,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 258.09999999999997,
+     "x1": 288.09999999999997,
+     "y0": -11,
+     "y1": -23
+    },
+    {
+     "type": "bunker",
+     "x0": 427,
+     "x1": 441,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 17,
+   "par": 5,
+   "yards": 600,
+   "fw_halfwidth_yd": 17,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 300.0,
+     "x1": 330.0,
+     "y0": 13,
+     "y1": 25
+    },
+    {
+     "type": "bunker",
+     "x0": 582,
+     "x1": 596,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  },
+  {
+   "n": 18,
+   "par": 4,
+   "yards": 425,
+   "fw_halfwidth_yd": 15,
+   "hazards": [
+    {
+     "type": "bunker",
+     "x0": 246.49999999999997,
+     "x1": 276.5,
+     "y0": -11,
+     "y1": -23
+    },
+    {
+     "type": "bunker",
+     "x0": 407,
+     "x1": 421,
+     "y0": 10,
+     "y1": 22
+    }
+   ]
+  }
+ ],
+ "total_yards": 7380,
+ "par": 72,
+ "assumptions": {
+  "bag_fractions": [
+   1.0,
+   0.92,
+   0.84,
+   0.77,
+   0.71,
+   0.65,
+   0.59,
+   0.53,
+   0.47,
+   0.4,
+   0.3
+  ],
+  "rough_carry_mult": 0.85,
+  "rough_disp_mult": 1.3,
+  "bunker_carry_mult": 0.6,
+  "bunker_disp_mult": 1.6,
+  "green_radius_yd": 14.0,
+  "chip_max_yd": 45.0,
+  "ob_halfwidth_yd": 45.0,
+  "max_strokes": 12,
+  "chip_leave_sd_frac": 0.1,
+  "chip_leave_min_ft": 4.0,
+  "putt_scale_ft": 8.0,
+  "putt_exp": 2.5
+ },
+ "results": [
+  {
+   "profile": "A: sim as measured - ppo_v3flt_yaw_s31/best_learned_yaw_s31",
+   "note": "ppo_v3flt_yaw_s31/best_learned_yaw_s31 (learned); force_scale=2.0; MuJoCo ball, smash~1.0 artifact; HYPOTHETICAL ACTUATORS",
+   "rounds": 2000,
+   "par": 72,
+   "mean_score": 106.671,
+   "sd_score": 4.7717668635422665,
+   "p10": 101.0,
+   "p90": 113.0,
+   "mean_vs_par": 34.67100000000001,
+   "fairways_hit_pct": 100.0,
+   "gir_pct": 0.8055555555555556,
+   "hole_means": [
+    6.08,
+    7.1325,
+    4.1895,
+    5.7435,
+    6.3085,
+    4.542,
+    7.352,
+    5.885,
+    6.153,
+    5.991,
+    4.024,
+    6.948,
+    6.385,
+    5.674,
+    4.682,
+    6.149,
+    7.423,
+    6.009
+   ],
+   "label": "model-based estimate, not a real round (synthetic example course; assumed short game)"
+  },
+  {
+   "profile": "B: HYPOTHETICAL - ppo_v3flt_yaw_s31/best_learned_yaw_s31 spread scaled to 275 yd tour-avg carry",
+   "note": "carry CV 0.23 and lateral/carry 0.014 from ppo_v3flt_yaw_s31/best_learned_yaw_s31; roll from analytic model at TrackMan avg launch; not something the sim achieves",
+   "rounds": 2000,
+   "par": 72,
+   "mean_score": 93.6875,
+   "sd_score": 10.914020512625033,
+   "p10": 80.0,
+   "p90": 109.0,
+   "mean_vs_par": 21.6875,
+   "fairways_hit_pct": 97.55714285714285,
+   "gir_pct": 31.491666666666667,
+   "hole_means": [
+    4.926,
+    5.976,
+    4.781,
+    4.8015,
+    5.25,
+    5.018,
+    6.096,
+    4.838,
+    5.0135,
+    4.8815,
+    4.6005,
+    6.134,
+    5.3765,
+    4.792,
+    5.2565,
+    5.082,
+    5.943,
+    4.9215
+   ],
+   "label": "model-based estimate, not a real round (synthetic example course; assumed short game)"
+  }
+ ]
+}
