@@ -1,5 +1,5 @@
 {
- "description": "OPT-IN Mason-shaped WRIST on v3: elbow_base 0.48 + wrist cock -0.5 rad then release (wr_end -0.01), no extra yaw. track_score 0.33->~0.50, key_score 0->0.88 (track_time_fix); club ~115 mph. | BC-teacher address distribution over the full elbow range (0.40 +- 0.17).",
+ "description": "VOID/superseded (Trainer's Stage 19 finding): the 'key_score 0.88' / 'Mason-shaped wrist' claim used the lead-arm Mason values on the trail-arm joints; under the role-correct trail key (key_arm=trail) this script scores 0.02. Do not cite 0.88. OPT-IN Mason-shaped WRIST on v3: elbow_base 0.48 + wrist cock -0.5 rad then release (wr_end -0.01), no extra yaw. track_score 0.33->~0.50, key_score 0->0.88 (track_time_fix); club ~115 mph. | BC-teacher address distribution over the full elbow range (0.40 +- 0.17).",
  "script": {
   "q_back": 2.2,
   "t_down": 0.095,
