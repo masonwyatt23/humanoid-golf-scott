@@ -1,0 +1,1210 @@
+{
+ "generated_by": "scripts/gen_pro_swing_profiles.py",
+ "legal_likeness_cautions": [
+  "Use 'style profile' language only. These are statistical summaries of published numbers, not simulations, avatars or endorsements of real persons.",
+  "Do not use any player's name, image or likeness in commercial product marketing, UI, model names or app-store copy without written permission; names are for internal reference/file labels only.",
+  "Do not redistribute vendor/media content (Sportsbox, TrackMan, GOLF.com etc.): numbers with citations only, no copied text, images or reports.",
+  "Real-person biometric-like data (swing kinematics) may carry right-of-publicity / privacy issues in some jurisdictions; the repo uses only published aggregate numbers.",
+  "Recommend counsel review before any external release, training-data licensing statement or marketing claim ('swings like X')."
+ ],
+ "notes": [
+  "Each feature: unit, min/target/max (plausibility band, NOT a measurement of the person), source_ids, confidence (high/medium/low/none), unverified.",
+  "unverified=true -> no verified published value, or value is an assumption/derived from mixed sources; do not use as a target without confirming.",
+  "source 'verified' field: fetched = page text read; fetched_pdf = PDF read; search_snippet = only a search-result excerpt was read (weaker); read_locally = repo file.",
+  "Handedness: all values are magnitudes; mirror for a left-handed golfer. Frame-count tempo values come from ~30 fps video and are quantized (+-1 frame).",
+  "No player video was downloaded or scraped. Quoted facts are short numeric citations only."
+ ],
+ "profiles": {
+  "adam_scott_style": {
+   "features": {
+    "arm_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "attack_angle_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "One TrackMan driver shot (circa 2019).",
+     "source_ids": [
+      "golfdigest_minna_scott"
+     ],
+     "target": -1.1,
+     "unit": "deg",
+     "unverified": false
+    },
+    "backswing_s": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "2014 video, 30 fps.",
+     "source_ids": [
+      "golfloopy_tempo"
+     ],
+     "target": 0.8,
+     "unit": "s",
+     "unverified": false
+    },
+    "ball_speed_mph": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved (a TrackMan report with 157.6 mph was anonymous; NOT attributed to Scott).",
+     "source_ids": [],
+     "target": null,
+     "unit": "mph",
+     "unverified": true
+    },
+    "club_head_speed_mph": {
+     "confidence": "medium",
+     "max": 122.0,
+     "min": 120.0,
+     "note": "2025 avg 120.19; Golf Australia 120-122; one TrackMan shot 53.9 m/s = 120.6.",
+     "source_ids": [
+      "swingman_chs_2025",
+      "golfaustralia_scott",
+      "golfdigest_minna_scott"
+     ],
+     "target": 120.2,
+     "unit": "mph",
+     "unverified": false
+    },
+    "downswing_s": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "",
+     "source_ids": [
+      "golfloopy_tempo"
+     ],
+     "target": 0.27,
+     "unit": "s",
+     "unverified": false
+    },
+    "launch_angle_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "pelvis_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "pelvis_sway_impact_in": {
+     "confidence": "low",
+     "max": 6,
+     "min": 3,
+     "note": "generic tour checkpoint 3-6 in; sway gap -4 to -8 in.",
+     "source_ids": [
+      "sportsbox_scott"
+     ],
+     "target": 4.5,
+     "unit": "in",
+     "unverified": true
+    },
+    "pelvis_sway_top_in": {
+     "confidence": "low",
+     "max": 0,
+     "min": null,
+     "note": "~0 in at top (Sportsbox benchmark, Scott-attributed in the article, not confirmed measurement).",
+     "source_ids": [
+      "sportsbox_scott"
+     ],
+     "target": 0,
+     "unit": "in",
+     "unverified": true
+    },
+    "smash_factor": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "spin_rate_rpm": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "rpm",
+     "unverified": true
+    },
+    "tempo_ratio": {
+     "confidence": "medium",
+     "max": 3.2,
+     "min": 2.8,
+     "note": "3:1 from 30 fps video (quantized).",
+     "source_ids": [
+      "golfloopy_tempo",
+      "golfaustralia_scott"
+     ],
+     "target": 3.0,
+     "unit": "ratio",
+     "unverified": false
+    },
+    "thorax_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "thorax_turn_top_deg": {
+     "confidence": "low",
+     "max": 100,
+     "min": 90,
+     "note": "Sportsbox: ~100 deg 'excellent', >90 good. Appears to be a benchmark, not confirmed Scott measurement -> unverified.",
+     "source_ids": [
+      "sportsbox_scott"
+     ],
+     "target": 100,
+     "unit": "deg",
+     "unverified": true
+    },
+    "x_factor_top_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved. Repo synthetic style uses ~55 as an assumption (repo_synth_styles).",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    }
+   },
+   "kind": "style_profile",
+   "label": "Adam Scott-style profile (published-stat style profile; NOT a model of the person)",
+   "setup": {
+    "notes": "Quiet pelvis / stable head (Sportsbox qualitative). Stance width, ball position unverified."
+   }
+  },
+  "bryson_dechambeau_style": {
+   "features": {
+    "arm_peak_speed_dps": {
+     "confidence": "medium",
+     "max": 1400,
+     "min": 1050,
+     "note": "92nd pct.",
+     "source_ids": [
+      "sportsbox_report_pdf",
+      "sportsbox_bryson"
+     ],
+     "target": 1292,
+     "unit": "deg/s",
+     "unverified": false
+    },
+    "attack_angle_deg": {
+     "confidence": "medium",
+     "max": 5.0,
+     "min": 4.0,
+     "note": "Coach quote (Dahlquist), working number when swinging well; path ~4-5 deg in-to-out.",
+     "source_ids": [
+      "golfcom_bryson_setup"
+     ],
+     "target": 4.5,
+     "unit": "deg",
+     "unverified": false
+    },
+    "ball_speed_mph": {
+     "confidence": "low",
+     "max": 195,
+     "min": 172.2,
+     "note": "2024 season avg ~172.2 (derived); '195+ ball speed' seen in equipment testing (reporter).",
+     "source_ids": [
+      "golfcom_persimmon",
+      "power350"
+     ],
+     "target": 172.2,
+     "unit": "mph",
+     "unverified": false
+    },
+    "club_head_speed_mph": {
+     "confidence": "medium",
+     "max": 140,
+     "min": 125,
+     "note": "Video-AI avg 128 (vendor, not radar); 146.9 reported as a peak (context unverified).",
+     "source_ids": [
+      "sportsbox_bryson",
+      "yahoo_bryson_146",
+      "power350"
+     ],
+     "target": 128,
+     "unit": "mph",
+     "unverified": false
+    },
+    "launch_angle_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No Bryson-specific value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "pelvis_peak_speed_dps": {
+     "confidence": "medium",
+     "max": 590,
+     "min": 440,
+     "note": "51st pct of tour; same as tour-typical.",
+     "source_ids": [
+      "sportsbox_report_pdf",
+      "sportsbox_bryson",
+      "cheetham_2008"
+     ],
+     "target": 506,
+     "unit": "deg/s",
+     "unverified": false
+    },
+    "pelvis_turn_top_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Only percentile (97th pct).",
+     "source_ids": [
+      "sportsbox_bryson"
+     ],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "smash_factor": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No Bryson-specific value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "spin_rate_rpm": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No Bryson-specific value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "rpm",
+     "unverified": true
+    },
+    "tempo_ratio": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No published value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "thorax_peak_speed_dps": {
+     "confidence": "medium",
+     "max": 1000,
+     "min": 750,
+     "note": "95th pct; tour range 754-857 per vendor report.",
+     "source_ids": [
+      "sportsbox_report_pdf",
+      "sportsbox_bryson"
+     ],
+     "target": 961,
+     "unit": "deg/s",
+     "unverified": false
+    },
+    "thorax_turn_top_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Only percentile (97th pct).",
+     "source_ids": [
+      "sportsbox_bryson"
+     ],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "x_factor_top_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Only percentile (84th pct of tour sample); value not published.",
+     "source_ids": [
+      "sportsbox_bryson"
+     ],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    }
+   },
+   "kind": "style_profile",
+   "label": "Bryson DeChambeau-style profile (published-stat style profile; NOT a model of the person)",
+   "setup": {
+    "ball_position": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "",
+     "unverified": true
+    },
+    "driver_length_in": {
+     "confidence": "high",
+     "max": 48.0,
+     "min": 45.0,
+     "note": "45 in EOG (Krank, 5.5 deg loft, 59 deg lie); 48 in rule max.",
+     "source_ids": [
+      "golfcom_bryson_setup"
+     ],
+     "target": 45.0,
+     "unit": "in",
+     "unverified": false
+    },
+    "driver_loft_deg": {
+     "confidence": "high",
+     "max": 5.5,
+     "min": 4.0,
+     "note": "LA Golf prototype 4 deg seen in testing.",
+     "source_ids": [
+      "golfcom_bryson_setup"
+     ],
+     "target": 5.5,
+     "unit": "deg",
+     "unverified": false
+    },
+    "grip": "Oversize/jumbo grip; weak lead-hand grip (GOLF.com Manzella, qualitative)",
+    "posture_hands": "High hands at address, small left-wrist hinge, toe-up at takeaway, wide arc, across-the-line top (qualitative, golfcom_bryson_manzella)",
+    "shaft_lean": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "stance_width": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "in",
+     "unverified": true
+    }
+   }
+  },
+  "chris_gotterup_style": {
+   "features": {
+    "arm_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "attack_angle_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "ball_speed_mph": {
+     "confidence": "medium",
+     "max": 200,
+     "min": null,
+     "note": "2025 avg 184.16 (11th on Tour); >200 mph max is self-reported.",
+     "source_ids": [
+      "golfcom_gotterup"
+     ],
+     "target": 184.2,
+     "unit": "mph",
+     "unverified": false
+    },
+    "club_head_speed_mph": {
+     "confidence": "medium",
+     "max": 125.2,
+     "min": 124.5,
+     "note": "2025 avg 124.52 (GOLF.com) / 124.7 (third-party); a 2022-23 article cites 125.21 (SIM2).",
+     "source_ids": [
+      "swingman_chs_2025",
+      "golfcom_gotterup"
+     ],
+     "target": 124.6,
+     "unit": "mph",
+     "unverified": false
+    },
+    "driving_distance_yd": {
+     "confidence": "medium",
+     "max": null,
+     "min": null,
+     "note": "PGA Tour driving distance avg 317 yd (8th).",
+     "source_ids": [
+      "golfcom_gotterup"
+     ],
+     "target": 317,
+     "unit": "yd",
+     "unverified": false
+    },
+    "launch_angle_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "pelvis_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "smash_factor": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Derived 184.16/124.52 = 1.479; mixes two sources' averages (not same-shot).",
+     "source_ids": [
+      "golfcom_gotterup"
+     ],
+     "target": 1.48,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "spin_rate_rpm": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "rpm",
+     "unverified": true
+    },
+    "tempo_ratio": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Described as fast/aggressive; no timing published.",
+     "source_ids": [],
+     "target": null,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "thorax_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "x_factor_top_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved (qualitatively 'as big a turn as I can').",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    }
+   },
+   "kind": "style_profile",
+   "label": "Chris Gotterup-style profile (published-stat style profile; NOT a model of the person)",
+   "setup": {
+    "ball_position": "Forward in stance per Golf Digest; one YouTube coach calls it a bit back of 'traditional' with some forward shaft lean -> sources conflict, unverified",
+    "downswing": "Hard push off lead foot, lead foot may spin out (Golf Digest, qualitative)",
+    "grip": "Fairly weak trail-hand grip, natural fade (Australian Golf Digest)",
+    "head_and_turn": "Head slightly behind ball and turns slightly away on takeaway; trail leg straightens; weight to trail heel (Golf Digest, qualitative)",
+    "shaft_lean": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved numerically.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "stance_width": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "in",
+     "unverified": true
+    }
+   }
+  },
+  "rory_mcilroy_style": {
+   "features": {
+    "club_head_speed_mph": {
+     "confidence": "medium",
+     "max": null,
+     "min": null,
+     "note": "2025 avg 123.33.",
+     "source_ids": [
+      "swingman_chs_2025"
+     ],
+     "target": 123.3,
+     "unit": "mph",
+     "unverified": false
+    },
+    "tempo_ratio": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "REPO ASSUMPTION, not a measurement.",
+     "source_ids": [
+      "repo_synth_styles"
+     ],
+     "target": 2.8,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "x_factor_top_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Repo assumption (100 thorax - 52 pelvis).",
+     "source_ids": [
+      "repo_synth_styles"
+     ],
+     "target": 48,
+     "unit": "deg",
+     "unverified": true
+    }
+   },
+   "kind": "style_profile",
+   "label": "Rory-style profile (published CHS + repo synthetic approximation; NOT a model of the person)",
+   "setup": {}
+  },
+  "scottie_scheffler_style": {
+   "features": {
+    "club_head_speed_mph": {
+     "confidence": "medium",
+     "max": null,
+     "min": null,
+     "note": "2025 avg 120.03.",
+     "source_ids": [
+      "swingman_chs_2025"
+     ],
+     "target": 120.0,
+     "unit": "mph",
+     "unverified": false
+    },
+    "tempo_ratio": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "REPO ASSUMPTION for synthetic generator, not a measurement.",
+     "source_ids": [
+      "repo_synth_styles"
+     ],
+     "target": 2.4,
+     "unit": "ratio",
+     "unverified": true
+    },
+    "x_factor_top_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Repo assumption (92 thorax - 38 pelvis).",
+     "source_ids": [
+      "repo_synth_styles"
+     ],
+     "target": 54,
+     "unit": "deg",
+     "unverified": true
+    }
+   },
+   "kind": "style_profile",
+   "label": "Scheffler-style profile (published CHS + repo synthetic approximation; NOT a model of the person)",
+   "setup": {}
+  },
+  "tiger_woods_style": {
+   "features": {
+    "arm_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No published per-player value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "attack_angle_deg": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "Not retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    },
+    "backswing_s": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "24 frames/30 fps = 0.80 s; Golf Loopy says Tiger at his best ~0.8 s.",
+     "source_ids": [
+      "golfdigest_tiger_tempo",
+      "golfloopy_tempo"
+     ],
+     "target": 0.8,
+     "unit": "s",
+     "unverified": false
+    },
+    "ball_speed_mph": {
+     "confidence": "low",
+     "max": 185,
+     "min": 175,
+     "note": "",
+     "source_ids": [
+      "trackman_guide",
+      "golfweek_tiger_2018",
+      "golfwrx_tiger_forum"
+     ],
+     "target": 180,
+     "unit": "mph",
+     "unverified": false
+    },
+    "club_head_speed_mph": {
+     "confidence": "low",
+     "max": 125,
+     "min": 118,
+     "note": "Era/club dependent: 118 (2012), 118-120 (2018), ~124-125 (older guide/forum). Target = midpoint, not a measurement.",
+     "source_ids": [
+      "trackman_guide",
+      "golfweek_tiger_2018",
+      "golfwrx_tiger_forum"
+     ],
+     "target": 120,
+     "unit": "mph",
+     "unverified": false
+    },
+    "downswing_s": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "8 frames/30 fps (+-1 frame = +-0.033 s).",
+     "source_ids": [
+      "golfdigest_tiger_tempo",
+      "golfloopy_tempo"
+     ],
+     "target": 0.267,
+     "unit": "s",
+     "unverified": false
+    },
+    "launch_angle_deg": {
+     "confidence": "low",
+     "max": 16.5,
+     "min": 10.9,
+     "note": "11 typical; 16.5 outlier shot.",
+     "source_ids": [
+      "golfweek_tiger_2018",
+      "golfwrx_tiger_forum"
+     ],
+     "target": 11.3,
+     "unit": "deg",
+     "unverified": false
+    },
+    "pelvis_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No published per-player value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "smash_factor": {
+     "confidence": "low",
+     "max": 1.51,
+     "min": 1.47,
+     "note": "",
+     "source_ids": [
+      "golfweek_tiger_2018",
+      "golfwrx_tiger_forum"
+     ],
+     "target": 1.49,
+     "unit": "ratio",
+     "unverified": false
+    },
+    "spin_rate_rpm": {
+     "confidence": "low",
+     "max": 3000,
+     "min": 1900,
+     "note": "",
+     "source_ids": [
+      "golfweek_tiger_2018",
+      "golfwrx_tiger_forum"
+     ],
+     "target": 2300,
+     "unit": "rpm",
+     "unverified": false
+    },
+    "tempo_ratio": {
+     "confidence": "medium",
+     "max": 3.1,
+     "min": 2.9,
+     "note": "27/9 frames until 1997, 24/8 from ~2002 (both exactly 3:1 by 30 fps frame counting; real ratio likely 2.8-3.2).",
+     "source_ids": [
+      "golfdigest_tiger_tempo"
+     ],
+     "target": 3.0,
+     "unit": "ratio",
+     "unverified": false
+    },
+    "thorax_peak_speed_dps": {
+     "confidence": "none",
+     "max": null,
+     "min": null,
+     "note": "No published per-player value retrieved.",
+     "source_ids": [],
+     "target": null,
+     "unit": "deg/s",
+     "unverified": true
+    },
+    "x_factor_top_deg": {
+     "confidence": "low",
+     "max": null,
+     "min": null,
+     "note": "Unsourced media claim ~70 deg (95 shoulders - 25 hips); not usable as a target.",
+     "source_ids": [
+      "chroniclelive_xfactor"
+     ],
+     "target": null,
+     "unit": "deg",
+     "unverified": true
+    }
+   },
+   "kind": "style_profile",
+   "label": "Tiger Woods-style profile (published-stat style profile; NOT a model of the person)",
+   "setup": {
+    "notes": "Not retrieved for Tiger: stance width, ball position, shaft lean. Left unverified (no fabricated values)."
+   }
+  },
+  "tour_average": {
+   "features": {
+    "arm_peak_speed_dps": {
+     "confidence": "medium",
+     "max": 1048,
+     "min": 912,
+     "note": "lead upper arm, +-1 SD; DiVA elite arm 1055+-149.",
+     "source_ids": [
+      "cheetham_2008"
+     ],
+     "target": 980,
+     "unit": "deg/s",
+     "unverified": false
+    },
+    "attack_angle_deg": {
+     "confidence": "medium",
+     "max": null,
+     "min": null,
+     "note": "",
+     "source_ids": [
+      "trackman_tour_avg_pdf",
+      "power350"
+     ],
+     "target": -1.3,
+     "unit": "deg",
+     "unverified": false
+    },
+    "backswing_s": {
+     "confidence": "medium",
+     "max": 0.8,
+     "min": 0.7,
+     "note": "0.72-0.80 s takeaway->top.",
+     "source_ids": [
+      "golfloopy_tempo",
+      "pebble_tempo"
+     ],
+     "target": 0.75,
+     "unit": "s",
+     "unverified": false
+    },
+    "ball_speed_mph": {
+     "confidence": "high",
+     "max": null,
+     "min": null,
+     "note": "TrackMan tour average (GOLF.com cites 173.6 for a later year).",
+     "source_ids": [
+      "trackman_guide",
+      "trackman_tour_avg_pdf"
+     ],
+     "target": 167,
+     "unit": "mph",
+     "unverified": false
+    },
+    "club_head_speed_mph": {
+     "confidence": "high",
+     "max": null,
+     "min": null,
+     "note": "TrackMan tour driver average.",
+     "source_ids": [
+      "trackman_guide",
+      "trackman_tour_avg_pdf"
+     ],
+     "target": 113,
+     "unit": "mph",
+     "unverified": false
+    },
+    "downswing_s": {
+     "confidence": "medium",
+     "max": 0.27,
+     "min": 0.25,
+     "note": "~0.25-0.27 s top->impact.",
+     "source_ids": [
+      "golfloopy_tempo",
+      "pebble_tempo"
+     ],
+     "target": 0.26,
+     "unit": "s",
+     "unverified": false
+    },
+    "launch_angle_deg": {
+     "confidence": "medium",
+     "max": null,
+     "min": null,
+     "note": "",
+     "source_ids": [
+      "trackman_tour_avg_pdf",
+      "power350"
+     ],
+     "target": 10.9,
+     "unit": "deg",
+     "unverified": false
+    },
+    "pelvis_peak_speed_dps": {
+     "confidence": "medium",
+     "max": 530,
+     "min": 424,
+     "note": "+-1 SD; DiVA elite: 475+-75.",
+     "source_ids": [
+      "cheetham_2008"
+     ],
+     "target": 477,
+     "unit": "deg/s",
+     "unverified": false
+    },
+    "pelvis_turn_top_deg": {
+     "confidence": "medium",
+     "max": 47.9,
+     "min": 30.1,
+     "note": "mean +-1 SD (abs value).",
+     "source_ids": [
+      "diva_elite_driver"
+     ],
+     "target": 39.0,
+     "unit": "deg",
+     "unverified": false
+    },
+    "smash_factor": {
+     "confidence": "high",
+     "max": null,
+     "min": null,
+     "note": "",
+     "source_ids": [
+      "trackman_guide",
+      "trackman_tour_avg_pdf"
+     ],
+     "target": 1.48,
+     "unit": "ratio",
+     "unverified": false
+    },
+    "spin_rate_rpm": {
+     "confidence": "medium",
+     "max": null,
+     "min": null,
+     "note": "",
+     "source_ids": [
+      "trackman_tour_avg_pdf",
+      "power350"
+     ],
+     "target": 2686,
+     "unit": "rpm",
+     "unverified": false
+    },
+    "tempo_ratio": {
+     "confidence": "medium",
+     "max": 3.5,
+     "min": 2.5,
+     "note": "Tour Tempo 3:1 (30 fps frame counts quantize it); high-rate measurement 2.5-3.5.",
+     "source_ids": [
+      "grober_tempo",
+      "golfloopy_tempo",
+      "pebble_tempo"
+     ],
+     "target": 3.0,
+     "unit": "ratio",
+     "unverified": false
+    },
+    "thorax_peak_speed_dps": {
+     "confidence": "medium",
+     "max": 788,
+     "min": 666,
+     "note": "+-1 SD; DiVA elite: 708+-70.",
+     "source_ids": [
+      "cheetham_2008"
+     ],
+     "target": 727,
+     "unit": "deg/s",
+     "unverified": false
+    },
+    "thorax_turn_top_deg": {
+     "confidence": "medium",
+     "max": 117.7,
+     "min": 67.1,
+     "note": "mean +-1 SD (abs value).",
+     "source_ids": [
+      "diva_elite_driver"
+     ],
+     "target": 92.4,
+     "unit": "deg",
+     "unverified": false
+    },
+    "x_factor_top_deg": {
+     "confidence": "medium",
+     "max": 62.8,
+     "min": 47.0,
+     "note": "Elite-golfer mean+-SD 54.9+-7.9 (min/max = +-1 SD); other sources cite 32-45 deg: definitions vary.",
+     "source_ids": [
+      "diva_elite_driver"
+     ],
+     "target": 54.9,
+     "unit": "deg",
+     "unverified": false
+    }
+   },
+   "kind": "population",
+   "label": "PGA Tour / elite-golfer reference (population, not a person)",
+   "setup": {
+    "note": "No numeric tour-average stance/ball-position values were retrieved; do not infer."
+   }
+  }
+ },
+ "purpose": "Internal reference for Mason-vs-profile comparison. STYLE PROFILES from published stats; not simulations of real persons.",
+ "schema": "pro_swing_profiles/v1",
+ "sources": {
+  "aus_golfdigest_gotterup": {
+   "terms": "Media; qualitative",
+   "title": "Australian Golf Digest: Gotterup natural fade, weak trail-hand grip, shoulder alignment not too open, steepness watch",
+   "url": "https://www.australiangolfdigest.com.au/chris-gotterup-put-my-game-to-work-for-you/",
+   "verified": "search_snippet"
+  },
+  "cheetham_2008": {
+   "terms": "Published proceedings chapter hosted by academy; numbers cited only",
+   "title": "Cheetham et al., Science and Golf V: kinematic sequence, 19 pros (CHS 109 mph) 3-D EM: peak pelvis 477+-53, thorax 727+-61, arm 980+-68, club 2254+-68 deg/s; peak times before impact pelvis 87, thorax 68, arm 65 ms",
+   "url": "http://www.waddengolfacademy.com/biomechanics/Cheetham%20Rose%20Neal%20Comparison_of_Kinematic_Sequence.pdf",
+   "verified": "fetched"
+  },
+  "chroniclelive_xfactor": {
+   "terms": "Media; LOW reliability",
+   "title": "Chronicle Live 'Tips from the Tour': Tiger ~95 deg shoulders vs ~25 deg hips (X-factor ~70) -- secondary, undated, unsourced",
+   "url": "https://www.chroniclelive.co.uk/sport/other-sport/tips-from-the-tour-1614259",
+   "verified": "search_snippet"
+  },
+  "diva_elite_driver": {
+   "terms": "Open-access thesis; numbers cited only",
+   "title": "DiVA thesis 'Relationships between golf swing kinematics and driver performance in elite golfers' (CHS 46.0+-4.3 m/s ~103 mph; pelvis 475+-75, thorax 708+-70, arm 1055+-149 deg/s; X-factor 54.9+-7.9 deg; pelvis TOB -39+-8.9, thorax TOB -92.4+-25.3 deg)",
+   "url": "https://www.diva-portal.org/smash/get/diva2:1242118/FULLTEXT01.pdf",
+   "verified": "search_snippet"
+  },
+  "golfaustralia_scott": {
+   "terms": "Media; numbers cited only",
+   "title": "Golf Australia: Scott CHS ~120-122 mph, tempo ~56 BPM",
+   "url": "https://www.golfaustralia.com.au/news/breaking-80-tick-tick-tempo-for-consistency-427970",
+   "verified": "search_snippet"
+  },
+  "golfcom_bryson_manzella": {
+   "terms": "Media instruction opinion; qualitative",
+   "title": "GOLF.com Jun 2025 (Manzella): Bryson high hands, oversize grips, small left-wrist hinge, wide arc, weak lead-hand grip, across-the-line top",
+   "url": "https://golf.com/instruction/driving/six-steps-crush-ball-like-bryson-dechambeau/",
+   "verified": "fetched"
+  },
+  "golfcom_bryson_setup": {
+   "terms": "Media; numbers cited only",
+   "title": "GOLF.com Apr 2025: Bryson driver 5.5 deg / 59 deg lie / 45 in / Krank Formula Fire LD / jumbo grip; coach Dahlquist: path ~4-5 deg in-to-out, attack angle +4-5 deg, square face when swinging well",
+   "url": "https://golf.com/gear/drivers/bryson-dechambeaus-driver-setup-liv-miami/",
+   "verified": "fetched"
+  },
+  "golfcom_gotterup": {
+   "terms": "Media; numbers cited only",
+   "title": "GOLF.com: Gotterup 2025 CHS avg 124.52 mph (5th), ball speed 184.16 mph (11th), driving distance 317 yd; says he has pushed ball speed >200 mph (self-reported)",
+   "url": "https://golf.com/news/chris-gotterup-heater-3m-open/",
+   "verified": "search_snippet"
+  },
+  "golfcom_persimmon": {
+   "terms": "Media; secondary",
+   "title": "GOLF.com: Bryson 2024 avg ball speed ~172.2 mph (derived), tour avg 173.64 (reused from power_profile_350yd)",
+   "url": "https://golf.com/gear/how-far-bryson-dechambeau-hit-persimmon-open/",
+   "verified": "fetched"
+  },
+  "golfdigest_gotterup_keys": {
+   "terms": "Media; qualitative",
+   "title": "Golf Digest: Gotterup 'big turn, let it rip'; straightens trail leg, weight to trail heel, hard lead-foot push, spins out lead foot",
+   "url": "https://www.golfdigest.com/story/learn-chris-gotterup-keys-to-exceeding-speed-limit",
+   "verified": "search_snippet"
+  },
+  "golfdigest_gotterup_steep": {
+   "terms": "Media; qualitative",
+   "title": "Golf Digest 2-minute clinic: Gotterup driver ball forward, head behind ball, head turns slightly away, trail leg straightens, flatter backswing",
+   "url": "https://www.golfdigest.com/how-to/2-minute-clinic/three-ways-to-fix-a-steep-swing-chris-gotterup",
+   "verified": "search_snippet"
+  },
+  "golfdigest_minna_scott": {
+   "terms": "Media (Japanese); numbers cited only; single measured driver shot, year unclear (circa 2019)",
+   "title": "Golf Digest Japan (minna): Scott TrackMan 53.9 m/s CHS (~120.6 mph), attack angle -1.1 deg, near-square face-to-path, path ~on-plane (one measured shot)",
+   "url": "https://www.golfdigest-minna.jp/_ct/17311277",
+   "verified": "search_snippet"
+  },
+  "golfdigest_tiger_tempo": {
+   "terms": "Media; numbers cited only",
+   "title": "Golf Digest: Tiger's Tour Tempo 27/9 frames (to 1997) -> 24/8 (2002 on); 3:1",
+   "url": "https://www.golfdigest.com/story/tiger-woods-tempo-golf-swing",
+   "verified": "search_snippet"
+  },
+  "golfloopy_tempo": {
+   "terms": "Blog; numbers cited only",
+   "title": "Golf Loopy: Scott 2014 swings (30 fps video) 0.8 s back / 0.27 s down, 3:1, same for iron & driver; notes Tiger/Rory/others similar",
+   "url": "http://www.golfloopy.com/adam-scott-golf-swing-tempo/",
+   "verified": "search_snippet"
+  },
+  "golfweek_tiger_2018": {
+   "terms": "Media; numbers cited only",
+   "title": "Golfweek 2018: Tiger TrackMan rounds, CHS 118-120, ball 178-181, smash 1.51, launch 11-16, spin 1.9-3.0k",
+   "url": "https://golfweek.usatoday.com/story/sports/golf/2018/02/20/deciphering-golf-speak-is-a-key-to-custom-fitting-for-drivers/76627487007/",
+   "verified": "search_snippet"
+  },
+  "golfwrx_tiger_forum": {
+   "terms": "Forum post; LOW reliability",
+   "title": "GolfWRX forum: Tiger 125 mph/185 mph/1.48/11 deg/2200 rpm (undated forum post quoting a third-party page)",
+   "url": "https://forums.golfwrx.com/topic/887262-tiger-woods-trackman/",
+   "verified": "search_snippet"
+  },
+  "grober_tempo": {
+   "terms": "Preprint hosted by Tour Tempo; numbers cited only",
+   "title": "Grober et al. 'Towards a Biomechanical Understanding of Tempo' (12 pros: backswing:downswing ratio ~2.5-3.5, mean ~3.0; 30 Hz video quantizes ratios)",
+   "url": "https://www.tourtempoforce.com/wp-content/uploads/2020/07/Towards_a_Biomechanical_Understanding_of_Tempo_in_the_Golf_Swing.pdf",
+   "verified": "search_snippet"
+  },
+  "pebble_tempo": {
+   "terms": "Secondary summary; numbers cited only",
+   "title": "Pebble Swing summary: PGA pro accelerometer 724+-23 ms back / 248+-4 ms down (~2.9:1); other pros 1.9-3.4:1",
+   "url": "https://useswingiq.com/learn/golf-swing-tempo/",
+   "verified": "search_snippet"
+  },
+  "power350": {
+   "terms": "Project-internal",
+   "title": "Repo power_profile_350yd_targets.json (commit 5b71460): tour/long-drive bands and sources",
+   "url": "repo:data/references/power_profile_350yd_targets.json",
+   "verified": "read_locally"
+  },
+  "repo_synth_styles": {
+   "terms": "Project-internal",
+   "title": "Repo synthetic style parameters (data/generate_synthetic_scott.py): public-range APPROXIMATIONS written by the project, not measurements",
+   "url": "repo:data/generate_synthetic_scott.py",
+   "verified": "read_locally"
+  },
+  "sportsbox_bryson": {
+   "terms": "Vendor page (Sportsbox partner content); numbers cited only; video-AI derived, not radar",
+   "title": "Sportsbox: DeChambeau case study (CHS 128 mph 96th pct vs tour group avg 117; chest/pelvis turn max 97th pct; X-factor max 84th pct; pelvis speed 51st, chest speed 95th, arm/hand speed 92nd pct)",
+   "url": "https://help.sportsbox.ai/dechambeaus-swing",
+   "verified": "fetched"
+  },
+  "sportsbox_report_pdf": {
+   "terms": "Unofficial host of vendor report; numbers cited only; treat as indicative",
+   "title": "Sportsbox Bryson driver report PDF (pelvis 506, thorax 961, arm 1292 deg/s; reused from power_profile_350yd, unofficial host)",
+   "url": "https://moccasin-micheline-88.tiiny.site/Bryson-Driver-Swing-Score-Report-1.pdf",
+   "verified": "fetched_pdf"
+  },
+  "sportsbox_scott": {
+   "terms": "Vendor help page; numbers cited only. Benchmarks are generic tour checkpoints, not clearly Scott's measured values",
+   "title": "Sportsbox: Adam Scott smooth swing (benchmarks: chest turn ~100 deg great / >90 good; pelvis sway ~0 in at top; sway 3-6 in & sway gap -4 to -8 in at impact for tour players)",
+   "url": "https://help.sportsbox.ai/adam-scotts-smooth-swing-achieving-tempo-power",
+   "verified": "search_snippet"
+  },
+  "swingman_chs_2025": {
+   "terms": "Third-party blog transcription of PGA Tour data; numbers cited only; not independently checked against pgatour.com",
+   "title": "Swing Man Golf: 2025 PGA Tour avg driver club-head speed ranking (Gotterup 124.7, Rory 123.33, Scott 120.19, Scheffler 120.03; 180 players) -- third-party transcription of PGA Tour stats",
+   "url": "https://swingmangolf.com/2025-pga-tour-club-head-speed-rankings/",
+   "verified": "fetched"
+  },
+  "trackman_guide": {
+   "terms": "Third-party hosted vendor PDF; cite numbers only",
+   "title": "TrackMan Pro quick-user-guide terms (tour avg driver CHS 113, ball 167, smash 1.48; notes Tiger Woods CHS ~124, ball ~184)",
+   "url": "https://hankhaney.com/app/uploads/2019/01/TrackmanTERMS.pdf",
+   "verified": "search_snippet"
+  },
+  "trackman_tour_avg_pdf": {
+   "terms": "TrackMan reference table; numbers cited only",
+   "title": "TrackMan PGA Tour averages PDF (reused from power_profile_350yd)",
+   "url": "https://support.trackmangolf.com/hc/en-us/article_attachments/7349802113051/PGA_Tour_average.pdf",
+   "verified": "fetched_pdf"
+  },
+  "yahoo_bryson_146": {
+   "terms": "Media; peak not average; unverified context",
+   "title": "Yahoo Sports (via search snippet): Bryson driver CHS has reached 146.9 mph (peak, context unclear)",
+   "url": "https://sports.yahoo.com/article/bryson-dechambeaus-driver-distance-u-033739908.html",
+   "verified": "search_snippet"
+  },
+  "yt_gotterup_coach": {
+   "terms": "Video commentary (only the text snippet was read; NO video downloaded); LOW reliability",
+   "title": "YouTube coach analysis of Gotterup (transcript): ball slightly further back than 'traditional', some forward shaft lean, little lateral sway -- one coach's opinion, conflicts with Golf Digest 'ball forward'",
+   "url": "https://www.youtube.com/watch?v=FGIvPaTBQOI",
+   "verified": "search_snippet"
+  }
+ }
+}

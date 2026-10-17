@@ -1,0 +1,616 @@
+{
+ "caveats": [
+  "Mason's tempo comes from ~30 fps video (downswing 4-6 frames); treat as a loose band only (+-~27%).",
+  "Club speed is unavailable from video; the 120 mph value is self-reported and unverified.",
+  "Mason's joint features are 2-D proxies and have no counterpart in published profile stats, so they are NOT compared.",
+  "band_position is position inside a plausibility band (0.5 = target), not a population percentile.",
+  "Profiles are style profiles from published numbers (some unverified); not simulations of real persons. Internal reference only; counsel review before any external use.",
+  "Priority ranks where a gap is both large relative to noise and trustworthy; it is not a coaching prescription. Consult a coach/fitter."
+ ],
+ "generated_by": "python -m data.compare_mason_to_profile",
+ "mason_features": {
+  "backswing_s": {
+   "iqr": [
+    0.4833,
+    0.575
+   ],
+   "n": 11,
+   "note": "absolute durations from edited/possibly sped-up feed clips are unreliable (0.48 s would be extraordinarily fast); trust the ratio more than the seconds",
+   "trust": 0.2,
+   "unc": 0.05,
+   "value": 0.4833
+  },
+  "club_head_speed_mph": {
+   "iqr": null,
+   "n": 0,
+   "note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+   "trust": 0.5,
+   "unc": 3.0,
+   "value": 120.0
+  },
+  "downswing_s": {
+   "iqr": [
+    0.1583,
+    0.1667
+   ],
+   "n": 11,
+   "note": "likely under-detected (4-6 frames); slow-mo clips suggest ~0.17-0.23 s true; treat as suspect",
+   "trust": 0.2,
+   "unc": 0.06,
+   "value": 0.1667
+  },
+  "tempo_ratio": {
+   "iqr": [
+    2.875,
+    3.55
+   ],
+   "n": 11,
+   "note": "~30 fps screen recordings; downswing only 4-6 frames; per-swing rel. uncertainty ~27%",
+   "trust": 0.35,
+   "unc": 0.7801,
+   "value": 2.9
+  }
+ },
+ "measure_next": [
+  {
+   "id": "club_head_speed_mph_measured",
+   "what": "Launch-monitor club/ball speed, smash, launch, spin, attack angle (one 20-shot session)"
+  },
+  {
+   "id": "tempo_240fps",
+   "what": "240 fps down-the-line + face-on video of 20+ driver swings to get a trustworthy tempo ratio and downswing time"
+  },
+  {
+   "id": "pelvis_thorax_turn_x_factor",
+   "what": "3-D/markerless pelvis & thorax turn and X-factor at top (needs face-on 120+ fps or 3-D capture)"
+  },
+  {
+   "id": "segment_peak_speeds",
+   "what": "Pelvis/thorax/arm peak angular speeds and their order (kinematic sequence)"
+  },
+  {
+   "id": "setup",
+   "what": "Stance width, ball position, shaft lean at address (a still face-on and DTL photo with a club on the ground works)"
+  }
+ ],
+ "not_scored": [
+  "x_factor_top_deg",
+  "pelvis_turn_top_deg",
+  "thorax_turn_top_deg",
+  "pelvis/thorax/arm peak speeds",
+  "ball_speed/smash/launch/spin/attack_angle",
+  "setup (stance, ball position, shaft lean)"
+ ],
+ "overall_ranking_style_profiles": [
+  {
+   "feature": "backswing_s",
+   "mean_priority": 0.269,
+   "n_profiles": 2
+  },
+  {
+   "feature": "club_head_speed_mph",
+   "mean_priority": 0.161,
+   "n_profiles": 6
+  },
+  {
+   "feature": "downswing_s",
+   "mean_priority": 0.124,
+   "n_profiles": 2
+  },
+  {
+   "feature": "tempo_ratio",
+   "mean_priority": 0.029,
+   "n_profiles": 4
+  }
+ ],
+ "per_profile": [
+  {
+   "items": [
+    {
+     "advice": "Backswing duration is lower than the Adam Scott style profile target (0.48 vs 0.80 s) -- absolute seconds from feed clips are unreliable (possible speed edits, ~30 fps); do not act on this; re-film at 240 fps.",
+     "band_assumed": true,
+     "band_position": -1.479,
+     "delta": -0.3167,
+     "direction": "below",
+     "feature": "backswing_s",
+     "mason": 0.4833,
+     "mason_note": "absolute durations from edited/possibly sped-up feed clips are unreliable (0.48 s would be extraordinarily fast); trust the ratio more than the seconds",
+     "mason_trust": 0.2,
+     "priority": 0.269,
+     "profile_band": [
+      0.72,
+      0.88
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "golfloopy_tempo"
+     ],
+     "profile_target": 0.8,
+     "profile_unverified": false,
+     "significance": 3.357,
+     "unit": "s",
+     "within_noise": false
+    },
+    {
+     "advice": "Downswing duration is lower than the Adam Scott style profile target (0.17 vs 0.27 s) -- probably a ~30 fps detection artifact; re-measure at 240 fps before changing anything.",
+     "band_assumed": true,
+     "band_position": -1.413,
+     "delta": -0.1033,
+     "direction": "below",
+     "feature": "downswing_s",
+     "mason": 0.1667,
+     "mason_note": "likely under-detected (4-6 frames); slow-mo clips suggest ~0.17-0.23 s true; treat as suspect",
+     "mason_trust": 0.2,
+     "priority": 0.126,
+     "profile_band": [
+      0.243,
+      0.297
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "golfloopy_tempo"
+     ],
+     "profile_target": 0.27,
+     "profile_unverified": false,
+     "significance": 1.57,
+     "unit": "s",
+     "within_noise": false
+    },
+    {
+     "advice": "Backswing:downswing timing ratio: no change indicated vs Adam Scott style profile (gap -0.10 ratio is inside the measurement noise).",
+     "band_assumed": false,
+     "band_position": 0.25,
+     "delta": -0.1,
+     "direction": "below",
+     "feature": "tempo_ratio",
+     "mason": 2.9,
+     "mason_note": "~30 fps screen recordings; downswing only 4-6 frames; per-swing rel. uncertainty ~27%",
+     "mason_trust": 0.35,
+     "priority": 0.033,
+     "profile_band": [
+      2.8,
+      3.2
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "golfloopy_tempo",
+      "golfaustralia_scott"
+     ],
+     "profile_target": 3.0,
+     "profile_unverified": false,
+     "significance": 0.124,
+     "unit": "ratio",
+     "within_noise": true
+    },
+    {
+     "advice": "Speed gap vs Adam Scott style profile: -0.2 mph (120.0 vs 120.2; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": true,
+     "band_position": 0.467,
+     "delta": -0.2,
+     "direction": "below",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.018,
+     "profile_band": [
+      117.195,
+      123.205
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "swingman_chs_2025",
+      "golfaustralia_scott",
+      "golfdigest_minna_scott"
+     ],
+     "profile_target": 120.2,
+     "profile_unverified": false,
+     "significance": 0.047,
+     "unit": "mph",
+     "within_noise": true
+    }
+   ],
+   "label": "Adam Scott style profile",
+   "profile": "adam_scott_style"
+  },
+  {
+   "items": [
+    {
+     "advice": "Speed gap vs Bryson DeChambeau style profile: -8.0 mph (120.0 vs 128.0; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": false,
+     "band_position": -0.033,
+     "delta": -8.0,
+     "direction": "below",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.371,
+     "profile_band": [
+      125,
+      140
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "sportsbox_bryson",
+      "yahoo_bryson_146",
+      "power350"
+     ],
+     "profile_target": 128,
+     "profile_unverified": false,
+     "significance": 0.99,
+     "unit": "mph",
+     "within_noise": true
+    }
+   ],
+   "label": "Bryson DeChambeau style profile",
+   "profile": "bryson_dechambeau_style"
+  },
+  {
+   "items": [
+    {
+     "advice": "Speed gap vs Chris Gotterup style profile: -4.6 mph (120.0 vs 124.6; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": true,
+     "band_position": -0.238,
+     "delta": -4.6,
+     "direction": "below",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.399,
+     "profile_band": [
+      121.485,
+      127.715
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "swingman_chs_2025",
+      "golfcom_gotterup"
+     ],
+     "profile_target": 124.6,
+     "profile_unverified": false,
+     "significance": 1.064,
+     "unit": "mph",
+     "within_noise": false
+    }
+   ],
+   "label": "Chris Gotterup style profile",
+   "profile": "chris_gotterup_style"
+  },
+  {
+   "items": [
+    {
+     "advice": "Speed gap vs Rory style profile: -3.3 mph (120.0 vs 123.3; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": true,
+     "band_position": 0.232,
+     "delta": -3.3,
+     "direction": "below",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.18,
+     "profile_band": [
+      117.135,
+      129.465
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "swingman_chs_2025"
+     ],
+     "profile_target": 123.3,
+     "profile_unverified": false,
+     "significance": 0.481,
+     "unit": "mph",
+     "within_noise": true
+    },
+    {
+     "advice": "Backswing:downswing timing ratio: no change indicated vs Rory style profile (gap +0.10 ratio is inside the measurement noise).",
+     "band_assumed": true,
+     "band_position": 0.679,
+     "delta": 0.1,
+     "direction": "above",
+     "feature": "tempo_ratio",
+     "mason": 2.9,
+     "mason_note": "~30 fps screen recordings; downswing only 4-6 frames; per-swing rel. uncertainty ~27%",
+     "mason_trust": 0.35,
+     "priority": 0.008,
+     "profile_band": [
+      2.52,
+      3.08
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "repo_synth_styles"
+     ],
+     "profile_target": 2.8,
+     "profile_unverified": true,
+     "significance": 0.121,
+     "unit": "ratio",
+     "within_noise": true
+    }
+   ],
+   "label": "Rory style profile",
+   "profile": "rory_mcilroy_style"
+  },
+  {
+   "items": [
+    {
+     "advice": "Backswing:downswing timing ratio: no change indicated vs Scheffler style profile (gap +0.50 ratio is inside the measurement noise).",
+     "band_assumed": true,
+     "band_position": 1.542,
+     "delta": 0.5,
+     "direction": "above",
+     "feature": "tempo_ratio",
+     "mason": 2.9,
+     "mason_note": "~30 fps screen recordings; downswing only 4-6 frames; per-swing rel. uncertainty ~27%",
+     "mason_trust": 0.35,
+     "priority": 0.043,
+     "profile_band": [
+      2.16,
+      2.64
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "repo_synth_styles"
+     ],
+     "profile_target": 2.4,
+     "profile_unverified": true,
+     "significance": 0.613,
+     "unit": "ratio",
+     "within_noise": true
+    },
+    {
+     "advice": "Speed gap vs Scheffler style profile: +0.0 mph (120.0 vs 120.0; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": true,
+     "band_position": 0.5,
+     "delta": 0.0,
+     "direction": "on",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.0,
+     "profile_band": [
+      114.0,
+      126.0
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "swingman_chs_2025"
+     ],
+     "profile_target": 120.0,
+     "profile_unverified": false,
+     "significance": 0.0,
+     "unit": "mph",
+     "within_noise": true
+    }
+   ],
+   "label": "Scheffler style profile",
+   "profile": "scottie_scheffler_style"
+  },
+  {
+   "items": [
+    {
+     "advice": "Backswing duration is lower than the Tiger Woods style profile target (0.48 vs 0.80 s) -- absolute seconds from feed clips are unreliable (possible speed edits, ~30 fps); do not act on this; re-film at 240 fps.",
+     "band_assumed": true,
+     "band_position": -1.479,
+     "delta": -0.3167,
+     "direction": "below",
+     "feature": "backswing_s",
+     "mason": 0.4833,
+     "mason_note": "absolute durations from edited/possibly sped-up feed clips are unreliable (0.48 s would be extraordinarily fast); trust the ratio more than the seconds",
+     "mason_trust": 0.2,
+     "priority": 0.269,
+     "profile_band": [
+      0.72,
+      0.88
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "golfdigest_tiger_tempo",
+      "golfloopy_tempo"
+     ],
+     "profile_target": 0.8,
+     "profile_unverified": false,
+     "significance": 3.357,
+     "unit": "s",
+     "within_noise": false
+    },
+    {
+     "advice": "Downswing duration is lower than the Tiger Woods style profile target (0.17 vs 0.27 s) -- probably a ~30 fps detection artifact; re-measure at 240 fps before changing anything.",
+     "band_assumed": true,
+     "band_position": -1.378,
+     "delta": -0.1003,
+     "direction": "below",
+     "feature": "downswing_s",
+     "mason": 0.1667,
+     "mason_note": "likely under-detected (4-6 frames); slow-mo clips suggest ~0.17-0.23 s true; treat as suspect",
+     "mason_trust": 0.2,
+     "priority": 0.122,
+     "profile_band": [
+      0.2403,
+      0.2937
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "golfdigest_tiger_tempo",
+      "golfloopy_tempo"
+     ],
+     "profile_target": 0.267,
+     "profile_unverified": false,
+     "significance": 1.527,
+     "unit": "s",
+     "within_noise": false
+    },
+    {
+     "advice": "Backswing:downswing timing ratio: no change indicated vs Tiger Woods style profile (gap -0.10 ratio is inside the measurement noise).",
+     "band_assumed": true,
+     "band_position": 0.167,
+     "delta": -0.1,
+     "direction": "below",
+     "feature": "tempo_ratio",
+     "mason": 2.9,
+     "mason_note": "~30 fps screen recordings; downswing only 4-6 frames; per-swing rel. uncertainty ~27%",
+     "mason_trust": 0.35,
+     "priority": 0.033,
+     "profile_band": [
+      2.85,
+      3.15
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "golfdigest_tiger_tempo"
+     ],
+     "profile_target": 3.0,
+     "profile_unverified": false,
+     "significance": 0.126,
+     "unit": "ratio",
+     "within_noise": true
+    },
+    {
+     "advice": "Speed gap vs Tiger Woods style profile: +0.0 mph (120.0 vs 120.0; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": false,
+     "band_position": 0.5,
+     "delta": 0.0,
+     "direction": "on",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.0,
+     "profile_band": [
+      118,
+      125
+     ],
+     "profile_confidence": "low",
+     "profile_sources": [
+      "trackman_guide",
+      "golfweek_tiger_2018",
+      "golfwrx_tiger_forum"
+     ],
+     "profile_target": 120,
+     "profile_unverified": false,
+     "significance": 0.0,
+     "unit": "mph",
+     "within_noise": true
+    }
+   ],
+   "label": "Tiger Woods style profile",
+   "profile": "tiger_woods_style"
+  },
+  {
+   "items": [
+    {
+     "advice": "Backswing duration is lower than the PGA Tour / elite-golfer reference target (0.48 vs 0.75 s) -- absolute seconds from feed clips are unreliable (possible speed edits, ~30 fps); do not act on this; re-film at 240 fps.",
+     "band_assumed": false,
+     "band_position": -2.167,
+     "delta": -0.2667,
+     "direction": "below",
+     "feature": "backswing_s",
+     "mason": 0.4833,
+     "mason_note": "absolute durations from edited/possibly sped-up feed clips are unreliable (0.48 s would be extraordinarily fast); trust the ratio more than the seconds",
+     "mason_trust": 0.2,
+     "priority": 0.566,
+     "profile_band": [
+      0.7,
+      0.8
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "golfloopy_tempo",
+      "pebble_tempo"
+     ],
+     "profile_target": 0.75,
+     "profile_unverified": false,
+     "significance": 3.772,
+     "unit": "s",
+     "within_noise": false
+    },
+    {
+     "advice": "Speed gap vs PGA Tour / elite-golfer reference: +7.0 mph (120.0 vs 113.0; Mason's value is SELF-REPORTED). Not a technique item; get a launch-monitor number first, then use the speed-training/mobility plan.",
+     "band_assumed": true,
+     "band_position": 1.119,
+     "delta": 7.0,
+     "direction": "above",
+     "feature": "club_head_speed_mph",
+     "mason": 120.0,
+     "mason_note": "SELF-REPORTED (120+ mph), not measured; video cannot measure club speed",
+     "mason_trust": 0.5,
+     "priority": 0.547,
+     "profile_band": [
+      107.35,
+      118.65
+     ],
+     "profile_confidence": "high",
+     "profile_sources": [
+      "trackman_guide",
+      "trackman_tour_avg_pdf"
+     ],
+     "profile_target": 113,
+     "profile_unverified": false,
+     "significance": 1.094,
+     "unit": "mph",
+     "within_noise": false
+    },
+    {
+     "advice": "Downswing duration is lower than the PGA Tour / elite-golfer reference target (0.17 vs 0.26 s) -- probably a ~30 fps detection artifact; re-measure at 240 fps before changing anything.",
+     "band_assumed": true,
+     "band_position": -3.088,
+     "delta": -0.0933,
+     "direction": "below",
+     "feature": "downswing_s",
+     "mason": 0.1667,
+     "mason_note": "likely under-detected (4-6 frames); slow-mo clips suggest ~0.17-0.23 s true; treat as suspect",
+     "mason_trust": 0.2,
+     "priority": 0.228,
+     "profile_band": [
+      0.247,
+      0.273
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "golfloopy_tempo",
+      "pebble_tempo"
+     ],
+     "profile_target": 0.26,
+     "profile_unverified": false,
+     "significance": 1.52,
+     "unit": "s",
+     "within_noise": false
+    },
+    {
+     "advice": "Backswing:downswing timing ratio: no change indicated vs PGA Tour / elite-golfer reference (gap -0.10 ratio is inside the measurement noise).",
+     "band_assumed": false,
+     "band_position": 0.4,
+     "delta": -0.1,
+     "direction": "below",
+     "feature": "tempo_ratio",
+     "mason": 2.9,
+     "mason_note": "~30 fps screen recordings; downswing only 4-6 frames; per-swing rel. uncertainty ~27%",
+     "mason_trust": 0.35,
+     "priority": 0.028,
+     "profile_band": [
+      2.5,
+      3.5
+     ],
+     "profile_confidence": "medium",
+     "profile_sources": [
+      "grober_tempo",
+      "golfloopy_tempo",
+      "pebble_tempo"
+     ],
+     "profile_target": 3.0,
+     "profile_unverified": false,
+     "significance": 0.108,
+     "unit": "ratio",
+     "within_noise": true
+    }
+   ],
+   "label": "PGA Tour / elite-golfer reference",
+   "profile": "tour_average"
+  }
+ ],
+ "schema": "mason_vs_profiles/v1"
+}
