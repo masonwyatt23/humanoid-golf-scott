@@ -1,0 +1,1108 @@
+{
+ "actuator_demand_vs_reference": {
+  "mason_v2_p1_s03": {
+   "top_to_impact_s": 0.15,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 170.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    22.9,
+    34.0
+   ]
+  },
+  "mason_v2_p1_s04": {
+   "top_to_impact_s": 0.233,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 1242.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    26.3,
+    80.6
+   ]
+  },
+  "mason_v2_p1_s05": {
+   "top_to_impact_s": 0.167,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 338.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    19.7,
+    42.4
+   ]
+  },
+  "mason_v2_p1_s06": {
+   "top_to_impact_s": 0.167,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 676.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    24.4,
+    66.8
+   ]
+  },
+  "mason_v2_p2_s01": {
+   "top_to_impact_s": 0.166,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 1102.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    20.4,
+    74.7
+   ]
+  },
+  "mason_v2_p2_s02": {
+   "top_to_impact_s": 0.133,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 658.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    9.6,
+    38.7
+   ]
+  },
+  "mason_v2_p2_s11": {
+   "top_to_impact_s": 0.167,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 972.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    15.5,
+    76.5
+   ]
+  },
+  "mason_v2_p2_s13": {
+   "top_to_impact_s": 0.15,
+   "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 1854.0,
+   "wrist_dev_range_deg_top_to_impact_plus0.1": [
+    24.6,
+    93.7
+   ]
+  }
+ },
+ "best_clip": {
+  "name": "mason_v2_p1_s06",
+  "note": "p1_s06 is the top-scoring eligible clip; it is the only eligible clip with an oblique view and its joint axis starts at t_start (offset 0). The requested mason_v2_p1_s05 (score 0.662) is reported too. Higher scorers excluded: p3_s09_unmirrored 0.83 (caption-flagged flip-edit), p2_s05/p2_s08/p3_s08/p3_s09 (handedness detected right), p1_s11 0.756 (handedness unverified, excluded from unified_v2).",
+  "quality_score": 0.756,
+  "rule": "highest quality_score among clips that are recommended=True, native footage, handedness verified left, not partial, not handedness-flagged and not flip-edit (data/references/mason_v2_report.json has an empty clips list, so quality_score is read from each npz)",
+  "view": "oblique"
+ },
+ "caveats": [
+  "All Mason angles are monocular 3-D landmark proxies at ~30 fps with MediaPipe noise; event detectors are heuristics (impact is early vs hand low point by ~0.067 s per docs/MASON_IMPACT_GEOMETRY.md).",
+  "Wrist deviation is unsigned; the env wrist sign (cock = negative) is inferred from configs/fast_scripted_v3_masonwrist.json (wrist_cock -0.5) and docs/CMU_MOCAP_GOLF.md, not verified in a run.",
+  "Trail-arm values (anatomical left for Mason) are NOT in the stored 11-col joints and have never been used by the current references; the left arm is often partially occluded in down-the-line views, so visibility-gated counts are reported per event.",
+  "Ranges at the two events are single-instant medians; Mason's video backswing/downswing durations look compressed (feed-clip artifact suspected), so rates are unreliable."
+ ],
+ "convention": {
+  "angle_definitions": "elbow_flexion = 180 - interior(shoulder, elbow, wrist); wrist_dev = 180 - interior(elbow, wrist, index-finger landmark); both >= 0, 0 = straight. Wrist is a 3-D deviation magnitude mixing flexion/extension and radial/ulnar deviation, UNSIGNED, and index-finger landmark is noisy.",
+  "cmu_multisense_columns": "cols 2/3 = TRAIL arm (convert_cmu_mocap.compute_joints)",
+  "env_role_rule": "env right_* = TRAIL (club) arm, left_* = LEAD arm, both handednesses (docs/HANDEDNESS.md); pitch-axis signs do not change with handedness",
+  "event_times": "events_of() (offset-corrected); events_naive_s = t - t_start_in_video only (audit get_events form), differs by axis_offset_s",
+  "mason_columns": "11-col files: cols 2/3 = anatomical RIGHT arm = LEAD arm for Mason (left-handed). Stored under right_* names -> ROLE MISMATCH vs env",
+  "window": "median of landmark frames within +-0.03 s of the event, visibility > 0.5 on shoulder, elbow, wrist, index, pinky"
+ },
+ "env_limits": {
+  "v3": {
+   "default_joint_damping": 2.0,
+   "left_elbow": {
+    "damping": 0.5,
+    "has_motor": false,
+    "motor_peak_torque_Nm": null,
+    "range_deg": [
+     -10.0,
+     150.0
+    ]
+   },
+   "right_elbow": {
+    "damping": 2.0,
+    "has_motor": true,
+    "motor_peak_torque_Nm": 120.0,
+    "range_deg": [
+     0.0,
+     150.0
+    ]
+   },
+   "right_wrist": {
+    "damping": 2.0,
+    "has_motor": true,
+    "motor_peak_torque_Nm": 60.0,
+    "range_deg": [
+     -120.0,
+     120.0
+    ]
+   }
+  },
+  "v4_power": {
+   "default_joint_damping": 2.0,
+   "left_elbow": {
+    "damping": 0.5,
+    "has_motor": false,
+    "motor_peak_torque_Nm": null,
+    "range_deg": [
+     -10.0,
+     150.0
+    ]
+   },
+   "right_elbow": {
+    "damping": 2.0,
+    "has_motor": true,
+    "motor_peak_torque_Nm": 120.0,
+    "range_deg": [
+     0.0,
+     150.0
+    ]
+   },
+   "right_wrist": {
+    "damping": 0.5,
+    "has_motor": true,
+    "motor_peak_torque_Nm": 120.0,
+    "range_deg": [
+     -120.0,
+     120.0
+    ]
+   }
+  }
+ },
+ "env_targets_best_clip": [
+  {
+   "env_joint": "right_elbow",
+   "event": "top",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "flexion >= 0 (positive = flexion; limits 0..150)",
+   "sign_uncertain": false,
+   "value_deg": 64.5,
+   "value_rad": 1.126
+  },
+  {
+   "env_joint": "right_wrist",
+   "env_value_deg_if_cocked_negative": -40.3,
+   "env_value_rad_if_cocked_negative": -0.703,
+   "event": "top",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "UNSIGNED magnitude; env sign for cocked is probably NEGATIVE (CMU doc + masonwrist configs); SIGN UNCERTAIN",
+   "sign_uncertain": true,
+   "value_deg": 40.3,
+   "value_rad": 0.703
+  },
+  {
+   "env_joint": "left_elbow",
+   "event": "top",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "lead",
+   "sign_note": "flexion >= 0 (limits -10..150); passive in v3/v4_power (no motor)",
+   "sign_uncertain": false,
+   "value_deg": 44.7,
+   "value_rad": 0.78
+  },
+  {
+   "env_joint": "left_wrist",
+   "event": "top",
+   "in_limits_v3": null,
+   "in_limits_v4_power": null,
+   "role": "lead",
+   "sign_note": "NO env joint (v3/v4_power have no left wrist); reference only",
+   "sign_uncertain": true,
+   "value_deg": 10.7,
+   "value_rad": 0.187
+  },
+  {
+   "env_joint": "right_elbow",
+   "event": "impact",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "flexion >= 0 (positive = flexion; limits 0..150)",
+   "sign_uncertain": false,
+   "value_deg": 48.9,
+   "value_rad": 0.853
+  },
+  {
+   "env_joint": "right_wrist",
+   "event": "impact",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "UNSIGNED magnitude; env sign for cocked is probably NEGATIVE (CMU doc + masonwrist configs); SIGN UNCERTAIN; at impact the unsigned magnitude is as large as or larger than at top in most clips, so it is probably flexion/bowing or uncocked-then-bent, NOT cock: do not apply the negative-cock sign blindly",
+   "sign_uncertain": true,
+   "value_deg": 56.0,
+   "value_rad": 0.977
+  },
+  {
+   "env_joint": "left_elbow",
+   "event": "impact",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "lead",
+   "sign_note": "flexion >= 0 (limits -10..150); passive in v3/v4_power (no motor)",
+   "sign_uncertain": false,
+   "value_deg": 48.5,
+   "value_rad": 0.846
+  },
+  {
+   "env_joint": "left_wrist",
+   "event": "impact",
+   "in_limits_v3": null,
+   "in_limits_v4_power": null,
+   "role": "lead",
+   "sign_note": "NO env joint (v3/v4_power have no left wrist); reference only",
+   "sign_uncertain": true,
+   "value_deg": 49.1,
+   "value_rad": 0.857
+  }
+ ],
+ "env_targets_user_default_clip": [
+  {
+   "env_joint": "right_elbow",
+   "event": "top",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "flexion >= 0 (positive = flexion; limits 0..150)",
+   "sign_uncertain": false,
+   "value_deg": 90.4,
+   "value_rad": 1.578
+  },
+  {
+   "env_joint": "right_wrist",
+   "env_value_deg_if_cocked_negative": -30.2,
+   "env_value_rad_if_cocked_negative": -0.527,
+   "event": "top",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "UNSIGNED magnitude; env sign for cocked is probably NEGATIVE (CMU doc + masonwrist configs); SIGN UNCERTAIN",
+   "sign_uncertain": true,
+   "value_deg": 30.2,
+   "value_rad": 0.527
+  },
+  {
+   "env_joint": "left_elbow",
+   "event": "top",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "lead",
+   "sign_note": "flexion >= 0 (limits -10..150); passive in v3/v4_power (no motor)",
+   "sign_uncertain": false,
+   "value_deg": 51.2,
+   "value_rad": 0.894
+  },
+  {
+   "env_joint": "left_wrist",
+   "event": "top",
+   "in_limits_v3": null,
+   "in_limits_v4_power": null,
+   "role": "lead",
+   "sign_note": "NO env joint (v3/v4_power have no left wrist); reference only",
+   "sign_uncertain": true,
+   "value_deg": 11.2,
+   "value_rad": 0.195
+  },
+  {
+   "env_joint": "right_elbow",
+   "event": "impact",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "flexion >= 0 (positive = flexion; limits 0..150)",
+   "sign_uncertain": false,
+   "value_deg": 105.3,
+   "value_rad": 1.838
+  },
+  {
+   "env_joint": "right_wrist",
+   "event": "impact",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "trail",
+   "sign_note": "UNSIGNED magnitude; env sign for cocked is probably NEGATIVE (CMU doc + masonwrist configs); SIGN UNCERTAIN; at impact the unsigned magnitude is as large as or larger than at top in most clips, so it is probably flexion/bowing or uncocked-then-bent, NOT cock: do not apply the negative-cock sign blindly",
+   "sign_uncertain": true,
+   "value_deg": 37.0,
+   "value_rad": 0.646
+  },
+  {
+   "env_joint": "left_elbow",
+   "event": "impact",
+   "in_limits_v3": true,
+   "in_limits_v4_power": true,
+   "role": "lead",
+   "sign_note": "flexion >= 0 (limits -10..150); passive in v3/v4_power (no motor)",
+   "sign_uncertain": false,
+   "value_deg": 67.5,
+   "value_rad": 1.178
+  },
+  {
+   "env_joint": "left_wrist",
+   "event": "impact",
+   "in_limits_v3": null,
+   "in_limits_v4_power": null,
+   "role": "lead",
+   "sign_note": "NO env joint (v3/v4_power have no left wrist); reference only",
+   "sign_uncertain": true,
+   "value_deg": 39.9,
+   "value_rad": 0.696
+  }
+ ],
+ "mason_clips": {
+  "mason_v2_p1_s03": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": null,
+      "n_landmark_frames": 0,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": null,
+      "stored_col3_wrist_deg": null,
+      "wrist_dev_deg": null,
+      "wrist_dev_handmid_deg": null
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 59.8,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 58.6,
+      "stored_col3_wrist_deg": 15.6,
+      "wrist_dev_deg": 15.3,
+      "wrist_dev_handmid_deg": 6.4
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 193.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      16.3,
+      26.9
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 109.4,
+      "n_landmark_frames": 1,
+      "wrist_dev_deg": 24.8,
+      "wrist_dev_handmid_deg": 20.3
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 93.3,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 30.8,
+      "wrist_dev_handmid_deg": 30.5
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 170.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      22.9,
+      34.0
+     ]
+    }
+   },
+   "axis_offset_s": 0.433,
+   "events_naive_s": {
+    "impact": 1.033,
+    "top": 0.883
+   },
+   "events_s": {
+    "impact": 0.6,
+    "top": 0.45
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.687,
+   "recommended": true,
+   "view": "down_the_line"
+  },
+  "mason_v2_p1_s04": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 57.0,
+      "n_landmark_frames": 1,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 59.2,
+      "stored_col3_wrist_deg": 50.4,
+      "wrist_dev_deg": 43.9,
+      "wrist_dev_handmid_deg": 31.4
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 39.1,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 38.9,
+      "stored_col3_wrist_deg": 14.0,
+      "wrist_dev_deg": 14.0,
+      "wrist_dev_handmid_deg": 11.3
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 558.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      12.1,
+      43.9
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 98.3,
+      "n_landmark_frames": 2,
+      "wrist_dev_deg": 55.4,
+      "wrist_dev_handmid_deg": 48.8
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 68.8,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 33.5,
+      "wrist_dev_handmid_deg": 33.2
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 1242.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      26.3,
+      80.6
+     ]
+    }
+   },
+   "axis_offset_s": 0.417,
+   "events_naive_s": {
+    "impact": 1.15,
+    "top": 0.917
+   },
+   "events_s": {
+    "impact": 0.733,
+    "top": 0.5
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.693,
+   "recommended": true,
+   "view": "down_the_line"
+  },
+  "mason_v2_p1_s05": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 67.5,
+      "n_landmark_frames": 1,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 64.8,
+      "stored_col3_wrist_deg": 50.5,
+      "wrist_dev_deg": 39.9,
+      "wrist_dev_handmid_deg": 26.4
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 51.2,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 51.2,
+      "stored_col3_wrist_deg": 11.2,
+      "wrist_dev_deg": 11.2,
+      "wrist_dev_handmid_deg": 6.1
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 578.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      11.4,
+      39.9
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 105.3,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 37.0,
+      "wrist_dev_handmid_deg": 30.6
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 90.4,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 30.2,
+      "wrist_dev_handmid_deg": 30.2
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 338.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      19.7,
+      42.4
+     ]
+    }
+   },
+   "axis_offset_s": 0.4,
+   "events_naive_s": {
+    "impact": 1.05,
+    "top": 0.883
+   },
+   "events_s": {
+    "impact": 0.65,
+    "top": 0.483
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.662,
+   "recommended": true,
+   "view": "down_the_line"
+  },
+  "mason_v2_p1_s06": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 48.5,
+      "n_landmark_frames": 2,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 52.8,
+      "stored_col3_wrist_deg": 44.2,
+      "wrist_dev_deg": 49.1,
+      "wrist_dev_handmid_deg": 35.1
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 44.7,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 44.8,
+      "stored_col3_wrist_deg": 10.7,
+      "wrist_dev_deg": 10.7,
+      "wrist_dev_handmid_deg": 11.3
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 581.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      10.7,
+      75.6
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 48.9,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 56.0,
+      "wrist_dev_handmid_deg": 53.2
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 64.5,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 40.3,
+      "wrist_dev_handmid_deg": 38.2
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 676.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      24.4,
+      66.8
+     ]
+    }
+   },
+   "axis_offset_s": -0.0,
+   "events_naive_s": {
+    "impact": 1.15,
+    "top": 0.983
+   },
+   "events_s": {
+    "impact": 1.15,
+    "top": 0.983
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.756,
+   "recommended": true,
+   "view": "oblique"
+  },
+  "mason_v2_p2_s01": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 71.8,
+      "n_landmark_frames": 0,
+      "source": "stored_cols_2_3_fallback",
+      "stored_col2_elbow_deg": 71.8,
+      "stored_col3_wrist_deg": 45.8,
+      "wrist_dev_deg": 45.8,
+      "wrist_dev_handmid_deg": null
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 44.3,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 45.0,
+      "stored_col3_wrist_deg": 15.3,
+      "wrist_dev_deg": 15.4,
+      "wrist_dev_handmid_deg": 10.9
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 116.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      13.8,
+      20.1
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 91.5,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 33.7,
+      "wrist_dev_handmid_deg": 26.8
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 88.3,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 33.6,
+      "wrist_dev_handmid_deg": 33.2
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 1102.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      20.4,
+      74.7
+     ]
+    }
+   },
+   "axis_offset_s": 0.467,
+   "events_naive_s": {
+    "impact": 1.05,
+    "top": 0.883
+   },
+   "events_s": {
+    "impact": 0.583,
+    "top": 0.417
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.699,
+   "recommended": true,
+   "view": "down_the_line"
+  },
+  "mason_v2_p2_s02": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 57.4,
+      "n_landmark_frames": 0,
+      "source": "stored_cols_2_3_fallback",
+      "stored_col2_elbow_deg": 57.4,
+      "stored_col3_wrist_deg": 44.0,
+      "wrist_dev_deg": 44.0,
+      "wrist_dev_handmid_deg": null
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 47.8,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 47.8,
+      "stored_col3_wrist_deg": 13.8,
+      "wrist_dev_deg": 13.6,
+      "wrist_dev_handmid_deg": 5.7
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 984.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      14.8,
+      94.8
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 121.8,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 34.7,
+      "wrist_dev_handmid_deg": 28.5
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 96.1,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 30.8,
+      "wrist_dev_handmid_deg": 30.0
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 658.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      9.6,
+      38.7
+     ]
+    }
+   },
+   "axis_offset_s": 0.433,
+   "events_naive_s": {
+    "impact": 1.017,
+    "top": 0.883
+   },
+   "events_s": {
+    "impact": 0.583,
+    "top": 0.45
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.746,
+   "recommended": true,
+   "view": "down_the_line"
+  },
+  "mason_v2_p2_s11": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 61.4,
+      "n_landmark_frames": 1,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 61.4,
+      "stored_col3_wrist_deg": 44.9,
+      "wrist_dev_deg": 38.1,
+      "wrist_dev_handmid_deg": 25.6
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 52.7,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 52.2,
+      "stored_col3_wrist_deg": 14.7,
+      "wrist_dev_deg": 15.1,
+      "wrist_dev_handmid_deg": 6.2
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 593.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      14.8,
+      38.1
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 72.0,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 43.4,
+      "wrist_dev_handmid_deg": 36.2
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 96.3,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 23.5,
+      "wrist_dev_handmid_deg": 25.5
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 972.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      15.5,
+      76.5
+     ]
+    }
+   },
+   "axis_offset_s": 0.417,
+   "events_naive_s": {
+    "impact": 1.033,
+    "top": 0.867
+   },
+   "events_s": {
+    "impact": 0.617,
+    "top": 0.45
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.664,
+   "recommended": true,
+   "view": "down_the_line"
+  },
+  "mason_v2_p2_s13": {
+   "arms": {
+    "lead": {
+     "anatomical_side": "right",
+     "impact": {
+      "elbow_flexion_deg": 51.0,
+      "n_landmark_frames": 0,
+      "source": "stored_cols_2_3_fallback",
+      "stored_col2_elbow_deg": 51.0,
+      "stored_col3_wrist_deg": 68.1,
+      "wrist_dev_deg": 68.1,
+      "wrist_dev_handmid_deg": null
+     },
+     "role": "lead",
+     "top": {
+      "elbow_flexion_deg": 48.0,
+      "n_landmark_frames": 3,
+      "source": "landmarks",
+      "stored_col2_elbow_deg": 47.9,
+      "stored_col3_wrist_deg": 9.8,
+      "wrist_dev_deg": 10.7,
+      "wrist_dev_handmid_deg": 6.9
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 994.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      12.3,
+      93.3
+     ]
+    },
+    "trail": {
+     "anatomical_side": "left",
+     "impact": {
+      "elbow_flexion_deg": 112.7,
+      "n_landmark_frames": 2,
+      "wrist_dev_deg": 64.7,
+      "wrist_dev_handmid_deg": 61.7
+     },
+     "role": "trail",
+     "top": {
+      "elbow_flexion_deg": 80.4,
+      "n_landmark_frames": 3,
+      "wrist_dev_deg": 33.2,
+      "wrist_dev_handmid_deg": 33.0
+     },
+     "wrist_dev_peak_rate_deg_s_top_to_impact_plus0.1": 1854.0,
+     "wrist_dev_range_deg_top_to_impact_plus0.1": [
+      24.6,
+      93.7
+     ]
+    }
+   },
+   "axis_offset_s": 0.15,
+   "events_naive_s": {
+    "impact": 0.717,
+    "top": 0.567
+   },
+   "events_s": {
+    "impact": 0.567,
+    "top": 0.417
+   },
+   "handedness": "left",
+   "handedness_verified": true,
+   "quality_score": 0.676,
+   "recommended": true,
+   "view": "down_the_line"
+  }
+ },
+ "mason_spread_across_clips": {
+  "clips": [
+   "mason_v2_p1_s05",
+   "mason_v2_p1_s06",
+   "mason_v2_p1_s03",
+   "mason_v2_p1_s04",
+   "mason_v2_p2_s01",
+   "mason_v2_p2_s02",
+   "mason_v2_p2_s11",
+   "mason_v2_p2_s13"
+  ],
+  "note": "n=8 single-view clips (7 down-the-line + 1 oblique); not a population estimate. Per-clip detail in mason_clips.",
+  "stats": {
+   "lead_impact_elbow_flexion_deg": {
+    "max": 71.8,
+    "median": 57.4,
+    "min": 48.5,
+    "n": 7,
+    "q25": 54.0,
+    "q75": 64.5
+   },
+   "lead_impact_wrist_dev_deg": {
+    "max": 68.1,
+    "median": 44.0,
+    "min": 38.1,
+    "n": 7,
+    "q25": 41.9,
+    "q75": 47.5
+   },
+   "lead_top_elbow_flexion_deg": {
+    "max": 59.8,
+    "median": 47.9,
+    "min": 39.1,
+    "n": 8,
+    "q25": 44.6,
+    "q75": 51.6
+   },
+   "lead_top_wrist_dev_deg": {
+    "max": 15.4,
+    "median": 13.8,
+    "min": 10.7,
+    "n": 8,
+    "q25": 11.1,
+    "q75": 15.2
+   },
+   "trail_impact_elbow_flexion_deg": {
+    "max": 121.8,
+    "median": 101.8,
+    "min": 48.9,
+    "n": 8,
+    "q25": 86.6,
+    "q75": 110.2
+   },
+   "trail_impact_wrist_dev_deg": {
+    "max": 64.7,
+    "median": 40.2,
+    "min": 24.8,
+    "n": 8,
+    "q25": 34.5,
+    "q75": 55.5
+   },
+   "trail_top_elbow_flexion_deg": {
+    "max": 96.3,
+    "median": 89.3,
+    "min": 64.5,
+    "n": 8,
+    "q25": 77.5,
+    "q75": 94.0
+   },
+   "trail_top_wrist_dev_deg": {
+    "max": 40.3,
+    "median": 32.0,
+    "min": 23.5,
+    "n": 8,
+    "q25": 30.6,
+    "q75": 33.5
+   }
+  }
+ },
+ "published_biomechanics_in_repo": [
+  {
+   "in_repo": "docs/research_data_sources.md",
+   "item": "Wrist release (uncock) starts when the lead arm is ~30 deg below horizontal",
+   "source": "Hume, Keogh & Reid 2005 (Sports Med 35(5):429-449) quoting Sprigings & Neal 2000",
+   "status": "secondary (quoted via Hume), not read directly",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15896091/"
+  },
+  {
+   "in_repo": "docs/research_data_sources.md",
+   "item": "Wrist cock was the strongest of 15 club-speed predictors (60.3% of variance, between golfers)",
+   "source": "Robinson via Hume 2005",
+   "status": "secondary",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15896091/"
+  },
+  {
+   "in_repo": "docs/research_data_sources.md",
+   "item": "Wrist torque adds ~9% club speed in a 44 m/s simulation; wrist ~70% of linear club speed contribution (Milburn/Neal)",
+   "source": "Hume 2005",
+   "status": "secondary",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15896091/"
+  },
+  {
+   "in_repo": "docs/research_350yd_profile.md",
+   "item": "Arm->club speed gain 1274 deg/s; wrist-only uncock speed is UNVERIFIED (proxy ~1520 deg/s at 130 mph)",
+   "source": "Cheetham 2008 via docs/research_350yd_profile.md",
+   "status": "proxy / unverified",
+   "url": "https://www.academia.edu/5572510/Comparison_of_Kinematic_Sequence_Parameters_between_Amateur_and_Professional_Golfers"
+  },
+  {
+   "in_repo": "docs/research_sim_realism.md",
+   "item": "Forward-dynamics golf models use wrist torque ~90 N*m (MacKenzie 2009 and a later model, via search)",
+   "source": "docs/research_sim_realism.md",
+   "status": "search-snippet, unverified",
+   "url": null
+  },
+  {
+   "in_repo": "data/references/pro_swing_profiles.json (golfcom_bryson_manzella)",
+   "item": "Bryson: small lead-wrist hinge, high hands (qualitative only)",
+   "source": "GOLF.com Jun 2025 (Manzella)",
+   "status": "qualitative",
+   "url": null
+  }
+ ],
+ "published_numeric_ranges_for_elbow_or_wrist_angle_at_top_or_impact": "NONE FOUND in the repo docs or pro_swing_profiles.json. Not fetched in this job. UNVERIFIED; do not invent. The Edinburgh DataShare wrist dataset (doi:10.7488/ds/3823) has wrist angular velocity but is gated/license-unread (docs/research_open_data_v2.md).",
+ "reference_medians": {
+  "cmu_64_trail_arm": {
+   "impact": {
+    "elbow_flexion_deg": {
+     "max": 67.0,
+     "median": 56.2,
+     "min": 47.7,
+     "n": 10,
+     "q25": 50.5,
+     "q75": 60.0
+    },
+    "wrist_col3_deg": {
+     "max": -47.3,
+     "median": -54.9,
+     "min": -65.2,
+     "n": 10,
+     "q25": -59.6,
+     "q75": -51.5
+    },
+    "wrist_hinge_deg": {
+     "max": -47.3,
+     "median": -54.9,
+     "min": -65.2,
+     "n": 10,
+     "q25": -59.6,
+     "q75": -51.5
+    }
+   },
+   "license_class": "cmu_permissive",
+   "n_files": 10,
+   "note": "CMU acknowledgment text required; no standalone redistribution of converted files. Slow recreational mocap (tempo ~1.7). Hand = LeftHandIndex1/RightHandIndex1 bone, wrist col negative = cocked. NOTE: the CMU manifest entry is flagged needs_counsel in the repo's release questions - keep flagged.",
+   "top": {
+    "elbow_flexion_deg": {
+     "max": 114.7,
+     "median": 109.5,
+     "min": 107.2,
+     "n": 10,
+     "q25": 108.7,
+     "q75": 111.7
+    },
+    "wrist_col3_deg": {
+     "max": -63.0,
+     "median": -70.8,
+     "min": -85.2,
+     "n": 10,
+     "q25": -77.2,
+     "q75": -65.7
+    },
+    "wrist_hinge_deg": {
+     "max": -63.0,
+     "median": -70.8,
+     "min": -85.2,
+     "n": 10,
+     "q25": -77.2,
+     "q75": -65.7
+    }
+   }
+  },
+  "multisense_mirrored_trail_arm": {
+   "impact": {
+    "elbow_flexion_deg": {
+     "max": 54.1,
+     "median": 38.3,
+     "min": 19.9,
+     "n": 28,
+     "q25": 32.5,
+     "q75": 47.4
+    },
+    "wrist_col3_deg": {
+     "max": 0.0,
+     "median": 0.0,
+     "min": 0.0,
+     "n": 28,
+     "q25": 0.0,
+     "q75": 0.0
+    },
+    "wrist_hinge_deg": {
+     "max": 0.0,
+     "median": 0.0,
+     "min": 0.0,
+     "n": 28,
+     "q25": 0.0,
+     "q75": 0.0
+    }
+   },
+   "license_class": "needs_counsel",
+   "n_files": 28,
+   "n_wrist_measured": 0,
+   "note": "needs_counsel (participant consent scope not established); analysis only, do not publish. Wrist col 3 is zero-filled (no finger markers) so wrist values are unavailable when wrist_measured is false.",
+   "top": {
+    "elbow_flexion_deg": {
+     "max": 102.6,
+     "median": 80.7,
+     "min": 68.6,
+     "n": 28,
+     "q25": 76.2,
+     "q75": 85.6
+    },
+    "wrist_col3_deg": {
+     "max": 0.0,
+     "median": 0.0,
+     "min": 0.0,
+     "n": 28,
+     "q25": 0.0,
+     "q75": 0.0
+    },
+    "wrist_hinge_deg": {
+     "max": 0.0,
+     "median": 0.0,
+     "min": 0.0,
+     "n": 28,
+     "q25": 0.0,
+     "q75": 0.0
+    }
+   }
+  }
+ },
+ "status": "UNVERIFIED video-derived proxies (MediaPipe world landmarks at ~30 fps source). Not ground-truth joint angles.",
+ "version": "wrist_elbow_event_targets_v1"
+}
