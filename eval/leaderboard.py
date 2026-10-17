@@ -58,6 +58,8 @@ def discover():
         groups["scripted-bx0422"] = {"names": [SCRIPTED_BX], "mtime": j.stat().st_mtime - 0.5, "scripted": True, "scripted_cfg": "bx0422"}
     if (ROOT / "configs/fast_scripted_v2_lofted.json").exists():   # trainer's lofted scripted swing (commit ffc6271), zero residual
         groups["scripted-lofted"] = {"names": [SCRIPTED_LOFT], "mtime": j.stat().st_mtime - 0.25, "scripted": True, "scripted_cfg": "lofted"}
+    if (ROOT / "configs/fast_scripted_v3.json").exists():   # stock-motor (force_scale 1) version of the same scripted swing (TRAINING_NOTES Stage 18 actuator baseline)
+        groups["scripted-fs1"] = {"names": [SCRIPTED_FS1], "mtime": j.stat().st_mtime - 0.15, "scripted": True, "scripted_cfg": "fs1"}
     if (ROOT / "configs/fast_scripted_v3.json").exists():   # trainer Stage 6 scripted config (commit 9ffa35b), zero residual
         groups["scripted-v3"] = {"names": [SCRIPTED_V3], "mtime": j.stat().st_mtime - 0.2, "scripted": True, "scripted_cfg": "v3"}
     return groups
@@ -69,6 +71,7 @@ NOISE_SIGMAS, NOISE_EPS = (0.005, 0.01), 10   # QUICK noise-robustness columns (
 GATE_ONLY = set()   # v4power rows now supported by main's env (flight_steps/impact_model/power XML); kept as an escape hatch
 INVALID_CONFIG = {"imit_w075_s51", "imit_w075_s52", "imit_w075_s53"}
 SCRIPTED_V3 = "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]"
+SCRIPTED_FS1 = "scripted (not learned) [STOCK motors force_scale 1: fast v3 swing, default elbow]"
 SCRIPTED_LOFT = "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]"
 SCRIPTED = "scripted_baseline[ladder cfg: right, loft 6, default ball_x]"   # pseudo-checkpoint: ResidualGolfEnv with the LADDER run's exact config and a ZERO residual action
 SCRIPTED_SRC = "ppo_resid_v3_ladder_s0"
@@ -141,10 +144,11 @@ def main():
     for h, g in groups.items():
         key = f"{h}:{fp}:{a.episodes}:{a.seed}:s12"
         cfg_hash_cached = cache.get(key, {}).get("config_hash")
-        if g.get("scripted_cfg") in ("lofted", "v3"):
+        if g.get("scripted_cfg") in ("lofted", "v3", "fs1"):
             import eval.eval_scripted_cfg as esc
-            cf = "fast_scripted_v3.json" if g["scripted_cfg"] == "v3" else "fast_scripted_v2_lofted.json"
+            cf = "fast_scripted_v3.json" if g["scripted_cfg"] in ("v3", "fs1") else "fast_scripted_v2_lofted.json"
             cfg = {k: v for k, v in json.loads((ROOT / "configs" / cf).read_text()).items() if k != "description"}
+            if g["scripted_cfg"] == "fs1": cfg["force_scale"] = 1.0   # stock motors
             steps, kw, src = 0, dict(esc.base, **cfg), f"zero-residual; configs/{cf} (trainer) applied over eval/eval_scripted_cfg.py base (as the trainer's eval_scripted_cfg usage)"
         elif g.get("scripted_cfg") == "bx0422":
             import eval.eval_scripted_cfg as esc
@@ -242,8 +246,29 @@ def main():
         return (sum(v["contact_rate"] for v in ms) / len(ms), sum(v["mean_carry"] for v in ms) / len(ms))
     ranked_all = sorted(cur, key=score, reverse=True)           # incl. scripted baseline
     ranked = [c for c in ranked_all if not c.get("scripted")]   # trained checkpoints only
-    best_line = ("**Current best model: " + " / ".join(ranked[0]["names"]) + f"** ({ranked[0]['steps']} steps) - mean true contact over det+stoch {score(ranked[0])[0]*100:.0f}%, mean carry {score(ranked[0])[1]:.3f} m."
-                 if ranked else "No evaluated models.")
+    def _fs(c):
+        ek = c.get("env_kwargs", {}) or {}
+        return 3.0 if "power" in str(ek.get("model_xml", "")) else float(ek.get("force_scale", 1.0) or 1.0)
+    def _motor(c):
+        ek = c.get("env_kwargs", {}) or {}
+        if "power" in str(ek.get("model_xml", "")): return "power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)"
+        f = float(ek.get("force_scale", 1.0) or 1.0)
+        return "stock (force_scale 1)" if f <= 1.0 else f"{f:g}x (force_scale {f:g}, hypothetical-strength actuators)"
+    def _label(c):
+        if c.get("scripted"): return "SCRIPTED (not learned)"
+        ek = c.get("env_kwargs", {}) or {}; sw = ek.get("script_weight")
+        if sw == 0 and any(x.startswith("imit") for x in c["names"]): return "LEARNED, distilled from script (script-free imitation, script_weight 0)"
+        if sw not in (None, 1.0): return f"BLEND {round((1 - sw) * 100)}% learned / {round(sw * 100)}% scripted (imitation of the script)" if any(x.startswith("imit") for x in c["names"]) else f"BLEND {round((1 - sw) * 100)}/{round(sw * 100)}"
+        return "LEARNED residual on scripted swing"
+    stock_tr = [c for c in ranked if _fs(c) <= 1.0]; stock_sc = [c for c in ranked_all if c.get("scripted") and _fs(c) <= 1.0]
+    hyp_tr = [c for c in ranked if _fs(c) > 1.0]
+    best_line = ""
+    if stock_tr: best_line += "**Stock-motor (force_scale 1) best trained model: " + " / ".join(stock_tr[0]["names"]) + f"** - mean contact {score(stock_tr[0])[0]*100:.0f}%, mean carry {score(stock_tr[0])[1]:.1f} m. "
+    else:
+        best_line += "**No trained model on STOCK motors (force_scale 1) is on this leaderboard yet.** "
+        if stock_sc: best_line += f"Stock-motor scripted (not learned) reference: det carry {stock_sc[0]['modes']['deterministic']['mean_carry']:.1f} m, {stock_sc[0]['modes']['deterministic']['peak_club_mph_mean']:.1f} mph. "
+    if hyp_tr: best_line += "**Best under HYPOTHETICAL-strength actuators (force_scale>1 / power tier; NOT a realistic-motor result): " + " / ".join(hyp_tr[0]["names"]) + f"** ({hyp_tr[0]['steps']} steps; {_motor(hyp_tr[0])}) - mean true contact over det+stoch {score(hyp_tr[0])[0]*100:.0f}%, mean carry {score(hyp_tr[0])[1]:.3f} m."
+    if not ranked: best_line = "No evaluated models."
     left = [c for c in ranked if c.get("env_kwargs", {}).get("handedness") == "left"]
     Q_CARRY, Q_LAT, Q_ELEV = 30.0, 2.73, 5.0
     def qual(c):
@@ -269,8 +294,8 @@ def main():
             mx = max(v["peak_club_speed_max"] for v in bv)
             best_line += (f" Peak club-head speed (best single swing over det+stoch): {mx:.2f} m/s = {mx*2.23694:.1f} mph = {mx/53.64*100:.1f}% of the 120 mph (53.64 m/s) target.")
     if left:
-        best_line += f" **Best left-handed model: {' / '.join(left[0]['names'])}** (mean contact {score(left[0])[0]*100:.0f}%, mean carry {score(left[0])[1]:.2f} m, physics protocol)."
-    best_line += (f" **Best model meeting the showcase criterion (hypothetical-strength actuators if force_scale>1; real carry AND tight lateral AND not-flat launch AND 100% contact; see below): {' / '.join(qualifying[0]['names'])}.**"
+        best_line += f" **Best left-handed model: {' / '.join(left[0]['names'])} [{_motor(left[0])}]** (mean contact {score(left[0])[0]*100:.0f}%, mean carry {score(left[0])[1]:.2f} m, physics protocol)."
+    best_line += (f" **Best model meeting the showcase criterion (hypothetical-strength actuators if force_scale>1; real carry AND tight lateral AND not-flat launch AND 100% contact; see below): {' / '.join(qualifying[0]['names'])} [{_motor(qualifying[0])}].**"
                   if qualifying else " **NO model meets the showcase criterion (hypothetical-strength actuators if force_scale>1; carry >= %g m, lateral std <= %g m, launch elev >= %g deg, contact 100%%); see qualification table.**" % (Q_CARRY, Q_LAT, Q_ELEV))
     rank_txt = ("Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; "
                 "(2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.")
@@ -278,7 +303,7 @@ def main():
     if ranked_all and ranked_all[0].get("scripted"):
         best_line += f" **Best overall (incl. scripted, no-learning baseline): {SCRIPTED}** - mean contact {score(ranked_all[0])[0]*100:.0f}%, mean carry {score(ranked_all[0])[1]:.3f} m (no trained checkpoint beats it)."
     elif ranked_all:
-        best_line += f" Best overall incl. scripted baseline: {' / '.join(ranked_all[0]['names'])}."
+        best_line += f" Best overall incl. scripted baseline: {' / '.join(ranked_all[0]['names'])} [{_motor(ranked_all[0])}]."
     boosted = [("/".join(c["names"][:1]), c["env_kwargs"]["force_scale"]) for c in qualifying if c.get("env_kwargs", {}).get("force_scale", 1.0) > 1.0]
     best_line += (" **HYPOTHETICAL-STRENGTH ACTUATORS: " + ", ".join(f"{n} (force_scale {fs:g}, hypothetical-strength actuators)" for n, fs in boosted) + " run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.**") if boosted else ""
     best_line += " Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary."
@@ -293,7 +318,12 @@ def main():
         if c: d_ = c["modes"]["deterministic"]; pair.append(f"{nm}: {why}: det carry {d_['mean_carry']:.1f} m / lat std {d_['lateral_std']:.2f} m; quick noise {_noise(c)} (10 eps, vs clean {d_['mean_carry']:.0f} m)")
     if pair:
         best_line += " **Shown side by side, neither promoted as 'learned from Mason' (both imitate the scripted swing; force_scale 2 hypothetical-strength actuators): " + " | ".join(pair) + ".**"
-    L = ["# Leaderboard", "", best_line, "", rank_txt, "", f"Full ranking (scripted baseline included): {rk}", "",
+    mt = ["", "## Motor strength x label (read this before any carry number)", "", "| model | motor strength | label | det carry m (yd) | det lat std m | det club mph | landed (det) | qualifies (carry>=30 m, lat<=2.73, 100% contact) |", "|---|---|---|---|---|---|---|---|"]
+    for c in sorted(cur, key=lambda c: (_fs(c), c.get("scripted", False), -score(c)[1])):
+        d_ = c.get("modes", {}).get("deterministic", {})
+        if "mean_carry" not in d_: continue
+        mt.append(f"| {'/'.join(c['names'][:2])[:60]} | {_motor(c)} | {_label(c)} | {d_['mean_carry']:.1f} ({d_['mean_carry']*1.09361:.0f}) | {d_['lateral_std']:.2f} | {d_['peak_club_mph_mean']:.1f} | {d_['landed_fraction']*100:.0f}% | {'yes' if c in qualifying else 'no'} |")
+    L = ["# Leaderboard", "", best_line, "", rank_txt, "", f"Full ranking (scripted baseline included): {rk}", ""] + mt + [""] + [
          "Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). "
          "Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).", "",
          f"Current env fingerprint `{fp}` (env + XML hash). {a.episodes} episodes, seeds {a.seed}..{a.seed+a.episodes-1}. "
