@@ -259,4 +259,6 @@ See `docs/NEXT_DATA_SOURCES.md` for the ranked list of real data sources. Tests:
 
 `data/references/mason_target_features.json` (see `docs/MASON_TARGET_FEATURES.md`) summarizes Mason's own swings: n=11 left-handed native clips, median tempo ratio (back/down) 2.90, IQR 2.88-3.55 (range 2.2-3.8). The downswing is only ~5 frames at ~30 fps, so per-swing tempo uncertainty is ~14-32%. **Treat tempo as a loose band (about 2.5-3.5), not a sharp target.** These features are 2D image proxies and cannot support speed targets (120+ mph is not derivable from this data).
 
+The JSON also has a `mason_slowmo_v3` block: 4 verified slow-motion swings (`mason_v3_*_slowmo.npz`), median tempo ratio 3.75 (range 2.50-4.58); its single recommended swing has tempo 3.17. The slow-motion factor (~4.7x median) is only an order-of-magnitude estimate, and its event detector differs from the v2 one, so these tempo values are not directly comparable with the n=11 set above.
+
 Created as part of AshlrAI agentic engineering experiments.
