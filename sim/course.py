@@ -64,6 +64,7 @@ def lie_at(h: Hole, x, y, cfg):
 @dataclass
 class Profile:
     name: str; driver_carry_yd: float; driver_carry_sd_yd: float; lateral_sd_yd: float; roll_frac: float; note: str
+    pool: object = None   # optional empirical tee-shot pool [(carry_yd, total_yd, lateral_yd), ...] from the launch monitor (sim/golf_simulator.shot_from_launch output)
 
 
 def profiles_from_leaderboard(path=None, model_names=None):
@@ -109,11 +110,26 @@ def profile_from_gates(name_prefix, seeds=(4000, 8000, 9000)):
                    f"{name_prefix} pooled over seeds {list(seeds)} x100 eps (det); force_scale={fs}" + (" (hypothetical-strength actuators)" if hyp else " (stock motors)") + f"; landed {land*100:.0f}%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0")
 
 
+def profile_from_launch_monitor(json_path, model, key="model", label=None):
+    """Profile whose tee shots are RESAMPLED from the per-shot launch-monitor rows of results/launch_monitor_power_tier.json (sim/launch_monitor_power.py).
+    key='model' uses the analytic-model carry/lateral of each shot (shot_from_launch), key='smashcap' uses the smash-capped (<=1.48) carry. MODEL-BASED, hypothetical-strength actuators."""
+    rows = [r for r in json.load(open(json_path))["models"][model] if r.get("contact")]
+    if not rows: return None
+    ck, tk = ("model_carry_yd", "model_total_yd") if key == "model" else ("smashcap_carry_yd", "smashcap_total_yd")
+    pool = [(r[ck], r[tk], r["model_lateral_yd"]) for r in rows]; c = float(np.mean([p[0] for p in pool])); sd = float(np.std([p[0] for p in pool])); rf = float(np.mean([p[1] / p[0] - 1 for p in pool]))
+    return Profile(label or f"D: HYPOTHETICAL launch-monitor hole-play ({model}, {key} carry; power tier, inflated unless smash-capped)", c, sd, float(np.std([p[2] for p in pool])), rf,
+                   f"{len(pool)} per-shot launch-monitor results ({model}, det, seeds 4000+) resampled; carry/lateral from sim/golf_simulator (analytic model, validated vs TrackMan); roll from the model; key={key}. force_scale 2 / power tier = hypothetical-strength actuators.", pool=pool)
+
+
 def _shot(rng, prof, cfg, club_frac, target_carry, lie, aim_y=0.0, roll=0.0):
     nominal = prof.driver_carry_yd * club_frac
     mult_c, mult_d = {"rough": (cfg["rough_carry_mult"], cfg["rough_disp_mult"]), "bunker": (cfg["bunker_carry_mult"], cfg["bunker_disp_mult"])}.get(lie, (1.0, 1.0))
     intended = min(target_carry, nominal * mult_c)
     sd_c = prof.driver_carry_sd_yd * club_frac * mult_d * (intended / max(nominal, 1e-9))
+    if getattr(prof, "pool", None):   # HOLE-PLAY ON LAUNCH-MONITOR SHOTS: resample a real per-shot launch-monitor result, scale carry/lateral by the club fraction
+        c0, _t0, l0 = prof.pool[int(rng.integers(len(prof.pool)))]
+        carry = max(1.0, c0 * (intended / max(prof.driver_carry_yd, 1e-9))); lat = aim_y + l0 * (carry / max(c0, 1e-9)) * mult_d
+        return carry, lat
     carry = max(1.0, rng.normal(intended, sd_c))
     lat = rng.normal(aim_y, prof.lateral_sd_yd * (carry / max(prof.driver_carry_yd, 1e-9)) * mult_d)   # angular dispersion: sd scales with carry
     return carry, lat
@@ -184,6 +200,12 @@ def run(rounds=2000, seed=0):
     for nm in ("imit16_fs1_dart_s51", "imit15_dart_s52", "imit15_dart_s53", "imit9_w000_s51", "ppo_v4power_s61"):
         pg = profile_from_gates(nm)
         if pg: profs.append(pg)
+    lmj = os.path.join(ROOT, "results", "launch_monitor_power_tier.json")
+    if os.path.exists(lmj):
+        for nm in ("imit18_power_dart_s51",):
+            for k in ("model", "smashcap"):
+                pl = profile_from_launch_monitor(lmj, nm, k)
+                if pl: profs.append(pl)
     sims = [simulate(course, p, rounds, seed) for p in profs]
     out = dict(label=LABEL, course="SYNTHETIC EXAMPLE (invented)", holes=[dict(n=h.n, par=h.par, yards=h.yards, fw_halfwidth_yd=h.fw_halfwidth_yd, hazards=h.hazards) for h in course],
                total_yards=sum(h.yards for h in course), par=sum(h.par for h in course), assumptions=DEFAULTS, results=sims)

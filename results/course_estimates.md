@@ -13,6 +13,8 @@ Synthetic example course (invented): par 72, 7380 yd. Monte Carlo, 2000 rounds p
 | C: HYPOTHETICAL (force_scale 2, hypothetical-strength actuators) gate-pooled 3 seeds - imit15_dart_s53 | 106.0 | +34.0 | 3.9 | 101-111 | 100% | 0% |
 | C: HYPOTHETICAL (force_scale 2, hypothetical-strength actuators) gate-pooled 3 seeds - imit9_w000_s51 | 99.9 | +27.9 | 3.1 | 96-104 | 100% | 0% |
 | C: HYPOTHETICAL (force_scale 2, hypothetical-strength actuators) gate-pooled 3 seeds - ppo_v4power_s61 | 93.4 | +21.4 | 10.2 | 80-108 | 82% | 23% |
+| D: HYPOTHETICAL launch-monitor hole-play (imit18_power_dart_s51, model carry; power tier, inflated unless smash-capped) | 62.8 | -9.2 | 2.5 | 60-66 | 98% | 83% |
+| D: HYPOTHETICAL launch-monitor hole-play (imit18_power_dart_s51, smashcap carry; power tier, inflated unless smash-capped) | 59.0 | -13.0 | 2.2 | 56-62 | 100% | 96% |
 
 Profile notes:
 - A: sim as measured - best_imit_scriptfree_elbow48_s51/imit9_w000_s51: best_imit_scriptfree_elbow48_s51/imit9_w000_s51 (script-free imitation of the scripted v3 swing); force_scale=2.0; MuJoCo ball, smash~1.0 artifact; force_scale 2 (hypothetical-strength actuators)
@@ -24,6 +26,8 @@ Profile notes:
 - C: HYPOTHETICAL (force_scale 2, hypothetical-strength actuators) gate-pooled 3 seeds - imit15_dart_s53: imit15_dart_s53 pooled over seeds [4000, 8000, 9000] x100 eps (det); force_scale=2.0 (hypothetical-strength actuators); landed 100%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0
 - C: HYPOTHETICAL (force_scale 2, hypothetical-strength actuators) gate-pooled 3 seeds - imit9_w000_s51: imit9_w000_s51 pooled over seeds [4000, 8000, 9000] x100 eps (det); force_scale=2.0 (hypothetical-strength actuators); landed 100%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0
 - C: HYPOTHETICAL (force_scale 2, hypothetical-strength actuators) gate-pooled 3 seeds - ppo_v4power_s61: ppo_v4power_s61 pooled over seeds [4000, 8000, 9000] x100 eps (det); force_scale=2.0 (hypothetical-strength actuators); landed 100%; Gaussian approx of a heavy-tailed lateral distribution; MuJoCo ball (+analytic model for the power tier impact), roll 0
+- D: HYPOTHETICAL launch-monitor hole-play (imit18_power_dart_s51, model carry; power tier, inflated unless smash-capped): 20 per-shot launch-monitor results (imit18_power_dart_s51, det, seeds 4000+) resampled; carry/lateral from sim/golf_simulator (analytic model, validated vs TrackMan); roll from the model; key=model. force_scale 2 / power tier = hypothetical-strength actuators.
+- D: HYPOTHETICAL launch-monitor hole-play (imit18_power_dart_s51, smashcap carry; power tier, inflated unless smash-capped): 20 per-shot launch-monitor results (imit18_power_dart_s51, det, seeds 4000+) resampled; carry/lateral from sim/golf_simulator (analytic model, validated vs TrackMan); roll from the model; key=smashcap. force_scale 2 / power tier = hypothetical-strength actuators.
 
 Assumptions (invented constants, see sim/course.py DEFAULTS): {"bag_fractions": [1.0, 0.92, 0.84, 0.77, 0.71, 0.65, 0.59, 0.53, 0.47, 0.4, 0.3], "rough_carry_mult": 0.85, "rough_disp_mult": 1.3, "bunker_carry_mult": 0.6, "bunker_disp_mult": 1.6, "green_radius_yd": 14.0, "chip_max_yd": 45.0, "ob_halfwidth_yd": 45.0, "max_strokes": 12, "chip_leave_sd_frac": 0.1, "chip_leave_min_ft": 4.0, "putt_scale_ft": 8.0, "putt_exp": 2.5}
 
