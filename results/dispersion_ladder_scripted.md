@@ -44,6 +44,12 @@
 | ppo_v3tiny_s21 | stochastic | 100% | 110.68 | 51.87 | 276.51 | 110.68 | 94.506 | 94% | 10.305 | -1.068 | 8% | 6% | 53.17 / 54.13 | 118.9 / 121.1 | 100.9% | 0 | 9.5 (7.0) | no |
 | ppo_v3tiny_s23 | deterministic | 100% | 125.02 | 58.10 | 280.26 | 125.02 | 97.646 | 90% | 2.936 | +0.032 | 6% | 16% | 53.18 / 53.75 | 119.0 / 120.2 | 100.2% | 0 | 10.0 (5.9) | no |
 | ppo_v3tiny_s23 | stochastic | 100% | 123.10 | 56.98 | 276.12 | 123.10 | 95.829 | 90% | 7.460 | +1.869 | 10% | 4% | 53.38 / 54.71 | 119.4 / 122.4 | 102.0% | 0 | 10.2 (5.2) | no |
+| ppo_v3flt_all_s33 | deterministic | 100% | 102.28 | 39.06 | 284.74 | 102.28 | 96.587 | 98% | 7.146 | +0.005 | 2% | 2% | 53.78 / 53.87 | 120.3 / 120.5 | 100.4% | 0 | 10.6 (6.0) | no |
+| ppo_v3flt_all_s33 | stochastic | 100% | 106.08 | 36.88 | 176.99 | 106.08 | 106.078 | 100% | 11.081 | +0.261 | 6% | 10% | 53.79 / 53.92 | 120.3 / 120.6 | 100.5% | 0 | 10.0 (6.8) | no |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | deterministic | 100% | 113.77 | 26.25 | 185.90 | 113.77 | 113.772 | 100% | 1.555 | -0.287 | 4% | 12% | 53.79 / 53.90 | 120.3 / 120.6 | 100.5% | 0 | 12.2 (1.4) | no |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | stochastic | 100% | 113.71 | 25.48 | 185.82 | 113.71 | 113.713 | 100% | 1.786 | -0.445 | 4% | 12% | 53.79 / 53.90 | 120.3 / 120.6 | 100.5% | 0 | 12.2 (1.4) | no |
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | deterministic | 100% | 113.83 | 26.18 | 185.89 | 113.83 | 113.831 | 100% | 1.585 | -0.280 | 2% | 12% | 53.79 / 53.90 | 120.3 / 120.6 | 100.5% | 0 | 12.2 (1.4) | no |
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | stochastic | 100% | 114.56 | 25.92 | 185.87 | 114.56 | 114.559 | 100% | 1.610 | -0.177 | 4% | 12% | 53.79 / 53.90 | 120.3 / 120.6 | 100.5% | 0 | 12.2 (1.4) | no |
 
 DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboard.md for caveats): mean over the 11 refs
 
@@ -89,3 +95,9 @@ DTW to native Mason v2 recommended refs (mean rad, all11 / upper5; see leaderboa
 | ppo_v3tiny_s21 | stochastic | 2.325 / 1.839 |
 | ppo_v3tiny_s23 | deterministic | 2.292 / 1.795 |
 | ppo_v3tiny_s23 | stochastic | 2.305 / 1.806 |
+| ppo_v3flt_all_s33 | deterministic | 2.361 / 1.883 |
+| ppo_v3flt_all_s33 | stochastic | 2.336 / 1.852 |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | deterministic | 2.337 / 1.833 |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | stochastic | 2.338 / 1.833 |
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | deterministic | 2.337 / 1.833 |
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | stochastic | 2.335 / 1.828 |

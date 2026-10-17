@@ -1,0 +1,91 @@
+{
+ "base": {
+  "smash_peak_over_impact": 1.0025219459243901,
+  "smash_sep_over_pre": 1.0081236689369812,
+  "club_pre": 53.696249543783196,
+  "club_impact_env": 53.772160148703676,
+  "ball_sep": 54.13315012142622,
+  "ball_peak": 53.90842135820678,
+  "meff": 0.31936858481132024,
+  "carry": 110.63111638228322
+ },
+ "model_info": {
+  "head_mass": 0.30000000000000004,
+  "ball_mass": 0.046,
+  "head_geom_mass": null,
+  "head_solref": [
+   0.002,
+   1.0
+  ],
+  "ball_solref": [
+   0.002,
+   1.0
+  ],
+  "head_solimp": [
+   0.95,
+   0.99,
+   0.001,
+   0.5,
+   2.0
+  ],
+  "timestep": 0.0005,
+  "head_friction": [
+   0.5,
+   0.01,
+   0.001
+  ],
+  "ball_friction": [
+   0.5,
+   0.01,
+   0.001
+  ]
+ },
+ "implied_restitution": 0.15332795945446676,
+ "sweep": [
+  {
+   "smash_peak_over_impact": 1.0025219459243901,
+   "smash_sep_over_pre": 1.0081236689369812,
+   "club_pre": 53.696249543783196,
+   "club_impact_env": 53.772160148703676,
+   "ball_sep": 54.13315012142622,
+   "ball_peak": 53.90842135820678,
+   "meff": 0.31936858481132024,
+   "carry": 110.63111638228322,
+   "damp": 1.0
+  },
+  {
+   "smash_peak_over_impact": 1.1058022654025796,
+   "smash_sep_over_pre": 1.110946563481288,
+   "club_pre": 53.697366976301225,
+   "club_impact_env": 53.77329409453345,
+   "ball_sep": 59.65417493981611,
+   "ball_peak": 59.46167556917935,
+   "meff": 0.3195437529492275,
+   "carry": 115.5363016842294,
+   "damp": 0.5
+  },
+  {
+   "smash_peak_over_impact": 1.2618353853593895,
+   "smash_sep_over_pre": 1.2663102586265365,
+   "club_pre": 53.698674182654614,
+   "club_impact_env": 53.7739028263264,
+   "ball_sep": 68.0066086236325,
+   "ball_peak": 67.8600995689978,
+   "meff": 0.32093451198641126,
+   "carry": 143.65172480523196,
+   "damp": 0.3
+  },
+  {
+   "smash_peak_over_impact": Infinity,
+   "smash_sep_over_pre": 1.900184375916074,
+   "club_pre": 53.779268485412864,
+   "club_impact_env": 43.075648897850925,
+   "ball_sep": 102.19093963327587,
+   "ball_peak": 68.25784254629741,
+   "meff": 0.6470038291715415,
+   "carry": 131.30111557691617,
+   "damp": 0.15
+  }
+ ],
+ "episodes": 10
+}

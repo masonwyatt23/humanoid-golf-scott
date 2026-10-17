@@ -18,6 +18,7 @@ from typing import Dict, Sequence
 import warnings
 import numpy as np
 
+M_TO_YD = 1.09361   # 1 m = 1.09361 yd
 LATERAL_THRESHOLD_M = 0.5
 MPS_TO_MPH = 2.23694
 TARGET_MPH = 120.0
@@ -37,9 +38,17 @@ class FlightTracker:
         self._mj, self._orig, self.peak_club = mujoco, mujoco.mj_step, 0.0
         self.n_nonphysical, self.raw_max, self.first_bad_t = 0, 0.0, None
         self._sep, self._last_v, self.v_sep = False, None, None
+        self._hist, self.club_pre = [], float('nan')
+        self._seq_init()
         def wrapped(m, d, *a, **k):
             self._orig(m, d, *a, **k)
             v = self.env._club_speed()
+            self._hist.append(v)
+            self._seq_n += 1
+            if self._seq_n % 10 == 0:   # every 10th substep (5 ms): |joint angular velocity| of the sequencing segments + club speed
+                self._seq_t.append(float(d.time)); self._seq_v.append([abs(d.qvel[i]) if i is not None else np.nan for i in self._seq_dofs] + [v])
+            if self.env.true_contact and self.t_impact is None: self.t_impact = float(d.time)
+            if self.env.true_contact and self.club_pre != self.club_pre and len(self._hist) >= 3: self.club_pre = self._hist[-3]
             if not np.isfinite(v) or v > MAX_PLAUSIBLE_CLUB_SPEED:   # validate; never silently clip
                 self.n_nonphysical += 1
                 self.raw_max = max(self.raw_max, v) if np.isfinite(v) else float("inf")
@@ -61,10 +70,52 @@ class FlightTracker:
     def reset(self):
         self.peak_club, self.n_nonphysical, self.raw_max, self.first_bad_t = 0.0, 0, 0.0, None
         self._sep, self._last_v, self.v_sep = False, None, None
+        self._hist, self.club_pre = [], float("nan")
+        self._seq_init()
         self.traj = [self.env.data.xpos[self.env._ball_id].copy()]
 
     def step(self):
         self.traj.append(self.env.data.xpos[self.env._ball_id].copy())
+
+    SEQ_SEGMENTS = [("hips", ("right_hip_pitch", "left_hip_pitch")), ("torso(chest_yaw)", ("chest_yaw",)), ("shoulder_R", ("right_shoulder_pitch",)),
+                    ("elbow_R", ("right_elbow",)), ("wrist_R", ("right_wrist",)), ("club_head_speed", None)]
+    SEQ_WINDOW = (-0.30, 0.05)   # s relative to first true contact
+
+    def _seq_init(self):
+        import mujoco
+        self._seq_n, self._seq_t, self._seq_v, self.t_impact = 0, [], [], None
+        if not hasattr(self, "_seq_dofs"):
+            m, dofs = self.env.model, []
+            for _, names in self.SEQ_SEGMENTS:
+                for n in (names or ()):
+                    try: dofs.append(int(m.jnt_dofadr[m.joint(n).id]))
+                    except Exception: dofs.append(None)
+            self._seq_dofs = dofs
+
+    def seq_summary(self):
+        """Time of peak |angular velocity| of each segment (hips, chest yaw, shoulder, elbow, wrist; club-head speed) relative to impact (ms), within
+        [impact-0.30 s, impact+0.05 s]. Proximal-to-distal = peak times non-decreasing in the listed order (5 ms resolution; ties count as in order). NaN if no contact."""
+        out = {"seq_ok": False}
+        if self.t_impact is None or not self._seq_t: return out
+        t = np.asarray(self._seq_t); V = np.asarray(self._seq_v); lo, hi = self.t_impact + self.SEQ_WINDOW[0], self.t_impact + self.SEQ_WINDOW[1]
+        w = (t >= lo) & (t <= hi)
+        if w.sum() < 5: return out
+        cols, k = [], 0
+        for name, names in self.SEQ_SEGMENTS:
+            if names is None: cols.append(V[:, -1]); continue
+            idx = list(range(k, k + len(names))); k += len(names)
+            cols.append(np.nanmean(V[:, idx], axis=1) if not np.all(np.isnan(V[:, idx])) else np.full(len(t), np.nan))
+        peaks = []
+        for c in cols:
+            peaks.append(float((t[w][int(np.nanargmax(c[w]))] - self.t_impact) * 1000.0) if not np.all(np.isnan(c[w])) else float("nan"))
+        out.update(seq_ok=True, peaks_ms=peaks, names=[n for n, _ in self.SEQ_SEGMENTS])
+        pk = np.array(peaks); okp = pk[~np.isnan(pk)]
+        out["prox_to_distal"] = bool(len(okp) == len(pk) and np.all(np.diff(pk) >= 0))
+        names = out["names"]; g = lambda n: pk[names.index(n)]
+        out["wrist_minus_shoulder_s"] = float((g("wrist_R") - g("shoulder_R")) / 1000.0)
+        out["elbow_minus_shoulder_s"] = float((g("elbow_R") - g("shoulder_R")) / 1000.0)
+        out["torso_minus_hips_s"] = float((g("torso(chest_yaw)") - g("hips")) / 1000.0)
+        return out
 
     def launch_elev_deg(self) -> float:
         """Elevation (deg) of the ball velocity right after contact (separation velocity); NaN if no contact."""
@@ -80,12 +131,33 @@ class FlightTracker:
                 "carry": float(info.get("carry", 0.0)), "true_contact": bool(info.get("true_contact", False)),
                 "peak_ball_speed": float(info.get("peak_ball_speed", float("nan"))),
                 "impact_club_speed": float(info.get("impact_club_speed", float("nan"))),
+                "start_x": float(t[0, 0]), "total_dist": float(t[-1, 0] - t[0, 0]),   # total = carry + roll: final ball x minus start x along the target line (+x)
+                "carry_yd": float(info.get("carry", 0.0)) * M_TO_YD, "total_yd": float((t[-1, 0] - t[0, 0]) * M_TO_YD),
+                "club_speed_pre_contact": getattr(self, "club_pre", float("nan")),   # club speed at the substep BEFORE the first contact substep
+                "ball_speed_sep": float(np.linalg.norm(self.v_sep)) if getattr(self, "v_sep", None) is not None else float("nan"),
+                "seq": self.seq_summary(),
                 "launch_elev_deg": self.launch_elev_deg(),
                 "launch_elev_env_peakspeed_deg": float(np.degrees(info.get("launch_elevation", float("nan")))),
                 "peak_club_speed": float(getattr(self, "peak_club", float("nan"))),
                 "nonphysical_substeps": int(getattr(self, "n_nonphysical", 0)),
                 "raw_max_club_speed": float(getattr(self, "raw_max", 0.0)),
                 "first_nonphysical_sim_time": getattr(self, "first_bad_t", None)}
+
+
+def seq_aggregate(shots):
+    ss = [s["seq"] for s in shots if s.get("seq", {}).get("seq_ok")]
+    if not ss: return {"n": 0}
+    names = ss[0]["names"]; P = np.array([x["peaks_ms"] for x in ss], float)
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        med = np.nanmedian(P, axis=0)
+        fin = lambda k: [x[k] for x in ss if x[k] == x[k]]
+        return {"n": len(ss), "segments": names, "peak_rel_impact_ms_median": [float(v) for v in med], "peak_rel_impact_ms_iqr": [[float(np.nanpercentile(P[:, i], 25)), float(np.nanpercentile(P[:, i], 75))] for i in range(P.shape[1])],
+                "frac_proximal_to_distal": float(np.mean([x["prox_to_distal"] for x in ss])),
+                "wrist_minus_shoulder_s_median": float(np.median(fin("wrist_minus_shoulder_s"))) if fin("wrist_minus_shoulder_s") else float("nan"),
+                "elbow_minus_shoulder_s_median": float(np.median(fin("elbow_minus_shoulder_s"))) if fin("elbow_minus_shoulder_s") else float("nan"),
+                "torso_minus_hips_s_median": float(np.median(fin("torso_minus_hips_s"))) if fin("torso_minus_hips_s") else float("nan")}
 
 
 def dispersion(shots: Sequence[Dict], thr: float = LATERAL_THRESHOLD_M) -> Dict[str, float]:
@@ -126,7 +198,12 @@ def dispersion(shots: Sequence[Dict], thr: float = LATERAL_THRESHOLD_M) -> Dict[
             "mean_abs_y": float(np.abs(y).mean()), "max_abs_y": float(np.abs(y).max()),
             "left_miss_rate": l, "right_miss_rate": r, "in_corridor_rate": 1 - l - r,
             "left_miss_rate_contact_only": lc, "right_miss_rate_contact_only": rc,
+            "sequencing_proxy": seq_aggregate(shots),
             "mean_carry": float(np.mean([s["carry"] for s in shots])),
+            "mean_carry_yd": float(np.mean([s["carry"] for s in shots]) * M_TO_YD),
+            "mean_total_m": float(np.mean([s.get("total_dist", np.nan) for s in shots])), "median_total_m": float(np.median([s.get("total_dist", np.nan) for s in shots])),
+            "mean_total_yd": float(np.mean([s.get("total_dist", np.nan) for s in shots]) * M_TO_YD), "max_total_yd": float(np.max([s.get("total_dist", np.nan) for s in shots]) * M_TO_YD),
+            "mean_roll_m": float(np.mean([s["final_x"] - s["carry"] if s["carry"] > 0 else np.nan for s in shots])) if any(s["carry"] > 0 for s in shots) else float("nan"),   # roll = final x minus landing x (both absolute x)
             "landed_fraction": float(np.mean([s["carry"] > 0 for s in shots])),
             "mean_peak_ball_speed": float(np.nanmean([s["peak_ball_speed"] for s in shots])),
             "lateral_threshold_m": thr}

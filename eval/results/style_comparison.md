@@ -1,7 +1,7 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `737c4d124c92`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
-Best trained: **ppo_v3tiny_s22**; best left-handed: **ppo_v3tiny_s22**; best overall incl. scripted baseline: **scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]**.
+Env fingerprint `536694401cb9`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Best trained: **ppo_v3flt_yaw_s31 / best_learned_yaw_s31**; best left-handed: **ppo_v3flt_yaw_s31 / best_learned_yaw_s31**; best overall incl. scripted baseline: **ppo_v3flt_yaw_s31 / best_learned_yaw_s31**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -61,3 +61,9 @@ Best trained: **ppo_v3tiny_s22**; best left-handed: **ppo_v3tiny_s22**; best ove
 | ppo_v3tiny_s21 | 60000 | left | stoch | 100% | 110.68 | 276.51 | 94.51 | 94% | 10.30 | 8% | 6% | 118.9 / 121.1 | 100.9% |
 | ppo_v3tiny_s23 | 60000 | left | deter | 100% | 125.02 | 280.26 | 97.65 | 90% | 2.94 | 6% | 16% | 119.0 / 120.2 | 100.2% |
 | ppo_v3tiny_s23 | 60000 | left | stoch | 100% | 123.10 | 276.12 | 95.83 | 90% | 7.46 | 10% | 4% | 119.4 / 122.4 | 102.0% |
+| ppo_v3flt_all_s33 | 30000 | left | deter | 100% | 102.28 | 284.74 | 96.59 | 98% | 7.15 | 2% | 2% | 120.3 / 120.5 | 100.4% |
+| ppo_v3flt_all_s33 | 30000 | left | stoch | 100% | 106.08 | 176.99 | 106.08 | 100% | 11.08 | 6% | 10% | 120.3 / 120.6 | 100.5% |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | 30000 | left | deter | 100% | 113.77 | 185.90 | 113.77 | 100% | 1.55 | 4% | 12% | 120.3 / 120.6 | 100.5% |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | 30000 | left | stoch | 100% | 113.71 | 185.82 | 113.71 | 100% | 1.79 | 4% | 12% | 120.3 / 120.6 | 100.5% |
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | 30000 | left | deter | 100% | 113.83 | 185.89 | 113.83 | 100% | 1.59 | 2% | 12% | 120.3 / 120.6 | 100.5% |
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | 30000 | left | stoch | 100% | 114.56 | 185.87 | 114.56 | 100% | 1.61 | 4% | 12% | 120.3 / 120.6 | 100.5% |

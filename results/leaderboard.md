@@ -1,14 +1,14 @@
 # Leaderboard
 
-**Current best model: ppo_v3tiny_s22** (60000 steps) - mean true contact over det+stoch 100%, mean carry 108.484 m. Peak club-head speed (best single swing over det+stoch): 54.26 m/s = 121.4 mph = 101.2% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v3tiny_s22** (mean contact 100%, mean carry 108.48 m, physics protocol). **NO model meets the showcase criterion (carry >= 30 m, lateral std <= 2.73 m, launch elev >= 5 deg, contact 100%); see qualification table.** **Best overall (incl. scripted, no-learning baseline): scripted_baseline[ladder cfg: right, loft 6, default ball_x]** - mean contact 100%, mean carry 113.827 m (no trained checkpoint beats it).
+**Current best model: ppo_v3flt_yaw_s31 / best_learned_yaw_s31** (30000 steps) - mean true contact over det+stoch 100%, mean carry 114.195 m. Peak club-head speed (best single swing over det+stoch): 53.90 m/s = 120.6 mph = 100.5% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v3flt_yaw_s31 / best_learned_yaw_s31** (mean contact 100%, mean carry 114.19 m, physics protocol). **Best model meeting the showcase criterion (real carry AND tight lateral AND not-flat launch AND 100% contact; see below): ppo_v3flt_yaw_s31 / best_learned_yaw_s31.** Best overall incl. scripted baseline: ppo_v3flt_yaw_s31 / best_learned_yaw_s31.
 
 Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; (2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.
 
-Full ranking (scripted baseline included): scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > ppo_v3tiny_s22 > ppo_resid_v3_left_an3_s1 > ppo_resid_v3_left_an2_s0 > ppo_resid_v3_left_an1_s0 > ppo_v3tiny_s23 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an6_s4 > ppo_resid_v3_left_an9_s7 > ppo_v3tiny_s21 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > ppo_resid_v3_left_fast2_s11 > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
+Full ranking (scripted baseline included): ppo_v3flt_yaw_s31 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > ppo_v3flt_yaw_s32 > ppo_v3tiny_s22 > ppo_resid_v3_left_an3_s1 > ppo_resid_v3_left_an2_s0 > ppo_v3flt_all_s33 > ppo_resid_v3_left_an1_s0 > ppo_v3tiny_s23 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an6_s4 > ppo_resid_v3_left_an9_s7 > ppo_v3tiny_s21 > ppo_resid_v3_ladder_s0 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > ppo_resid_v3_left_fast2_s11 > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
 
 Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).
 
-Current env fingerprint `737c4d124c92` (env + XML hash). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
+Current env fingerprint `536694401cb9` (env + XML hash). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
 
 | Model(s) | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak ball spd (m/s) | Impact club spd (m/s) | Smash | Peak club spd mean/max (m/s) | Peak club mph mean/max | % of 120 mph mean/max | Launch elev mean deg (std) [flat?] | DTW native Mason v2, mean of 11 refs (11j / upper5) | DTW average | DTW rory | DTW scheffler | DTW scott |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -68,6 +68,152 @@ Current env fingerprint `737c4d124c92` (env + XML hash). 50 episodes, seeds 4000
 | ppo_v3tiny_s21 | 60000 | stoch | 100% | 110.68 | 276.51 | 94.506 | 94% | 10.305 | 8% | 6% | 51.10 | 53.17 | 0.96 (n=50) | 53.17 / 54.13 | 118.9 / 121.1 | 99.1% / 100.9% | 9.5 (7.0) | 2.325 / 1.839 | 1.462 | 1.465 | 1.442 | 1.474 |
 | ppo_v3tiny_s23 | 60000 | deter | 100% | 125.02 | 280.26 | 97.646 | 90% | 2.936 | 6% | 16% | 51.53 | 53.18 | 0.97 (n=50) | 53.18 / 53.75 | 119.0 / 120.2 | 99.1% / 100.2% | 10.0 (5.9) | 2.292 / 1.795 | 1.410 | 1.412 | 1.391 | 1.422 |
 | ppo_v3tiny_s23 | 60000 | stoch | 100% | 123.10 | 276.12 | 95.829 | 90% | 7.460 | 10% | 4% | 52.18 | 53.38 | 0.98 (n=50) | 53.38 / 54.71 | 119.4 / 122.4 | 99.5% / 102.0% | 10.2 (5.2) | 2.305 / 1.806 | 1.431 | 1.434 | 1.412 | 1.444 |
+| ppo_v3flt_all_s33 | 30000 | deter | 100% | 102.28 | 284.74 | 96.587 | 98% | 7.146 | 2% | 2% | 51.73 | 53.78 | 0.96 (n=50) | 53.78 / 53.87 | 120.3 / 120.5 | 100.3% / 100.4% | 10.6 (6.0) | 2.361 / 1.883 | 1.507 | 1.513 | 1.487 | 1.523 |
+| ppo_v3flt_all_s33 | 30000 | stoch | 100% | 106.08 | 176.99 | 106.078 | 100% | 11.081 | 6% | 10% | 51.66 | 53.79 | 0.96 (n=50) | 53.79 / 53.92 | 120.3 / 120.6 | 100.3% / 100.5% | 10.0 (6.8) | 2.336 / 1.852 | 1.460 | 1.464 | 1.441 | 1.475 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | 30000 | deter | 100% | 113.77 | 185.90 | 113.772 | 100% | 1.555 | 4% | 12% | 54.06 | 53.79 | 1.00 (n=50) | 53.79 / 53.90 | 120.3 / 120.6 | 100.3% / 100.5% | 12.2 (1.4) | 2.337 / 1.833 | 1.470 | 1.474 | 1.449 | 1.485 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | 30000 | stoch | 100% | 113.71 | 185.82 | 113.713 | 100% | 1.786 | 4% | 12% | 54.05 | 53.79 | 1.00 (n=50) | 53.79 / 53.90 | 120.3 / 120.6 | 100.3% / 100.5% | 12.2 (1.4) | 2.338 / 1.833 | 1.469 | 1.474 | 1.448 | 1.485 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | 30000 | deter | 100% | 113.83 | 185.89 | 113.831 | 100% | 1.585 | 2% | 12% | 54.06 | 53.79 | 1.00 (n=50) | 53.79 / 53.90 | 120.3 / 120.6 | 100.3% / 100.5% | 12.2 (1.4) | 2.337 / 1.833 | 1.469 | 1.473 | 1.448 | 1.484 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | 30000 | stoch | 100% | 114.56 | 185.87 | 114.559 | 100% | 1.610 | 4% | 12% | 54.06 | 53.79 | 1.00 (n=50) | 53.79 / 53.90 | 120.3 / 120.6 | 100.3% / 100.5% | 12.2 (1.4) | 2.335 / 1.828 | 1.465 | 1.469 | 1.443 | 1.481 |
+
+## Per-row summary: learned fraction, style distance, sequencing (proxy)
+
+Learned fraction = what the JSON args record (residual caps / env type), never guessed. DTW = native mason_v2 recommended set, mean over refs (all 11 joints, rad). Sequencing = time of peak |angular velocity| per segment relative to first true contact (ms; negative = before impact), measured every 5 ms of simulated time within [impact-0.30 s, impact+0.05 s]; proximal-to-distal = hips -> chest yaw -> shoulder -> elbow -> wrist -> club-head speed peaks non-decreasing (5 ms ties count as in order). PROXY: single-joint angular speeds, the sim has no pelvis yaw joint, club speed is the head geom speed.
+
+| Model(s) | Mode | Learned fraction (from JSON args) | DTW all11 mean | Peak t rel. impact ms: hips / chest yaw / shoulder / elbow / wrist / club | Prox-to-distal | wrist-shoulder lag s | elbow-shoulder lag s |
+|---|---|---|---|---|---|---|---|
+| ppo_scott_baseline | deter | direct policy control (HumanoidGolfEnv; no scripted base) | 3.516 | n/a | nan% (n=0) | nan | nan |
+| ppo_scott_baseline | stoch | direct policy control (HumanoidGolfEnv; no scripted base) | 11.381 | n/a | nan% (n=0) | nan | nan |
+| ppo_scott_curr | deter | direct policy control (HumanoidGolfEnv; no scripted base) | 3.671 | 0 / nan / -20 / -60 / 40 / 20 | 0% (n=50) | 0.060 | -0.040 |
+| ppo_scott_curr | stoch | direct policy control (HumanoidGolfEnv; no scripted base) | 3.577 | 8 / nan / 18 / -12 / -26 / 34 | 0% (n=5) | -0.060 | 0.000 |
+| ppo_scott_prev_backup | deter | direct policy control (HumanoidGolfEnv; no scripted base) | 2.598 | 18 / nan / -2 / 38 / 38 / 18 | 0% (n=50) | 0.040 | 0.040 |
+| ppo_scott_prev_backup | stoch | direct policy control (HumanoidGolfEnv; no scripted base) | 3.602 | 7 / nan / 19 / 14 / -11 / 41 | 0% (n=12) | -0.030 | 0.000 |
+| ppo_scott_final2<br>ppo_scott_prev2_backup | deter | direct policy control (HumanoidGolfEnv; no scripted base) | 3.294 | 10 / nan / -116 / -116 / -52 / 5 | 0% (n=4) | 0.050 | 0.000 |
+| ppo_scott_final2<br>ppo_scott_prev2_backup | stoch | direct policy control (HumanoidGolfEnv; no scripted base) | 3.554 | 4 / nan / -2 / 30 / 4 / 18 | 0% (n=7) | 0.020 | 0.020 |
+| ppo_scott<br>ppo_scott_carry1 | deter | direct policy control (HumanoidGolfEnv; no scripted base) | 2.504 | -119 / nan / -151 / 27 / 37 / -51 | 0% (n=30) | 0.130 | 0.180 |
+| ppo_scott<br>ppo_scott_carry1 | stoch | direct policy control (HumanoidGolfEnv; no scripted base) | 3.365 | -6 / nan / 1 / 11 / -104 / 1 | 0% (n=12) | -0.070 | 0.000 |
+| ppo_resid_v3_s0 | deter | residual on scripted swing: cap +-[0.4, 0.4, 0.4, 0.25] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.114 | 49 / -70 / -4 / -11 / 45 / -1 | 0% (n=50) | 0.050 | -0.007 |
+| ppo_resid_v3_s0 | stoch | residual on scripted swing: cap +-[0.4, 0.4, 0.4, 0.25] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.286 | -10 / -129 / -11 / -76 / 33 / -2 | 0% (n=30) | 0.042 | -0.055 |
+| ppo_resid_v3_r2_s0 | deter | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.135 | -18 / -58 / -13 / 16 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_r2_s0 | stoch | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.141 | -14 / -147 / -9 / 18 / 46 / -3 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_r3_s0 | deter | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.110 | -16 / 30 / -11 / 23 / 47 / -1 | 0% (n=50) | 0.060 | 0.035 |
+| ppo_resid_v3_r3_s0 | stoch | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.085 | -14 / -126 / -9 / 25 / 46 / -3 | 0% (n=50) | 0.055 | 0.035 |
+| ppo_resid_v3_ladder_s0 | deter | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.106 | -12 / -57 / -8 / -3 / 46 / -3 | 0% (n=50) | 0.055 | 0.005 |
+| ppo_resid_v3_ladder_s0 | stoch | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.136 | -13 / -94 / -10 / -1 / 45 / -3 | 0% (n=50) | 0.055 | 0.010 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | deter | 0% (scripted, zero residual) | 2.103 | -20 / 4 / -10 / 19 / 44 / -1 | 0% (n=50) | 0.055 | 0.030 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | stoch | 0% (scripted, zero residual) | 2.103 | -20 / 4 / -10 / 19 / 44 / -1 | 0% (n=50) | 0.055 | 0.030 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | deter | 0% (scripted, zero residual) | 2.222 | -20 / 4 / -10 / 19 / 44 / -0 | 0% (n=50) | 0.055 | 0.030 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | stoch | 0% (scripted, zero residual) | 2.222 | -20 / 4 / -10 / 19 / 44 / -0 | 0% (n=50) | 0.055 | 0.030 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | deter | 0% (scripted, zero residual) | 2.412 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | stoch | 0% (scripted, zero residual) | 2.412 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | deter | 0% (scripted, zero residual) | 2.338 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | stoch | 0% (scripted, zero residual) | 2.338 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an1_s0 | deter | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.093 | -12 / -87 / -12 / 19 / 47 / -2 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an1_s0 | stoch | residual on scripted swing: cap +-[0.2, 0.2, 0.2, 0.1] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.112 | -13 / -141 / -10 / 17 / 45 / -3 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an2_s0<br>best_carry_analytic | deter | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.084 | -13 / 10 / -9 / 16 / 46 / -3 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an2_s0<br>best_carry_analytic | stoch | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.114 | -14 / -131 / -10 / 16 / 45 / -3 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an3_s1 | deter | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.104 | -14 / 6 / -10 / 15 / 45 / -4 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an3_s1 | stoch | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.103 | -14 / -100 / -12 / 16 / 45 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an4_s2 | deter | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.126 | -13 / 46 / -13 / 16 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an4_s2 | stoch | residual on scripted swing: cap +-[0.1, 0.1, 0.1, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.116 | -14 / -143 / -11 / 15 / 46 / -3 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an5_s3 | deter | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.240 | -14 / 11 / -14 / 11 / 46 / -3 | 0% (n=50) | 0.060 | 0.025 |
+| ppo_resid_v3_left_an5_s3 | stoch | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.194 | -16 / -103 / -14 / 14 / 45 / -2 | 0% (n=50) | 0.060 | 0.025 |
+| ppo_resid_v3_left_an6_s4 | deter | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.122 | -17 / -53 / -17 / 17 / 43 / -2 | 0% (n=50) | 0.060 | 0.035 |
+| ppo_resid_v3_left_an6_s4 | stoch | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.03] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.102 | -14 / -75 / -12 / 16 / 44 / -3 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an7_s5 | deter | residual on scripted swing: cap +-[0.04, 0.04, 0.03, 0.02] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.217 | -15 / -59 / -13 / 16 / 45 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an7_s5 | stoch | residual on scripted swing: cap +-[0.04, 0.04, 0.03, 0.02] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.198 | -15 / -137 / -14 / 16 / 45 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an8_s6 | deter | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.295 | -14 / -49 / -14 / 15 / 45 / -4 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an8_s6 | stoch | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.285 | -15 / -150 / -14 / 15 / 45 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_resid_v3_left_an9_s7 | deter | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.109 | -12 / -2 / -9 / 18 / 45 / -2 | 0% (n=50) | 0.055 | 0.025 |
+| ppo_resid_v3_left_an9_s7 | stoch | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.099 | -13 / -152 / -11 / 18 / 45 / -3 | 0% (n=50) | 0.055 | 0.030 |
+| ppo_resid_v3_left_an10_s8 | deter | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.095 | -11 / 43 / -7 / 18 / 43 / -1 | 0% (n=50) | 0.050 | 0.025 |
+| ppo_resid_v3_left_an10_s8 | stoch | residual on scripted swing: cap +-[0.1, 0.08, 0.05, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.144 | -15 / -141 / -11 / 20 / 46 / -2 | 0% (n=50) | 0.057 | 0.030 |
+| ppo_resid_v3_left_fast1_s10 | deter | residual on scripted swing: cap +-[0.02, 0.02, 0.01, 0.02] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.388 | -16 / -5 / -16 / -1 / 43 / -1 | 0% (n=50) | 0.060 | 0.015 |
+| ppo_resid_v3_left_fast1_s10 | stoch | residual on scripted swing: cap +-[0.02, 0.02, 0.01, 0.02] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.391 | -15 / -132 / -14 / -1 / 45 / -3 | 0% (n=50) | 0.060 | 0.015 |
+| ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | deter | residual on scripted swing: cap +-[0.02, 0.02, 0.01, 0.02] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.390 | -15 / -50 / -15 / -1 / 44 / -2 | 0% (n=50) | 0.060 | 0.015 |
+| ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | stoch | residual on scripted swing: cap +-[0.02, 0.02, 0.01, 0.02] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.390 | -16 / -140 / -16 / -2 / 44 / -3 | 0% (n=50) | 0.060 | 0.015 |
+| ppo_v3tiny_s22 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.308 | -13 / 1 / -13 / 16 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3tiny_s22 | stoch | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.293 | -14 / -84 / -13 / 15 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3tiny_s21 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.295 | -15 / 49 / -15 / 14 / 44 / -1 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3tiny_s21 | stoch | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.325 | -14 / -28 / -13 / 15 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3tiny_s23 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.292 | -13 / 1 / -13 / 16 / 46 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3tiny_s23 | stoch | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.3 (env default); % of control from policy = not defined/unknown | 2.305 | -14 / -95 / -14 / 15 / 45 / -3 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3flt_all_s33 | deter | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.02; % of control from policy = not defined/unknown | 2.361 | -15 / 7 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3flt_all_s33 | stoch | residual on scripted swing: cap +-[0.01, 0.01, 0.01, 0.01] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.02; % of control from policy = not defined/unknown | 2.336 | -15 / -139 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | deter | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 2.337 | -15 / 20 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 2.338 | -15 / -147 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | deter | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 2.337 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | stoch | residual on scripted swing: cap +-[0.0, 0.0, 0.0, 0.05] rad (shoulder, elbow, wrist, yaw) + tempo_scale 0.0; % of control from policy = not defined/unknown | 2.335 | -15 / -139 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
+
+**Mason reference (proxy, `data/references/mason_target_features.json`, file mtime 2026-10-16 11:30; schema mason_target_features/v1; self-filmed ~30 fps 2D MediaPipe angles, ?-swing set, events +-1 frame, tempo +-15%):** arm-only sequencing, times in seconds from takeoff within [top, impact+0.15 s]: shoulder_R peak 0.94, elbow_R 1.09, wrist_R 1.04; wrist-minus-shoulder lag median 0.05 s; elbow-minus-shoulder (from medians) 0.15 s. Pelvis/thorax sequencing is UNAVAILABLE for Mason (reported 'unavailable'), so hips/torso rows cannot be compared. The Data Agent's regenerated (0.4 s timing fix) version is used only if the file in this tree is that version (check the mtime above); no sequencing number is taken from anywhere else. Sim lags and Mason lags are different windows/definitions: indicative only.
+
+## Distance in yards (1 m = 1.09361 yd) - det / stoch separate
+
+Total = carry + roll = final ball x minus start x along the target line at episode end (450-step horizon; ball may still be rolling; analytic-ball runs end early). Carry = first-landing distance (0 if never landed). Means over all episodes.
+
+| Model(s) | Mode | Carry m | Carry yd | Total m | Total yd | Roll m (landed shots) | Max total yd |
+|---|---|---|---|---|---|---|---|
+| ppo_scott_baseline | deter | 0.0 | 0.0 | -0.0 | -0.1 | nan | -0 |
+| ppo_scott_baseline | stoch | 0.0 | 0.0 | 0.2 | 0.2 | nan | 8 |
+| ppo_scott_curr | deter | 0.0 | 0.0 | 2.6 | 2.8 | nan | 3 |
+| ppo_scott_curr | stoch | 0.1 | 0.1 | 4.6 | 5.0 | nan | 15 |
+| ppo_scott_prev_backup | deter | 0.0 | 0.0 | 2.3 | 2.5 | nan | 3 |
+| ppo_scott_prev_backup | stoch | 0.0 | 0.0 | 4.4 | 4.8 | nan | 14 |
+| ppo_scott_final2<br>ppo_scott_prev2_backup | deter | 0.1 | 0.1 | 1.4 | 1.5 | nan | 10 |
+| ppo_scott_final2<br>ppo_scott_prev2_backup | stoch | 0.1 | 0.1 | 1.5 | 1.7 | nan | 11 |
+| ppo_scott<br>ppo_scott_carry1 | deter | 0.1 | 0.1 | 0.0 | 0.0 | nan | 0 |
+| ppo_scott<br>ppo_scott_carry1 | stoch | 0.2 | 0.3 | 0.5 | 0.5 | nan | 6 |
+| ppo_resid_v3_s0 | deter | 56.7 | 62.0 | 56.3 | 61.5 | 0.0 | 76 |
+| ppo_resid_v3_s0 | stoch | 22.6 | 24.7 | 35.9 | 39.2 | nan | 316 |
+| ppo_resid_v3_r2_s0 | deter | 87.8 | 96.0 | 87.4 | 95.5 | 0.0 | 120 |
+| ppo_resid_v3_r2_s0 | stoch | 60.7 | 66.4 | 103.7 | 113.4 | nan | 351 |
+| ppo_resid_v3_r3_s0 | deter | 103.0 | 112.7 | 102.6 | 112.2 | 0.0 | 166 |
+| ppo_resid_v3_r3_s0 | stoch | 66.4 | 72.6 | 142.8 | 156.1 | nan | 375 |
+| ppo_resid_v3_ladder_s0 | deter | 101.9 | 111.4 | 101.5 | 111.0 | 0.0 | 162 |
+| ppo_resid_v3_ladder_s0 | stoch | 69.5 | 76.0 | 107.8 | 117.8 | nan | 374 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | deter | 38.1 | 41.6 | 177.7 | 194.4 | nan | 358 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | stoch | 38.1 | 41.6 | 177.7 | 194.4 | nan | 358 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | deter | 53.1 | 58.0 | 117.0 | 128.0 | nan | 356 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] | stoch | 53.1 | 58.0 | 117.0 | 128.0 | nan | 356 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | deter | 68.9 | 75.3 | 79.5 | 86.9 | nan | 301 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] | stoch | 68.9 | 75.3 | 79.5 | 86.9 | nan | 301 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | deter | 113.8 | 124.5 | 113.4 | 124.0 | 0.0 | 203 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] | stoch | 113.8 | 124.5 | 113.4 | 124.0 | 0.0 | 203 |
+| ppo_resid_v3_left_an1_s0 | deter | 110.3 | 120.6 | 109.9 | 120.1 | 0.0 | 177 |
+| ppo_resid_v3_left_an1_s0 | stoch | 84.9 | 92.9 | 105.0 | 114.9 | nan | 376 |
+| ppo_resid_v3_left_an2_s0<br>best_carry_analytic | deter | 114.3 | 125.0 | 113.9 | 124.5 | 0.0 | 175 |
+| ppo_resid_v3_left_an2_s0<br>best_carry_analytic | stoch | 90.8 | 99.3 | 110.5 | 120.9 | nan | 374 |
+| ppo_resid_v3_left_an3_s1 | deter | 108.6 | 118.8 | 108.2 | 118.3 | 0.0 | 177 |
+| ppo_resid_v3_left_an3_s1 | stoch | 97.2 | 106.3 | 116.3 | 127.1 | nan | 366 |
+| ppo_resid_v3_left_an4_s2 | deter | 96.1 | 105.1 | 95.7 | 104.7 | 0.0 | 126 |
+| ppo_resid_v3_left_an4_s2 | stoch | 93.5 | 102.2 | 99.6 | 108.9 | nan | 358 |
+| ppo_resid_v3_left_an5_s3 | deter | 9.6 | 10.5 | 107.6 | 117.7 | nan | 390 |
+| ppo_resid_v3_left_an5_s3 | stoch | 14.5 | 15.8 | 133.2 | 145.6 | nan | 393 |
+| ppo_resid_v3_left_an6_s4 | deter | 99.8 | 109.1 | 106.1 | 116.0 | nan | 366 |
+| ppo_resid_v3_left_an6_s4 | stoch | 84.5 | 92.5 | 131.2 | 143.5 | nan | 379 |
+| ppo_resid_v3_left_an7_s5 | deter | 9.0 | 9.8 | 126.8 | 138.7 | nan | 388 |
+| ppo_resid_v3_left_an7_s5 | stoch | 8.5 | 9.3 | 140.9 | 154.1 | nan | 390 |
+| ppo_resid_v3_left_an8_s6 | deter | 11.4 | 12.5 | 75.2 | 82.2 | nan | 392 |
+| ppo_resid_v3_left_an8_s6 | stoch | 11.5 | 12.6 | 82.2 | 89.9 | nan | 400 |
+| ppo_resid_v3_left_an9_s7 | deter | 103.0 | 112.7 | 102.6 | 112.2 | 0.0 | 157 |
+| ppo_resid_v3_left_an9_s7 | stoch | 81.2 | 88.8 | 126.2 | 138.0 | nan | 377 |
+| ppo_resid_v3_left_an10_s8 | deter | 110.0 | 120.3 | 128.4 | 140.4 | nan | 354 |
+| ppo_resid_v3_left_an10_s8 | stoch | 57.1 | 62.5 | 125.8 | 137.5 | nan | 365 |
+| ppo_resid_v3_left_fast1_s10 | deter | 15.3 | 16.8 | 22.2 | 24.2 | nan | 394 |
+| ppo_resid_v3_left_fast1_s10 | stoch | 18.6 | 20.3 | 18.2 | 19.9 | 0.0 | 136 |
+| ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | deter | 15.2 | 16.7 | 14.9 | 16.2 | 0.0 | 24 |
+| ppo_resid_v3_left_fast2_s11<br>best_gate_flat_123mph | stoch | 15.2 | 16.6 | 14.8 | 16.2 | 0.0 | 27 |
+| ppo_v3tiny_s22 | deter | 117.1 | 128.1 | 116.7 | 127.6 | 0.0 | 208 |
+| ppo_v3tiny_s22 | stoch | 99.9 | 109.2 | 121.0 | 132.3 | nan | 298 |
+| ppo_v3tiny_s21 | deter | 82.6 | 90.3 | 120.8 | 132.1 | nan | 310 |
+| ppo_v3tiny_s21 | stoch | 94.5 | 103.4 | 110.3 | 120.6 | nan | 302 |
+| ppo_v3tiny_s23 | deter | 97.6 | 106.8 | 124.6 | 136.3 | nan | 306 |
+| ppo_v3tiny_s23 | stoch | 95.8 | 104.8 | 122.7 | 134.2 | nan | 302 |
+| ppo_v3flt_all_s33 | deter | 96.6 | 105.6 | 101.9 | 111.4 | nan | 311 |
+| ppo_v3flt_all_s33 | stoch | 106.1 | 116.0 | 105.7 | 115.6 | 0.0 | 193 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | deter | 113.8 | 124.4 | 113.4 | 124.0 | 0.0 | 203 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | stoch | 113.7 | 124.4 | 113.3 | 123.9 | 0.0 | 203 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | deter | 113.8 | 124.5 | 113.4 | 124.1 | 0.0 | 203 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | stoch | 114.6 | 125.3 | 114.2 | 124.9 | 0.0 | 203 |
 
 ## Configs used (each model evaluated with its own)
 
@@ -99,6 +245,9 @@ Current env fingerprint `737c4d124c92` (env + XML hash). 50 episodes, seeds 4000
 - **ppo_v3tiny_s22** (60000 steps): results/ppo_v3tiny_s22.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_v3tiny_s21** (60000 steps): results/ppo_v3tiny_s21.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 - **ppo_v3tiny_s23** (60000 steps): results/ppo_v3tiny_s23.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v3flt_all_s33** (30000 steps): results/ppo_v3flt_all_s33.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.02, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v3flt_yaw_s32/best_learned_yaw_s32** (30000 steps): results/ppo_v3flt_yaw_s32.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
+- **ppo_v3flt_yaw_s31/best_learned_yaw_s31** (30000 steps): results/ppo_v3flt_yaw_s31.json args; env = `{"ball_x": 0.396, "ball_x_noise": 0.003, "sh_noise": 0.05, "el_noise": 0.1, "tempo_scale": 0.0, "_env": "residual", "script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.0, 0.0, 0.0, 0.05], "model_xml": "humanoid_golf_v3.xml", "flight_model": true, "tee_height": 0.04, "force_scale": 2.0, "kp": 700.0, "kd": 23.333333333333332, "loft_deg": -31.0, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "ball_dz": -0.008, "handedness": "left", "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05}`
 
 ## Showcase qualification criterion
 
@@ -106,9 +255,12 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 
 | Model | contact==100% (det and stoch) | mean carry >= 30 m (det) | lateral std <= 2.73 m (det) | mean launch elev >= 5 deg, not flat (det) | Qualifies |
 |---|---|---|---|---|---|
+| ppo_v3flt_yaw_s31/best_learned_yaw_s31 | yes | yes | yes | yes | **YES** |
+| ppo_v3flt_yaw_s32/best_learned_yaw_s32 | yes | yes | yes | yes | **YES** |
 | ppo_v3tiny_s22 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an3_s1 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an2_s0/best_carry_analytic | yes | yes | NO | yes | no |
+| ppo_v3flt_all_s33 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an1_s0 | yes | yes | NO | yes | no |
 | ppo_v3tiny_s23 | yes | yes | NO | yes | no |
 | ppo_resid_v3_left_an4_s2 | yes | yes | NO | yes | no |
@@ -131,7 +283,7 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_scott_final2/ppo_scott_prev2_backup | NO | NO | yes | yes | no |
 | ppo_scott_baseline | NO | NO | yes | yes | no |
 
-**None qualifies.**
+Qualifying: ppo_v3flt_yaw_s31/best_learned_yaw_s31, ppo_v3flt_yaw_s32/best_learned_yaw_s32
 
 Flat/negative-launch flag (mean elevation < 5 deg or >= 50% of shots below it): ppo_scott_curr [sto 7.0 deg], ppo_scott_prev_backup [sto 4.1 deg], ppo_resid_v3_s0 [sto 12.1 deg], scripted_baseline[ladder cfg: right, loft 6, default ball_x] [det 9.1 deg, sto 9.1 deg], ppo_resid_v3_left_an5_s3 [det -3.4 deg, sto -1.6 deg], ppo_resid_v3_left_an7_s5 [det -3.2 deg, sto -2.9 deg], ppo_resid_v3_left_an8_s6 [det -5.2 deg, sto -4.6 deg], ppo_resid_v3_left_fast1_s10 [det -5.3 deg, sto -3.5 deg], ppo_resid_v3_left_fast2_s11/best_gate_flat_123mph [det -5.8 deg, sto -5.4 deg]
 
@@ -182,6 +334,15 @@ Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`
 | ppo_v3tiny_s23 | verified (this run, det) | 100% | 90% | 97.65 | 2.94 | 119.0 | FAIL |
 | ppo_v3tiny_s23 | trainer gate JSON (det) | 100% | 87% | 93.63 | 4.43 | 118.9 | FAIL |
 | ppo_v3tiny_s23 | trainer analytic (100 eps) | 100% | 100% | 131.80 | 0.14 | 118.9 (impact) | n/a |
+| ppo_v3flt_all_s33 | verified (this run, det) | 100% | 98% | 96.59 | 7.15 | 120.3 | FAIL |
+| ppo_v3flt_all_s33 | trainer gate JSON (det) | 100% | 99% | 104.98 | 10.23 | 120.3 | FAIL |
+| ppo_v3flt_all_s33 | trainer analytic (100 eps) | 100% | 97% | 100.59 | 9.35 | 120.3 (impact) | n/a |
+| ppo_v3flt_yaw_s32 | verified (this run, det) | 100% | 100% | 113.77 | 1.55 | 120.3 | PASS |
+| ppo_v3flt_yaw_s32 | trainer gate JSON (det) | 100% | 100% | 112.56 | 2.09 | 120.3 | PASS |
+| ppo_v3flt_yaw_s32 | trainer analytic (100 eps) | 100% | 100% | 109.46 | 1.34 | 120.3 (impact) | n/a |
+| ppo_v3flt_yaw_s31 | verified (this run, det) | 100% | 100% | 113.83 | 1.59 | 120.3 | PASS |
+| ppo_v3flt_yaw_s31 | trainer gate JSON (det) | 100% | 100% | 112.60 | 1.99 | 120.3 | PASS |
+| ppo_v3flt_yaw_s31 | trainer analytic (100 eps) | 100% | 100% | 109.13 | 1.38 | 120.3 (impact) | n/a |
 
 ## DTW vs NATIVE Mason v2 references (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)
 
@@ -247,6 +408,12 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_v3tiny_s21 | stoch | 2.131 / 1.811 | 2.928 / 2.384 | 2.512 / 1.990 | 2.456 / 2.019 | 2.267 / 1.769 | 1.960 / 1.499 | 2.182 / 1.711 | 2.168 / 1.778 | 2.188 / 1.768 | 2.011 / 1.527 | 2.771 / 1.969 | 2.325 / 1.839 |
 | ppo_v3tiny_s23 | deter | 2.117 / 1.784 | 2.868 / 2.301 | 2.491 / 1.956 | 2.429 / 1.980 | 2.221 / 1.698 | 1.937 / 1.459 | 2.137 / 1.644 | 2.120 / 1.708 | 2.148 / 1.712 | 1.973 / 1.472 | 2.768 / 2.030 | 2.292 / 1.795 |
 | ppo_v3tiny_s23 | stoch | 2.123 / 1.792 | 2.898 / 2.340 | 2.496 / 1.963 | 2.435 / 1.990 | 2.241 / 1.728 | 1.946 / 1.474 | 2.153 / 1.667 | 2.140 / 1.735 | 2.166 / 1.736 | 1.987 / 1.490 | 2.770 / 1.952 | 2.305 / 1.806 |
+| ppo_v3flt_all_s33 | deter | 2.155 / 1.848 | 2.997 / 2.472 | 2.546 / 2.041 | 2.496 / 2.071 | 2.297 / 1.817 | 1.984 / 1.527 | 2.217 / 1.757 | 2.200 / 1.823 | 2.223 / 1.813 | 2.032 / 1.553 | 2.821 / 1.991 | 2.361 / 1.883 |
+| ppo_v3flt_all_s33 | stoch | 2.153 / 1.841 | 2.942 / 2.400 | 2.533 / 2.023 | 2.479 / 2.052 | 2.261 / 1.764 | 1.965 / 1.502 | 2.180 / 1.708 | 2.164 / 1.772 | 2.191 / 1.771 | 2.014 / 1.527 | 2.814 / 2.018 | 2.336 / 1.852 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | deter | 2.149 / 1.832 | 2.957 / 2.413 | 2.530 / 2.015 | 2.477 / 2.046 | 2.265 / 1.763 | 1.959 / 1.485 | 2.164 / 1.687 | 2.164 / 1.768 | 2.196 / 1.774 | 1.992 / 1.494 | 2.860 / 1.888 | 2.337 / 1.833 |
+| ppo_v3flt_yaw_s32<br>best_learned_yaw_s32 | stoch | 2.151 / 1.834 | 2.959 / 2.416 | 2.532 / 2.018 | 2.479 / 2.049 | 2.263 / 1.761 | 1.958 / 1.484 | 2.161 / 1.684 | 2.161 / 1.764 | 2.196 / 1.774 | 1.991 / 1.492 | 2.866 / 1.888 | 2.338 / 1.833 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | deter | 2.149 / 1.832 | 2.956 / 2.412 | 2.530 / 2.016 | 2.477 / 2.046 | 2.264 / 1.762 | 1.959 / 1.485 | 2.163 / 1.686 | 2.163 / 1.767 | 2.195 / 1.773 | 1.992 / 1.493 | 2.861 / 1.887 | 2.337 / 1.833 |
+| ppo_v3flt_yaw_s31<br>best_learned_yaw_s31 | stoch | 2.149 / 1.831 | 2.956 / 2.411 | 2.530 / 2.015 | 2.477 / 2.045 | 2.258 / 1.754 | 1.956 / 1.480 | 2.156 / 1.677 | 2.156 / 1.756 | 2.193 / 1.770 | 1.987 / 1.487 | 2.867 / 1.883 | 2.335 / 1.828 |
 
 ## Contact regressions (vs best earlier-trained checkpoint, same mode)
 
@@ -274,6 +441,7 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_scott_baseline | 30000 | 95e60a7e2ccf | 0% | 0% |
 | ppo_scott_baseline | 30000 | df95da5d35d6 | 0% | 0% |
 | ppo_scott_baseline | 30000 | 7a2ffa104b56 | 0% | 0% |
+| ppo_scott_baseline | 30000 | 536694401cb9 | 0% | 0% |
 | ppo_scott_curr | 30000 | f0a3f737fc77 | 100% | 34% |
 | ppo_scott_curr | 30000 | ae180bdc10a3 | 100% | 34% |
 | ppo_scott_curr | 30000 | e9a0050d94b6 | 100% | 34% |
@@ -284,6 +452,7 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_scott_curr | 30000 | 95e60a7e2ccf | 100% | 34% |
 | ppo_scott_curr | 30000 | df95da5d35d6 | 100% | 34% |
 | ppo_scott_curr | 30000 | 7a2ffa104b56 | 100% | 34% |
+| ppo_scott_curr | 30000 | 536694401cb9 | 100% | 34% |
 | ppo_scott_prev_backup | 30000 | f0a3f737fc77 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | ae180bdc10a3 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | e9a0050d94b6 | 100% | 38% |
@@ -294,6 +463,7 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_scott_prev_backup | 30000 | 95e60a7e2ccf | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | df95da5d35d6 | 100% | 38% |
 | ppo_scott_prev_backup | 30000 | 7a2ffa104b56 | 100% | 38% |
+| ppo_scott_prev_backup | 30000 | 536694401cb9 | 100% | 38% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | f0a3f737fc77 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | ae180bdc10a3 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | e9a0050d94b6 | 48% | 60% |
@@ -304,6 +474,7 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 95e60a7e2ccf | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | df95da5d35d6 | 48% | 60% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 7a2ffa104b56 | 48% | 60% |
+| ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 536694401cb9 | 48% | 60% |
 | ppo_scott, ppo_scott_carry1 | 100000 | f0a3f737fc77 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | ae180bdc10a3 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | e9a0050d94b6 | 98% | 66% |
@@ -314,55 +485,78 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_scott, ppo_scott_carry1 | 100000 | 95e60a7e2ccf | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | df95da5d35d6 | 98% | 66% |
 | ppo_scott, ppo_scott_carry1 | 100000 | 7a2ffa104b56 | 98% | 66% |
+| ppo_scott, ppo_scott_carry1 | 100000 | 536694401cb9 | 98% | 66% |
 | ppo_resid_v3_s0 | 60000 | 99f124d7b5dd | n/a | n/a |
 | ppo_resid_v3_s0 | 60000 | 95e60a7e2ccf | 100% | 60% |
 | ppo_resid_v3_s0 | 60000 | df95da5d35d6 | 100% | 60% |
 | ppo_resid_v3_s0 | 60000 | 7a2ffa104b56 | 100% | 60% |
+| ppo_resid_v3_s0 | 60000 | 536694401cb9 | 100% | 60% |
 | ppo_resid_v3_r2_s0 | 60000 | 99f124d7b5dd | n/a | n/a |
 | ppo_resid_v3_r2_s0 | 60000 | 95e60a7e2ccf | 100% | 100% |
 | ppo_resid_v3_r2_s0 | 60000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_r2_s0 | 60000 | 7a2ffa104b56 | 100% | 100% |
+| ppo_resid_v3_r2_s0 | 60000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_r3_s0 | 100000 | 99f124d7b5dd | n/a | n/a |
 | ppo_resid_v3_r3_s0 | 100000 | 95e60a7e2ccf | 100% | 100% |
 | ppo_resid_v3_r3_s0 | 100000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_r3_s0 | 100000 | 7a2ffa104b56 | 100% | 100% |
+| ppo_resid_v3_r3_s0 | 100000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_ladder_s0 | 150000 | 99f124d7b5dd | n/a | n/a |
 | ppo_resid_v3_ladder_s0 | 150000 | 95e60a7e2ccf | 100% | 100% |
 | ppo_resid_v3_ladder_s0 | 150000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_ladder_s0 | 150000 | 7a2ffa104b56 | 100% | 100% |
+| ppo_resid_v3_ladder_s0 | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an1_s0 | 150000 | 99f124d7b5dd | 100% | 100% |
 | ppo_resid_v3_left_an1_s0 | 150000 | 95e60a7e2ccf | 100% | 100% |
 | ppo_resid_v3_left_an1_s0 | 150000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_left_an1_s0 | 150000 | 7a2ffa104b56 | 100% | 100% |
+| ppo_resid_v3_left_an1_s0 | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an2_s0, best_carry_analytic | 150000 | 99f124d7b5dd | 100% | 100% |
 | ppo_resid_v3_left_an2_s0, best_carry_analytic | 150000 | 95e60a7e2ccf | 100% | 100% |
 | ppo_resid_v3_left_an2_s0, best_carry_analytic | 150000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_left_an2_s0, best_carry_analytic | 150000 | 7a2ffa104b56 | 100% | 100% |
+| ppo_resid_v3_left_an2_s0, best_carry_analytic | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | 99f124d7b5dd | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | 95e60a7e2ccf | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an3_s1 | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an4_s2 | 150000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_left_an4_s2 | 150000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an4_s2 | 150000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an4_s2 | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an5_s3 | 150000 | df95da5d35d6 | 100% | 100% |
 | ppo_resid_v3_left_an5_s3 | 150000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an5_s3 | 150000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an5_s3 | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an6_s4 | 150000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an6_s4 | 150000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an6_s4 | 150000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an7_s5 | 120000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an7_s5 | 120000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an7_s5 | 120000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an8_s6 | 120000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an8_s6 | 120000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an8_s6 | 120000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an9_s7 | 120000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an9_s7 | 120000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an9_s7 | 120000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_an10_s8 | 120000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_an10_s8 | 120000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_an10_s8 | 120000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_fast1_s10 | 100000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_fast1_s10 | 100000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_fast1_s10 | 100000 | 536694401cb9 | 100% | 100% |
 | ppo_resid_v3_left_fast2_s11, best_gate_flat_123mph | 100000 | 7a2ffa104b56 | 100% | 100% |
 | ppo_resid_v3_left_fast2_s11, best_gate_flat_123mph | 100000 | 737c4d124c92 | 100% | 100% |
+| ppo_resid_v3_left_fast2_s11, best_gate_flat_123mph | 100000 | 536694401cb9 | 100% | 100% |
 | ppo_v3tiny_s22 | 60000 | 737c4d124c92 | 100% | 100% |
+| ppo_v3tiny_s22 | 60000 | 536694401cb9 | 100% | 100% |
 | ppo_v3tiny_s21 | 60000 | 737c4d124c92 | 100% | 100% |
+| ppo_v3tiny_s21 | 60000 | 536694401cb9 | 100% | 100% |
 | ppo_v3tiny_s23 | 60000 | 737c4d124c92 | 100% | 100% |
+| ppo_v3tiny_s23 | 60000 | 536694401cb9 | 100% | 100% |
+| ppo_v3flt_all_s33 | 30000 | 536694401cb9 | 100% | 100% |
+| ppo_v3flt_yaw_s32, best_learned_yaw_s32 | 30000 | 536694401cb9 | 100% | 100% |
+| ppo_v3flt_yaw_s31, best_learned_yaw_s31 | 30000 | 536694401cb9 | 100% | 100% |

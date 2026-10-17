@@ -73,7 +73,7 @@ SCRIPTED_BX = "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]"
 def config_for(names):
     for n in names:                       # residual-PPO models: exact env flags from results/<name>.json "args"
         j = RES / f"{n}.json"
-        if n.startswith(("ppo_resid", "ppo_v3tiny")) and j.exists():
+        if j.exists() and "res_scale" in json.loads(j.read_text()).get("args", {}):   # any residual-PPO run with a results JSON is auto-scored (new checkpoints need no code change)
             from eval.env_factory import resid_kw_from_args
             args = json.loads(j.read_text())["args"]
             assert args.get("name", n) == n, f"{j} args.name mismatch"
@@ -107,7 +107,7 @@ def main():
     hist = load(RES / "leaderboard_history.json", {"entries": SEED_HISTORY})
     groups = discover()
     for h, g in groups.items():
-        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s10"
+        key = f"{h}:{fp}:{a.episodes}:{a.seed}:s12"
         if key in cache and not a.force:
             print("skip (cached)", g["names"]); continue
         if g.get("scripted_cfg") in ("lofted", "v3"):
@@ -146,7 +146,7 @@ def main():
     (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
-    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s10"]],
+    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"]],
                  key=lambda c: c.get("mtime", 0))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []
@@ -223,6 +223,42 @@ def main():
                 L.append(f"| {nm} | {c['steps']} | {m} | ERROR: {v['error']} |"); continue
             L.append(f"| {nm} | {c['steps']} | {m[:5]} | {v['contact_rate']*100:.0f}% | {v['mean_distance']:.2f} | {v['max_distance']:.2f} | {v['mean_carry']:.3f} | {v['landed_fraction']*100:.0f}% | {v['lateral_std']:.3f} | {v['left_miss_rate']*100:.0f}% | {v['right_miss_rate']*100:.0f}% | {v['mean_peak_ball_speed']:.2f} | {v['impact_club_speed_mean']:.2f} | {v['smash_factor_mean']:.2f} (n={v['smash_factor_n']}) | {'n/a' if v['peak_club_speed_mean'] != v['peak_club_speed_mean'] else format(v['peak_club_speed_mean'],'.2f') + ' / ' + format(v['peak_club_speed_max'],'.2f')} | {'n/a' if v['peak_club_mph_mean'] != v['peak_club_mph_mean'] else format(v['peak_club_mph_mean'],'.1f') + ' / ' + format(v['peak_club_mph_max'],'.1f')} | {'n/a' if v['peak_club_pct_target_mean'] != v['peak_club_pct_target_mean'] else format(v['peak_club_pct_target_mean'],'.1f') + '% / ' + format(v['peak_club_pct_target_max'],'.1f') + '%'}{' (' + str(v['peak_club_unstable_episodes']) + ' sim-unstable eps excluded; raw max ' + format(v['peak_club_raw_max_unstable'],'.3g') + ' m/s)' if v['peak_club_unstable_episodes'] else ''} | {v['launch_elev_mean_deg']:.1f} ({v['launch_elev_std_deg']:.1f}){' FLAT' if v['launch_flat_flag'] else ''} | {v2m(v)} | "
                      + " | ".join(f"{v['dtw_to_reference_style_rad'][r]['mean']:.3f}" for r in refs) + " |")
+
+    # ---- per-row summary: learned fraction (from JSON args), DTW (native mason_v2 set), sequencing (proxy) vs Mason
+    def learned_note(c):
+        if c.get("scripted"): return "0% (scripted, zero residual)"
+        for n in c["names"]:
+            j = RES / f"{n}.json"
+            if j.exists():
+                ar = json.loads(j.read_text()).get("args", {})
+                if "res_scale" in ar:
+                    ts = ar.get("tempo_scale", "0.3 (env default)")
+                    return f"residual on scripted swing: cap +-{ar['res_scale']} rad (shoulder, elbow, wrist, yaw) + tempo_scale {ts}; % of control from policy = not defined/unknown"
+        if c.get("env_kwargs", {}).get("_env") != "residual": return "direct policy control (HumanoidGolfEnv; no scripted base)"
+        return "unknown (args not recorded)"
+    mf = ROOT / "data/references/mason_target_features.json"
+    mj = json.loads(mf.read_text())["mason"]["aggregate"] if mf.exists() else {}
+    mval = lambda k: mj.get("sequencing." + k, {}).get("median")
+    sh_t, el_t, wr_t = mval("arm_shoulder_pitch_R_peak_vel_t"), mval("elbow_R_peak_vel_t"), mval("wrist_R_peak_vel_t")
+    L += ["", "## Per-row summary: learned fraction, style distance, sequencing (proxy)", "",
+          "Learned fraction = what the JSON args record (residual caps / env type), never guessed. DTW = native mason_v2 recommended set, mean over refs (all 11 joints, rad). Sequencing = time of peak |angular velocity| per segment relative to first true contact (ms; negative = before impact), measured every 5 ms of simulated time within [impact-0.30 s, impact+0.05 s]; proximal-to-distal = hips -> chest yaw -> shoulder -> elbow -> wrist -> club-head speed peaks non-decreasing (5 ms ties count as in order). PROXY: single-joint angular speeds, the sim has no pelvis yaw joint, club speed is the head geom speed.", "",
+          "| Model(s) | Mode | Learned fraction (from JSON args) | DTW all11 mean | Peak t rel. impact ms: hips / chest yaw / shoulder / elbow / wrist / club | Prox-to-distal | wrist-shoulder lag s | elbow-shoulder lag s |", "|---|---|---|---|---|---|---|---|"]
+    for c in cur:
+        for m, v in c.get("modes", {}).items():
+            if "error" in v: continue
+            dt = [v["dtw_mason_v2"][r]["all11"]["mean"] for r in v.get("dtw_mason_v2", {})]
+            q = v.get("sequencing_proxy", {})
+            pk = " / ".join(f"{x:.0f}" for x in q["peak_rel_impact_ms_median"]) if q.get("n") else "n/a"
+            L.append(f"| {'<br>'.join(c['names'])} | {m[:5]} | {learned_note(c)} | {(sum(dt)/len(dt)) if dt else float('nan'):.3f} | {pk} | {q.get('frac_proximal_to_distal', float('nan'))*100:.0f}% (n={q.get('n', 0)}) | {q.get('wrist_minus_shoulder_s_median', float('nan')):.3f} | {q.get('elbow_minus_shoulder_s_median', float('nan')):.3f} |")
+    if sh_t is not None:
+        L += ["", f"**Mason reference (proxy, `data/references/mason_target_features.json`, file mtime {time.strftime('%Y-%m-%d %H:%M', time.localtime(mf.stat().st_mtime))}; schema {json.loads(mf.read_text()).get('schema')}; self-filmed ~30 fps 2D MediaPipe angles, {mj.get('n_swings', '?') if isinstance(mj, dict) else '?'}-swing set, events +-1 frame, tempo +-15%):** arm-only sequencing, times in seconds from takeoff within [top, impact+0.15 s]: shoulder_R peak {sh_t:.2f}, elbow_R {el_t:.2f}, wrist_R {wr_t:.2f}; wrist-minus-shoulder lag median {mval('wrist_minus_shoulder_peak_lag_s')} s; elbow-minus-shoulder (from medians) {el_t - sh_t:.2f} s. Pelvis/thorax sequencing is UNAVAILABLE for Mason (reported 'unavailable'), so hips/torso rows cannot be compared. The Data Agent's regenerated (0.4 s timing fix) version is used only if the file in this tree is that version (check the mtime above); no sequencing number is taken from anywhere else. Sim lags and Mason lags are different windows/definitions: indicative only."]
+    L += ["", "## Distance in yards (1 m = 1.09361 yd) - det / stoch separate", "",
+          "Total = carry + roll = final ball x minus start x along the target line at episode end (450-step horizon; ball may still be rolling; analytic-ball runs end early). Carry = first-landing distance (0 if never landed). Means over all episodes.", "",
+          "| Model(s) | Mode | Carry m | Carry yd | Total m | Total yd | Roll m (landed shots) | Max total yd |", "|---|---|---|---|---|---|---|---|"]
+    for c in cur:
+        for m, v in c.get("modes", {}).items():
+            if "error" in v or "mean_total_yd" not in v: continue
+            L.append(f"| {'<br>'.join(c['names'])} | {m[:5]} | {v['mean_carry']:.1f} | {v['mean_carry_yd']:.1f} | {v['mean_total_m']:.1f} | {v['mean_total_yd']:.1f} | {v['mean_roll_m']:.1f} | {v['max_total_yd']:.0f} |")
     L += ["", "## Configs used (each model evaluated with its own)", ""]
     for c in cur:
         L.append(f"- **{'/'.join(c['names'])}** ({c['steps']} steps): {c['config_source']}; env = `{json.dumps(c['env_kwargs'])}`")
