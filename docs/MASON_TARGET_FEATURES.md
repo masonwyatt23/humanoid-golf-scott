@@ -11,9 +11,9 @@ Reproduce: `python -m data.mason_target_features` -> `data/references/mason_targ
 | backswing | 0.48 s [0.48, 0.58] |
 | downswing | 0.17 s [0.16, 0.17] (4–6 source frames) |
 | top as fraction of takeaway→impact | 0.74 [0.74, 0.78] |
-| wrist peak speed, fraction of downswing | 0.94 [0.40, 1.15] (noisy) |
-| wrist-minus-shoulder peak lag | +0.05 s [0.035, 0.06] (arm proxy only) |
-| elbow_R at top / impact | 90° / 90° (IQR ±~18°, very view-dependent) |
+| wrist peak speed, fraction of downswing | 1.06 [0.90, 1.25] (noisy; was 0.94 [0.40, 1.15] before the offset fix) |
+| wrist-minus-shoulder peak lag | +0.02 s [0.01, 0.07] (arm proxy only; was +0.05 before the offset fix) |
+| elbow_R at top / impact | 48° [46, 51] / 59° [55, 63] (view-dependent; was 90° / 90° before the offset fix) |
 
 Comparison (same script): CMU subject 64 (n=10): tempo 1.73 [1.64, 1.80], back 0.88 s, down 0.53 s, X-factor at top 34°, pelvis→thorax peak lag 0.15 s. Synthetic Scott (n=1, by construction): tempo 3.0, back 0.80 s, down 0.27 s, X-factor 55°, pelvis→thorax lag 0.03 s. MultiSense (right-handed, CC0) and all synthetic styles are also in the JSON.
 
@@ -29,3 +29,6 @@ Pelvis turn, thorax turn, X-factor (top/max), pelvis/thorax peak-velocity timing
 - Cannot support speed targets: 120+ mph / 300+ yd is not derivable from this data.
 - n=11, IQR is descriptive only. CMU is a slow recreational volunteer (acknowledgment text required; no standalone redistribution); Scott is synthetic (tempo 3.0 by construction); MultiSense legal sign-off pending.
 - Provenance: Mason = self_owned, commercial_ok; no raw video in the JSON.
+
+## Correction: joint-time offset (fixed)
+Earlier versions sampled `joints` at event times measured from `t_start_in_video`, but each file's `time`/`joints` axis starts at the first valid landmark frame, 0.40-0.47 s later in most v2 files (8 of the 11 selected files; the other 3 have offset 0). Joint angles at top/impact and the sequencing peak times were therefore read ~0.4 s too early. `features()` now shifts the events onto the joint time axis using a per-file offset (`mason_time_offset`, wrist-height cross-correlation with `hands_px`, as in `data/mason_impact_geometry.py`; 0 if unrecoverable). **Tempo, backswing, downswing, event fractions and tempo uncertainty are unchanged** (differences of events). Changed: `joints_deg_at_top/impact.*`, `sequencing.*_peak_vel_t / _frac_downswing / wrist_minus_shoulder_peak_lag_s`, and per-swing `takeaway_s/top_s/impact_s` (now on the joint axis; new per-swing field `joint_time_offset_s`). Example medians: shoulder_pitch_R at impact -74 deg -> -0.9 deg (arm hanging at impact, as expected), elbow_R at top 90 -> 48 deg and at impact 90 -> 59 deg, shoulder-pitch-R peak velocity at 0.18 -> 0.88 of the downswing. CMU, synthetic, MultiSense and slow-mo blocks are unchanged. Regression tests: `tests/test_mason_target_features.py::test_event_time_offset_regression` and two companions.

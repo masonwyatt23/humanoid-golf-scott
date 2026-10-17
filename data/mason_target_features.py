@@ -42,11 +42,24 @@ def _at(x, t, tq):
     return float(np.interp(tq, t, x))
 
 
+def mason_time_offset(d):
+    """Seconds between t_start_in_video and joint-time 0 (= first landmark frame), recovered by cross-correlating
+    wrist height with the stored hands_px track (data.mason_impact_geometry._align_offset). 0.0 if unrecoverable
+    (no landmarks/hands_px, or correlation < 0.9): the old behaviour."""
+    if "landmarks" not in d.files or "hands_px" not in d.files:
+        return 0.0
+    from data.mason_impact_geometry import _align_offset
+    off, corr = _align_offset(d)
+    return float(off) if (off is not None and corr >= 0.9) else 0.0
+
+
 def events_of(d, kind):
     """(takeaway, top, impact) in the file's own swing-time axis (s)."""
     t = d["time"]
     if kind == "mason":
-        t0 = float(d["t_start_in_video"])
+        # Stored `time`/`joints` start at the first valid landmark frame, NOT at t_start_in_video (offset ~0.4 s in
+        # most v2 files). Events are shifted onto the joint time axis (differences / durations are unchanged).
+        t0 = float(d["t_start_in_video"]) + mason_time_offset(d)
         return float(d["t_takeaway"]) - t0, float(d["t_top"]) - t0, float(d["t_impact"]) - t0
     top, imp = (float(v) for v in d["events"])
     if "takeaway_s" in d.files:
@@ -62,7 +75,8 @@ def features(d, kind):
     bs, ds = top - tk, imp - top
     span = imp - tk
     J = d["joints"].astype(float)
-    out = {"takeaway_s": tk, "top_s": top, "impact_s": imp, "backswing_s": bs, "downswing_s": ds,
+    out = {"joint_time_offset_s": mason_time_offset(d) if kind == "mason" else 0.0,
+           "takeaway_s": tk, "top_s": top, "impact_s": imp, "backswing_s": bs, "downswing_s": ds,
            "tempo_ratio": bs / ds if ds > 0 else None,
            "event_fractions": {"top_frac_of_takeaway_to_impact": (top - tk) / span if span > 0 else None,
                                "impact_frac_of_takeaway_to_impact": 1.0}}
