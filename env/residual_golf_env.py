@@ -26,7 +26,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -37,6 +37,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.swing_steps = int(np.ceil(self.T / 0.02))
         self.max_steps = self.swing_steps + flight_steps  # extra time for the ball to fly and land (episode ends earlier on landing)
         self.res_scale = np.array(residual_scale)
+        self.tempo_scale, self.shot_pen, self.act_l2, self.lat_limit = tempo_scale, shot_pen, act_l2, lat_limit
         self.kp, self.kd = kp, kd
         self.action_space = spaces.Box(-1.0, 1.0, shape=(5,), dtype=np.float32)
         m = self.model
@@ -196,7 +197,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         tg = self.targets(self.clock) + self.res_scale * a[:4]
         tg[3] *= self.hand_sign  # chest yaw is a vertical-axis rotation: mirrored for left-handers
         self._tgt = tg
-        self.clock += 0.02 * (1.0 + 0.3 * a[4])
+        self.clock += 0.02 * (1.0 + self.tempo_scale * a[4]); self._a2 = float(np.sum(a ** 2))
         self.phase = float(min(1.0, self.clock / self.T))
         return self._pd()
 
@@ -254,6 +255,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
 
     def step(self, action):
         obs, r, term, trunc, info = super().step(action)
+        if self.act_l2 > 0: r -= self.act_l2 * getattr(self, '_a2', 0.0)
         info["phase"] = self.phase
         d = self.data
         self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]])])
@@ -291,6 +293,9 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:
                 r += g * min(self.carry, self.carry_cap) / 5.0 - self.lat_weight * self._lat_pen() - self.elev_weight * self._elev_pen()
+                if self.shot_pen > 0:  # per-shot penalties: launch outside 8-14 deg, |lateral| above limit (m)
+                    e = float(np.degrees(self.launch_elevation)); out = max(0.0, 8.0 - e, e - 14.0)
+                    r -= self.shot_pen * (out / 5.0 + max(0.0, abs(self.ball_lateral) - self.lat_limit) / self.lat_limit)
                 if not self._landed:
                     r -= 1.0
             else:
