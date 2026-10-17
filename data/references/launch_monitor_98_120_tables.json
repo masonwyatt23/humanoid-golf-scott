@@ -1,0 +1,467 @@
+{
+ "schema_version": 1,
+ "generated": "2026-10-17",
+ "scope": "Driver launch-monitor reference values at 98 and 120 mph club speed; comparison with env/ball_flight_analytic.py",
+ "mason_own_numbers": "NONE EXIST YET. Mason has not provided launch-monitor data; 120+ mph is his self-reported club speed, unverified. Nothing here is a measurement of Mason.",
+ "sources": [
+  {
+   "id": "tm_optimizer_2010",
+   "url": "https://wishongolf.com/wp-content/uploads/2012/07/TrackMan-Driver-Optimization_2010.pdf",
+   "type": "vendor (TrackMan) fitting chart, hosted by a third-party fitter; dated 2010",
+   "verification": "fetched (PDF downloaded, text extracted)",
+   "note": "Theoretical OPTIMIZER output for centre strikes, not measured player averages. Carry optimizer and total optimizer tables, AoA -5/0/+5, 75-120 mph.",
+   "unverified": false
+  },
+  {
+   "id": "tm_pga_tour_pdf",
+   "url": "https://support.trackmangolf.com/hc/en-us/article_attachments/7349802113051/PGA_Tour_average.pdf",
+   "type": "vendor (TrackMan) PGA TOUR averages, metres version; undated (2019-era set per repo notes)",
+   "verification": "fetched (PDF downloaded; driver row read; search excerpt agrees)",
+   "note": "Driver: 113 mph, AoA -1.3, ball 167, smash 1.48, launch 10.9, spin 2686, carry 251 m (=275 yd). Highest measured club speed in the TrackMan set.",
+   "unverified": false
+  },
+  {
+   "id": "tm_combine_blogs",
+   "url": "https://www.trackman.com/blog/club-speed",
+   "type": "vendor (TrackMan) blog pages quoting 'Combine' male-amateur driver averages (club-speed, ball-speed, launch-angle, spin-rate, smash-factor pages)",
+   "verification": "search_snippet (excerpts of trackman.com/blog/what-is-club-speed, /ball-speed, /launch-angle, /spin-rate, /smash-factor); pages not fully read",
+   "note": "5 HCP: 101 mph/147/11.2/2987/223 yd; 10 HCP: 95/138/11.9/3192/205; scratch 110/161/11.2/2896/252. Carry column came from a secondary synthesis of the search result, less certain.",
+   "unverified": true
+  },
+  {
+   "id": "foresight_ref_tables",
+   "url": "https://help.foresightsports.com/hc/en-us/articles/47208228295187-Ball-Launch-Data-Performance-Reference-Tables",
+   "type": "vendor (Foresight Sports) help-centre reference tables (page updated 2025-12-09)",
+   "verification": "fetched (page body read)",
+   "note": "Optimised driver table by club/ball speed (launch 10-14 deg for all speeds, spin and carry ranges) and a 'faster swing speeds' typical table (1w: 112 mph, 165, 11.2 deg, 2685 rpm, 270 yd). The table is described as derived from measured and calculated data; method not given.",
+   "unverified": false
+  },
+  {
+   "id": "usga_tpx3006",
+   "url": "https://www.usga.org/content/dam/usga/pdf/Equipment/TPX3006-overall-distance-and-symmetry-test-procedure.pdf",
+   "type": "governing body (USGA) test procedure; also the 2019 TPX3006 v3.0 PDF and the USGA distance FAQ",
+   "verification": "search_snippet (excerpts of the TPX3006 PDFs and FAQ page; not fully read)",
+   "note": "Ball test launch conditions: 120 mph, 10 deg, 2520 rpm (42 rps), reference ball speed 175 mph (256 fps); limit 317 yd overall + 3 yd tolerance at 75F/30 inHg/50% RH. Currently in force; the planned 125 mph/11 deg/2220 rpm change was postponed to no earlier than 2030 per a 2026 USGA/R&A joint statement (snippet).",
+   "unverified": true
+  },
+  {
+   "id": "tm_tour_2023_repo",
+   "url": "https://www.trackman.com/blog/introducing-updated-tour-averages",
+   "type": "vendor (TrackMan) 2023 tour averages, via data/references/impact_physics_calibration.json (itself from a snippet)",
+   "verification": "not re-fetched here; repo value, marked search_snippet upstream",
+   "note": "115 mph, ball 171, smash 1.49, launch 10.4, spin 2545, carry 282 yd, AoA -0.9.",
+   "unverified": true
+  },
+  {
+   "id": "tutelman_launchopt",
+   "url": "https://tutelman.com/golf/ballflight/launchOptimize.php",
+   "type": "independent engineering analysis (Tutelman), model-based best launch vs ball speed",
+   "verification": "search_snippet here (fetched in the earlier impact-physics work)",
+   "note": "Best launch: 145 mph ball 11 deg, 160 mph 10 deg, 175 mph 8.5 deg (model-based, not measured).",
+   "unverified": true
+  }
+ ],
+ "tables": {
+  "98": {
+   "trackman_optimizer_carry_AoA0": {
+    "club_mph": 98,
+    "ball_mph": 142.8,
+    "smash": 1.457,
+    "launch_deg": 12.34,
+    "spin_rpm": 3116.4,
+    "carry_yd": 228.6,
+    "total_yd": 260.8,
+    "dynamic_loft_deg": 14.58,
+    "interpolation": "linear between published 95 and 100 mph rows (AoA 0, carry optimizer); no published 98 mph row. Total column is noisy upstream (244 at 95 -> 272 at 100) so the interpolated total is weak."
+   },
+   "trackman_optimizer_total_AoA0": {
+    "club_mph": 98,
+    "ball_mph": 144.8,
+    "smash": 1.478,
+    "launch_deg": 10.2,
+    "spin_rpm": 2568.0,
+    "carry_yd": 223.2,
+    "total_yd": 271.6,
+    "dynamic_loft_deg": 11.94,
+    "interpolation": "linear between 95 and 100 mph rows (AoA 0, total optimizer)"
+   },
+   "trackman_optimizer_carry_AoA_m5_p5": "no 98 mph row; published AoA +-5 at 100 mph: -5: 144/9.6 deg/3722/222 yd; +5: 148/14.9/2538/247",
+   "foresight_optimal_table": {
+    "club_mph": 98,
+    "ball_mph": 141.7,
+    "launch_range_deg": [
+     10.0,
+     14.0
+    ],
+    "spin_range_rpm": [
+     3083,
+     2092
+    ],
+    "carry_range_yd": [
+     235,
+     253
+    ],
+    "total_range_yd": [
+     254,
+     276
+    ],
+    "interpolation": "linear between published 97 mph (ball 140) and 103 mph (ball 150) rows; interpolated ball speed 141.7 is the table's ball speed, i.e. smash ~1.45 as implied by that table"
+   },
+   "trackman_combine_amateur_interp": {
+    "club_mph": 98,
+    "ball_mph": 142.5,
+    "smash": 1.454,
+    "launch_deg": 11.55,
+    "spin_rpm": 3090,
+    "carry_yd": 214,
+    "interpolation": "linear between the 10 HCP (95 mph) and 5 HCP (101 mph) Combine rows; these are DIFFERENT player groups, so treat as indicative; carry from snippet-derived text (unverified)"
+   },
+   "range_summary": {
+    "smash": [
+     1.42,
+     1.49
+    ],
+    "launch_deg": [
+     11.2,
+     12.4
+    ],
+    "spin_rpm": [
+     2990,
+     3120
+    ],
+    "carry_yd": [
+     214,
+     235
+    ],
+    "note": "smash 1.42 = Combine interpolation; 1.49 = TrackMan optimizer/tour upper bound; ranges span the sources, they are not a confidence interval"
+   }
+  },
+  "120": {
+   "trackman_optimizer_carry_AoA0": {
+    "club_mph": 120,
+    "ball_mph": 178,
+    "smash": 1.483,
+    "launch_deg": 9.3,
+    "spin_rpm": 2890,
+    "carry_yd": 296,
+    "total_yd": 321,
+    "dynamic_loft_deg": 11.0,
+    "interpolation": "none (published row)"
+   },
+   "trackman_optimizer_carry_AoA_m5": {
+    "club_mph": 120,
+    "ball_mph": 176,
+    "smash": 1.467,
+    "launch_deg": 6.1,
+    "spin_rpm": 3433,
+    "carry_yd": 281,
+    "total_yd": 305,
+    "dynamic_loft_deg": 8.1,
+    "interpolation": "none"
+   },
+   "trackman_optimizer_carry_AoA_p5": {
+    "club_mph": 120,
+    "ball_mph": 179,
+    "smash": 1.492,
+    "launch_deg": 12.6,
+    "spin_rpm": 2343,
+    "carry_yd": 310,
+    "total_yd": 350,
+    "dynamic_loft_deg": 14.0,
+    "interpolation": "none"
+   },
+   "trackman_optimizer_total_AoA0": {
+    "club_mph": 120,
+    "ball_mph": 179,
+    "smash": 1.492,
+    "launch_deg": 7.7,
+    "spin_rpm": 2382,
+    "carry_yd": 290,
+    "total_yd": 340,
+    "dynamic_loft_deg": 9.0,
+    "interpolation": "none (published row)"
+   },
+   "foresight_optimal_table": {
+    "club_mph": 120,
+    "ball_mph": 174.3,
+    "launch_range_deg": [
+     10.0,
+     14.0
+    ],
+    "spin_range_rpm": [
+     2757,
+     1757
+    ],
+    "carry_range_yd": [
+     307,
+     335
+    ],
+    "total_range_yd": [
+     327,
+     365
+    ],
+    "interpolation": "linear between published 117 mph (ball 170) and 124 mph (ball 180) rows"
+   },
+   "usga_ball_test": {
+    "club_mph": 120,
+    "ball_mph": 175,
+    "smash": 1.458,
+    "launch_deg": 10.0,
+    "spin_rpm": 2520,
+    "total_yd_limit": 317,
+    "note": "a standard test condition (roughly the longest hitters), NOT a player average; ball speed is a 'reference only' value"
+   },
+   "trackman_pga_tour_nearest_measured": {
+    "club_mph": 113,
+    "ball_mph": 167,
+    "smash": 1.48,
+    "launch_deg": 10.9,
+    "spin_rpm": 2686,
+    "carry_yd": 275,
+    "aoa_deg": -1.3,
+    "note": "highest measured club-speed average found; 7 mph below 120, so 120 mph is still an extrapolation of measured averages"
+   },
+   "range_summary": {
+    "smash": [
+     1.458,
+     1.49
+    ],
+    "launch_deg": [
+     9.3,
+     11.0
+    ],
+    "spin_rpm": [
+     2342,
+     2890
+    ],
+    "carry_yd": [
+     296,
+     310
+    ],
+    "note": "launch 9.3-11.0 deg: optimizer AoA0 9.3, USGA 10; spin spans USGA 2520 and optimizer 2890 (AoA 0) down to 2343 (AoA +5); the Foresight range is wider (10-14 deg, 1700-2800 rpm) because it is a window, not a point"
+   }
+  }
+ },
+ "model_runs": [
+  {
+   "mph": 98,
+   "attack_deg": 0.0,
+   "dynamic_loft_deg": 14.58,
+   "variant": "env_default(K=3.5,e=0.83)",
+   "ball_mph": 141.3,
+   "smash": 1.442,
+   "launch_deg": 11.72,
+   "spin_rpm": 3523,
+   "carry_yd": 211.3,
+   "total_yd": 235.2
+  },
+  {
+   "mph": 98,
+   "attack_deg": 0.0,
+   "dynamic_loft_deg": 14.58,
+   "variant": "R1/R2 patched copy (K=5.6,e=0.845)",
+   "ball_mph": 142.4,
+   "smash": 1.453,
+   "launch_deg": 12.81,
+   "spin_rpm": 2202,
+   "carry_yd": 221.7,
+   "total_yd": 249.6
+  },
+  {
+   "mph": 98,
+   "attack_deg": 0.0,
+   "dynamic_loft_deg": 12.5,
+   "variant": "env_default(K=3.5,e=0.83)",
+   "ball_mph": 142.5,
+   "smash": 1.454,
+   "launch_deg": 10.06,
+   "spin_rpm": 3029,
+   "carry_yd": 211.7,
+   "total_yd": 237.9
+  },
+  {
+   "mph": 98,
+   "attack_deg": 0.0,
+   "dynamic_loft_deg": 12.5,
+   "variant": "R1/R2 patched copy (K=5.6,e=0.845)",
+   "ball_mph": 143.6,
+   "smash": 1.466,
+   "launch_deg": 10.99,
+   "spin_rpm": 1893,
+   "carry_yd": 217.4,
+   "total_yd": 247.7
+  },
+  {
+   "mph": 120,
+   "attack_deg": 0.0,
+   "dynamic_loft_deg": 11.0,
+   "variant": "env_default(K=3.5,e=0.83)",
+   "ball_mph": 175.4,
+   "smash": 1.462,
+   "launch_deg": 8.86,
+   "spin_rpm": 3270,
+   "carry_yd": 275.5,
+   "total_yd": 300.9
+  },
+  {
+   "mph": 120,
+   "attack_deg": 0.0,
+   "dynamic_loft_deg": 11.0,
+   "variant": "R1/R2 patched copy (K=5.6,e=0.845)",
+   "ball_mph": 176.8,
+   "smash": 1.473,
+   "launch_deg": 9.67,
+   "spin_rpm": 2044,
+   "carry_yd": 288.0,
+   "total_yd": 317.3
+  },
+  {
+   "mph": 120,
+   "attack_deg": 2.0,
+   "dynamic_loft_deg": 12.5,
+   "variant": "env_default(K=3.5,e=0.83)",
+   "ball_mph": 175.7,
+   "smash": 1.464,
+   "launch_deg": 10.46,
+   "spin_rpm": 3123,
+   "carry_yd": 280.5,
+   "total_yd": 305.9
+  },
+  {
+   "mph": 120,
+   "attack_deg": 2.0,
+   "dynamic_loft_deg": 12.5,
+   "variant": "R1/R2 patched copy (K=5.6,e=0.845)",
+   "ball_mph": 177.1,
+   "smash": 1.476,
+   "launch_deg": 11.24,
+   "spin_rpm": 1952,
+   "carry_yd": 293.2,
+   "total_yd": 322.2
+  },
+  {
+   "mph": 120,
+   "attack_deg": -5.0,
+   "dynamic_loft_deg": 8.1,
+   "variant": "env_default(K=3.5,e=0.83)",
+   "ball_mph": 174.1,
+   "smash": 1.451,
+   "launch_deg": 5.54,
+   "spin_rpm": 3884,
+   "carry_yd": 258.2,
+   "total_yd": 281.9
+  },
+  {
+   "mph": 120,
+   "attack_deg": -5.0,
+   "dynamic_loft_deg": 8.1,
+   "variant": "R1/R2 patched copy (K=5.6,e=0.845)",
+   "ball_mph": 175.5,
+   "smash": 1.462,
+   "launch_deg": 6.51,
+   "spin_rpm": 2428,
+   "carry_yd": 272.4,
+   "total_yd": 301.6
+  },
+  {
+   "mph": 120,
+   "attack_deg": 5.0,
+   "dynamic_loft_deg": 14.0,
+   "variant": "env_default(K=3.5,e=0.83)",
+   "ball_mph": 176.5,
+   "smash": 1.471,
+   "launch_deg": 12.26,
+   "spin_rpm": 2681,
+   "carry_yd": 288.8,
+   "total_yd": 315.1
+  },
+  {
+   "mph": 120,
+   "attack_deg": 5.0,
+   "dynamic_loft_deg": 14.0,
+   "variant": "R1/R2 patched copy (K=5.6,e=0.845)",
+   "ball_mph": 177.9,
+   "smash": 1.482,
+   "launch_deg": 12.92,
+   "spin_rpm": 1676,
+   "carry_yd": 299.4,
+   "total_yd": 328.9
+  }
+ ],
+ "model_comparison": {
+  "98": {
+   "target": {
+    "ball_mph": 142.8,
+    "smash": 1.457,
+    "launch_deg": 12.34,
+    "spin_rpm": 3116.4,
+    "carry_yd": 228.6
+   },
+   "env_default": {
+    "ball_mph": 141.3,
+    "smash": 1.442,
+    "launch_deg": 11.72,
+    "spin_rpm": 3523,
+    "carry_yd": 211.3
+   },
+   "patched_K5p6_e0p845": {
+    "ball_mph": 142.4,
+    "smash": 1.453,
+    "launch_deg": 12.81,
+    "spin_rpm": 2202,
+    "carry_yd": 221.7
+   },
+   "spin_ratio_default_over_target": 1.13,
+   "spin_ratio_patched_over_target": 0.707,
+   "K_that_matches_target_spin": 3.96,
+   "carry_error_default_pct": -7.6,
+   "carry_error_patched_pct": -3.0,
+   "launch_error_default_deg": -0.62
+  },
+  "120": {
+   "target": {
+    "ball_mph": 178,
+    "smash": 1.483,
+    "launch_deg": 9.3,
+    "spin_rpm": 2890,
+    "carry_yd": 296
+   },
+   "env_default": {
+    "ball_mph": 175.4,
+    "smash": 1.462,
+    "launch_deg": 8.86,
+    "spin_rpm": 3270,
+    "carry_yd": 275.5
+   },
+   "patched_K5p6_e0p845": {
+    "ball_mph": 176.8,
+    "smash": 1.473,
+    "launch_deg": 9.67,
+    "spin_rpm": 2044,
+    "carry_yd": 288.0
+   },
+   "spin_ratio_default_over_target": 1.131,
+   "spin_ratio_patched_over_target": 0.707,
+   "K_that_matches_target_spin": 3.96,
+   "carry_error_default_pct": -6.9,
+   "carry_error_patched_pct": -2.7,
+   "launch_error_default_deg": -0.44
+  },
+  "recommendations": [
+   "SPIN: backspin in the env model = v_club*sin(spin loft)/(K*1.4*R) with K hard-coded 3.5 (mu never binds). TrackMan optimizer AoA0 rows (98 and 120 mph) are matched at K ~3.96 at both speeds (spin ratio default/target 1.13 and 1.13), i.e. spin_scale ~0.88; the earlier tour-point fit (K~5.6, spin_scale 0.62) UNDER-spins these rows (0.71x at 98, 0.71x at 120). The two fits disagree because they assume different dynamic/spin loft; fit K on measured spin loft (launch monitor) rather than on a single averaged point. Interim: K in [4.0, 5.6], i.e. spin_scale 0.62-0.88; prefer ~4.0 for the 98-120 mph optimizer-consistent case.",
+   "SPIN TARGETS (centre strike, AoA 0, carry-optimal): ~3100 rpm at 98 mph (range 2990-3200 across sources), ~2890 rpm at 120 mph (2520 USGA test, 2343 at AoA +5, 3433 at AoA -5). Spin should FALL with speed only through lower dynamic loft; at fixed loft it rises ~linearly with speed.",
+   "SMASH CAP: published values 1.45-1.49 (optimizer 1.46 at 100, 1.48 at 120; TrackMan tour 1.48-1.49; USGA reference 1.458). Env default 1.44-1.47 is acceptable; keep a hard cap at 1.50 (already the recommendation R2). Do not exceed 1.49 for centre strikes.",
+   "LAUNCH: env default is 0.4-0.6 deg below the table at the same TrackMan dynamic loft and AoA 0 (11.72 vs 12.35 interp at 98; 8.86 vs 9.3 at 120). Within the likely loft-definition mismatch; low priority; do not re-tune before dynamic loft is measured.",
+   "CARRY: env default is 7-8% short at both speeds even before spin is fixed; the K patch only partly closes it (about -3%). Part of the remaining gap is aerodynamics (Cd/Cl), not spin; carry is therefore not a clean spin diagnostic.",
+   "The 120 mph reference is an optimizer/test value; no measured population average exists above 115 mph in the sources found. Re-fit when Mason's launch-monitor data exist."
+  ]
+ },
+ "caveats": [
+  "Optimizer tables are theoretical best-case centre-strike outputs, not player averages; measured averages have lower smash and higher spin for amateurs.",
+  "No measured published average exists at 120 mph in the sources found (TrackMan PGA tour max 113-115 mph); 120 mph values are optimizer/test-condition values.",
+  "TrackMan optimizer rows are 2010 vintage; interpolation to 98 mph is linear between 95 and 100 mph rows.",
+  "Foresight table gives ranges and its construction is not documented.",
+  "Model runs use TrackMan dynamic loft as the env face-normal loft; this is an assumption (dynamic loft vs model 'loft' may not be identical)."
+ ],
+ "verification_note": "'fetched' = document body read in this job; 'search_snippet' = only a search excerpt seen; unverified flag marks items resting on snippets."
+}
