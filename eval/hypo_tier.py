@@ -1,6 +1,10 @@
 """HYPOTHETICAL TIER (force_scale > 1) 3-seed headline-gate table, built from results/gate_<name>_seed<seed>.json (seed 4000 file = ..._seed4000.json).
 Kept SEPARATE from the learned-vs-scripted leaderboard.  'Effectively scripted' = on every recorded seed the policy's det carry is within 1% and lateral std within 15%
-(or 0.3 m) of the zero-residual script recorded in the same gate file.  Nothing is guessed: every cell is read from the JSON."""
+(or 0.3 m) of the zero-residual script recorded in the same gate file.  Nothing is guessed: every cell is read from the JSON.
+
+REPRODUCIBILITY: this reads results/imit_private/gate_*.json. Those gate JSONs are HELD LOCALLY by the Trainer and are NOT in the
+public repo (some are untracked or never committed), so the table CANNOT be rebuilt from main alone: running it on a fresh clone omits the held runs
+(e.g. the gain 1.20 / 1.02 / 1.28 imit18 power-tier rows are 'Trainer-reported, file held')."""
 import glob, json, os, re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
@@ -77,4 +81,7 @@ def md():
 
 
 if __name__ == "__main__":
+    import sys
+    if any(a in ("-h", "--help") for a in sys.argv[1:]):
+        print((__doc__ or "").strip()); sys.exit(0)
     print("\n".join(md()))

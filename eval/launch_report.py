@@ -41,7 +41,37 @@ def md(rows):
         L.append(f"| {r['src']} | {r['seed']} | {f(r['gain'],2)} | {r['force_scale']} | {f(r['club_mph'])} | {f(r['ball_mph'])} | {f(r['smash'],3)} | {f(r['gate_smash_mean'],3)} | {f(r['launch_deg'])} | {f(r['spin_rpm'],0)} ({'absent' if r['spin_rpm'] is None else r['spin_source'] if 'hand-set' in r['spin_source'] else 'in input'}) | {f(r['carry_yd'],0)} | {f(r['lat_std'],2)} | {'PASS' if r['gate_pass'] else 'FAIL'} | {'; '.join(r['flags']) or 'ok'} |")
     return "\n".join(L) + "\n"
 
+HELD = "Trainer-reported, file held"
+HEADER = "| gate file | seed | gain | fs | club mph | ball mph | smash | gate smash_mean | launch deg | spin rpm (source) | carry yd | det lat std m | gate | flags |"
+SEP = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
+
+def held_rows(paths, old_md):
+    """Rows whose gate JSON is NOT in this checkout (held under results/imit_private/, never committed): keep the previously
+    committed table row verbatim and label it. They cannot be recomputed from main alone."""
+    out = []
+    for p in paths:
+        if (ROOT / p).exists() or Path(p).exists():
+            continue
+        src = "/".join(Path(p).parts[-2:]) if "gain" in p else Path(p).name
+        for line in old_md.splitlines():
+            if line.startswith(f"| {src} |"):
+                if HELD not in line:
+                    cells = line.rstrip().rstrip("|").rstrip()
+                    cells = cells[:-2] + HELD if cells.endswith("| ok") else cells + f"; {HELD}"
+                    line = cells + " |"
+                out.append(line)
+                break
+    return out
+
 if __name__ == "__main__":
-    paths = [str(ROOT / p) for p in (sys.argv[1:] or DEFAULT) if (ROOT / p).exists() or Path(p).exists()]
+    out_md = ROOT / "results/launch_report.md"
+    old_md = out_md.read_text() if out_md.exists() else ""
+    names = sys.argv[1:] or DEFAULT
+    paths = [str(ROOT / p) for p in names if (ROOT / p).exists() or Path(p).exists()]
     rows = [row(p) for p in paths]
-    (ROOT / "results/launch_report.md").write_text(md(rows)); print(md(rows))
+    text = md(rows)
+    held = held_rows(DEFAULT, old_md) if not sys.argv[1:] else []
+    if held:
+        text += ("\nRows below: the gate JSONs are held locally under `results/imit_private/` (not in the repo). Values are copied from the previous "
+                 "report and are **Trainer-reported, file held**; they cannot be regenerated from `main` alone.\n\n" + "\n".join([HEADER, SEP] + held) + "\n")
+    out_md.write_text(text); print(text)
