@@ -16,6 +16,7 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 | Trained policy beating scripted | **No** | Stage 7 (`ppo_v3tiny_s21/22/23`: tiny residual PPO on the Stage 6 script) is a recorded negative result: all `gate_pass=false`; deterministic gate carry 86.4 / 105.1 / 93.6 m, lateral std 6.45 / 5.23 / 4.43 m, versus 113.0 m / 2.12 m for the scripted base (`results/gate_ppo_v3tiny_s2*.json`, 100 eps) |
 | **No trained model qualifies yet** | Confirmed | `results/leaderboard.md`: no model meets the showcase criterion. Earlier trained-model numbers hold only under their original configs (`results/strike_regime_rerun.md`) |
 | Smash factor | **Unverified** | The leaderboard reports scripted ~1.0 (peak ball speed / impact club speed, 1.01 for Stage 6). The ball model has no spin or compliance, so treat smash as a diagnostic, not a validated figure; no real-world comparison exists |
+| Quickstart / dashboard | `docs/QUICKSTART.md` (`make setup && make check`) | Auto-generated results: `docs/RESULTS_DASHBOARD.md` |
 | Model checkpoints | Not published | See `docs/CHECKPOINT_RELEASE.md` for what blocks a Release |
 | Real robot / real ball validation | None | Simulation only |
 
