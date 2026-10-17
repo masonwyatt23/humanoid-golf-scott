@@ -1,6 +1,6 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
-Env fingerprint `36680f639c27`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
+Env fingerprint `c66fd89099c7`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
 Best trained: **imit18_power_dart_s51**; best left-handed: **imit18_power_dart_s51**; best overall incl. scripted baseline: **imit18_power_dart_s51**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
@@ -143,3 +143,5 @@ Best trained: **imit18_power_dart_s51**; best left-handed: **imit18_power_dart_s
 | imit19_masonmapped_dart_s51 | 0 | left | stoch | 100% | 59.87 | 68.27 | 59.87 | 100% | 0.29 | 0% | 2% | 87.6 / 87.7 | 73.1% |
 | imit18_power_dart_s51 | 0 | left | deter | 100% | 313.89 | 328.85 | 313.89 | 100% | 2.18 | 48% | 38% | 132.4 / 132.4 | 110.4% |
 | imit18_power_dart_s51 | 0 | left | stoch | 100% | 313.79 | 329.40 | 313.79 | 100% | 2.18 | 48% | 38% | 132.4 / 132.5 | 110.4% |
+| imit18_power_dart_s52 | 0 | left | deter | 100% | 313.89 | 328.83 | 313.89 | 100% | 2.18 | 48% | 38% | 132.4 / 132.4 | 110.4% |
+| imit18_power_dart_s52 | 0 | left | stoch | 100% | 313.78 | 329.76 | 313.78 | 100% | 2.17 | 48% | 38% | 132.4 / 132.5 | 110.4% |
