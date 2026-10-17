@@ -406,7 +406,7 @@ def main():
         if kind == "LEARNED" and not a.env_override and m.get("smash_flag"):
             _g = []
             for _sd in (4000, 8000, 9000):
-                _f = ROOT / "results" / f"gate_{m['names'][0]}_seed{_sd}.json"
+                _f = next((c_ for c_ in (ROOT / "results" / f"gate_{m['names'][0]}_seed{_sd}.json", ROOT / "results/imit_private" / f"gate_{m['names'][0]}{'' if _sd == 4000 else '_seed%d' % _sd}.json") if c_.exists()), ROOT / "results" / "_none.json")
                 if _f.exists(): _j = json.loads(_f.read_text()); _g.append((_sd, _j["gate_pass"], _j["policy_det"]["lateral_std"]))
             ban.insert(2, "Smash %.2f (%s): ball barely faster than club (short of real distance)" % (m["smash_ratio_det"], m["smash_flag"]) + ((" | 3-seed gate: %s, lat std %s m" % ("PASS %d/3" % sum(1 for x in _g if x[1]), "/".join("%.2f" % x[2] for x in _g))) if len(_g) == 3 else " | no 3-seed gate JSON in results/"))
         if kind == "LEARNED" and a.env_override and a.override_stats:
