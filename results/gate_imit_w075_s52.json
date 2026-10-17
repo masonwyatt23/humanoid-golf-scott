@@ -43,33 +43,33 @@
   "style_lead": 0.05
  },
  "policy_det": {
-  "launch_elev_mean_deg": 39.68292742408037,
-  "launch_elev_std_deg": 5.2230311837801935,
+  "launch_elev_mean_deg": 37.90039988255833,
+  "launch_elev_std_deg": 5.017242494345068,
   "launch_flat_frac": 0.0,
   "launch_flat_flag": false,
   "peak_club_unstable_episodes": 0,
   "peak_club_raw_max_unstable": null,
-  "peak_club_speed_mean": 63.42795834580021,
-  "peak_club_speed_max": 63.74477950211031,
-  "peak_club_mph_mean": 141.8845371420543,
-  "peak_club_mph_max": 142.59324705945065,
-  "peak_club_pct_target_mean": 118.24749878038816,
-  "peak_club_pct_target_max": 118.8381422485278,
-  "impact_club_speed_mean": 63.42795834580021,
-  "impact_club_speed_max": 63.74477950211031,
-  "smash_factor_mean": 0.6350603760369712,
-  "smash_factor_median": 0.635572525527743,
+  "peak_club_speed_mean": 62.93533050578954,
+  "peak_club_speed_max": 63.23568511907034,
+  "peak_club_mph_mean": 140.78255822162086,
+  "peak_club_mph_max": 141.4544334702532,
+  "peak_club_pct_target_mean": 117.3291023597866,
+  "peak_club_pct_target_max": 117.88904757470236,
+  "impact_club_speed_mean": 62.93533050578954,
+  "impact_club_speed_max": 63.23568511907034,
+  "smash_factor_mean": 0.6526714836566506,
+  "smash_factor_median": 0.6572114490738403,
   "smash_factor_n": 100,
   "episodes": 100,
   "contact_rate": 1.0,
-  "mean_distance": 158.89514447382436,
-  "std_distance": 14.0731740799129,
-  "median_distance": 157.61898796578777,
-  "max_distance": 186.66499185140609,
-  "mean_y": -1.2813081362367038,
-  "lateral_std": 27.466451596010895,
-  "mean_abs_y": 22.732691394575077,
-  "max_abs_y": 98.89059408710642,
+  "mean_distance": 163.91809898870005,
+  "std_distance": 14.597874172392578,
+  "median_distance": 162.34136855298297,
+  "max_distance": 193.8108353539534,
+  "mean_y": 0.7470380645935396,
+  "lateral_std": 24.13517036253531,
+  "mean_abs_y": 20.22354951926152,
+  "max_abs_y": 69.48100805117883,
   "left_miss_rate": 0.48,
   "right_miss_rate": 0.51,
   "in_corridor_rate": 0.010000000000000009,
@@ -86,36 +86,36 @@
     "club_head_speed"
    ],
    "peak_rel_impact_ms_median": [
-    -10.499999999998844,
-    13.999999999998458,
-    -10.499999999998844,
+    -9.999999999998899,
+    14.499999999998403,
+    -9.999999999998899,
     19.499999999997854,
-    43.999999999995154,
-    -0.49999999999994493
+    44.99999999999504,
+    -4.499999999999504
    ],
    "peak_rel_impact_ms_iqr": [
     [
-     -10.999999999998789,
-     -10.499999999998844
+     -10.499999999998844,
+     -9.999999999998899
     ],
     [
-     13.499999999998513,
-     14.499999999998403
+     9.999999999998899,
+     14.999999999998348
     ],
     [
-     -10.999999999998789,
-     -10.499999999998844
+     -10.499999999998844,
+     -9.999999999998899
     ],
     [
-     18.999999999997907,
-     19.499999999997854
+     14.999999999998348,
+     19.999999999997797
     ],
     [
-     39.49999999999565,
-     44.4999999999951
+     44.4999999999951,
+     44.99999999999504
     ],
     [
-     -0.9999999999998899,
+     -4.999999999999449,
      -0.49999999999994493
     ]
    ],
@@ -124,51 +124,51 @@
    "elbow_minus_shoulder_s_median": 0.029999999999996696,
    "torso_minus_hips_s_median": 0.024999999999997247
   },
-  "mean_carry": 158.89514447382436,
-  "mean_carry_yd": 173.76931894801905,
-  "mean_total_m": 158.4673621754391,
-  "median_total_m": 157.19848518508948,
-  "mean_total_yd": 173.30149194868193,
-  "max_total_yd": 203.65140660990767,
+  "mean_carry": 163.91809898870005,
+  "mean_carry_yd": 179.26247223503225,
+  "mean_total_m": 163.49031669031478,
+  "median_total_m": 161.92071483261168,
+  "mean_total_yd": 178.79464523569516,
+  "max_total_yd": 211.4577198796575,
   "mean_roll_m": 0.0,
   "landed_fraction": 1.0,
-  "mean_peak_ball_speed": 40.28334351362505,
+  "mean_peak_ball_speed": 41.07983112073232,
   "lateral_threshold_m": 0.5,
-  "mean_max_ball_x": 158.89514447382436
+  "mean_max_ball_x": 163.91809898870005
  },
  "policy_stoch": {
-  "launch_elev_mean_deg": 39.36333147230873,
-  "launch_elev_std_deg": 5.108366491456428,
+  "launch_elev_mean_deg": 36.763600967135446,
+  "launch_elev_std_deg": 4.9910242868097745,
   "launch_flat_frac": 0.0,
   "launch_flat_flag": false,
   "peak_club_unstable_episodes": 0,
   "peak_club_raw_max_unstable": null,
-  "peak_club_speed_mean": 63.417290232820505,
-  "peak_club_speed_max": 63.887693080809775,
-  "peak_club_mph_mean": 141.8606732134055,
-  "peak_club_mph_max": 142.91293616018663,
-  "peak_club_pct_target_mean": 118.22761042658558,
-  "peak_club_pct_target_max": 119.10457323044328,
-  "impact_club_speed_mean": 63.417290232820505,
-  "impact_club_speed_max": 63.887693080809775,
-  "smash_factor_mean": 0.634707924853549,
-  "smash_factor_median": 0.6355090495532392,
+  "peak_club_speed_mean": 62.9382922654965,
+  "peak_club_speed_max": 63.27113530169191,
+  "peak_club_mph_mean": 140.78918350037975,
+  "peak_club_mph_max": 141.5337334017667,
+  "peak_club_pct_target_mean": 117.3346239103216,
+  "peak_club_pct_target_max": 117.95513665490662,
+  "impact_club_speed_mean": 62.9382922654965,
+  "impact_club_speed_max": 63.27113530169191,
+  "smash_factor_mean": 0.6522032202691398,
+  "smash_factor_median": 0.6544661799594605,
   "smash_factor_n": 100,
   "episodes": 100,
   "contact_rate": 1.0,
-  "mean_distance": 159.18254849084312,
-  "std_distance": 14.0841976196372,
-  "median_distance": 157.15829106743928,
-  "max_distance": 195.49661117759268,
-  "mean_y": -0.8631394389060104,
-  "lateral_std": 24.911349470973533,
-  "mean_abs_y": 21.52498977496813,
-  "max_abs_y": 51.12092919864975,
+  "mean_distance": 162.59065399140462,
+  "std_distance": 15.572338370314053,
+  "median_distance": 161.8081122005821,
+  "max_distance": 206.44899687635368,
+  "mean_y": -0.3472251670097076,
+  "lateral_std": 22.612853059601004,
+  "mean_abs_y": 18.407685995551446,
+  "max_abs_y": 68.64893279022148,
   "left_miss_rate": 0.48,
-  "right_miss_rate": 0.51,
-  "in_corridor_rate": 0.010000000000000009,
+  "right_miss_rate": 0.5,
+  "in_corridor_rate": 0.020000000000000018,
   "left_miss_rate_contact_only": 0.48,
-  "right_miss_rate_contact_only": 0.51,
+  "right_miss_rate_contact_only": 0.5,
   "sequencing_proxy": {
    "n": 100,
    "segments": [
@@ -180,36 +180,36 @@
     "club_head_speed"
    ],
    "peak_rel_impact_ms_median": [
-    -10.499999999998844,
-    13.999999999998458,
-    -10.499999999998844,
-    18.999999999997907,
-    43.999999999995154,
-    -0.7499999999999174
+    -9.999999999998899,
+    14.999999999998348,
+    -9.999999999998899,
+    19.499999999997854,
+    44.99999999999504,
+    -4.499999999999504
    ],
    "peak_rel_impact_ms_iqr": [
     [
-     -10.999999999998789,
+     -9.999999999998899,
      -9.999999999998899
     ],
     [
      10.374999999998858,
-     14.499999999998403
+     14.999999999998348
     ],
     [
-     -10.999999999998789,
+     -9.999999999998899,
      -9.999999999998899
     ],
     [
-     18.49999999999796,
-     19.499999999997854
+     14.999999999998348,
+     19.999999999997797
     ],
     [
-     39.49999999999565,
-     44.4999999999951
+     44.4999999999951,
+     44.99999999999504
     ],
     [
-     -0.9999999999998899,
+     -4.999999999999449,
      -0.49999999999994493
     ]
    ],
@@ -218,17 +218,17 @@
    "elbow_minus_shoulder_s_median": 0.029999999999996696,
    "torso_minus_hips_s_median": 0.024999999999997247
   },
-  "mean_carry": 159.18254849084312,
-  "mean_carry_yd": 174.08362685507095,
-  "mean_total_m": 158.75476619245785,
-  "median_total_m": 156.72242578600662,
-  "mean_total_yd": 173.61579985573383,
-  "max_total_yd": 213.29867306188305,
+  "mean_carry": 162.59065399140462,
+  "mean_carry_yd": 177.81076511154,
+  "mean_total_m": 162.1628716930194,
+  "median_total_m": 161.38214602870426,
+  "mean_total_yd": 177.34293811220294,
+  "max_total_yd": 225.2984300923886,
   "mean_roll_m": 0.0,
   "landed_fraction": 1.0,
-  "mean_peak_ball_speed": 40.254929572906484,
+  "mean_peak_ball_speed": 41.053051883000556,
   "lateral_threshold_m": 0.5,
-  "mean_max_ball_x": 159.18254849084312
+  "mean_max_ball_x": 162.59065399140462
  },
  "scripted_zero_residual": {
   "launch_elev_mean_deg": -0.11141079899484914,
