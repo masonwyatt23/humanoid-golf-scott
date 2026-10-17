@@ -218,6 +218,13 @@ Caveats: only 3 training seeds (51-53), one evaluation seed set (4000, 100 episo
 
 **Hypothetical elite tier (HYPOTHETICAL, extrapolation only).** The doc's target ladder lists 140 mph (~377 yd) and 150 mph (~399 yd) as later stages. These are beyond any verified tour average, are model extrapolations (power ~ v^3), and are not goals the repo has demonstrated or validated.
 
+**Stage 12 hypothetical power-tier model (HYPOTHETICAL actuators, not realistic hardware; simulation only).** `env/models/humanoid_golf_v4_power.xml` (stronger wrist, wider chest-yaw range as a stand-in for pelvis yaw) with `force_scale` 2.0 and `configs/fast_scripted_v4_power_hypothetical.json`. Numbers below come only from the committed `results/ppo_v4power_s61.json`, `results/ppo_v4power_s62.json` and `results/shots_v4power_{8000,9000}.json`. **No model here is learned in any meaningful sense:** the PPO residual is limited to the wrist at `res_scale` 0.05 and its results match the scripted swing, whose joint targets are open-loop.
+- Scripted swing, deterministic, 100 episodes (identical in both PPO run files): club speed 132.3 mph, contact 100%, mean carry 280.3 m (max 330.2 m) with all shots landed (900 flight steps), lateral std 2.41 m, launch 11.8 deg (90% inside 8-14 deg).
+- Residual PPO policies, 30k steps, seeds 61 and 62: mean carry 280.6 / 280.2 m (deterministic) and 280.4 / 280.2 m (stochastic), lateral std 2.40-2.44 m, i.e. indistinguishable from the scripted swing.
+- Shot files, 100 shots each (the files do not record whether the swing was scripted or a policy): seed 8000 mean carry 284.1 m, lateral std 2.56 m; seed 9000 mean carry 278.9 m but lateral std 17.6 m, which fails the 2.73 m lateral limit. These numbers rest on three evaluation seeds at most and are not a reliability claim.
+- Only the 30 m carry showcase tier defines "PASS" in this README. These power-model runs are hypothetical and are not counted as showcase passes of the real model.
+
+
 **Unverified items (marked U or low confidence in the doc/JSON):**
 - Mason's self-reported profile (left-handed, 120+ mph, 300+ yd) is **unverified**; his baseline needs a launch monitor.
 - Wrist-only uncock speed and ground-reaction torque magnitudes: **unverified**, nothing retrieved.
