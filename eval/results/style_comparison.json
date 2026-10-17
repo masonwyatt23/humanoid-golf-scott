@@ -1,6 +1,6 @@
 {
  "generated_from": "results/leaderboard.json",
- "env_fingerprint": "833a022042ef",
+ "env_fingerprint": "36680f639c27",
  "rows": [
   {
    "model": "ppo_scott_prev_backup",
@@ -2721,6 +2721,46 @@
    "peak_club_mph_mean": 87.55492532988482,
    "peak_club_mph_max": 87.7427303619471,
    "peak_club_pct_target_max": 73.12536383774147
+  },
+  {
+   "model": "imit18_power_dart_s51",
+   "steps": 0,
+   "mode": "deterministic",
+   "handedness": "left",
+   "scripted": false,
+   "episodes": 50,
+   "contact_rate": 1.0,
+   "mean_distance": 313.88732551551385,
+   "std_distance": 9.781064930190048,
+   "max_distance": 328.8533285485194,
+   "mean_carry": 313.88732551551385,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.1770250661026043,
+   "left_miss_rate": 0.48,
+   "right_miss_rate": 0.38,
+   "peak_club_mph_mean": 132.40232933181434,
+   "peak_club_mph_max": 132.41304811425303,
+   "peak_club_pct_target_max": 110.35389804120351
+  },
+  {
+   "model": "imit18_power_dart_s51",
+   "steps": 0,
+   "mode": "stochastic",
+   "handedness": "left",
+   "scripted": false,
+   "episodes": 50,
+   "contact_rate": 1.0,
+   "mean_distance": 313.78955146204754,
+   "std_distance": 10.365129746235478,
+   "max_distance": 329.4023345467344,
+   "mean_carry": 313.78955146204754,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.176599279250893,
+   "left_miss_rate": 0.48,
+   "right_miss_rate": 0.38,
+   "peak_club_mph_mean": 132.39723480764735,
+   "peak_club_mph_max": 132.45494469618762,
+   "peak_club_pct_target_max": 110.38881492588312
   }
  ]
 }

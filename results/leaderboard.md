@@ -1,10 +1,10 @@
 # Leaderboard
 
-**NO trained model on STOCK motors (force_scale 1) meets the showcase criterion.** (Best stock-motor trained row, not qualifying: imit16_fs1_dart_s51, mean carry 73.2 m.) Stock-motor scripted (not learned) reference: det carry 74.8 m, 98.3 mph. **Best under HYPOTHETICAL-strength actuators (force_scale>1 / power tier; NOT a realistic-motor result): ppo_v4power48_s71** (30000 steps; power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)) - mean true contact over det+stoch 100%, mean carry 311.272 m. Peak club-head speed (best single swing over det+stoch): 59.19 m/s = 132.4 mph = 110.3% of the 120 mph (53.64 m/s) target. **Best left-handed model: ppo_v4power48_s71 [power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)]** (mean contact 100%, mean carry 311.27 m, physics protocol). **Best model meeting the showcase criterion (hypothetical-strength actuators if force_scale>1; real carry AND tight lateral AND not-flat launch AND 100% contact; see below): ppo_v4power48_s71 [power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)].** Best overall incl. scripted baseline: ppo_v4power48_s71 [power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)]. **HYPOTHETICAL-STRENGTH ACTUATORS: ppo_v4power48_s71 (force_scale 2, hypothetical-strength actuators), ppo_v4power_s62 (force_scale 2, hypothetical-strength actuators), ppo_v4power_s61 (force_scale 2, hypothetical-strength actuators), ppo_v4yaw_s42 (force_scale 2, hypothetical-strength actuators), ppo_v4yaw_s43 (force_scale 2, hypothetical-strength actuators), best_v4yaw_s41 (force_scale 2, hypothetical-strength actuators), imit3_w050_s51 (force_scale 2, hypothetical-strength actuators), imit9_w000_s52 (force_scale 2, hypothetical-strength actuators), best_imit_scriptfree_elbow48_s51 (force_scale 2, hypothetical-strength actuators), imit9_w000_s53 (force_scale 2, hypothetical-strength actuators), best_learned_yaw_s31 (force_scale 2, hypothetical-strength actuators), best_learned_yaw_s32 (force_scale 2, hypothetical-strength actuators), imit3_w075_s53 (force_scale 2, hypothetical-strength actuators), imit15_dart_s53 (force_scale 2, hypothetical-strength actuators), imit3_w075_s51 (force_scale 2, hypothetical-strength actuators), imit13_w000_s52 (force_scale 2, hypothetical-strength actuators), best_imit_w050_s52 (force_scale 2, hypothetical-strength actuators), imit3_w075_s52 (force_scale 2, hypothetical-strength actuators), imit3_w025_s51 (force_scale 2, hypothetical-strength actuators), imit8_w000_s51 (force_scale 2, hypothetical-strength actuators), imit4_w000_s52 (force_scale 2, hypothetical-strength actuators), imit19_masonmapped_dart_s51 (force_scale 2, hypothetical-strength actuators) run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.** Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary. **Shown side by side, neither promoted as 'learned from Mason' (both imitate the scripted swing; force_scale 2 hypothetical-strength actuators): imit9_w000_s51: best lateral spread (script-free imitation of the scripted v3 swing; passes the 3-seed headline gate for s51/s52/s53) but NOISE-FRAGILE: det carry 120.0 m / lat std 0.96 m; quick noise sigma 0.005: 69 m (58%), sigma 0.01: 36 m (30%) (10 eps, vs clean 120 m) | imit3_w050_s51: best under observation/action noise (50% learned / 50% scripted blend): det carry 119.4 m / lat std 2.20 m; quick noise sigma 0.005: 89 m (74%), sigma 0.01: 105 m (88%) (10 eps, vs clean 119 m).**
+**NO trained model on STOCK motors (force_scale 1) meets the showcase criterion.** (Best stock-motor trained row, not qualifying: imit16_fs1_dart_s51, mean carry 73.2 m.) Stock-motor scripted (not learned) reference: det carry 74.8 m, 98.3 mph. **Best under HYPOTHETICAL-strength actuators (force_scale>1 / power tier; NOT a realistic-motor result): imit18_power_dart_s51** (0 steps; power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)) - mean true contact over det+stoch 100%, mean carry 313.838 m. Peak club-head speed (best single swing over det+stoch): 59.21 m/s = 132.5 mph = 110.4% of the 120 mph (53.64 m/s) target. **Best left-handed model: imit18_power_dart_s51 [power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)]** (mean contact 100%, mean carry 313.84 m, physics protocol). **Best model meeting the showcase criterion (hypothetical-strength actuators if force_scale>1; real carry AND tight lateral AND not-flat launch AND 100% contact; see below): imit18_power_dart_s51 [power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)].** Best overall incl. scripted baseline: imit18_power_dart_s51 [power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60)]. **HYPOTHETICAL-STRENGTH ACTUATORS: imit18_power_dart_s51 (force_scale 2, hypothetical-strength actuators), ppo_v4power48_s71 (force_scale 2, hypothetical-strength actuators), ppo_v4power_s62 (force_scale 2, hypothetical-strength actuators), ppo_v4power_s61 (force_scale 2, hypothetical-strength actuators), ppo_v4yaw_s42 (force_scale 2, hypothetical-strength actuators), ppo_v4yaw_s43 (force_scale 2, hypothetical-strength actuators), best_v4yaw_s41 (force_scale 2, hypothetical-strength actuators), imit3_w050_s51 (force_scale 2, hypothetical-strength actuators), imit9_w000_s52 (force_scale 2, hypothetical-strength actuators), best_imit_scriptfree_elbow48_s51 (force_scale 2, hypothetical-strength actuators), imit9_w000_s53 (force_scale 2, hypothetical-strength actuators), best_learned_yaw_s31 (force_scale 2, hypothetical-strength actuators), best_learned_yaw_s32 (force_scale 2, hypothetical-strength actuators), imit3_w075_s53 (force_scale 2, hypothetical-strength actuators), imit15_dart_s53 (force_scale 2, hypothetical-strength actuators), imit3_w075_s51 (force_scale 2, hypothetical-strength actuators), imit13_w000_s52 (force_scale 2, hypothetical-strength actuators), best_imit_w050_s52 (force_scale 2, hypothetical-strength actuators), imit3_w075_s52 (force_scale 2, hypothetical-strength actuators), imit3_w025_s51 (force_scale 2, hypothetical-strength actuators), imit8_w000_s51 (force_scale 2, hypothetical-strength actuators), imit4_w000_s52 (force_scale 2, hypothetical-strength actuators), imit19_masonmapped_dart_s51 (force_scale 2, hypothetical-strength actuators) run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.** Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary. **Shown side by side, neither promoted as 'learned from Mason' (both imitate the scripted swing; force_scale 2 hypothetical-strength actuators): imit9_w000_s51: best lateral spread (script-free imitation of the scripted v3 swing; passes the 3-seed headline gate for s51/s52/s53) but NOISE-FRAGILE: det carry 120.0 m / lat std 0.96 m; quick noise sigma 0.005: 69 m (58%), sigma 0.01: 36 m (30%) (10 eps, vs clean 120 m) | imit3_w050_s51: best under observation/action noise (50% learned / 50% scripted blend): det carry 119.4 m / lat std 2.20 m; quick noise sigma 0.005: 89 m (74%), sigma 0.01: 105 m (88%) (10 eps, vs clean 119 m).**
 
 Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; (2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.
 
-Full ranking (scripted baseline included): ppo_v4power48_s71 > ppo_v4power_s62 > ppo_v4power_s61 > ppo_v4yaw_s42 > ppo_v4yaw_s43 > best_v4yaw_s41 > imit3_w050_s51 > imit9_w000_s52 > best_imit_scriptfree_elbow48_s51 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > imit9_w000_s53 > best_learned_yaw_s31 > best_learned_yaw_s32 > imit3_w075_s53 > imit15_dart_s53 > imit3_w075_s51 > imit13_w000_s52 > imit2_w075_s52 > best_imit_scriptfree_s51_NOTPASS_lat3.56 > best_imit_w050_s52 > imit3_w075_s52 > imit2_w075_s53 > ppo_resid_v3_left_an3_s1 > imit3_w025_s51 > imit5_w000_s52 > ppo_v3tiny_s22 > best_carry_analytic > imit3_w000_s52 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an1_s0 > ppo_v3flt_all_s33 > ppo_v3tiny_s23 > imit7_w000_s51 > imit8_w000_s51 > ppo_v3tiny_s21 > ppo_resid_v3_left_an6_s4 > best_imit_scriptfree_s51_seed4000-8000only > ppo_resid_v3_left_an9_s7 > imit4_w000_s51 > imit3_w025_s52 > imit4_w000_s52 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_ladder_s0 > scripted (not learned) [STOCK motors force_scale 1: fast v3 swing, default elbow] > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > imit2_w075_s51 > imit19_masonmapped_dart_s51 > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > best_gate_flat_123mph > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > imit15_dart_s51 > imit15_dart_s52 > imit16_fs1_dart_s51 > imit14_w000_s51 > imit13_w000_s51 > imit10_w000_s51_tr > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
+Full ranking (scripted baseline included): imit18_power_dart_s51 > ppo_v4power48_s71 > ppo_v4power_s62 > ppo_v4power_s61 > ppo_v4yaw_s42 > ppo_v4yaw_s43 > best_v4yaw_s41 > imit3_w050_s51 > imit9_w000_s52 > best_imit_scriptfree_elbow48_s51 > scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01] > imit9_w000_s53 > best_learned_yaw_s31 > best_learned_yaw_s32 > imit3_w075_s53 > imit15_dart_s53 > imit3_w075_s51 > imit13_w000_s52 > imit2_w075_s52 > best_imit_scriptfree_s51_NOTPASS_lat3.56 > best_imit_w050_s52 > imit3_w075_s52 > imit2_w075_s53 > ppo_resid_v3_left_an3_s1 > imit3_w025_s51 > imit5_w000_s52 > ppo_v3tiny_s22 > best_carry_analytic > imit3_w000_s52 > ppo_resid_v3_left_an4_s2 > ppo_resid_v3_left_an1_s0 > ppo_v3flt_all_s33 > ppo_v3tiny_s23 > imit7_w000_s51 > imit8_w000_s51 > ppo_v3tiny_s21 > ppo_resid_v3_left_an6_s4 > best_imit_scriptfree_s51_seed4000-8000only > ppo_resid_v3_left_an9_s7 > imit4_w000_s51 > imit3_w025_s52 > imit4_w000_s52 > ppo_resid_v3_r3_s0 > ppo_resid_v3_left_an10_s8 > ppo_resid_v3_ladder_s0 > scripted (not learned) [STOCK motors force_scale 1: fast v3 swing, default elbow] > ppo_resid_v3_r2_s0 > scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01] > imit2_w075_s51 > imit19_masonmapped_dart_s51 > scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm] > scripted_baseline[ladder cfg: right, loft 6, default ball_x] > ppo_resid_v3_left_fast1_s10 > best_gate_flat_123mph > ppo_resid_v3_left_an5_s3 > ppo_resid_v3_left_an8_s6 > ppo_resid_v3_left_an7_s5 > imit15_dart_s51 > imit15_dart_s52 > imit16_fs1_dart_s51 > imit14_w000_s51 > imit13_w000_s51 > imit10_w000_s51_tr > ppo_scott > ppo_resid_v3_s0 > ppo_scott_prev_backup > ppo_scott_curr > ppo_scott_final2 > ppo_scott_baseline
 
 
 ## Motor strength x label (read this before any carry number)
@@ -79,13 +79,81 @@ Full ranking (scripted baseline included): ppo_v4power48_s71 > ppo_v4power_s62 >
 | scripted (not learned) [fast v2 lofted: left, loft -26, ball | 2x (force_scale 2, hypothetical-strength actuators) | SCRIPTED (not learned) | 69.4 (76) | 0.01 | 120.4 | 96% | no |
 | scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +- | 2x (force_scale 2, hypothetical-strength actuators) | SCRIPTED (not learned) | 53.9 (59) | 1.98 | 107.8 | 80% | no |
 | scripted_baseline[ladder cfg: right, loft 6, default ball_x] | 2x (force_scale 2, hypothetical-strength actuators) | SCRIPTED (not learned) | 36.7 (40) | 2.73 | 107.9 | 56% | no |
+| imit18_power_dart_s51 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | LEARNED, distilled from script (script-free imitation, script_weight 0) | 313.9 (343) | 2.18 | 132.4 | 100% | yes |
 | ppo_v4power48_s71 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | LEARNED residual on scripted swing | 311.4 (341) | 2.15 | 132.4 | 100% | yes |
 | ppo_v4power_s62 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | LEARNED residual on scripted swing | 279.7 (306) | 1.86 | 132.3 | 100% | yes |
 | ppo_v4power_s61 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | LEARNED residual on scripted swing | 279.2 (305) | 1.82 | 132.3 | 100% | yes |
 
+## Sim carry vs launch-monitor-model carry (MODEL-BASED; the MuJoCo carry columns elsewhere are unchanged)
+
+MuJoCo carry = ball flown in MuJoCo with the env's own aero (Cd 0.26, Cl=min(1.7 S, 0.3)) and whatever spin the contact produced. 'Model carry' = `sim/golf_simulator.shot_from_launch` (analytic drag + Magnus, validated vs TrackMan within its stated tolerance) at the sim's own mean ball speed and launch with an ASSUMED tour backspin of 2700 rpm. 'Model carry @ smash 1.48' keeps the policy's club speed and launch but sets ball speed = 1.48 x club speed (a legal-driver smash), same 2700 rpm. Measured env backspin (6 det episodes, `results/ball_spin_measured.json`) is shown where available. Real-world reading: only the last column answers 'what would a 1.48-smash driver do at this club speed'; sim smash ~1.0 rows (v3 envs) are far SHORT of real distance, sim smash >1.5 rows (power tier, `impact_model` gain 1.28) are at/above the legal-driver limit.
+
+| model | motor strength | club mph (peak) | sim ball mph | sim smash (impact) | launch deg | measured backspin rpm | MuJoCo carry m | model carry m (sim ball spd/launch, 2700 rpm) | model carry m @ smash 1.48 | MuJoCo / model |
+|---|---|---|---|---|---|---|---|---|---|---|
+| imit16_fs1_dart_s51 | stock (force_scale 1) | 98 | 97 | 0.99 | 11.5 | 17 | 73 | 99 | 204 | 0.74 |
+| scripted (not learned) [STOCK motors force_scale 1: fast v3  | stock (force_scale 1) | 98 | 99 | 1.01 | 12.7 | n/m | 75 | 107 | 208 | 0.70 |
+| ppo_v4yaw_s42 | 2x (force_scale 2, hypothetical-strength actuators) | 128 | 185 | 1.44 | 10.9 | n/m | 243 | 276 | 284 | 0.88 |
+| ppo_v4yaw_s43 | 2x (force_scale 2, hypothetical-strength actuators) | 128 | 185 | 1.44 | 10.9 | n/m | 243 | 276 | 284 | 0.88 |
+| best_v4yaw_s41/ppo_v4yaw_s41 | 2x (force_scale 2, hypothetical-strength actuators) | 128 | 185 | 1.44 | 10.9 | n/m | 244 | 276 | 284 | 0.88 |
+| imit3_w050_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.3 | n/m | 119 | 155 | 267 | 0.77 |
+| imit9_w000_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.9 | n/m | 120 | 157 | 267 | 0.76 |
+| best_imit_scriptfree_elbow48_s51/imit9_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.9 | 920 | 120 | 157 | 267 | 0.76 |
+| imit14_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 118 | 115 | 0.97 | 12.9 | n/m | 116 | 144 | 261 | 0.80 |
+| imit15_dart_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.2 | n/m | 117 | 155 | 267 | 0.76 |
+| imit9_w000_s53 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.9 | n/m | 116 | 157 | 267 | 0.74 |
+| best_learned_yaw_s31/ppo_v3flt_yaw_s31 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.2 | n/m | 114 | 154 | 266 | 0.74 |
+| best_learned_yaw_s32/ppo_v3flt_yaw_s32 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.2 | n/m | 114 | 154 | 266 | 0.74 |
+| imit3_w075_s53 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 120 | 1.00 | 11.2 | n/m | 112 | 148 | 265 | 0.76 |
+| imit15_dart_s53 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.00 | 12.3 | n/m | 113 | 154 | 267 | 0.73 |
+| imit3_w075_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.00 | 12.2 | n/m | 113 | 153 | 266 | 0.74 |
+| imit15_dart_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 119 | 119 | 0.99 | 12.3 | 362 | 114 | 149 | 264 | 0.76 |
+| imit13_w000_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.00 | 12.0 | n/m | 113 | 153 | 266 | 0.74 |
+| imit13_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 119 | 116 | 0.97 | 12.2 | n/m | 111 | 144 | 263 | 0.77 |
+| imit2_w075_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 120 | 1.00 | 11.3 | n/m | 118 | 150 | 266 | 0.79 |
+| best_imit_scriptfree_s51_NOTPASS_lat3.56/imit3_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 120 | 1.00 | 11.2 | n/m | 109 | 148 | 266 | 0.74 |
+| best_imit_w050_s52/imit3_w050_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.00 | 12.3 | n/m | 108 | 154 | 267 | 0.70 |
+| imit3_w075_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 120 | 1.00 | 11.4 | n/m | 108 | 149 | 265 | 0.73 |
+| imit2_w075_s53 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 120 | 1.00 | 11.3 | n/m | 117 | 150 | 266 | 0.78 |
+| ppo_resid_v3_left_an3_s1 | 2x (force_scale 2, hypothetical-strength actuators) | 115 | 88 | 0.76 | 30.6 | n/m | 108 | 108 | 235 | 1.00 |
+| imit3_w025_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 120 | 1.00 | 12.2 | n/m | 105 | 153 | 267 | 0.69 |
+| imit5_w000_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 119 | 0.99 | 11.1 | n/m | 104 | 147 | 266 | 0.71 |
+| ppo_v3tiny_s22 | 2x (force_scale 2, hypothetical-strength actuators) | 118 | 118 | 0.99 | 11.3 | n/m | 106 | 144 | 260 | 0.73 |
+| best_carry_analytic/ppo_resid_v3_left_an2_s0 | 2x (force_scale 2, hypothetical-strength actuators) | 115 | 87 | 0.76 | 31.4 | n/m | 112 | 107 | 233 | 1.05 |
+| imit3_w000_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 119 | 118 | 0.99 | 11.3 | n/m | 105 | 145 | 262 | 0.73 |
+| ppo_resid_v3_left_an4_s2 | 2x (force_scale 2, hypothetical-strength actuators) | 112 | 78 | 0.69 | 33.9 | n/m | 97 | 89 | 221 | 1.09 |
+| ppo_resid_v3_left_an1_s0 | 2x (force_scale 2, hypothetical-strength actuators) | 115 | 85 | 0.74 | 31.7 | n/m | 111 | 104 | 232 | 1.07 |
+| imit10_w000_s51_tr | 2x (force_scale 2, hypothetical-strength actuators) | 112 | 106 | 0.91 | 11.9 | n/m | 101 | 119 | 245 | 0.86 |
+| ppo_v3flt_all_s33 | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 116 | 0.96 | 10.5 | n/m | 95 | 136 | 264 | 0.70 |
+| ppo_v3tiny_s23 | 2x (force_scale 2, hypothetical-strength actuators) | 119 | 114 | 0.96 | 9.8 | n/m | 94 | 129 | 259 | 0.73 |
+| imit7_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 113 | 0.94 | 8.4 | n/m | 89 | 119 | 261 | 0.75 |
+| imit8_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 115 | 0.95 | 9.9 | n/m | 97 | 132 | 266 | 0.73 |
+| ppo_v3tiny_s21 | 2x (force_scale 2, hypothetical-strength actuators) | 119 | 112 | 0.94 | 8.5 | n/m | 84 | 117 | 256 | 0.72 |
+| ppo_resid_v3_left_an6_s4 | 2x (force_scale 2, hypothetical-strength actuators) | 113 | 88 | 0.78 | 28.7 | n/m | 104 | 109 | 237 | 0.96 |
+| best_imit_scriptfree_s51_seed4000-8000only/imit5_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 119 | 116 | 0.97 | 9.9 | n/m | 94 | 133 | 260 | 0.70 |
+| ppo_resid_v3_left_an9_s7 | 2x (force_scale 2, hypothetical-strength actuators) | 110 | 81 | 0.74 | 32.6 | n/m | 104 | 96 | 223 | 1.08 |
+| imit4_w000_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 118 | 115 | 0.97 | 9.7 | n/m | 94 | 130 | 257 | 0.72 |
+| imit3_w025_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 123 | 112 | 0.91 | 6.8 | n/m | 89 | 107 | 263 | 0.83 |
+| imit4_w000_s52 | 2x (force_scale 2, hypothetical-strength actuators) | 118 | 114 | 0.96 | 9.9 | n/m | 88 | 128 | 258 | 0.69 |
+| ppo_resid_v3_r3_s0 | 2x (force_scale 2, hypothetical-strength actuators) | 109 | 82 | 0.75 | 32.8 | n/m | 103 | 97 | 219 | 1.07 |
+| ppo_resid_v3_left_an10_s8 | 2x (force_scale 2, hypothetical-strength actuators) | 107 | 94 | 0.88 | 25.3 | n/m | 109 | 120 | 231 | 0.91 |
+| ppo_resid_v3_ladder_s0 | 2x (force_scale 2, hypothetical-strength actuators) | 111 | 80 | 0.72 | 33.1 | n/m | 100 | 93 | 222 | 1.07 |
+| ppo_resid_v3_r2_s0 | 2x (force_scale 2, hypothetical-strength actuators) | 107 | 72 | 0.67 | 36.1 | n/m | 87 | 79 | 208 | 1.10 |
+| imit2_w075_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 121 | 103 | 0.86 | 1.4 | n/m | 49 | 33 | 224 | 1.51 |
+| imit19_masonmapped_dart_s51 | 2x (force_scale 2, hypothetical-strength actuators) | 88 | 67 | 0.90 | 13.8 | n/m | 58 | 49 | 178 | 1.18 |
+| scripted (not learned) [fast v3 Stage 6: left, loft -31, bal | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 121 | 1.01 | 12.2 | n/m | 116 | 154 | 266 | 0.75 |
+| scripted (not learned) [fast v2 lofted: left, loft -26, ball | 2x (force_scale 2, hypothetical-strength actuators) | 120 | 119 | 0.99 | 9.0 | n/m | 69 | 136 | 261 | 0.51 |
+| scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +- | 2x (force_scale 2, hypothetical-strength actuators) | 108 | 98 | 0.90 | 11.5 | n/m | 54 | 99 | 233 | 0.54 |
+| scripted_baseline[ladder cfg: right, loft 6, default ball_x] | 2x (force_scale 2, hypothetical-strength actuators) | 108 | 95 | 0.88 | 9.2 | n/m | 37 | 83 | 227 | 0.44 |
+| imit18_power_dart_s51 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | 132 | 212 | 1.60 | 12.6 | 3088 | 314 | 316 | 294 | 0.99 |
+| ppo_v4power48_s71 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | 132 | 210 | 1.59 | 12.6 | 3077 | 311 | 313 | 294 | 0.99 |
+| ppo_v4power_s62 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | 132 | 198 | 1.50 | 11.7 | n/m | 280 | 298 | 294 | 0.94 |
+| ppo_v4power_s61 | power tier (hypothetical: fs 2 + wrist 120 N m + chest +-60) | 132 | 198 | 1.50 | 11.7 | n/m | 279 | 297 | 294 | 0.94 |
+
+n/m = not measured. Spin for non-power rows is the contact-friction spin MuJoCo produced (tens to ~900 rpm in the v3 envs, far below a real driver's ~2700), which is why their MuJoCo carry is much shorter than the model carry at the same ball speed: low spin means little lift. Power-tier rows get ~3080 rpm from the hand-set `impact_model` (spin_k 130), and a ball speed 1.28x the contact result. The hypothetical club speed (132 mph, `t_down` 0.06 s) and smash ~1.55-1.59 are what make 300+ m, not a unit error: at the same inputs the analytic model gives ~307 m and a 1.48 smash would give ~295 m.
+
 Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).
 
-Current env fingerprint `833a022042ef` (env + XML hash). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). **CAVEAT (arm mapping): arm columns 0-3 of every DTW below compare the env's right_* chain (the TRAIL/club arm for a lefty, env/residual_golf_env.py ~l.153-157, 228) with reference cols 0-3. For native mason_v2 refs those cols are Mason's anatomical right = LEAD arm, so the arm part of dtw_mason_v2 (all11 and upper5; eval/style_match.py UPPER_COLS=slice(0,5), dispersion_report.py l.72-74) is VOID: lead/trail arm bug, see Trainer. Leg columns are not affected by the arm issue. dtw_to_reference_style_rad vs scott/rory/scheffler/average uses the same column indices (dispersion_report.py l.71); synthetic/v1 refs are stored in trail/lead roles so they are probably unaffected, UNVERIFIED.** DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
+Current env fingerprint `36680f639c27` (env + XML hash). 50 episodes, seeds 4000..4049. +y = left, miss = |final y| > 0.5 m. Distance = final ball x (total); carry = x at landing after flight, 0 if never landed (mean over all episodes). **CAVEAT (arm mapping): arm columns 0-3 of every DTW below compare the env's right_* chain (the TRAIL/club arm for a lefty, env/residual_golf_env.py ~l.153-157, 228) with reference cols 0-3. For native mason_v2 refs those cols are Mason's anatomical right = LEAD arm, so the arm part of dtw_mason_v2 (all11 and upper5; eval/style_match.py UPPER_COLS=slice(0,5), dispersion_report.py l.72-74) is VOID: lead/trail arm bug, see Trainer. Leg columns are not affected by the arm issue. dtw_to_reference_style_rad vs scott/rory/scheffler/average uses the same column indices (dispersion_report.py l.71); synthetic/v1 refs are stored in trail/lead roles so they are probably unaffected, UNVERIFIED.** DTW = mean joint-trajectory DTW (rad) to each reference; non-Scott columns are pure reference-style distances.
 
 | Model(s) | Steps | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak ball spd (m/s) | Impact club spd (m/s) | Smash | Peak club spd mean/max (m/s) | Peak club mph mean/max | % of 120 mph mean/max | Launch elev mean deg (std) [flat?] | DTW native Mason v2, mean of 11 refs (11j / upper5) | DTW average | DTW rory | DTW scheffler | DTW scott |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -225,6 +293,8 @@ Current env fingerprint `833a022042ef` (env + XML hash). 50 episodes, seeds 4000
 | imit15_dart_s53 | 0 | stoch | 100% | 113.20 | 172.35 | 113.198 | 100% | 1.253 | 0% | 10% | 54.02 | 53.79 | 1.00 (n=50) | 53.79 / 53.88 | 120.3 / 120.5 | 100.3% / 100.4% | 12.3 (1.4) | 2.067 / 1.529 | 1.119 | 1.114 | 1.123 | 1.117 |
 | imit19_masonmapped_dart_s51 | 0 | deter | 100% | 58.26 | 64.98 | 58.257 | 100% | 0.145 | 0% | 2% | 30.12 | 33.57 | 0.90 (n=50) | 39.14 / 39.21 | 87.6 / 87.7 | 73.0% / 73.1% | 13.8 (1.1) | 2.124 / 1.614 | 1.074 | 1.088 | 1.049 | 1.104 |
 | imit19_masonmapped_dart_s51 | 0 | stoch | 100% | 59.87 | 68.27 | 59.871 | 100% | 0.288 | 0% | 2% | 30.13 | 33.57 | 0.90 (n=50) | 39.14 / 39.22 | 87.6 / 87.7 | 73.0% / 73.1% | 13.8 (1.1) | 2.110 / 1.595 | 1.053 | 1.066 | 1.028 | 1.082 |
+| imit18_power_dart_s51 | 0 | deter | 100% | 313.89 | 328.85 | 313.887 | 100% | 2.177 | 48% | 38% | 94.87 | 59.19 | 1.60 (n=50) | 59.19 / 59.19 | 132.4 / 132.4 | 110.3% / 110.4% | 12.6 (0.0) | 1.782 / 1.081 | 0.834 | 0.819 | 0.856 | 0.810 |
+| imit18_power_dart_s51 | 0 | stoch | 100% | 313.79 | 329.40 | 313.790 | 100% | 2.177 | 48% | 38% | 94.87 | 59.19 | 1.60 (n=50) | 59.19 / 59.21 | 132.4 / 132.5 | 110.3% / 110.4% | 12.6 (0.0) | 1.782 / 1.081 | 0.834 | 0.819 | 0.856 | 0.810 |
 
 ## Per-row summary: learned fraction, style distance, sequencing (proxy)
 
@@ -368,6 +438,8 @@ Learned fraction = what the JSON args record (residual caps / env type), never g
 | imit15_dart_s53 | stoch | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.067 | -15 / 5 / -15 / 15 / 45 / -5 | 0% (n=50) | 0.060 | 0.030 |
 | imit19_masonmapped_dart_s51 | deter | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.124 | 47 / 2 / -43 / -13 / -3 / -23 | 0% (n=50) | 0.040 | 0.030 |
 | imit19_masonmapped_dart_s51 | stoch | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 2.110 | 47 / 2 / -43 / -13 / -3 / -23 | 0% (n=50) | 0.040 | 0.030 |
+| imit18_power_dart_s51 | deter | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 1.782 | -13 / 1 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
+| imit18_power_dart_s51 | stoch | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: executed command = 0% scripted + 100% learned (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); residual cap +-[0.01, 0.01, 0.01, 0.01] rad ; HYPOTHETICAL ACTUATORS force_scale 2 | 1.782 | -13 / 1 / -18 / 21 / -3 / -3 | 0% (n=50) | 0.015 | 0.040 |
 
 **Mason reference (proxy, `data/references/mason_target_features.json`, file mtime 2026-10-17 08:24; schema mason_target_features/v1; self-filmed ~30 fps 2D MediaPipe angles, ?-swing set, events +-1 frame, tempo +-15%):** arm-only sequencing, times in seconds from takeoff within [top, impact+0.15 s]: shoulder_R peak 0.60, elbow_R 0.67, wrist_R 0.64; wrist-minus-shoulder lag median 0.02 s; elbow-minus-shoulder (from medians) 0.07 s. Pelvis/thorax sequencing is UNAVAILABLE for Mason (reported 'unavailable'), so hips/torso rows cannot be compared. The Data Agent's regenerated (0.4 s timing fix) version is used only if the file in this tree is that version (check the mtime above); no sequencing number is taken from anywhere else. Sim lags and Mason lags are different windows/definitions: indicative only.
 
@@ -513,6 +585,8 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 | imit15_dart_s53 | stoch | 113.2 | 123.8 | 112.8 | 123.4 | 0.0 | 188 |
 | imit19_masonmapped_dart_s51 | deter | 58.3 | 63.7 | 57.9 | 63.3 | 0.0 | 71 |
 | imit19_masonmapped_dart_s51 | stoch | 59.9 | 65.5 | 59.5 | 65.0 | 0.0 | 74 |
+| imit18_power_dart_s51 | deter | 313.9 | 343.3 | 313.5 | 342.8 | 0.0 | 359 |
+| imit18_power_dart_s51 | stoch | 313.8 | 343.2 | 313.4 | 342.7 | 0.0 | 360 |
 
 ## Configs used (each model evaluated with its own)
 
@@ -584,6 +658,7 @@ Total = carry + roll = final ball x minus start x along the target line at episo
 - **imit15_dart_s52** (0 steps): results/imit15_dart_s52.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "track_time_fix": false, "key_weight": 0.0, "key_s": 2.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.17, "elbow_base": 0.4, "_env": "residual"}`
 - **imit15_dart_s53** (0 steps): results/imit15_dart_s53.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.095, "t_back": 0.6, "wr_end": -0.01, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "track_time_fix": false, "key_weight": 0.0, "key_s": 2.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.17, "elbow_base": 0.4, "_env": "residual"}`
 - **imit19_masonmapped_dart_s51** (0 steps): results/imit19_masonmapped_dart_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.08, "t_back": 0.6, "wr_end": -0.09, "yaw_ff": 0.0, "el_end": 0.853, "elbow_back": 1.126, "q_fin": -0.43, "wrist_cock": -0.6, "wr_rel_start": 0.6, "wr_lead": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "track_time_fix": false, "key_weight": 0.0, "key_s": 2.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -38, "ball_dz": 0.0, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v3.xml", "sh_noise": 0.05, "el_noise": 0.17, "elbow_base": 0.4, "_env": "residual"}`
+- **imit18_power_dart_s51** (0 steps): results/imit18_power_dart_s51.json env_kwargs_full (script_weight=0.0, learn_scale=[2.4, 0.7, 0.15, 0.15]); env = `{"script": {"q_back": 2.2, "t_down": 0.06, "t_back": 0.6, "wr_end": -0.1, "yaw_ff": 0.0}, "residual_scale": [0.01, 0.01, 0.01, 0.01], "flight_model": true, "curriculum": true, "carry_reward": true, "forward_reward": true, "randomize_reset": true, "gate_lo": 15.0, "gate_hi": 35.0, "seq_weight": 0.0, "style_prior": false, "yaw_amp": 0.1, "wrist_amp": 0.0, "style_lead": 0.05, "analytic_ball": false, "lat_weight": 0.0, "lat_angular": false, "elev_weight": 0.0, "carry_cap": 120.0, "tempo_scale": 0.0, "shot_pen": 1.0, "act_l2": 0.0, "script_weight": 0.0, "learn_scale": [2.4, 0.7, 0.15, 0.15], "track_set": null, "track_weight": 0.0, "track_time_fix": false, "key_weight": 0.0, "key_s": 2.0, "ball_x": 0.396, "ball_x_noise": 0.003, "loft_deg": -31, "ball_dz": -0.008, "tee_height": 0.04, "force_scale": 2.0, "kp": 700, "kd": 23.33, "handedness": "left", "model_xml": "humanoid_golf_v4_power.xml", "sh_noise": 0.05, "el_noise": 0.1, "contact_damp": 0.3, "impact_model": {"gain": 1.28, "dz0": 0.017, "k_off": 0.4, "spin_k": 130, "k_side": 3500}, "elbow_base": 0.45, "flight_steps": 900, "_env": "residual"}`
 
 ## Showcase qualification criterion
 
@@ -591,6 +666,7 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 
 | Model | contact==100% (det and stoch) | mean carry >= 30 m (det) | lateral std <= 2.73 m (det) | mean launch elev >= 5 deg, not flat (det) | Qualifies |
 |---|---|---|---|---|---|
+| imit18_power_dart_s51 | yes | yes | yes | yes | **YES** |
 | ppo_v4power48_s71 | yes | yes | yes | yes | **YES** |
 | ppo_v4power_s62 | yes | yes | yes | yes | **YES** |
 | ppo_v4power_s61 | yes | yes | yes | yes | **YES** |
@@ -655,7 +731,7 @@ A model qualifies only if ALL hold (deterministic mode unless stated, physics pr
 | ppo_scott_final2/ppo_scott_prev2_backup | NO | NO | yes | yes | no |
 | ppo_scott_baseline | NO | NO | yes | yes | no |
 
-Qualifying: ppo_v4power48_s71, ppo_v4power_s62, ppo_v4power_s61, ppo_v4yaw_s42, ppo_v4yaw_s43, best_v4yaw_s41/ppo_v4yaw_s41, imit3_w050_s51, imit9_w000_s52, best_imit_scriptfree_elbow48_s51/imit9_w000_s51, imit9_w000_s53, best_learned_yaw_s31/ppo_v3flt_yaw_s31, best_learned_yaw_s32/ppo_v3flt_yaw_s32, imit3_w075_s53, imit15_dart_s53, imit3_w075_s51, imit13_w000_s52, best_imit_w050_s52/imit3_w050_s52, imit3_w075_s52, imit3_w025_s51, imit8_w000_s51, imit4_w000_s52, imit19_masonmapped_dart_s51
+Qualifying: imit18_power_dart_s51, ppo_v4power48_s71, ppo_v4power_s62, ppo_v4power_s61, ppo_v4yaw_s42, ppo_v4yaw_s43, best_v4yaw_s41/ppo_v4yaw_s41, imit3_w050_s51, imit9_w000_s52, best_imit_scriptfree_elbow48_s51/imit9_w000_s51, imit9_w000_s53, best_learned_yaw_s31/ppo_v3flt_yaw_s31, best_learned_yaw_s32/ppo_v3flt_yaw_s32, imit3_w075_s53, imit15_dart_s53, imit3_w075_s51, imit13_w000_s52, best_imit_w050_s52/imit3_w050_s52, imit3_w075_s52, imit3_w025_s51, imit8_w000_s51, imit4_w000_s52, imit19_masonmapped_dart_s51
 
 Flat/negative-launch flag (mean elevation < 5 deg or >= 50% of shots below it): ppo_scott_prev_backup [sto 4.7 deg], scripted_baseline[ladder cfg: right, loft 6, default ball_x] [det 9.2 deg, sto 9.2 deg], ppo_resid_v3_left_an5_s3 [det -3.8 deg, sto -1.1 deg], ppo_resid_v3_left_an8_s6 [det -5.1 deg, sto -4.9 deg], ppo_resid_v3_left_an7_s5 [det -3.4 deg, sto -3.2 deg], ppo_resid_v3_left_fast1_s10 [det -5.1 deg, sto -5.0 deg], best_gate_flat_123mph/ppo_resid_v3_left_fast2_s11 [det -5.4 deg, sto -5.0 deg], imit2_w075_s51 [det 1.4 deg]
 
@@ -792,6 +868,8 @@ Verified = this run. Trainer gate = `results/gate_<name>.json` (`eval.eval_gate`
 | imit15_dart_s53 | trainer analytic (100 eps) | 100% | 100% | 114.45 | 2.02 | 120.3 (impact) | n/a |
 | imit19_masonmapped_dart_s51 | verified (this run, det) | 100% | 100% | 58.26 | 0.14 | 87.6 | PASS |
 | imit19_masonmapped_dart_s51 | trainer analytic (100 eps) | 100% | 100% | 59.49 | 0.05 | 75.1 (impact) | n/a |
+| imit18_power_dart_s51 | verified (this run, det) | 100% | 100% | 313.89 | 2.18 | 132.4 | PASS |
+| imit18_power_dart_s51 | trainer analytic (100 eps) | 100% | 100% | 305.65 | 2.62 | 132.4 (impact) | n/a |
 
 ## DTW vs NATIVE Mason v2 references [arm columns VOID: lead/trail arm bug, see Trainer] (recommended, non-partial, license self_owned/commercial_ok; mean DTW rad: all 11 joints / upper-body 5)
 
@@ -937,6 +1015,8 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | imit15_dart_s53 | stoch | 1.987 / 1.548 | 2.457 / 1.772 | 2.283 / 1.685 | 2.189 / 1.697 | 2.032 / 1.428 | 1.877 / 1.377 | 1.965 / 1.410 | 1.954 / 1.466 | 1.964 / 1.483 | 1.876 / 1.336 | 2.154 / 1.621 | 2.067 / 1.529 |
 | imit19_masonmapped_dart_s51 | deter | 2.044 / 1.643 | 2.546 / 1.972 | 2.265 / 1.707 | 2.203 / 1.750 | 2.108 / 1.582 | 1.876 / 1.441 | 2.087 / 1.569 | 2.024 / 1.567 | 2.030 / 1.587 | 1.953 / 1.436 | 2.225 / 1.499 | 2.124 / 1.614 |
 | imit19_masonmapped_dart_s51 | stoch | 2.031 / 1.623 | 2.523 / 1.944 | 2.252 / 1.685 | 2.183 / 1.724 | 2.097 / 1.564 | 1.868 / 1.429 | 2.077 / 1.552 | 2.013 / 1.550 | 2.016 / 1.568 | 1.945 / 1.423 | 2.203 / 1.485 | 2.110 / 1.595 |
+| imit18_power_dart_s51 | deter | 1.643 / 1.050 | 2.012 / 1.164 | 1.965 / 1.107 | 1.810 / 1.072 | 1.749 / 0.923 | 1.798 / 1.101 | 1.688 / 0.954 | 1.671 / 1.016 | 1.652 / 1.018 | 1.644 / 0.985 | 1.969 / 1.502 | 1.782 / 1.081 |
+| imit18_power_dart_s51 | stoch | 1.643 / 1.050 | 2.012 / 1.164 | 1.965 / 1.107 | 1.810 / 1.072 | 1.749 / 0.923 | 1.798 / 1.101 | 1.688 / 0.954 | 1.671 / 1.016 | 1.652 / 1.018 | 1.644 / 0.985 | 1.969 / 1.502 | 1.782 / 1.081 |
 
 ## Contact regressions (vs best earlier-trained checkpoint, same mode)
 
@@ -1220,80 +1300,147 @@ Refs: `p1_s06` (q=0.76, oblique, mirrored=False), `p1_s11` (q=0.76, face_on, mir
 | ppo_v4power48_s71 | 30000 | 2341d588d952 | 100% | 100% |
 | imit9_w000_s53 | 0 | 2341d588d952 | 100% | 100% |
 | ppo_scott_prev_backup | 30000 | 833a022042ef | 100% | 52% |
+| ppo_scott_prev_backup | 30000 | 36680f639c27 | 100% | 52% |
 | ppo_scott_curr | 30000 | 833a022042ef | 100% | 36% |
+| ppo_scott_curr | 30000 | 36680f639c27 | 100% | 36% |
 | ppo_scott_baseline | 30000 | 833a022042ef | 0% | 0% |
+| ppo_scott_baseline | 30000 | 36680f639c27 | 0% | 0% |
 | ppo_scott, ppo_scott_carry1 | 100000 | 833a022042ef | 98% | 68% |
+| ppo_scott, ppo_scott_carry1 | 100000 | 36680f639c27 | 98% | 68% |
 | ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 833a022042ef | 48% | 46% |
+| ppo_scott_final2, ppo_scott_prev2_backup | 60000 | 36680f639c27 | 48% | 46% |
 | ppo_resid_v3_s0 | 60000 | 833a022042ef | 100% | 64% |
+| ppo_resid_v3_s0 | 60000 | 36680f639c27 | 100% | 64% |
 | ppo_resid_v3_r2_s0 | 60000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_r2_s0 | 60000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_r3_s0 | 100000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_r3_s0 | 100000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_ladder_s0 | 150000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_ladder_s0 | 150000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an1_s0 | 150000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an1_s0 | 150000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an3_s1 | 150000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an3_s1 | 150000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an4_s2 | 150000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an4_s2 | 150000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an5_s3 | 150000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an5_s3 | 150000 | 36680f639c27 | 100% | 100% |
 | best_carry_analytic, ppo_resid_v3_left_an2_s0 | 150000 | 833a022042ef | 100% | 100% |
+| best_carry_analytic, ppo_resid_v3_left_an2_s0 | 150000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an6_s4 | 150000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an6_s4 | 150000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an8_s6 | 120000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an8_s6 | 120000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an7_s5 | 120000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an7_s5 | 120000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an9_s7 | 120000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an9_s7 | 120000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_an10_s8 | 120000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_an10_s8 | 120000 | 36680f639c27 | 100% | 100% |
 | ppo_resid_v3_left_fast1_s10 | 100000 | 833a022042ef | 100% | 100% |
+| ppo_resid_v3_left_fast1_s10 | 100000 | 36680f639c27 | 100% | 100% |
 | best_gate_flat_123mph, ppo_resid_v3_left_fast2_s11 | 100000 | 833a022042ef | 100% | 100% |
+| best_gate_flat_123mph, ppo_resid_v3_left_fast2_s11 | 100000 | 36680f639c27 | 100% | 100% |
 | ppo_v3tiny_s22 | 60000 | 833a022042ef | 100% | 100% |
+| ppo_v3tiny_s22 | 60000 | 36680f639c27 | 100% | 100% |
 | ppo_v3tiny_s23 | 60000 | 833a022042ef | 100% | 100% |
+| ppo_v3tiny_s23 | 60000 | 36680f639c27 | 100% | 100% |
 | ppo_v3tiny_s21 | 60000 | 833a022042ef | 100% | 100% |
+| ppo_v3tiny_s21 | 60000 | 36680f639c27 | 100% | 100% |
 | ppo_v3flt_all_s33 | 30000 | 833a022042ef | 100% | 100% |
+| ppo_v3flt_all_s33 | 30000 | 36680f639c27 | 100% | 100% |
 | best_learned_yaw_s32, ppo_v3flt_yaw_s32 | 30000 | 833a022042ef | 100% | 100% |
+| best_learned_yaw_s32, ppo_v3flt_yaw_s32 | 30000 | 36680f639c27 | 100% | 100% |
 | best_learned_yaw_s31, ppo_v3flt_yaw_s31 | 30000 | 833a022042ef | 100% | 100% |
+| best_learned_yaw_s31, ppo_v3flt_yaw_s31 | 30000 | 36680f639c27 | 100% | 100% |
 | ppo_v4yaw_s43 | 30000 | 833a022042ef | 100% | 100% |
+| ppo_v4yaw_s43 | 30000 | 36680f639c27 | 100% | 100% |
 | ppo_v4yaw_s42 | 30000 | 833a022042ef | 100% | 100% |
+| ppo_v4yaw_s42 | 30000 | 36680f639c27 | 100% | 100% |
 | best_v4yaw_s41, ppo_v4yaw_s41 | 30000 | 833a022042ef | 100% | 100% |
+| best_v4yaw_s41, ppo_v4yaw_s41 | 30000 | 36680f639c27 | 100% | 100% |
 | imit_w075_s51 | 0 | 833a022042ef | 100% | 100% |
+| imit_w075_s51 | 0 | 36680f639c27 | 100% | 100% |
 | imit_w075_s53 | 0 | 833a022042ef | 100% | 100% |
+| imit_w075_s53 | 0 | 36680f639c27 | 100% | 100% |
 | imit_w075_s52 | 0 | 833a022042ef | 100% | 100% |
+| imit_w075_s52 | 0 | 36680f639c27 | 100% | 100% |
 | imit2_w075_s51 | 15000 | 833a022042ef | 100% | 100% |
+| imit2_w075_s51 | 15000 | 36680f639c27 | 100% | 100% |
 | imit2_w075_s52 | 15000 | 833a022042ef | 100% | 100% |
 | imit2_w075_s53 | 15000 | 833a022042ef | 100% | 100% |
+| imit2_w075_s52 | 15000 | 36680f639c27 | 100% | 100% |
+| imit2_w075_s53 | 15000 | 36680f639c27 | 100% | 100% |
 | imit3_w075_s51 | 8000 | 833a022042ef | 100% | 100% |
 | imit3_w075_s52 | 8000 | 833a022042ef | 100% | 100% |
+| imit3_w075_s51 | 8000 | 36680f639c27 | 100% | 100% |
+| imit3_w075_s52 | 8000 | 36680f639c27 | 100% | 100% |
 | imit3_w075_s53 | 8000 | 833a022042ef | 100% | 100% |
+| imit3_w075_s53 | 8000 | 36680f639c27 | 100% | 100% |
 | imit3_w050_s51 | 8000 | 833a022042ef | 100% | 100% |
+| imit3_w050_s51 | 8000 | 36680f639c27 | 100% | 100% |
 | best_imit_w050_s52, imit3_w050_s52 | 8000 | 833a022042ef | 100% | 100% |
+| best_imit_w050_s52, imit3_w050_s52 | 8000 | 36680f639c27 | 100% | 100% |
 | imit3_w025_s51 | 8000 | 833a022042ef | 100% | 100% |
+| imit3_w025_s51 | 8000 | 36680f639c27 | 100% | 100% |
 | imit3_w025_s52 | 8000 | 833a022042ef | 100% | 100% |
+| imit3_w025_s52 | 8000 | 36680f639c27 | 100% | 100% |
 | imit3_w000_s52 | 8000 | 833a022042ef | 100% | 100% |
+| imit3_w000_s52 | 8000 | 36680f639c27 | 100% | 100% |
 | best_imit_scriptfree_s51_NOTPASS_lat3.56, imit3_w000_s51 | 8000 | 833a022042ef | 100% | 100% |
+| best_imit_scriptfree_s51_NOTPASS_lat3.56, imit3_w000_s51 | 8000 | 36680f639c27 | 100% | 100% |
 | imit4_w000_s52 | 10000 | 833a022042ef | 100% | 100% |
 | imit4_w000_s51 | 10000 | 833a022042ef | 100% | 100% |
+| imit4_w000_s52 | 10000 | 36680f639c27 | 100% | 100% |
+| imit4_w000_s51 | 10000 | 36680f639c27 | 100% | 100% |
 | imit5_w000_s52 | 0 | 833a022042ef | 100% | 100% |
+| imit5_w000_s52 | 0 | 36680f639c27 | 100% | 100% |
 | best_imit_scriptfree_s51_seed4000-8000only, imit5_w000_s51 | 0 | 833a022042ef | 100% | 100% |
+| best_imit_scriptfree_s51_seed4000-8000only, imit5_w000_s51 | 0 | 36680f639c27 | 100% | 100% |
 | ppo_v4power_s61 | 30000 | 833a022042ef | 100% | 100% |
 | ppo_v4power_s62 | 30000 | 833a022042ef | 100% | 100% |
+| ppo_v4power_s61 | 30000 | 36680f639c27 | 100% | 100% |
+| ppo_v4power_s62 | 30000 | 36680f639c27 | 100% | 100% |
 | imit7_w000_s51 | 0 | 30fc5e622b69 | 100% | 100% |
 | imit7_w000_s51 | 0 | 833a022042ef | 100% | 100% |
+| imit7_w000_s51 | 0 | 36680f639c27 | 100% | 100% |
 | ppo_v4power48_s71 | 30000 | 30fc5e622b69 | 100% | 100% |
 | ppo_v4power48_s71 | 30000 | 833a022042ef | 100% | 100% |
+| ppo_v4power48_s71 | 30000 | 36680f639c27 | 100% | 100% |
 | imit8_w000_s51 | 0 | 30fc5e622b69 | 100% | 100% |
 | imit8_w000_s51 | 0 | 833a022042ef | 100% | 100% |
+| imit8_w000_s51 | 0 | 36680f639c27 | 100% | 100% |
 | imit9_w000_s53 | 0 | 30fc5e622b69 | 100% | 100% |
 | imit9_w000_s53 | 0 | 833a022042ef | 100% | 100% |
+| imit9_w000_s53 | 0 | 36680f639c27 | 100% | 100% |
 | imit10_w000_s51_tr | 20000 | 833a022042ef | 94% | 98% |
+| imit10_w000_s51_tr | 20000 | 36680f639c27 | 94% | 98% |
 | best_imit_scriptfree_elbow48_s51, imit9_w000_s51 | 0 | 833a022042ef | 100% | 100% |
+| best_imit_scriptfree_elbow48_s51, imit9_w000_s51 | 0 | 36680f639c27 | 100% | 100% |
 | imit9_w000_s52 | 0 | 30fc5e622b69 | 100% | 100% |
 | imit9_w000_s52 | 0 | 833a022042ef | 100% | 100% |
+| imit9_w000_s52 | 0 | 36680f639c27 | 100% | 100% |
 | imit13_w000_s51 | 0 | 30fc5e622b69 | 96% | 98% |
 | imit13_w000_s51 | 0 | 833a022042ef | 96% | 98% |
+| imit13_w000_s51 | 0 | 36680f639c27 | 96% | 98% |
 | imit13_w000_s52 | 0 | 30fc5e622b69 | 100% | 100% |
 | imit13_w000_s52 | 0 | 833a022042ef | 100% | 100% |
+| imit13_w000_s52 | 0 | 36680f639c27 | 100% | 100% |
 | imit14_w000_s51 | 0 | 30fc5e622b69 | 96% | 100% |
 | imit14_w000_s51 | 0 | 833a022042ef | 96% | 100% |
+| imit14_w000_s51 | 0 | 36680f639c27 | 96% | 100% |
 | imit15_dart_s51 | 0 | 30fc5e622b69 | 100% | 98% |
 | imit15_dart_s51 | 0 | 833a022042ef | 100% | 98% |
+| imit15_dart_s51 | 0 | 36680f639c27 | 100% | 98% |
 | imit16_fs1_dart_s51 | 0 | 833a022042ef | 100% | 98% |
+| imit16_fs1_dart_s51 | 0 | 36680f639c27 | 100% | 98% |
 | imit15_dart_s52 | 0 | 833a022042ef | 98% | 100% |
+| imit15_dart_s52 | 0 | 36680f639c27 | 98% | 100% |
 | imit15_dart_s53 | 0 | 833a022042ef | 100% | 100% |
 | imit19_masonmapped_dart_s51 | 0 | 833a022042ef | 100% | 100% |
+| imit15_dart_s53 | 0 | 36680f639c27 | 100% | 100% |
+| imit19_masonmapped_dart_s51 | 0 | 36680f639c27 | 100% | 100% |
+| imit18_power_dart_s51 | 0 | 36680f639c27 | 100% | 100% |
 
 ## Noise robustness + track_score (QUICK GATE: 10 deterministic episodes, seeds 4000+, small N so noisy; screened models only)
 
@@ -1356,6 +1503,7 @@ Gaussian noise of the given sigma is added to EVERY observation and EVERY action
 | imit15_dart_s52 | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: execu | 113.6 / 1.69 | - | - | - | - | 0.026 / 0.000 |
 | imit15_dart_s53 | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: execu | 112.9 / 1.27 | 100%, 93.1 (83%), 3.85 | PASS | 100%, 84.8 (75%), 10.54 | FAIL | 0.133 / 0.004 |
 | imit19_masonmapped_dart_s51 | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: execu | 58.3 / 0.14 | 100%, 63.4 (109%), 0.05 | PASS | 100%, 61.8 (106%), 0.06 | PASS | 0.309 / 0.278 |
+| imit18_power_dart_s51 | SCRIPT-FREE IMITATION of the scripted v3 swing: BLEND: execu | 313.9 / 2.18 | 100%, 288.5 (92%), 1.80 | PASS | 100%, 297.8 (95%), 1.94 | PASS | 0.019 / 0.001 |
 
 ## HYPOTHETICAL TIER (force_scale > 1): 3-seed headline gate, kept separate from learned vs scripted
 
@@ -1369,6 +1517,9 @@ Gaussian noise of the given sigma is added to EVERY observation and EVERY action
 | imit15_dart_s53 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 4000 | 100 | 112.2 / 123 | 1.45 | 1.26 | 99% | 12.3 | 119.9 | 0.01 | 93 (83%) / 85 (75%) FAIL | PASS (min_carry 11.98) |
 | imit15_dart_s53 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 112.9 / 123 | 0.54 | 1.08 | 100% | 12.4 | 120.4 | 0.01 | 93 (83%) / 85 (75%) FAIL | PASS (min_carry 11.98) |
 | imit15_dart_s53 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 110.5 / 121 | 2.10 | 1.38 | 100% | 12.3 | 120.4 | 0.01 | 93 (83%) / 85 (75%) FAIL | PASS (min_carry 11.98) |
+| imit18_power_dart_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.01, 0.01, 0.01, 0.01] | 4000 | 100 | 309.9 / 339 | 2.34 | 2.34 | 100% | 12.6 | 132.4 | 0.10 | 288 (92%) / 298 (95%) PASS | PASS (min_carry 11.98) |
+| imit18_power_dart_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 307.3 / 336 | 2.36 | 2.35 | 100% | 12.6 | 132.4 | 0.13 | 288 (92%) / 298 (95%) PASS | PASS (min_carry 11.98) |
+| imit18_power_dart_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 306.1 / 335 | 2.52 | 2.52 | 100% | 12.6 | 132.4 | 0.11 | 288 (92%) / 298 (95%) PASS | PASS (min_carry 11.98) |
 | imit19_masonmapped_dart_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 4000 | 100 | 58.4 / 64 | 0.11 | 0.21 | 100% | 13.9 | 87.6 | 0.01 | 63 (109%) / 62 (106%) PASS | PASS (min_carry 11.98) |
 | imit19_masonmapped_dart_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 8000 | 100 | 58.2 / 64 | 0.04 | 0.04 | 100% | 14.0 | 87.6 | 0.01 | 63 (109%) / 62 (106%) PASS | PASS (min_carry 11.98) |
 | imit19_masonmapped_dart_s51 | SCRIPT-FREE IMITATION OF THE SCRIPT (learned policy = 100% of joint targets, distilled from the v3 script; force_scale 2, hypothetical-strength actuators) | 2 | None | [0.01, 0.01, 0.01, 0.01] | 9000 | 100 | 58.4 / 64 | 0.11 | 0.26 | 100% | 13.9 | 87.6 | 0.02 | 63 (109%) / 62 (106%) PASS | PASS (min_carry 11.98) |
@@ -1396,5 +1547,5 @@ Gaussian noise of the given sigma is added to EVERY observation and EVERY action
 | ppo_v4power_s62 | EFFECTIVELY SCRIPTED (force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 8000 | 100 | 283.2 / 310 | 2.51 | 2.46 | 100% | 12.3 | 132.3 | 2.51 | 254 (91%) / 254 (91%) PASS | PASS (min_carry 11.98) |
 | ppo_v4power_s62 | EFFECTIVELY SCRIPTED (force_scale 2, hypothetical-strength actuators) | 2 | 900 | [0.0, 0.0, 0.0, 0.05] | 9000 | 100 | 278.1 / 304 | 17.59 | 16.87 | 99% | 11.5 | 132.3 | 17.58 | 254 (91%) / 254 (91%) PASS | FAIL (min_carry 11.98) |
 
-3/3-seed pass: imit15_dart_s52: YES, imit15_dart_s53: YES, imit19_masonmapped_dart_s51: YES, imit5_w000_s51: NO, imit7_w000_s51: NO, imit8_w000_s51: NO, imit9_w000_s51: YES, imit9_w000_s52: YES, imit9_w000_s53: YES, ppo_v4power48_s71: YES, ppo_v4power_s61: NO, ppo_v4power_s62: NO
+3/3-seed pass: imit15_dart_s52: YES, imit15_dart_s53: YES, imit18_power_dart_s51: YES, imit19_masonmapped_dart_s51: YES, imit5_w000_s51: NO, imit7_w000_s51: NO, imit8_w000_s51: NO, imit9_w000_s51: YES, imit9_w000_s52: YES, imit9_w000_s53: YES, ppo_v4power48_s71: YES, ppo_v4power_s61: NO, ppo_v4power_s62: NO
 
