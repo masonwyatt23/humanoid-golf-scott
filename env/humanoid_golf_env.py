@@ -45,6 +45,7 @@ class HumanoidGolfEnv(gym.Env):
         contact_damp: float = None,
         ball_friction: float = None,
         impact_model: dict = None,
+        impact_gain: Optional[float] = None,
     ):
         """
         curriculum: if True use the staged reward (contact first, ball-flight weight
@@ -84,6 +85,8 @@ class HumanoidGolfEnv(gym.Env):
         model_path = Path(__file__).parent / "models" / model_xml
         self.model = mujoco.MjModel.from_xml_path(str(model_path))
         self.data = mujoco.MjData(self.model)
+        if impact_model is not None and impact_gain is not None:
+            impact_model = dict(impact_model, gain=float(impact_gain))  # OPT-IN (Stage 23): override post-contact gain only; None = unchanged (config default 1.28)
         self.impact_model = impact_model  # OPT-IN (v4) post-contact model: {'k_off','spin_k','k_side'}; None = v3 behaviour
         if contact_damp is not None:  # OPT-IN (v4): solref damping ratio of ball+club-head geoms; default None keeps the v3 critically-damped (plastic, smash~1.0) contact
             for _g in (self.model.geom('club_head').id, self.model.geom('ball_geom').id):
@@ -538,6 +541,7 @@ class HumanoidGolfEnv(gym.Env):
             "airborne": self._airborne,
             "impact_club_speed": self.impact_club_speed,
             "peak_ball_speed": self.peak_ball_speed,
+            "sep_rpm": (float(self._sep_rpm) if self._sep_rpm is not None else float("nan")),
             "ball_speed": self.ball_speed,
             "ball_lateral": self.ball_lateral * self.hand_sign,   # golfer frame: sign flipped for left-handers
             "launch_direction": self.launch_direction * self.hand_sign,

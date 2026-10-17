@@ -131,6 +131,7 @@ class FlightTracker:
                 "carry": float(info.get("carry", 0.0)), "true_contact": bool(info.get("true_contact", False)),
                 "peak_ball_speed": float(info.get("peak_ball_speed", float("nan"))),
                 "impact_club_speed": float(info.get("impact_club_speed", float("nan"))),
+                "sep_rpm": float(info.get("sep_rpm", float("nan"))),
                 "start_x": float(t[0, 0]), "total_dist": float(t[-1, 0] - t[0, 0]),   # total = carry + roll: final ball x minus start x along the target line (+x)
                 "carry_yd": float(info.get("carry", 0.0)) * M_TO_YD, "total_yd": float((t[-1, 0] - t[0, 0]) * M_TO_YD),
                 "club_speed_pre_contact": getattr(self, "club_pre", float("nan")),   # club speed at the substep BEFORE the first contact substep
@@ -192,6 +193,7 @@ def dispersion(shots: Sequence[Dict], thr: float = LATERAL_THRESHOLD_M) -> Dict[
             "impact_club_speed_max": float(np.nanmax(cs[tc])) if tc.any() else float("nan"),
             "smash_factor_mean": float(smash.mean()) if ok.any() else float("nan"),
             "smash_factor_median": float(np.median(smash)) if ok.any() else float("nan"),
+            "backspin_rpm_mean": (float(np.nanmean([sh.get("sep_rpm", np.nan) for sh in np.asarray(shots, dtype=object)[tc]])) if tc.any() and np.isfinite([sh.get("sep_rpm", np.nan) for sh in np.asarray(shots, dtype=object)[tc]]).any() else float("nan")),
             "smash_factor_n": int(ok.sum()), "episodes": int(len(x)), "contact_rate": float(tc.mean()),
             "mean_distance": float(x.mean()), "std_distance": float(x.std()), "median_distance": float(np.median(x)),
             "max_distance": float(x.max()), "mean_y": float(y.mean()), "lateral_std": float(y.std()),
