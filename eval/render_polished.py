@@ -287,7 +287,7 @@ def extras(video, meta, lb):
     for s_ in segs:
         imp = s_["frames"]["impact"]
         if imp: parts.append((max(0.0, imp / fps - 2.0), 7.0))
-    parts.append((meta["duration_s"] - 8.0, 3.0))   # end card start (8 s card, show first 3 s)
+    parts.append((meta["duration_s"] - meta.get("end_card_s", 8.0), 3.0))   # end card start (show first 3 s)
     # leaderboard det slide sits right after the 4 s title card (held 7 s)
     parts.insert(1, (4.0, 3.5))
     tot = sum(d for _, d in parts)
@@ -385,7 +385,10 @@ def main():
                f"This swing: seed {seed}, median-by-carry of {a.swings} (overlay below = this swing only)"]
         if not okq: ban.insert(2, "Fails: " + "; ".join(fails))
         nc = noise_caveat(m) if kind == "LEARNED" else ""
-        if nc: ban.append(nc + "  (fragile under noise)" if min(v["mean_carry"] for v in (m.get("noise_robust") or {"x": {"mean_carry": 1e9}}).values() if v) < 0.8 * d["mean_carry"] else nc)
+        if nc:
+            nr_ = {k: v for k, v in (m.get("noise_robust") or {}).items() if v and "mean_carry" in v}
+            frag = any(v["mean_carry"] < 0.8 * d["mean_carry"] for v in nr_.values())
+            ban.append("Noise (quick, 10 eps) vs clean %.0f m: " % d["mean_carry"] + ", ".join("sigma %s -> %.0f m (%.0f%%)" % (k, v["mean_carry"], v["mean_carry"] / d["mean_carry"] * 100) for k, v in sorted(nr_.items())) + ("  NOISE-FRAGILE" if frag else ""))
         style_scene(env)
         from eval.env_factory import joint_qpos_idx
         qi = joint_qpos_idx(env); tags = actuator_tags(m["env_kwargs"])
@@ -416,7 +419,7 @@ def main():
     # end card
     e = ["Caveats", f"- {lb['episodes']} episodes per mode, seeds {lb['seed_base']}+; flight tracker = MuJoCo ball only (no spin / sidespin model), so lateral spread is optimistic.",
          "- Carry is the first-landing distance; launch = ball velocity at club-ball separation; club speed = peak club-head geom speed (validated < 100 m/s).",
-         "- 'BLEND a/b' = executed command is a% learned / b% scripted (script_weight from the run's env kwargs). 'LEARNED' = PPO policy (+ residual on a scripted swing). 'SCRIPTED (not learned)' = zero residual, no learning. Scripted rows never count as learned.",
+         "- 'BLEND a/b' = executed command is a% learned / b% scripted (script_weight from the run's env kwargs). 'LEARNED' = trained policy (PPO residual on a scripted swing, or behaviour-cloned imitation: see segment label). 'SCRIPTED (not learned)' = zero residual, no learning. Scripted rows never count as learned.",
          "- Learned strikes are regime-sensitive: one swing is not the average; see the leaderboard slides for all-episode stats. Address-noise outliers exist.",
          "- DTW style scores (leaderboard.md) are 2D-proxy, tempo +-15% indicative only; Mason v3 slow-mo refs are loose-tempo extras."]
     if noise_caveat(lm) and (lm.get("env_kwargs") or {}).get("script_weight") == 0.0: e.insert(1, "- " + noise_caveat(lm) + ". NOISE-FRAGILE: the distilled policy loses much of its carry under small observation/action noise (quick screen, my 80%-of-clean threshold).")
@@ -425,7 +428,10 @@ def main():
     if a.profiles:
         for img_, sec_ in profiles_slides(ROOT / a.profiles): hold(img_, sec_)
         meta['profiles_segment'] = a.profiles
-    hold(card(sum([wrap(x, 108) for x in e], []), {1: (255, 70, 70)} if fallback else {}, 0.55), 8)
+    ls_ = sum([wrap(x, 108) for x in e[1:]], []); pages = [ls_[i:i + 11] for i in range(0, len(ls_), 11)]   # paginate: a card holds ~11 wrapped lines at this size
+    for pi, pg in enumerate(pages):
+        hold(card([f"Caveats ({pi + 1}/{len(pages)})"] + pg, {1: (255, 70, 70)} if (fallback and pi == 0) else {}, 0.55), 6)
+    meta["end_card_s"] = 6 * len(pages)
     w.close(); meta["frames"] = w.frames; meta["duration_s"] = w.frames / FPS; meta["slowdown"] = "ramped: 3-14 physics steps/frame pre-impact, 2 at impact (+0.1 s), 6 then 24 after; factor shown live"
     (ROOT / a.out).with_suffix(".json").write_text(json.dumps(meta, indent=1, default=float)); print(json.dumps({k: v for k, v in meta.items() if k != "segments"}, indent=1, default=float))
     if not a.no_extras: extras(ROOT / a.out, meta, lb)
