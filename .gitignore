@@ -40,3 +40,9 @@ logs/
 
 # First-pass Mason intermediates (superseded by *_refined and mason_v2_*)
 data/references/mason_swing_part[0-9]_s[0-9][0-9].npz
+
+# Blender render pipeline outputs (scripts only are tracked)
+render_blender/*.npz
+render_blender/swing_v3.json
+render_blender/*.blend
+golf_render/
