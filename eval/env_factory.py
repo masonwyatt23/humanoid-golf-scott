@@ -21,7 +21,7 @@ def resid_kw_from_args(args: dict, ball_dz_if_absent: float = 0.0) -> dict:
     script.update(json.loads(a["script_extra"])) if a.get("script_extra") else None
     if a["yaw"]:
         script.update(yaw_back=-0.35, yaw_fin=0.35)
-    extra = {k: a[k] for k in ("ball_x", "ball_x_noise", "sh_noise", "el_noise", "tempo_scale", "contact_damp") if k in a}   # address-position args (an8+); absent -> env defaults (0.43 / 0.03)
+    extra = {k: a[k] for k in ("ball_x", "ball_x_noise", "sh_noise", "el_noise", "tempo_scale", "contact_damp", "script_weight", "learn_scale") if k in a}   # address-position args (an8+); absent -> env defaults (0.43 / 0.03)
     if a.get("impact_model"): extra["impact_model"] = json.loads(a["impact_model"])
     return dict(**extra, _env="residual", script=script, residual_scale=list(a["res_scale"]), model_xml=a["model_xml"], flight_model=a["flight_model"],
                 tee_height=0.04, force_scale=a["force_scale"], kp=700.0, kd=700.0 / 30, loft_deg=a["loft"], curriculum=True, carry_reward=True,

@@ -10,7 +10,11 @@ if __name__ == "__main__":
     name = sys.argv[1]; n = int(sys.argv[2]) if len(sys.argv) > 2 else 50; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 4000
     dr.REFS = []
     args = json.load(open(ROOT / "results" / f"{name}.json"))["args"]
-    kw = resid_kw_from_args(args)
+    J = json.load(open(ROOT / "results" / f"{name}.json"))
+    if "env_kwargs_full" in J:   # v5 imitation runs store the exact env kwargs (script extras, address, impact model, script_weight/learn_scale)
+        kw = dict(J["env_kwargs_full"], _env="residual", track_weight=0.0, track_set=None); kw["residual_scale"] = list(kw["residual_scale"])
+    else:
+        kw = resid_kw_from_args(args)
     out = {"name": name, "episodes": n, "seed": seed, "env_kwargs": kw}
     for label, scripted, det in [("policy_det", False, True), ("policy_stoch", False, False), ("scripted_zero_residual", True, True)]:
         d, _ = dr.run(name, kw, n, seed, det, scripted=scripted)

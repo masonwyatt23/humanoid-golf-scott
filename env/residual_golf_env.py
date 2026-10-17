@@ -26,7 +26,7 @@ def _smooth(x):
 
 
 class ResidualGolfEnv(HumanoidGolfEnv):
-    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, **kw):
+    def __init__(self, script=None, residual_scale=(0.4, 0.4, 0.4, 0.25), kp=700.0, kd=40.0, grip=False, force_scale=1.0, style_prior=False, yaw_amp=0.6, wrist_amp=0.8, yaw_sign=1.0, wrist_sign=1.0, style_lead=0.0, seq_weight=0.0, flight_steps=450, lat_weight=0.2, elev_weight=0.0, az_weight=2.0, carry_cap=150.0, lat_angular=False, elev_low_mult=1.0, analytic_ball=False, elev_target_deg=12.5, style_ref=None, style_weight=0.0, tempo_scale=0.3, shot_pen=0.0, act_l2=0.0, lat_limit=2.7, script_weight=1.0, learn_scale=None, track_set=None, track_weight=0.0, **kw):
         kw.setdefault("pin_torso", True)
         kw.setdefault("address_pose", "fixed")
         kw.setdefault("model_xml", "humanoid_golf_v3.xml")
@@ -39,6 +39,12 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self.res_scale = np.array(residual_scale)
         self.tempo_scale, self.shot_pen, self.act_l2, self.lat_limit = tempo_scale, shot_pen, act_l2, lat_limit
         self.kp, self.kd = kp, kd
+        # OPT-IN (v5 imitation): tg = script_weight*script + learn_scale*a. Defaults reproduce v3/v4 exactly.
+        self.script_weight, self.track_weight = float(script_weight), float(track_weight)
+        self._lscale = None if learn_scale is None else np.asarray(learn_scale, float)
+        self._opt_blend = (self.script_weight != 1.0) or (self._lscale is not None)
+        self._track = self._load_track_shapes(track_set) if (track_set and track_weight > 0) else None
+        self._st = np.zeros(4)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(5,), dtype=np.float32)
         m = self.model
         self._jn = ["right_shoulder_pitch", "right_elbow", "right_wrist", "chest_yaw"]
@@ -173,6 +179,49 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         e = np.mean((self._resamp(b) - self._ref_shape["back"]) ** 2) + np.mean((self._resamp(dn) - self._ref_shape["down"]) ** 2)
         return float(np.exp(-e / 0.1))
 
+    @staticmethod
+    def _nshape(x, i_top, n=20):
+        """address=0, top=1 (sign/amplitude invariant) shape of one signal over [0,top] (n pts) and [top,end] (n pts)."""
+        x = np.asarray(x, float); e = x[min(i_top, len(x) - 1)] - x[0]
+        if abs(e) < 1e-6 or i_top < 3 or len(x) - i_top < 3: return None
+        y = (x - x[0]) / e
+        r = lambda seg: np.interp(np.linspace(0, len(seg) - 1, n), np.arange(len(seg)), seg)
+        return np.concatenate([r(y[:i_top + 1]), r(y[i_top:])])
+
+    def _load_track_shapes(self, track_set):
+        """Weighted mean normalised shapes from the unified reference set (train split, manifest weights):
+        'sh' shoulder pitch (Mason v2 anatomical col 4), 'yaw' thorax rotation and 'wr' wrist hinge (MultiSense/CMU)."""
+        from data.unified_refset import load_manifest
+        man = load_manifest(); acc = {}
+        for e in man["entries"]:
+            if e.get("split") != "train" or e.get("weight_train", 0) <= 0: continue
+            d = np.load(Path(__file__).resolve().parent.parent / e["path"], allow_pickle=True); w = float(e["weight_train"]); dt = float(d["dt"]); t = np.asarray(d["time"], float)
+            if e["source"] == "mason":
+                t0 = float(d["t_start_in_video"]); i0 = 0; i_top = int(np.argmin(abs(t - (float(d["t_top"]) - t0)))); i_imp = int(np.argmin(abs(t - (float(d["t_impact"]) - t0))))
+                sig = {"sh": -np.asarray(d["joints"][:, 4], float)}
+                mov = np.where(abs(sig["sh"] - sig["sh"][0]) > 5.0)[0]; i0 = max(int(mov[0]) - 3, 0) if len(mov) else 0
+            else:
+                ev = np.asarray(d["events"], float); i0 = int(round(float(d["takeaway_s"]) / dt)); i_top = int(round(ev[0] / dt)); i_imp = int(round(ev[1] / dt))
+                sig = {"yaw": np.asarray(d["thorax_rot_deg"], float)}
+                if np.ptp(d["wrist_hinge_deg"]) > 1.0: sig["wr"] = np.asarray(d["wrist_hinge_deg"], float)
+            for k, x in sig.items():
+                sh = self._nshape(x[i0:i_imp + 1], i_top - i0)
+                if sh is not None: acc.setdefault(k, []).append((w, sh))
+        out = {k: np.sum([w * sh for w, sh in v], 0) / np.sum([w for w, _ in v]) for k, v in acc.items()}
+        self.track_counts = {k: len(v) for k, v in acc.items()}
+        return out
+
+    def _track_score(self):
+        q = np.array(self._qtraj); s = self.script
+        if self._track is None or len(q) < 10: return 0.0, {}
+        t_top = s["t_hold"] + s["t_back"] + s["t_pause"]; t_imp = t_top + s["t_down"]
+        i0 = int(np.argmax(q[:, 0] >= s["t_hold"])); i_top = int(np.argmax(q[:, 0] >= t_top)); i_imp = int(np.argmax(q[:, 0] >= t_imp)) if q[-1, 0] >= t_imp else len(q) - 1
+        col = {"sh": 1, "yaw": 2, "wr": 3}; sc = {}
+        for k, ref in self._track.items():
+            sh = self._nshape(q[i0:i_imp + 1, col[k]], i_top - i0)
+            sc[k] = float(np.exp(-np.mean((sh - ref) ** 2) / 0.15)) if sh is not None else 0.0
+        return float(np.mean(list(sc.values()))) if sc else 0.0, sc
+
     def _lat_pen(self):
         lat = abs(self.ball_lateral)
         if self.lat_angular:
@@ -194,7 +243,12 @@ class ResidualGolfEnv(HumanoidGolfEnv):
 
     def _action_to_ctrl(self, action):
         a = np.clip(np.asarray(action, dtype=float), -1, 1)
-        tg = self.targets(self.clock) + self.res_scale * a[:4]
+        if self._opt_blend:
+            sc = self.targets(self.clock); ls = self._lscale if self._lscale is not None else self.res_scale
+            tg = self.script_weight * sc + ls * a[:4]
+            self._st += [float(np.sum(np.abs(ls * a[:4]))), float(np.sum(np.abs(self.script_weight * sc))), float(np.sum((tg - sc) ** 2)), 1.0]
+        else:
+            tg = self.targets(self.clock) + self.res_scale * a[:4]
         tg[3] *= self.hand_sign  # chest yaw is a vertical-axis rotation: mirrored for left-handers
         self._tgt = tg
         self.clock += 0.02 * (1.0 + self.tempo_scale * a[4]); self._a2 = float(np.sum(a ** 2))
@@ -249,6 +303,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         self._seq = []
         self._an = None
         self._launch_paid = False
+        self._st = np.zeros(4)
         self._qtraj = []
         self._y_off = float(self.data.qpos[1])
         return obs, info
@@ -258,7 +313,7 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         if self.act_l2 > 0: r -= self.act_l2 * getattr(self, '_a2', 0.0)
         info["phase"] = self.phase
         d = self.data
-        self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]])])
+        self._qtraj.append([self.clock, float(d.qpos[self._qa["right_shoulder_pitch"]]), float(d.qpos[self._qa["chest_yaw"]]), float(d.qpos[self._qa["right_wrist"]])])
         self._seq.append([self.clock, abs(d.qvel[self._da["chest_yaw"]]), abs(d.qvel[self._da["right_shoulder_pitch"]]),
                           float(np.linalg.norm(d.cvel[self._club_body_id][:3]))])
         if self.analytic_ball and self.true_contact and self._an is None and self._sep_v is not None:
@@ -289,6 +344,11 @@ class ResidualGolfEnv(HumanoidGolfEnv):
                 ok = 0.5 * st["seq_order_thorax_before_arm"] + 0.5 * st["seq_order_arm_before_club"]
                 lead = np.exp(-((st["arm_lead_ms"] - 65.0) ** 2) / (2 * 30.0 ** 2))
                 r += self.seq_weight * g * (ok + lead)
+            if self._opt_blend and self._st[3] > 0:
+                n = self._st[3]; info["learned_norm_frac"] = float(self._st[0] / max(self._st[0] + self._st[1], 1e-9)); info["traj_rms_dev_from_v3_script_rad"] = float(np.sqrt(self._st[2] / (4 * n)))
+            if self._track is not None:
+                ts, parts = self._track_score(); info["track_score"] = ts; info["track_parts"] = parts
+                if self.true_contact: r += self.track_weight * g * ts
             if self.true_contact and self._ref_shape is not None:
                 sc = self._style_score(); info["style_score"] = sc; r += self.style_weight * g * sc
             if self.true_contact:
