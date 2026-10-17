@@ -1,0 +1,31 @@
+{
+ "description": "HYPOTHETICAL power tier (NOT realistic hardware/human): v4 contact/impact model + model variant humanoid_golf_v4_power.xml (wrist damping 0.5, wrist peak torque 120 N m, chest_yaw +-60 deg as stand-in for pelvis yaw) + wrist release wr_end -0.1, t_down 0.06 -> ~132 mph club head. dz0 re-centred to +0.017 (measured sweet spot moved with the wrist release). v3 and v4 configs unchanged.",
+ "hypothetical": true,
+ "script": {
+  "q_back": 2.2,
+  "t_down": 0.06,
+  "t_back": 0.6,
+  "wr_end": -0.1,
+  "yaw_ff": 0.0
+ },
+ "ball_x": 0.396,
+ "ball_x_noise": 0.003,
+ "loft_deg": -31,
+ "ball_dz": -0.008,
+ "tee_height": 0.04,
+ "force_scale": 2.0,
+ "kp": 700,
+ "kd": 23.33,
+ "handedness": "left",
+ "model_xml": "humanoid_golf_v4_power.xml",
+ "sh_noise": 0.05,
+ "el_noise": 0.1,
+ "contact_damp": 0.3,
+ "impact_model": {
+  "gain": 1.28,
+  "dz0": 0.017,
+  "k_off": 0.4,
+  "spin_k": 130,
+  "k_side": 3500
+ }
+}

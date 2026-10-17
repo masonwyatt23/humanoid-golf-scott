@@ -1,0 +1,31 @@
+{
+ "description": "REALISM CONTRAST: same swing as v4_power but H1-2-like wrist torque 25 N m (humanoid_golf_h12wrist.xml).",
+ "hypothetical": true,
+ "script": {
+  "q_back": 2.2,
+  "t_down": 0.06,
+  "t_back": 0.6,
+  "wr_end": -0.1,
+  "yaw_ff": 0.0
+ },
+ "ball_x": 0.396,
+ "ball_x_noise": 0.003,
+ "loft_deg": -31,
+ "ball_dz": -0.008,
+ "tee_height": 0.04,
+ "force_scale": 2.0,
+ "kp": 700,
+ "kd": 23.33,
+ "handedness": "left",
+ "model_xml": "humanoid_golf_h12wrist.xml",
+ "sh_noise": 0.05,
+ "el_noise": 0.1,
+ "contact_damp": 0.3,
+ "impact_model": {
+  "gain": 1.28,
+  "dz0": 0.017,
+  "k_off": 0.4,
+  "spin_k": 130,
+  "k_side": 3500
+ }
+}
