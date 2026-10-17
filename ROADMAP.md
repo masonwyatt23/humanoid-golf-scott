@@ -19,4 +19,5 @@ Highest-value next steps for the humanoid golf system:
 
 - `data/process_video.py` exists (MediaPipe pipeline). WHAM/GVHMR extraction is still only documented in `docs/WHAM_GVHMR.md`, not implemented.
 - `results/*.json` are committed (gate files, leaderboard, validation). Trained models (`models/*.zip`) are not committed and no Release exists.
+- **Actuators:** every scripted and learned result so far (v3, imit3/5/9, v4 power tier) uses `force_scale` 2.0, i.e. hypothetical-strength actuators; no `force_scale` 1.0 re-evaluation is committed in the results files.
 - The README Status table is the source of truth for results: Stage 6 scripted swing, Stage 8 yaw-only residual, Stage 9 hypothetical 128 mph tier, Stage 10 imitation annealing (script-free stage not yet reached), and the `sim/` simulator. Next steps there: confirm the gate constants with the Trainer/Evaluator (README "What 'PASS' means"), run the 0.25 and 0.0 script-weight stages with more seeds, and calibrate spin/contact against measured data.
