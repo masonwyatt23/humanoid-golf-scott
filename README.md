@@ -2,6 +2,70 @@
 
 Autonomous pipeline for training a simulated humanoid to swing a golf club in the style of Adam Scott and other pure/textbook swings.
 
+## Status (simulation only; all numbers from committed files)
+
+| Area | State | Verified number / source |
+|---|---|---|
+| Club-ball contact | Works | 100% true contact in deterministic mode for every left-handed residual-PPO run (`results/gate_*.json`, `results/leaderboard.md`); stochastic mode is lower for some earlier runs |
+| Club speed | Works (scripted + residual) | Trained left-handed runs 107-118.5 mph mean peak (123.6 for the flat-launch `left_fast2_s11`) (gate/leaderboard); scripted lofted base 120.3-120.4 mph (`results/TRAINING_NOTES.md` Stage 5). Target 120 mph |
+| Deep carry (deterministic) | Works, with a caveat | 96-114 m mean carry (an2: 114.3 m, `results/gate_ppo_resid_v3_left_an2_s0.json`). These runs were trained in the pre-fix strike regime (see Known limits) |
+| Lateral gate (carry > 11.98 m, lateral std < 2.73 m, contact >= 99%) | **Fails for every deep-carry trained model** | Lateral std 5.7-8.2 m. Runs that pass the literal gate are flat-launch exploits (e.g. `left_fast2_s11`: 15.2 m carry, -5.8 deg launch) |
+| Leaderboard headline (`results/leaderboard.md`) | Best model `ppo_resid_v3_left_an3_s1` | Ranked by contact then mean carry averaged over deterministic + stochastic: 102.9 m (deterministic alone is 108.6 m, stochastic 97.2 m). **No model meets the showcase criterion** |
+| Scripted baseline, lofted fix (`configs/fast_scripted_v2_lofted.json`) | Passes in the notes only | Evaluator protocol, 100 eps, seeds 4000/8000: contact 100%, launch 9.3/9.5 deg, carry 70.0/71.9 m, lateral std 0.013 m, 120.3 mph. **No committed gate JSON**; lateral std is tiny because the model has no sidespin |
+| Trained policy beating scripted | No | Notes: trained policies never beat their scripted baseline; PPO was not re-run on the fixed base |
+| Model checkpoints | Not published | See `docs/CHECKPOINT_RELEASE.md` for what blocks a Release |
+| Real robot / real ball validation | None | Simulation only |
+
+## How to run
+
+Install: `pip install -r requirements.txt` (MuJoCo 3, SB3, torch). Commands below match the scripts in this repo; the leaderboard, gate and showcase need trained `models/*.zip` locally, which are not in git.
+
+```bash
+# Train a residual-PPO policy (flags as in results/TRAINING_NOTES.md section D; --name sets models/<name>.zip and results/<name>.json)
+python -m train.train_residual --timesteps 150000 --flight_model --n_envs 6 --seq_weight 1.0 --name ppo_resid_v3_left_an3_s1 --seed 1 \
+  --loft 8 --analytic_ball --elev_target 12.5 --handedness left \
+  --style_ref data/references/mason_swing_part1_s05_refined_mirrored.npz --style_weight 1.0
+# (exact flags per run are in results/TRAINING_NOTES.md and the "args" block of each results/<name>.json)
+
+# Legacy (non-residual) PPO
+python -m train.train_ppo --style scott --timesteps 50000
+
+# Evaluator-protocol gate for one model: 50 episodes, seed 4000 -> results/gate_<name>.json
+python -m eval.eval_gate ppo_resid_v3_left_an3_s1 50 4000
+
+# Scripted (no learning) config: per-shot distribution, 100 episodes from seed 5000
+python -m eval.shot_dist configs/fast_scripted_v2_lofted.json 100 5000
+
+# Leaderboard (regenerates results/leaderboard.md/.json; --episodes default 50, --seed default 4000, --force ignores cache)
+python -m eval.leaderboard
+
+# Showcase video comparing learned an3_s1 with the scripted swing (output is gitignored under results/videos/)
+python -m eval.render_showcase --compare
+
+# Tests
+pytest tests
+```
+
+## Licensing & data provenance
+
+- **GolfDB:** videos and annotations are research / non-commercial only. Not used in any recorded training run (`docs/GOLFDB_PLAN.md` is a plan). Do not use GolfDB-derived data commercially.
+- **CMU Graphics Lab Motion Capture Database:** data from mocap.cs.cmu.edu; acknowledgment is required and the data may not be resold as a standalone dataset (`docs/CMU_MOCAP_GOLF.md`). It is reachable only through `--style_prior`, which is off in every recorded run.
+- **MultiSenseGolf:** CC0 (`docs/research_open_data_v2.md`). Mirrored references exist; no recorded run uses them for training.
+- **CaddieSet:** MIT licence on the data repo, but dataset consent and commercial terms are unvetted. Counsel is needed before any use. Only a summary JSON (`data/references/caddieset_driver_event_features.json`) is committed; no policy uses it.
+- **Mason's own swings:** references in `data/references/mason_*` are derived from Mason's self-filmed / self-posted swings (`self_owned`). Raw videos are never committed. They are 2D-proxy angles from single-view video.
+- **Synthetic references:** Scott/Scheffler/Rory styles are generated (`data/generate_synthetic_scott.py`); they are not Adam Scott's real data.
+- Per-file tags and a table are in `docs/REFERENCE_PATHS.md`. This repository has no `LICENSE` file yet. Details of what trained each model: `docs/CHECKPOINT_RELEASE.md`.
+
+## Known limits
+
+- **Lateral gate fails for deep-carry models.** All trained left-handed runs with 96-114 m carry have lateral std 5.7-8.2 m against a < 2.73 m gate. Runs with tiny lateral spread (an5, an7, an8, fast2) get it from flat or negative launch and carry only 9-15 m.
+- **Strike-regime artefact.** Stage 5 notes show negative `loft_deg` means more loft in the v3 model, and that older runs with positive loft or `ball_dz >= 0` struck the club's top edge. Treat all earlier carry/launch numbers (including the table below) as results from that regime, not as physical drives.
+- **Scripted vs trained.** The default scripted swing fails the lateral gate (4.22 m / 3.97 m in the gate files). A tuned scripted config passes in the notes, and the lofted v2 config looks better still, but neither has a committed gate JSON. Trained policies have not beaten their scripted baselines.
+- **Checkpoints are unpublished,** so the leaderboard and gate cannot be reproduced from this repo alone; `results/` holds the recorded outputs.
+- **Deterministic vs stochastic.** The tables below are deterministic unless marked. The leaderboard headline averages both modes (102.9 m for an3_s1), and the carry definition changed between runs (analytic training carry vs MuJoCo physics gate). Compare only within one file.
+- Tempo targets from Mason's swings are a loose band (n=11); no speed target is derivable from them.
+- Simulation only; no real-robot or real-ball validation.
+
 ## Current Performance
 
 Numbers below are copied from the committed `results/leaderboard.md` / `results/leaderboard.json` (50 episodes, seeds 4000-4049, env fingerprint `59bc5ea99d60`, v2 physics; the same rows are unchanged in the current `results/leaderboard.md` (fingerprint `7a2ffa104b56`)). Contact = true club-ball contact. Distance = final ball x in metres (total, including roll); carry = x at landing (0 if the ball never landed).
