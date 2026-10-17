@@ -351,6 +351,9 @@ def main():
         best_line += " **Shown side by side, neither promoted as 'learned from Mason' (both imitate the scripted swing; force_scale 2 hypothetical-strength actuators): " + " | ".join(pair) + ".**"
     mt = ["", "## Motor strength x label (read this before any carry number)", "", "| model | motor strength | label | det carry m (yd) | det lat std m | det club mph | smash (ball/impact club, det) | smash flag | landed (det) | qualifies (carry>=30 m, lat<=2.73, 100% contact, smash 1.30-1.49) |", "|---|---|---|---|---|---|---|---|---|---|"]
     mt += ["", "**imit19_masonmapped_dart_s51 caution (SLOW-SWING / LOW-SPEED ARTIFACT, not better accuracy):** trainer gate JSONs (3 seeds x 100 eps, force_scale 2, results/imit_private/gate_imit19_*) show det club 87.6 mph, carry 58.2-58.4 m, launch 13.9-14.0 deg and lateral std only 0.04-0.11 m (stoch 0.04-0.26), against imit15_dart_s53 at 120 mph, 110-113 m, 0.5-2.1 m. It hits ~27% slower, carries about half as far and its lateral spread is 10-30x smaller (0.1-0.2% of carry vs 0.5-1.9% for imit15), so the tiny spread follows from low club speed and a short, tame swing (script t_down 0.08, wrist_cock -0.6, wr_end -0.09), not from precision at a comparable drive. Do not rank it on lateral std. Its wrist/arm style claims are also covered by the lead/trail arm VOID.", ""]
+    import subprocess as _sp
+    _trk = all(_sp.run(["git", "ls-files", "--error-unmatch", f"results/imit_private/gate_imit19_masonmapped_dart_s51{x}.json"], cwd=ROOT, capture_output=True).returncode == 0 for x in ("", "_seed8000", "_seed9000"))
+    mt = [_x.replace("results/imit_private/gate_imit19_*", "results/imit_private/gate_imit19_* [" + ("in repo" if _trk else "held locally (not in repo)") + "]") for _x in mt]
     for c in sorted(cur, key=lambda c: (_fs(c), c.get("scripted", False), -score(c)[1])):
         d_ = c.get("modes", {}).get("deterministic", {})
         if "mean_carry" not in d_: continue

@@ -357,7 +357,7 @@ def main():
                 scripted_segments=[label(m) for m in seg_s], scripted_qualify={label(m): q[m["names"][0]] for m in scripted}, criterion=crit,
                 leaderboard_env_fingerprint=lb.get("env_fingerprint"), segments=[])
     # title card
-    t = ["Humanoid Golf - distilled policy vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo) - SIMULATION", "BOOSTED ACTUATORS: force_scale 2 = hypothetical-strength actuators", "(not a real robot or human). Power tier = hypothetical, no spin model.", f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
+    t = ["Humanoid Golf - distilled policy vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo) - SIMULATION", *(["BOOSTED ACTUATORS: force_scale 2 = hypothetical-strength actuators", "(not a real robot or human). Power tier = hypothetical, no spin model."] if ((lm.get("env_kwargs") or {}).get("force_scale") or 1) > 1 or "power" in str((lm.get("env_kwargs") or {}).get("model_xml", "")) else ["STOCK MOTORS (force_scale 1) for the learned segment; the scripted segment and some leaderboard rows use boosted", "actuators (force_scale 2 = hypothetical-strength, not a real robot or human); each is tagged on screen."]), f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
     cols = {}
     if fallback:
         t += ["FALLBACK PREVIEW: no trained model meets the showcase criterion", "Learned segment = best trained model, shown for transparency - NOT a good drive"]; cols = {5: (255, 70, 70), 6: (255, 70, 70)}
