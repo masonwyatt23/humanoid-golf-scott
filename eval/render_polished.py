@@ -357,11 +357,17 @@ def main():
                 scripted_segments=[label(m) for m in seg_s], scripted_qualify={label(m): q[m["names"][0]] for m in scripted}, criterion=crit,
                 leaderboard_env_fingerprint=lb.get("env_fingerprint"), segments=[])
     # title card
-    t = ["Humanoid Golf - distilled policy vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo) - SIMULATION", *(["BOOSTED ACTUATORS: force_scale 2 = hypothetical-strength actuators", "(not a real robot or human). Power tier = hypothetical, no spin model."] if ((lm.get("env_kwargs") or {}).get("force_scale") or 1) > 1 or "power" in str((lm.get("env_kwargs") or {}).get("model_xml", "")) else ["STOCK MOTORS (force_scale 1) for the learned segment; the scripted segment and some leaderboard rows use boosted", "actuators (force_scale 2 = hypothetical-strength, not a real robot or human); each is tagged on screen."]), f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
+    _ek = lm.get("env_kwargs") or {}; _sw = _ek.get("script_weight"); _pw = "power" in str(_ek.get("model_xml", "")); _boost = (_ek.get("force_scale") or 1) > 1 or _pw
+    _kind = "SCRIPT-DISTILLED POLICY" if (_sw == 0.0 and lm["names"][0].startswith("imit")) else "SCRIPT-DISTILLED BLEND" if (_sw not in (None, 1.0) and lm["names"][0].startswith("imit")) else "residual-PPO policy"
+    _g = _ek.get("impact_gain") or (_ek.get("impact_model") or {}).get("gain")
+    if _pw: _tier = [f"HYPOTHETICAL POWER TIER (force_scale 2 + power XML{', impact gain %g' % _g if _g else ''}); no spin model", "(not a real robot or human; backspin hand-set by the impact model)"]
+    elif _boost: _tier = ["BOOSTED ACTUATORS: force_scale 2 = hypothetical-strength actuators", "(not a real robot or human)"]
+    else: _tier = ["STOCK MOTORS (force_scale 1) for the learned segment; the scripted segment and some leaderboard rows use boosted", "actuators (force_scale 2 = hypothetical-strength, not a real robot or human); each is tagged on screen."]
+    t = [f"Humanoid Golf - {_kind} vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo) - SIMULATION", *([f"{_kind}, {'stock motors (force_scale 1)' if not _boost else 'hypothetical tier'}: " + lm["names"][0]] ), *_tier, f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
     cols = {}
     if fallback:
-        t += ["FALLBACK PREVIEW: no trained model meets the showcase criterion", "Learned segment = best trained model, shown for transparency - NOT a good drive"]; cols = {5: (255, 70, 70), 6: (255, 70, 70)}
-        cols = dict(cols); cols[2] = (255, 170, 80); cols[3] = (255, 170, 80)
+        t += ["FALLBACK PREVIEW: no trained model meets the showcase criterion", "Learned segment = best trained model, shown for transparency - NOT a good drive"]; cols = {6: (255, 70, 70), 7: (255, 70, 70)}
+        cols = dict(cols); cols[2] = (120, 255, 120); cols[3] = (255, 170, 80); cols[4] = (255, 170, 80)
     hold(card(t, cols, 0.6), 4)
     # leaderboard slides
     rank = [r.split("/")[0] for r in (lb.get("ranking_unflagged") or lb["ranking"])][:4]   # smash-flagged rows (outside 1.30-1.49) are not eligible as top rows
