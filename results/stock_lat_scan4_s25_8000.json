@@ -1,0 +1,34 @@
+{
+ "note": "STOCK force_scale 1 scripted zero residual",
+ "cfg": {
+  "script": {
+   "q_back": 2.3
+  },
+  "loft_deg": -41,
+  "ball_dz": -0.016
+ },
+ "rows": {
+  "dz -0.014": {
+   "launch_elev_mean_deg": 17.54,
+   "launch_elev_std_deg": 1.57,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 139.92,
+   "mean_distance": 139.92,
+   "landed_fraction": 1.0,
+   "lateral_std": 0.9,
+   "peak_club_mph_mean": 100.66
+  },
+  "dz -0.016": {
+   "launch_elev_mean_deg": 17.58,
+   "launch_elev_std_deg": 1.72,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 139.68,
+   "mean_distance": 139.68,
+   "landed_fraction": 1.0,
+   "lateral_std": 0.83,
+   "peak_club_mph_mean": 100.64
+  }
+ }
+}

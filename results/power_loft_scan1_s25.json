@@ -1,0 +1,61 @@
+{
+ "note": "HYPOTHETICAL power tier, impact gain 1.20, scripted zero residual, 100 eps? see n",
+ "n": "40",
+ "rows": {
+  "loft -31": {
+   "launch_elev_mean_deg": 12.58,
+   "launch_elev_std_deg": 0.02,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 298.84,
+   "mean_distance": 298.84,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.05,
+   "peak_club_mph_mean": 132.4
+  },
+  "loft -29": {
+   "launch_elev_mean_deg": 11.15,
+   "launch_elev_std_deg": 0.0,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 299.09,
+   "mean_distance": 299.09,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.05,
+   "peak_club_mph_mean": 132.4
+  },
+  "loft -27": {
+   "launch_elev_mean_deg": 9.72,
+   "launch_elev_std_deg": 0.01,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 292.7,
+   "mean_distance": 292.7,
+   "landed_fraction": 1.0,
+   "lateral_std": 1.87,
+   "peak_club_mph_mean": 132.4
+  },
+  "loft -25": {
+   "launch_elev_mean_deg": 8.3,
+   "launch_elev_std_deg": 0.02,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 274.41,
+   "mean_distance": 274.41,
+   "landed_fraction": 1.0,
+   "lateral_std": 1.52,
+   "peak_club_mph_mean": 132.4
+  },
+  "loft -23": {
+   "launch_elev_mean_deg": 10.02,
+   "launch_elev_std_deg": 13.69,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 235.24,
+   "mean_distance": 235.24,
+   "landed_fraction": 1.0,
+   "lateral_std": 2.52,
+   "peak_club_mph_mean": 132.4
+  }
+ }
+}

@@ -1,0 +1,100 @@
+{
+ "note": "STOCK force_scale 1 scripted zero residual",
+ "cfg": {
+  "script": {
+   "q_back": 2.3
+  },
+  "loft_deg": -41,
+  "ball_x": 0.402
+ },
+ "rows": {
+  "loft -38": {
+   "launch_elev_mean_deg": 16.28,
+   "launch_elev_std_deg": 1.09,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 122.74,
+   "mean_distance": 122.74,
+   "landed_fraction": 1.0,
+   "lateral_std": 3.4,
+   "peak_club_mph_mean": 100.7
+  },
+  "loft -44": {
+   "launch_elev_mean_deg": 18.85,
+   "launch_elev_std_deg": 1.08,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 143.78,
+   "mean_distance": 143.78,
+   "landed_fraction": 1.0,
+   "lateral_std": 3.58,
+   "peak_club_mph_mean": 100.7
+  },
+  "dz -0.004": {
+   "launch_elev_mean_deg": 18.85,
+   "launch_elev_std_deg": 2.26,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 125.78,
+   "mean_distance": 125.78,
+   "landed_fraction": 1.0,
+   "lateral_std": 6.83,
+   "peak_club_mph_mean": 100.76
+  },
+  "dz -0.012": {
+   "launch_elev_mean_deg": 17.53,
+   "launch_elev_std_deg": 1.4,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 140.19,
+   "mean_distance": 140.19,
+   "landed_fraction": 1.0,
+   "lateral_std": 1.33,
+   "peak_club_mph_mean": 100.68
+  },
+  "t_down .085": {
+   "launch_elev_mean_deg": 17.81,
+   "launch_elev_std_deg": 1.37,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 138.75,
+   "mean_distance": 138.75,
+   "landed_fraction": 1.0,
+   "lateral_std": 4.64,
+   "peak_club_mph_mean": 100.83
+  },
+  "t_down .105": {
+   "launch_elev_mean_deg": 18.14,
+   "launch_elev_std_deg": 1.83,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 138.39,
+   "mean_distance": 138.39,
+   "landed_fraction": 1.0,
+   "lateral_std": 3.2,
+   "peak_club_mph_mean": 100.55
+  },
+  "ball_x .390": {
+   "launch_elev_mean_deg": 17.69,
+   "launch_elev_std_deg": 1.48,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 137.2,
+   "mean_distance": 137.2,
+   "landed_fraction": 1.0,
+   "lateral_std": 4.41,
+   "peak_club_mph_mean": 100.57
+  },
+  "ball_x .402": {
+   "launch_elev_mean_deg": 18.71,
+   "launch_elev_std_deg": 1.45,
+   "launch_flat_frac": 0.0,
+   "contact_rate": 1.0,
+   "mean_carry": 134.64,
+   "mean_distance": 134.64,
+   "landed_fraction": 1.0,
+   "lateral_std": 0.87,
+   "peak_club_mph_mean": 100.76
+  }
+ }
+}

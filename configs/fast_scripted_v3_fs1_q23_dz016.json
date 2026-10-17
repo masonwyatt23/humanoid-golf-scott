@@ -1,0 +1,23 @@
+{
+ "description": "STOCK force_scale 1 SCRIPTED (zero residual, not learned). Stage 25: q_back 2.3, loft -41, ball_dz -0.016 (was -0.008): lateral std 1.59/0.83/0.48 m seeds 4000/8000/9000 (100 eps) vs 2.38/3.98/4.14 at dz -0.008; club 100.65 mph, carry ~140 m, launch 17.5. Observed: lateral outliers (+-10-20 m) occur only at |start ball_y|>~15 mm; the lower address height removes most of them (mechanism not isolated).",
+ "script": {
+  "q_back": 2.3,
+  "t_down": 0.095,
+  "t_back": 0.6,
+  "wr_end": -0.01,
+  "yaw_ff": 0.0
+ },
+ "ball_x": 0.396,
+ "ball_x_noise": 0.003,
+ "loft_deg": -41,
+ "ball_dz": -0.016,
+ "tee_height": 0.04,
+ "force_scale": 1.0,
+ "kp": 700,
+ "kd": 23.33,
+ "handedness": "left",
+ "model_xml": "humanoid_golf_v3.xml",
+ "sh_noise": 0.05,
+ "el_noise": 0.17,
+ "elbow_base": 0.4
+}

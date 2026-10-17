@@ -1,0 +1,27 @@
+{
+ "-8": {
+  "true_contact_rate": 1.0,
+  "mean_carry": 109.06231761270062,
+  "lateral_std": 1.0653629568617147
+ },
+ "-6": {
+  "true_contact_rate": 1.0,
+  "mean_carry": 98.32023570139421,
+  "lateral_std": 3.061521080903251
+ },
+ "-5": {
+  "true_contact_rate": 0.99,
+  "mean_carry": 90.05769960539698,
+  "lateral_std": 6.3045040537238926
+ },
+ "-4.5": {
+  "true_contact_rate": 1.0,
+  "mean_carry": 95.87553557491519,
+  "lateral_std": 6.31806459355467
+ },
+ "-4": {
+  "true_contact_rate": 1.0,
+  "mean_carry": 89.83839074141095,
+  "lateral_std": 7.57334837029607
+ }
+}

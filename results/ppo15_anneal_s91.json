@@ -1,0 +1,354 @@
+{
+  "args": {
+    "init": "imit15_dart_s53",
+    "name": "ppo15_anneal_s91",
+    "steps": 200000,
+    "lr": 3e-05,
+    "log_std": -4.7,
+    "log_std_end": -6.0,
+    "lam": 0.02,
+    "w_lat": 0.5,
+    "w_launch": 0.3,
+    "bc_k": 3,
+    "sel_every": 16,
+    "sel_eps": 100,
+    "seed": 91,
+    "eval_episodes": 100
+  },
+  "init": "imit15_dart_s53",
+  "tier": "force_scale 2.0 BOOSTED; DART-distilled start; PPO fine-tune, annealed log_std",
+  "diff_before": {
+    "rms_rad_per_joint": [
+      0.0009317139143493264,
+      6.523422170695631e-05,
+      9.757992998996576e-06,
+      5.385468413482754e-06
+    ],
+    "rms_rad_all": 0.0004670306584077908
+  },
+  "train_seconds": 1755.7476212978363,
+  "selection_history": [
+    {
+      "tag": "init",
+      "score": 21.971168439471885,
+      "carry": 94.59765525971578,
+      "lat": 6.8650547681016425,
+      "contact": 1.0
+    },
+    {
+      "tag": 16,
+      "score": -1000000000.0,
+      "carry": 93.41396330084144,
+      "lat": 3.7261008804228433,
+      "contact": 0.98
+    },
+    {
+      "tag": 32,
+      "score": 28.258727662695044,
+      "carry": 104.81322706904453,
+      "lat": 7.413478245588732,
+      "contact": 1.0
+    },
+    {
+      "tag": 48,
+      "score": 22.64714525232053,
+      "carry": 108.39659351469845,
+      "lat": 8.25411453901675,
+      "contact": 1.0
+    },
+    {
+      "tag": 64,
+      "score": 8.39498284708404,
+      "carry": 116.0862853117262,
+      "lat": 10.520977980934475,
+      "contact": 1.0
+    },
+    {
+      "tag": 80,
+      "score": 8.918815387109799,
+      "carry": 110.80883475394839,
+      "lat": 9.884193541356385,
+      "contact": 0.99
+    },
+    {
+      "tag": 96,
+      "score": -1000000000.0,
+      "carry": 117.49302115303176,
+      "lat": 10.003188694771875,
+      "contact": 0.96
+    },
+    {
+      "tag": 112,
+      "score": 36.17251906724834,
+      "carry": 113.6368008973848,
+      "lat": 7.541226956971389,
+      "contact": 1.0
+    },
+    {
+      "tag": 128,
+      "score": 26.14524569066577,
+      "carry": 118.9698478519531,
+      "lat": 9.103363293259713,
+      "contact": 0.99
+    },
+    {
+      "tag": 144,
+      "score": -1000000000.0,
+      "carry": 115.27742965894491,
+      "lat": 11.494447942521733,
+      "contact": 0.98
+    },
+    {
+      "tag": 160,
+      "score": 8.535725623082598,
+      "carry": 122.83661650683338,
+      "lat": 11.310896222786294,
+      "contact": 1.0
+    },
+    {
+      "tag": 176,
+      "score": -2.6240224535564884,
+      "carry": 119.5055288310902,
+      "lat": 11.997451101744966,
+      "contact": 0.99
+    },
+    {
+      "tag": 192,
+      "score": -1000000000.0,
+      "carry": 29.23521772749737,
+      "lat": 7.944173599427626,
+      "contact": 0.5
+    },
+    {
+      "tag": 208,
+      "score": -1000000000.0,
+      "carry": 27.008992651768526,
+      "lat": 7.291039267047408,
+      "contact": 0.58
+    },
+    {
+      "tag": 224,
+      "score": -1000000000.0,
+      "carry": 14.509615819864742,
+      "lat": 3.6237338412848588,
+      "contact": 0.7
+    },
+    {
+      "tag": 240,
+      "score": -88.82095136483699,
+      "carry": 2.710259499362912,
+      "lat": 6.366164502100601,
+      "contact": 0.99
+    },
+    {
+      "tag": 256,
+      "score": -1000000000.0,
+      "carry": 86.46079555557604,
+      "lat": 15.183481899867084,
+      "contact": 0.98
+    },
+    {
+      "tag": 272,
+      "score": -102.77380109698487,
+      "carry": 126.26371038284113,
+      "lat": 21.880982109130773,
+      "contact": 0.99
+    },
+    {
+      "tag": 288,
+      "score": -1000000000.0,
+      "carry": 10.918150250000838,
+      "lat": 9.163894359523026,
+      "contact": 0.97
+    },
+    {
+      "tag": 304,
+      "score": -1000000000.0,
+      "carry": 5.6441422381612245,
+      "lat": 7.021416594233086,
+      "contact": 0.98
+    },
+    {
+      "tag": 320,
+      "score": -1000000000.0,
+      "carry": 9.192169492367348,
+      "lat": 8.391362573354652,
+      "contact": 0.95
+    },
+    {
+      "tag": 336,
+      "score": -149.63424678767745,
+      "carry": 11.977388629995396,
+      "lat": 15.118842713858324,
+      "contact": 1.0
+    },
+    {
+      "tag": 352,
+      "score": -1000000000.0,
+      "carry": 19.61367719684271,
+      "lat": 10.876015373792784,
+      "contact": 0.98
+    },
+    {
+      "tag": 368,
+      "score": -1000000000.0,
+      "carry": 1.7786466692956946,
+      "lat": 10.564563056957669,
+      "contact": 0.92
+    },
+    {
+      "tag": 384,
+      "score": -1000000000.0,
+      "carry": 16.031400068199943,
+      "lat": 10.17476121190981,
+      "contact": 0.95
+    },
+    {
+      "tag": "final",
+      "score": -1000000000.0,
+      "carry": 7.455425289067697,
+      "lat": 8.736841227193507,
+      "contact": 0.96
+    }
+  ],
+  "selected": 112,
+  "selected_log_std": -5.073333263397217,
+  "checkpoint_sha256": "88cfcbdf8391fc1da725c7bff0fd51ba25f74c7a48fa3c8ea24f22a48c25efc1",
+  "policy": {
+    "n_episodes": 100,
+    "true_contact_rate": 1.0,
+    "landed_fraction": 0.99,
+    "mean_total_distance_x": 111.65687914733623,
+    "max_total_distance_x": 278.3307270525929,
+    "mean_carry": 108.87357187681029,
+    "max_carry": 196.71861992667925,
+    "mean_carry_given_landed": 109.97330492607101,
+    "lateral_mean": 0.5647708064628344,
+    "lateral_std": 7.292270416568509,
+    "mean_impact_club_speed": 54.48772365328082,
+    "max_impact_club_speed": 54.69124921646756,
+    "mean_ball_speed": 53.52039526995667,
+    "max_ball_speed": 57.72552822480625,
+    "median_smash": 0.9841522071313622,
+    "peak_club_speed_mean_ms": 54.48772365328082,
+    "peak_club_speed_max_ms": 54.69124921646756,
+    "peak_club_speed_mean_mph": 121.88576854896999,
+    "peak_club_speed_max_mph": 122.34104302228495,
+    "impact_club_speed_mean_mph": 121.88576854896999,
+    "seq_thorax_before_arm_frac": 0.44,
+    "seq_arm_before_club_frac": 1.0,
+    "seq_arm_lead_ms_mean": 0.0,
+    "mean_style_score": null,
+    "launch_elev_p5_p50_p95_deg": [
+      0.4880032785534786,
+      13.276560791773266,
+      13.560517606713011
+    ],
+    "frac_launch_8_14": 0.93,
+    "frac_carry_ge30": 0.96,
+    "mean_launch_elev_deg": 11.410802650295556
+  },
+  "policy_stochastic": {
+    "n_episodes": 100,
+    "true_contact_rate": 0.99,
+    "landed_fraction": 0.92,
+    "mean_total_distance_x": 135.11965520844203,
+    "max_total_distance_x": 286.2645768591868,
+    "mean_carry": 115.77140739028032,
+    "max_carry": 200.15927089268382,
+    "mean_carry_given_landed": 125.83848629378295,
+    "lateral_mean": 1.763318085596876,
+    "lateral_std": 8.74723507287685,
+    "mean_impact_club_speed": 54.50057172805885,
+    "max_impact_club_speed": 55.47589725436394,
+    "mean_ball_speed": 53.767680761414546,
+    "max_ball_speed": 58.33706797623373,
+    "median_smash": 1.0023198543450633,
+    "peak_club_speed_mean_ms": 54.4153498522576,
+    "peak_club_speed_max_ms": 55.47589725436394,
+    "peak_club_speed_mean_mph": 121.72387269850913,
+    "peak_club_speed_max_mph": 124.09625360417688,
+    "impact_club_speed_mean_mph": 121.91450892136397,
+    "seq_thorax_before_arm_frac": 0.29,
+    "seq_arm_before_club_frac": 1.0,
+    "seq_arm_lead_ms_mean": 0.20000000000000018,
+    "mean_style_score": null,
+    "launch_elev_p5_p50_p95_deg": [
+      0.05932517144396153,
+      13.176756215130933,
+      13.864872579227933
+    ],
+    "frac_launch_8_14": 0.89,
+    "frac_carry_ge30": 0.92,
+    "mean_launch_elev_deg": 11.356590797679386
+  },
+  "diff_after": {
+    "rms_rad_per_joint": [
+      0.12249176627108836,
+      0.007982655044440574,
+      0.001919067446490209,
+      0.0010579357106609655
+    ],
+    "rms_rad_all": 0.061385579808294115
+  },
+  "env_kwargs_full": {
+    "script": {
+      "q_back": 2.2,
+      "t_down": 0.095,
+      "t_back": 0.6,
+      "wr_end": -0.01,
+      "yaw_ff": 0.0
+    },
+    "residual_scale": [
+      0.01,
+      0.01,
+      0.01,
+      0.01
+    ],
+    "flight_model": true,
+    "curriculum": true,
+    "carry_reward": true,
+    "forward_reward": true,
+    "randomize_reset": true,
+    "gate_lo": 15.0,
+    "gate_hi": 35.0,
+    "seq_weight": 0.0,
+    "style_prior": false,
+    "yaw_amp": 0.1,
+    "wrist_amp": 0.0,
+    "style_lead": 0.05,
+    "analytic_ball": false,
+    "lat_weight": 0.0,
+    "lat_angular": false,
+    "elev_weight": 0.0,
+    "carry_cap": 120.0,
+    "tempo_scale": 0.0,
+    "shot_pen": 1.0,
+    "act_l2": 0.0,
+    "script_weight": 0.0,
+    "learn_scale": [
+      2.4,
+      0.7,
+      0.15,
+      0.15
+    ],
+    "track_set": "unified_v1",
+    "track_weight": 2.0,
+    "track_time_fix": false,
+    "key_weight": 0.0,
+    "key_s": 2.0,
+    "ball_x": 0.396,
+    "ball_x_noise": 0.003,
+    "loft_deg": -31,
+    "ball_dz": -0.008,
+    "tee_height": 0.04,
+    "force_scale": 2.0,
+    "kp": 700,
+    "kd": 23.33,
+    "handedness": "left",
+    "model_xml": "humanoid_golf_v3.xml",
+    "sh_noise": 0.05,
+    "el_noise": 0.17,
+    "elbow_base": 0.4
+  }
+}
