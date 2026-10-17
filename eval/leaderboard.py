@@ -64,6 +64,7 @@ def discover():
 
 
 # results/TRAINING_NOTES.md CORRECTION: eval.eval_gate rebuilt these from train_residual-style args and dropped the v3 address/script settings -> rows are INVALID (superseded by imit2/imit3, which store env_kwargs_full)
+NOISE_SIGMAS, NOISE_EPS = (0.005, 0.01), 10   # QUICK noise-robustness columns (small N, labelled)
 INVALID_CONFIG = {"imit_w075_s51", "imit_w075_s52", "imit_w075_s53"}
 SCRIPTED_V3 = "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]"
 SCRIPTED_LOFT = "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]"
@@ -175,6 +176,19 @@ def main():
     cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"]
                   and not any(n in INVALID_CONFIG for n in c["names"])],
                  key=lambda c: c.get("mtime", 0))
+    # noise robustness (QUICK, N=NOISE_EPS det episodes, seeds a.seed+): Gaussian noise sigma on every obs AND action; only for models that pass a quick contact/carry screen; cached per entry
+    for c in cur:
+        d0 = c.get("modes", {}).get("deterministic", {})
+        if c.get("env_kwargs") is None or d0.get("contact_rate", 0) < 1 or d0.get("mean_carry", 0) < 30 or c.get("scripted") and "v3 Stage 6" not in c["names"][0]: continue
+        nr = c.setdefault("noise_robust", {})
+        for sg in NOISE_SIGMAS:
+            if str(sg) in nr and not a.force: continue
+            try:
+                dn, _ = dr.run(c["names"][0], c["env_kwargs"], NOISE_EPS, a.seed, True, scripted=bool(c.get("scripted")), workers=a.workers, noise=sg)
+                nr[str(sg)] = {k: dn[k] for k in ("contact_rate", "mean_carry", "lateral_std", "launch_elev_mean_deg") if k in dn}; nr[str(sg)]["episodes"] = NOISE_EPS
+            except Exception as e:
+                nr[str(sg)] = {"error": f"{type(e).__name__}: {e}"}
+        (RES / "leaderboard_cache.json").write_text(json.dumps(cache, indent=1))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []
     for c in cur:
@@ -262,7 +276,7 @@ def main():
             if j.exists():
                 JJ = json.loads(j.read_text()); ar = JJ.get("args", {}); ek = JJ.get("env_kwargs_full") or c.get("env_kwargs", {})
                 if "script_weight" in ek and ek["script_weight"] is not None and ek["script_weight"] != 1.0:   # imitation-distilled blend: script_weight = share of the scripted command in the executed action
-                    sw = float(ek["script_weight"]); return f"BLEND: executed command = {sw*100:.0f}% scripted + {(1-sw)*100:.0f}% learned (script_weight={sw}, learn_scale={ek.get('learn_scale')}); residual cap +-{ar.get('res_scale')} rad" + (" ; HYPOTHETICAL ACTUATORS force_scale %g" % ek["force_scale"] if ek.get("force_scale", 1) > 1 else "")
+                    sw = float(ek["script_weight"]); return ("IMITATION OF THE SCRIPT, %d%% script: " % round(sw * 100) if any(x.startswith("imit") for x in c["names"]) else "") + f"BLEND: executed command = {sw*100:.0f}% scripted + {(1-sw)*100:.0f}% learned (script_weight={sw}, learn_scale={ek.get('learn_scale')}); residual cap +-{ar.get('res_scale')} rad" + (" ; HYPOTHETICAL ACTUATORS force_scale %g" % ek["force_scale"] if ek.get("force_scale", 1) > 1 else "")
                 if "res_scale" in ar:
                     ts = ar.get("tempo_scale", "0.3 (env default)")
                     return f"residual on scripted swing: cap +-{ar['res_scale']} rad (shoulder, elbow, wrist, yaw) + tempo_scale {ts}; % of control from policy = not defined/unknown"
@@ -356,6 +370,14 @@ def main():
             D.append(f"| {'/'.join(c['names'])} | {m} | {v2m(v)} |")
     (RES / "dispersion_ladder_scripted.md").write_text("\n".join(D) + "\n")
     (RES / "dispersion_ladder_scripted.json").write_text(json.dumps([{k: c[k] for k in ("names", "steps", "config_source", "env_kwargs", "modes")} for c in det_rows], indent=1))
+    L += ["", f"## Noise robustness (QUICK GATE: {NOISE_EPS} deterministic episodes, seeds {a.seed}+, small N so noisy; screened models only)", "",
+          "Gaussian noise of the given sigma is added to EVERY observation and EVERY action (action clipped to [-1,1]). 'clean' columns are the full-N deterministic numbers above. Provisional: not used for ranking or qualification.", "",
+          "| model | kind | clean carry m / lat std | sigma 0.005: contact, carry m, lat std | sigma 0.01: contact, carry m, lat std |", "|---|---|---|---|---|"]
+    for c in cur:
+        nr = c.get("noise_robust")
+        if not nr: continue
+        d0 = c["modes"]["deterministic"]; f = lambda v: "-" if not v or "error" in v else f"{v['contact_rate']*100:.0f}%, {v['mean_carry']:.1f}, {v['lateral_std']:.2f}"
+        L.append(f"| {'/'.join(c['names'][:1])} | {'SCRIPTED (not learned)' if c.get('scripted') else learned_note(c)[:60]} | {d0['mean_carry']:.1f} / {d0['lateral_std']:.2f} | {f(nr.get('0.005'))} | {f(nr.get('0.01'))} |")
     (RES / "leaderboard.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
     from eval.compare_styles import from_leaderboard
     from_leaderboard()

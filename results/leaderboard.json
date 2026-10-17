@@ -3453,7 +3453,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:38:50"
+   "evaluated_at": "2026-10-17 01:38:50",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 50.003012026020166,
+     "lateral_std": 29.411350080305077,
+     "launch_elev_mean_deg": 52.69143926269671,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 57.568020960421414,
+     "lateral_std": 27.386079046829227,
+     "launch_elev_mean_deg": 49.66776153456717,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "8c313a425e6dcab51793dd8155905432",
@@ -4065,7 +4081,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:39:32"
+   "evaluated_at": "2026-10-17 01:39:32",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 89.30574130548203,
+     "lateral_std": 6.1265002757470475,
+     "launch_elev_mean_deg": 34.159656994708705,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 91.61455256461461,
+     "lateral_std": 10.930568387136525,
+     "launch_elev_mean_deg": 34.46312171346369,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "08e06d0a1a706b026f83a7f34884b744",
@@ -4677,7 +4709,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:40:21"
+   "evaluated_at": "2026-10-17 01:40:21",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 104.16592498671494,
+     "lateral_std": 7.500749936470895,
+     "launch_elev_mean_deg": 30.1315546454036,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 97.77498573506941,
+     "lateral_std": 5.453874544284436,
+     "launch_elev_mean_deg": 33.606700847083864,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "268fbad22c68a07b5b9c139a616bea61",
@@ -5289,7 +5337,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:41:06"
+   "evaluated_at": "2026-10-17 01:41:06",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 95.27599379344822,
+     "lateral_std": 5.749215834739123,
+     "launch_elev_mean_deg": 35.72020754603141,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 101.09211283399725,
+     "lateral_std": 10.95040051794777,
+     "launch_elev_mean_deg": 34.476259725990616,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "scripted-ppo_resid_v3_ladder_s0",
@@ -7735,7 +7799,23 @@
     }
    },
    "scripted": true,
-   "evaluated_at": "2026-10-17 02:01:15"
+   "evaluated_at": "2026-10-17 02:01:15",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 91.87441532481424,
+     "lateral_std": 9.004991769374357,
+     "launch_elev_mean_deg": 7.9785877129174025,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 109.54542316607353,
+     "lateral_std": 1.8327505898857708,
+     "launch_elev_mean_deg": 11.730391475373786,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "b77e8ed8bebfff099482615658fa51d8",
@@ -8347,7 +8427,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:20:22"
+   "evaluated_at": "2026-10-17 01:20:22",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 105.376896939339,
+     "lateral_std": 5.8615759319492495,
+     "launch_elev_mean_deg": 33.124016378001656,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 107.05886100703735,
+     "lateral_std": 6.860766469458388,
+     "launch_elev_mean_deg": 32.94349562536594,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "46709f427f88ef8f56b25e1c846fa7e7",
@@ -8960,7 +9056,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:20:52"
+   "evaluated_at": "2026-10-17 01:20:52",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 111.91341787538613,
+     "lateral_std": 8.414107741175046,
+     "launch_elev_mean_deg": 31.52574889917354,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 110.75527525336388,
+     "lateral_std": 6.908591390776384,
+     "launch_elev_mean_deg": 32.15723934336985,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "f579a192e507cd6a508dfdc1e0d3c213",
@@ -9572,7 +9684,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:21:59"
+   "evaluated_at": "2026-10-17 01:21:59",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 115.63305492280213,
+     "lateral_std": 6.571785741684378,
+     "launch_elev_mean_deg": 31.260452918105614,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 100.66398361990089,
+     "lateral_std": 5.72697614093906,
+     "launch_elev_mean_deg": 30.631621411817605,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "d029dd4b4a6a13adbd960be9107ca818",
@@ -10184,7 +10312,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:22:31"
+   "evaluated_at": "2026-10-17 01:22:31",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 91.55298099638176,
+     "lateral_std": 6.05074647316946,
+     "launch_elev_mean_deg": 33.95018804789106,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 100.69809876662623,
+     "lateral_std": 7.78561541144814,
+     "launch_elev_mean_deg": 32.89686091083093,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "0e199901d76131f91cfda571dade4eca",
@@ -11408,7 +11552,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:26:39"
+   "evaluated_at": "2026-10-17 01:26:39",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 89.17546698751377,
+     "lateral_std": 6.096677701539138,
+     "launch_elev_mean_deg": 25.03950621428328,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 104.62462848982848,
+     "lateral_std": 7.94986070050308,
+     "launch_elev_mean_deg": 26.689002656388425,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "3ef54b33032f174de23d49127db97ef7",
@@ -13248,7 +13408,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:27:47"
+   "evaluated_at": "2026-10-17 01:27:47",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 107.83040212157444,
+     "lateral_std": 9.097301300098962,
+     "launch_elev_mean_deg": 31.446065767827616,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 106.4801381158187,
+     "lateral_std": 8.84368118837671,
+     "launch_elev_mean_deg": 31.438786031658218,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "b15b48bd8e6d773c63697116344702e4",
@@ -13862,7 +14038,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:28:34"
+   "evaluated_at": "2026-10-17 01:28:34",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 96.47015774353349,
+     "lateral_std": 6.312603442647516,
+     "launch_elev_mean_deg": 25.492373212893927,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 100.18896671119558,
+     "lateral_std": 3.825504342879391,
+     "launch_elev_mean_deg": 23.84602737156261,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "41c212556a50b4b75ea951004fc32bfe",
@@ -15709,7 +15901,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:36:02"
+   "evaluated_at": "2026-10-17 01:36:02",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 102.52236345592821,
+     "lateral_std": 3.9615183896258657,
+     "launch_elev_mean_deg": 9.367866581998575,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 115.81465689930742,
+     "lateral_std": 6.203191538372582,
+     "launch_elev_mean_deg": 11.884616168852084,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "c32c9eaf474a386916282ae0e533fa6d",
@@ -16327,7 +16535,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:36:28"
+   "evaluated_at": "2026-10-17 01:36:28",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 117.5311133698312,
+     "lateral_std": 2.608358467877224,
+     "launch_elev_mean_deg": 11.972456020336065,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 87.77707370252523,
+     "lateral_std": 11.417295033617387,
+     "launch_elev_mean_deg": 5.453781928162278,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "dbd3e51e63312e66db998c4687866a31",
@@ -16945,7 +17169,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:36:55"
+   "evaluated_at": "2026-10-17 01:36:55",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 111.02442352945688,
+     "lateral_std": 4.943639402770797,
+     "launch_elev_mean_deg": 9.329239740405244,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 87.62786183573618,
+     "lateral_std": 0.14351441464637005,
+     "launch_elev_mean_deg": 10.609533819548801,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "ab39fc8e02b6d91152f3cc8facc2a68c",
@@ -17564,7 +17804,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:41:36"
+   "evaluated_at": "2026-10-17 01:41:36",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 102.73994653037096,
+     "lateral_std": 10.799424950091245,
+     "launch_elev_mean_deg": 6.908785255814925,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 104.382053345289,
+     "lateral_std": 10.44354976680566,
+     "launch_elev_mean_deg": 9.419957530469475,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "2335b7e3f14ff3fc174c25f89be4048d",
@@ -18184,7 +18440,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:42:07"
+   "evaluated_at": "2026-10-17 01:42:07",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 109.49832592076002,
+     "lateral_std": 1.6031827621375063,
+     "launch_elev_mean_deg": 11.886299320246188,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 109.59076733607337,
+     "lateral_std": 1.5922887867035966,
+     "launch_elev_mean_deg": 11.884898046491433,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "095b811d8f57af1831544e887a6a8dcb",
@@ -18804,7 +19076,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:42:38"
+   "evaluated_at": "2026-10-17 01:42:38",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 109.50561444040598,
+     "lateral_std": 1.5990806716396535,
+     "launch_elev_mean_deg": 11.884651673602407,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 109.62890662415555,
+     "lateral_std": 1.5885727208242697,
+     "launch_elev_mean_deg": 11.885531810533614,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "20d862fcdbad72086b1be04c455d11ee",
@@ -19432,7 +19720,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:43:41"
+   "evaluated_at": "2026-10-17 01:43:41",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 213.83775398853464,
+     "lateral_std": 1.7965214656330395,
+     "launch_elev_mean_deg": 10.464035536534436,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 213.06996228959147,
+     "lateral_std": 1.8666890331263672,
+     "launch_elev_mean_deg": 10.463946996451456,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "7d522907ffad0d37b2a133fb633505c4",
@@ -20059,7 +20363,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:44:43"
+   "evaluated_at": "2026-10-17 01:44:43",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 215.09812130501055,
+     "lateral_std": 1.7996182075769624,
+     "launch_elev_mean_deg": 10.462829684271593,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 215.10381335348296,
+     "lateral_std": 1.7999467348338065,
+     "launch_elev_mean_deg": 10.462862630246004,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "2c7e9e5609622b5e3e087d3a750c515d",
@@ -20686,7 +21006,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:51:05"
+   "evaluated_at": "2026-10-17 01:51:05",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 212.6904485241745,
+     "lateral_std": 1.767804942035354,
+     "launch_elev_mean_deg": 10.463234574395432,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 212.69067579337462,
+     "lateral_std": 1.7695058177181116,
+     "launch_elev_mean_deg": 10.463397377627032,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "af01f266c97bf883a3f4329aafcf1207",
@@ -21320,7 +21656,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:54:57"
+   "evaluated_at": "2026-10-17 01:54:57",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 78.88696051458747,
+     "lateral_std": 0.8232309752644957,
+     "launch_elev_mean_deg": 9.127648585488016,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 86.73841189680734,
+     "lateral_std": 6.453722315043854,
+     "launch_elev_mean_deg": 7.928859286590958,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "5dc17924f75259c2ee2c1e1cfb140d0b",
@@ -21954,7 +22306,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:55:28"
+   "evaluated_at": "2026-10-17 01:55:28",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 87.11414408866352,
+     "lateral_std": 12.290879148159123,
+     "launch_elev_mean_deg": 5.400781241039506,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 87.4421582758799,
+     "lateral_std": 3.2093649550769516,
+     "launch_elev_mean_deg": 6.739735734934807,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "47e89c705fb9db4efbf0f9433bd974ac",
@@ -22588,7 +22956,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:56:02"
+   "evaluated_at": "2026-10-17 01:56:02",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 97.36378724557895,
+     "lateral_std": 1.7641213289562723,
+     "launch_elev_mean_deg": 10.377129953517503,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 79.30205331970453,
+     "lateral_std": 0.02914466168483658,
+     "launch_elev_mean_deg": 7.975659886098313,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "cedc664344bea6983a013747a2e6a91e",
@@ -23222,7 +23606,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:56:32"
+   "evaluated_at": "2026-10-17 01:56:32",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 90.56904010268394,
+     "lateral_std": 0.7003655371918373,
+     "launch_elev_mean_deg": 10.439617117596669,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 106.5557040065122,
+     "lateral_std": 3.744848049325893,
+     "launch_elev_mean_deg": 10.494956541281628,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "9c455ef7c68224717b93f92989276ee4",
@@ -23856,7 +24256,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:57:04"
+   "evaluated_at": "2026-10-17 01:57:04",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 91.1763283386606,
+     "lateral_std": 0.805828339827018,
+     "launch_elev_mean_deg": 10.48167135391772,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 90.13757697339533,
+     "lateral_std": 0.02578346131175373,
+     "launch_elev_mean_deg": 9.295599242355436,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "1e3489ef0f675839afc56a05612a5805",
@@ -24490,7 +24906,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:57:36"
+   "evaluated_at": "2026-10-17 01:57:36",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 88.86417449940532,
+     "lateral_std": 4.434227551888076,
+     "launch_elev_mean_deg": 6.730625315838284,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 105.38417756848378,
+     "lateral_std": 3.4305787183569816,
+     "launch_elev_mean_deg": 10.616558664691961,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "c79eb529a76ef7007f078275cc66ef7e",
@@ -25124,7 +25556,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:58:04"
+   "evaluated_at": "2026-10-17 01:58:04",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 101.37479302687423,
+     "lateral_std": 3.1676188553080817,
+     "launch_elev_mean_deg": 10.624899546479936,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 87.31556481288192,
+     "lateral_std": 0.3772669435876415,
+     "launch_elev_mean_deg": 8.01038789429948,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "78dd09bdf8e984b727e55561f0460d6c",
@@ -25758,7 +26206,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:58:38"
+   "evaluated_at": "2026-10-17 01:58:38",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 101.86670760136806,
+     "lateral_std": 1.331863287632364,
+     "launch_elev_mean_deg": 10.491880190230724,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 72.6574449700585,
+     "lateral_std": 2.124162192712655,
+     "launch_elev_mean_deg": 5.419978749033892,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "8e3f2fbffdfa5e195228e7bb35acab13",
@@ -26392,7 +26856,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:59:09"
+   "evaluated_at": "2026-10-17 01:59:09",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 94.96956426962234,
+     "lateral_std": 0.041432571055962854,
+     "launch_elev_mean_deg": 9.224304504768146,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 106.81779431554855,
+     "lateral_std": 6.010796176818322,
+     "launch_elev_mean_deg": 10.47175541296841,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "44b11dd6f6c74afd6a85bc4772f508a3",
@@ -27026,7 +27506,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 01:59:37"
+   "evaluated_at": "2026-10-17 01:59:37",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 82.1665699640055,
+     "lateral_std": 3.158294223376439,
+     "launch_elev_mean_deg": 7.900334974278609,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 98.97644893511196,
+     "lateral_std": 8.553750221977994,
+     "launch_elev_mean_deg": 9.328083335230142,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "52b6e46c98fb9a7305ae2b45496b11ab",
@@ -27660,7 +28156,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 02:04:46"
+   "evaluated_at": "2026-10-17 02:04:46",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 106.11699139494233,
+     "lateral_std": 17.041300284867027,
+     "launch_elev_mean_deg": 8.121380512818117,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 84.48356083348365,
+     "lateral_std": 1.0788268389154185,
+     "launch_elev_mean_deg": 9.356666093566021,
+     "episodes": 10
+    }
+   }
   },
   {
    "md5": "840f2d11224304bda42f3aa8df1c01dd",
@@ -28295,7 +28807,23 @@
     }
    },
    "scripted": false,
-   "evaluated_at": "2026-10-17 02:05:46"
+   "evaluated_at": "2026-10-17 02:05:46",
+   "noise_robust": {
+    "0.005": {
+     "contact_rate": 1.0,
+     "mean_carry": 102.59149896288696,
+     "lateral_std": 12.486244319027067,
+     "launch_elev_mean_deg": 8.027973551038414,
+     "episodes": 10
+    },
+    "0.01": {
+     "contact_rate": 1.0,
+     "mean_carry": 107.21984231609822,
+     "lateral_std": 5.236919660422115,
+     "launch_elev_mean_deg": 9.303595624078797,
+     "episodes": 10
+    }
+   }
   }
  ],
  "contact_regressions": [

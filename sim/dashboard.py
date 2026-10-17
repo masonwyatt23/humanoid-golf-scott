@@ -27,7 +27,7 @@ def build():
     for i, (cr, carry, m, d, s, name, scripted, fs) in enumerate(rows, 1):
         tag = '<span class="b sc">SCRIPTED (not learned)</span>' if scripted else '<span class="b ln">learned</span>'
         hyp = '<span class="b hy">hypothetical actuators (force_scale %g)</span>' % fs if fs and fs > 1 else ("" if fs else '<span class="b">default env</span>')
-        star = " &#9733;" if (not scripted and m["names"][:1] == best[:1] and best[1] in m["names"]) else ""
+        star = " &#9733;" if (not scripted and m["names"][:1] == best[:1] and (len(best) < 2 or best[1] in m["names"])) else ""
         tr.append(f"<tr><td>{i}</td><td>{e(' / '.join(m['names']))[:110]}{star}<br>{tag} {hyp}</td><td>{f(d['contact_rate']*100,0,'%')} / {f(s['contact_rate']*100,0,'%')}</td>"
                   f"<td>{f(d.get('mean_carry_yd'),0)}</td><td>{f(d.get('mean_total_yd'),0)}</td><td>{f(d.get('lateral_std'),2)}</td><td>{f(d.get('launch_elev_mean_deg'),1)}</td>"
                   f"<td>{f(d.get('peak_club_mph_mean'),0)}</td><td>{f(d.get('smash_factor_mean'),2)}</td></tr>")

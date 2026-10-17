@@ -23,7 +23,7 @@ MASON_QUALITY_ORIG = {"mason_swing_part1_s05_refined": 0.86, "mason_swing_part2_
 
 def _chunk(args):
     """Run episodes [ep0, ep1) serially (episode i uses env.reset(seed=seed+i), so any split gives identical per-episode seeds). Returns (shots, joint trajectories)."""
-    name, kw, ep0, ep1, seed, det, scripted = args
+    name, kw, ep0, ep1, seed, det, scripted = args[:7]; noise = float(args[7]) if len(args) > 7 else 0.0   # noise: sigma of Gaussian noise added to every observation and every action (clipped to [-1,1]); seeded per episode
     import numpy as np
     try:
         import torch; torch.set_num_threads(1)
@@ -37,8 +37,11 @@ def _chunk(args):
     try:
         for ep in range(ep0, ep1):
             obs, _ = env.reset(seed=seed + ep); ft.reset(); done = False; info = {}; tr_ = [env.data.qpos[qi].copy()]
+            nrng = np.random.default_rng(10_000 + seed + ep)
             while not done:
+                if noise > 0: obs = obs + nrng.normal(0, noise, np.shape(obs)).astype(np.asarray(obs).dtype)
                 a = zero if scripted else model.predict(obs, deterministic=det)[0]
+                if noise > 0: a = np.clip(a + nrng.normal(0, noise, np.shape(a)), -1, 1).astype(np.float32)
                 obs, _, te, tr, info = env.step(a); ft.step(); tr_.append(env.data.qpos[qi].copy()); done = te or tr
             sh = ft.summary(info); sh["max_ball_x"] = float(info.get("max_ball_x", sh["final_x"]))
             shots.append(sh); jt.append(np.array(tr_))
@@ -47,19 +50,19 @@ def _chunk(args):
     return shots, jt
 
 
-def run(name, kw, episodes, seed, det, scripted=False, workers=1):
+def run(name, kw, episodes, seed, det, scripted=False, workers=1, noise=0.0):
     """name = models/<name>.zip (ignored if scripted=True: zero-residual action on the residual env). workers>1: episodes split into contiguous chunks run in separate
     processes (spawn); per-episode seeds are unchanged so the result equals the serial run."""
     import numpy as np
     from eval.style_match import style_match_stats
     workers = max(1, min(int(workers), episodes))
     if workers == 1:
-        shots, jt = _chunk((name, kw, 0, episodes, seed, det, scripted))
+        shots, jt = _chunk((name, kw, 0, episodes, seed, det, scripted, noise))
     else:
         import multiprocessing as mp
         from concurrent.futures import ProcessPoolExecutor
         edges = [round(i * episodes / workers) for i in range(workers + 1)]
-        jobs = [(name, kw, edges[i], edges[i + 1], seed, det, scripted) for i in range(workers)]
+        jobs = [(name, kw, edges[i], edges[i + 1], seed, det, scripted, noise) for i in range(workers)]
         with ProcessPoolExecutor(max_workers=workers, mp_context=mp.get_context("spawn")) as ex:
             res = list(ex.map(_chunk, jobs))
         shots = [x for r in res for x in r[0]]; jt = [x for r in res for x in r[1]]
