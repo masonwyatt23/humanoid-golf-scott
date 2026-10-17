@@ -41,20 +41,29 @@ def noise_cell(name):
     return "not measured"
 
 
+def _held(f):
+    import subprocess
+    try: return subprocess.run(["git", "ls-files", "--error-unmatch", str(f)], cwd=ROOT, capture_output=True).returncode != 0
+    except Exception: return False
+
+
 def gain_rows():
-    """imit18 s51 re-gates at overridden impact_gain (Trainer, results/imit_private/gain<NNN>/gate_imit18_power_dart_s51[_seedN].json) + the default-gain gates for comparison."""
-    import glob, re
-    rows = []
-    paths = [(1.28, str(ROOT / "results/imit_private/gate_imit18_power_dart_s51%s.json") % sfx) for sfx in ("", "_seed8000", "_seed9000")]
-    for d_ in sorted(glob.glob(str(ROOT / "results/imit_private/gain*"))):
-        for sfx in ("", "_seed8000", "_seed9000"):
-            paths.append((None, f"{d_}/gate_imit18_power_dart_s51{sfx}.json"))
-    for g, f in paths:
-        if not os.path.exists(f): continue
-        j = json.load(open(f)); p, st = j["policy_det"], j["policy_stoch"]; ek = j["env_kwargs"]
-        gain = g if g is not None else float(ek.get("impact_gain") or (ek.get("impact_model") or {}).get("gain", 0))
-        rows.append(dict(gain=gain, seed=j["seed"], ball_mph=p["mean_peak_ball_speed"] * 2.23694, smash=p["smash_factor_mean"], carry=p["mean_carry"], lat=p["lateral_std"], lat_s=st["lateral_std"], landed=p["landed_fraction"], **{"pass": bool(j["gate_pass"])}))
-    return sorted(rows, key=lambda r: (-r["gain"], r["seed"]))
+    """imit18 power-tier gates under overridden impact_gain / loft (Trainer; any results/imit_private/<dir>/gate_imit18_power_dart_s5*[_seedN].json whose env has impact_gain, plus the
+    default gain-1.28 gates for comparison). Dedupes identical (model, gain, loft, seed). Smash = mean ball mph / mean impact club mph (ratio of means). Absent files => no rows."""
+    rows, seen = [], set()
+    files = sorted(glob.glob(str(ROOT / "results/imit_private/gate_imit18_power_dart_s5*.json"))) + sorted(glob.glob(str(ROOT / "results/imit_private/*/gate_imit18_power_dart_s5*.json")))
+    for f in files:
+        try: j = json.load(open(f))
+        except Exception: continue
+        ek = j.get("env_kwargs", {}); p, st = j["policy_det"], j["policy_stoch"]
+        gain = float(ek.get("impact_gain") or (ek.get("impact_model") or {}).get("gain", 0)); loft = ek.get("loft_deg")
+        m = re.search(r"dart_(s5\d)", f).group(1); key = (m, gain, loft, j["seed"])
+        if key in seen: continue
+        seen.add(key)
+        sm = p["mean_peak_ball_speed"] / p["impact_club_speed_mean"]
+        rows.append(dict(model="imit18_power_dart_" + m, gain=gain, loft=loft, seed=j["seed"], club=p["peak_club_mph_mean"], ball_mph=p["mean_peak_ball_speed"] * 2.23694, smash=sm, launch=p["launch_elev_mean_deg"],
+                         carry=p["mean_carry"], lat=p["lateral_std"], lat_s=st["lateral_std"], landed=p["landed_fraction"], **{"pass": bool(j["gate_pass"])}, held=_held(f), src="/".join(Path(f).parts[-2:])))
+    return sorted(rows, key=lambda r: (r["model"], -r["gain"], r["loft"] or 0, r["seed"]))
 
 
 def md():
@@ -71,11 +80,17 @@ def md():
             p, st, z = d["policy_det"], d["policy_stoch"], d.get("scripted_zero_residual", {})
             L.append(f"| {r['name']} | {lab} | {r['force_scale']:g} | {r['flight_steps']} | {r['res_scale']} | {s} | {d['episodes']} | {p['mean_carry']:.1f} / {p['mean_carry']*1.09361:.0f} | {p['lateral_std']:.2f} | {st['lateral_std']:.2f} | {p['landed_fraction']*100:.0f}% | {p['launch_elev_mean_deg']:.1f} | {p['peak_club_mph_mean']:.1f} | {z.get('lateral_std', float('nan')):.2f} | {noise_cell(r['name'])} | {'PASS' if d['gate_pass'] else 'FAIL'} (min_carry {d['min_carry']}) |")
     G = gain_rows()
-    if G:
-        L += ["", "### imit18_power_dart_s51: impact-gain sensitivity (Trainer re-gates, results/imit_private/gain*/; default gate = gain 1.28 above)", "",
-              "Same policy and gate protocol (100 eps x seeds 4000/8000/9000), env `impact_gain` overridden. Smash = ball speed / impact club speed. Gain 1.0 exactly was NOT gated (only 1.02 and 1.20 exist); a smash <= ~1.48 is the legal-driver reference. MODEL-BASED simulation, hypothetical power-tier actuators, no spin model (backspin hand-set).", "",
-              "| impact gain | seed | det ball mph | det smash | det carry m / yd | det lat std m | stoch lat std m | landed | headline |", "|---|---|---|---|---|---|---|---|---|"]
-        for r in G: L.append(f"| {r['gain']:g} | {r['seed']} | {r['ball_mph']:.0f} | {r['smash']:.2f} | {r['carry']:.1f} / {r['carry']*1.09361:.0f} | {r['lat']:.2f} | {r['lat_s']:.2f} | {r['landed']*100:.0f}% | {'PASS' if r['pass'] else 'FAIL'} |")
+    if not G:
+        L += ["", "### imit18 power tier: impact-gain / loft re-gates", "", "Gain re-gate files (results/imit_private/, Trainer) are not present in this checkout: table omitted (held locally, not an error)."]
+    else:
+        L += ["", "### imit18 power tier (hypothetical, no spin model): HEADLINE gain-1.20 re-gates vs the inflated gain-1.28 default", "",
+              "Trainer gates (100 eps x seeds 4000/8000/9000), env `impact_gain` overridden. **Use the gain 1.20 rows as the headline power tier**; gain 1.28 (313.8 m class, smash ~1.6) is INFLATED. Smash = mean ball mph / mean impact club mph; flags use the launch_report thresholds (fail >1.50, warn >1.49 or <1.30; derived, not published). A flagged row is not eligible as a showcase/top row. Gain 1.0 exactly was not gated. Rows marked `held` have no backing file in the repo (Trainer-reported, file held on the box).", "",
+              "| model | gain | loft deg | seed | club mph | ball mph | smash | smash flag | launch deg | det carry m / yd | det lat std m | stoch lat std m | landed | headline | backing |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        for r in G:
+            fl = "FAIL smash>1.50" if r["smash"] > 1.50 else "WARN smash>1.49" if r["smash"] > 1.49 else "WARN smash<1.30" if r["smash"] < 1.30 else "ok"
+            L.append(f"| {r['model']} | {r['gain']:g} | {r['loft']} | {r['seed']} | {r['club']:.1f} | {r['ball_mph']:.0f} | {r['smash']:.3f} | {fl} | {r['launch']:.1f} | {r['carry']:.1f} / {r['carry']*1.09361:.0f} | {r['lat']:.2f} | {r['lat_s']:.2f} | {r['landed']*100:.0f}% | {'PASS' if r['pass'] else 'FAIL'} | {'held locally (not in repo)' if r['held'] else 'in repo'} `{r['src']}` |")
+        miss = [f"{m} loft -27 seed 9000 (and loft -27 for s52 entirely)" for m in ("imit18_power_dart_s51",) if not any(r["model"] == m and r["loft"] == -27 and r["seed"] == 9000 for r in G)]
+        if miss: L += ["", "Missing (not in the Trainer files found): " + "; ".join(miss) + "."]
     L += ["", "3/3-seed pass: " + (", ".join(f"{r['name']}: {'YES' if r['all3'] else 'NO'}" for r in R) or "no rows"), ""]
     return L
 

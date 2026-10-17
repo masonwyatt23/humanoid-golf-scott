@@ -60,7 +60,7 @@ def build():
         star = " &#9733;" if (not scripted and m["names"][:1] == best[:1] and (len(best) < 2 or best[1] in m["names"])) else ""
         tr.append(f"<tr><td>{i}</td><td>{e(' / '.join(m['names']))[:110]}{star}<br>{tag} {hyp}</td><td>{f(d['contact_rate']*100,0,'%')} / {f(s['contact_rate']*100,0,'%')}</td>"
                   f"<td>{f(d.get('mean_carry_yd'),0)}</td><td>{f(d.get('mean_total_yd'),0)}</td><td>{f(d.get('lateral_std'),2)}</td><td>{f(d.get('launch_elev_mean_deg'),1)}</td>"
-                  f"<td>{f(d.get('peak_club_mph_mean'),0)}</td><td>{f(d.get('smash_factor_mean'),2)}</td></tr>")
+                  f"<td>{f(d.get('peak_club_mph_mean'),0)}</td><td>{f(m.get('smash_ratio_det'),2)}</td><td class=\"{'bad' if m.get('smash_flag') else 'ok'}\">{e(m.get('smash_flag') or 'ok')}</td></tr>")
     vt = []
     for blk, title in (("flight_from_published_launch", "Flight model from published launch conditions"), ("impact_model", "Impact model (club speed to ball)")):
         for c in val[blk]["checks"]:
@@ -83,7 +83,8 @@ table{{border-collapse:collapse;width:100%;background:#fff;font-size:13px}} th,t
 <div class="note">{stock_note(lb)}</div>
 <div class="note"><b>Two models shown side by side, neither promoted as &quot;learned from Mason&quot;.</b> {side_by_side(lb)} Both imitate the scripted swing and run force_scale 2 (hypothetical-strength actuators).</div>
 <h2>Leaderboard (ranked by true contact, then mean carry; star = best qualifying learned model)</h2>
-<table><tr><th>#</th><th>Model</th><th>Contact det / stoch</th><th>Carry yd (det)</th><th>Total yd (det)</th><th>Lateral std m</th><th>Launch deg</th><th>Peak club mph</th><th>Smash</th></tr>{''.join(tr)}</table>
+<div class="note"><b>Smash flag.</b> Rows with smash (det mean ball mph / impact club mph) outside 1.30-1.49 are flagged (FAIL &gt;1.50, WARN &gt;1.49 or &lt;1.30; thresholds derived, not published) and cannot be the star/best/showcase row. Boosted v3 policies at ~0.9-1.0 are flagged.</div>
+<table><tr><th>#</th><th>Model</th><th>Contact det / stoch</th><th>Carry yd (det)</th><th>Total yd (det)</th><th>Lateral std m</th><th>Launch deg</th><th>Peak club mph</th><th>Smash (ball/impact club)</th><th>Smash flag (ok = 1.30-1.49)</th></tr>{''.join(tr)}</table>
 <p>Episodes per row: {lb['episodes']}, seed base {lb['seed_base']}. Total equals carry when the episode ends at first landing (no roll). Qualification: {e(json.dumps(lb['qualify_criterion']))}.</p>
 <h2>Hypothetical tier (force_scale &gt; 1): 3-seed headline gate, separate from learned vs scripted</h2>
 <p>force_scale 2 (hypothetical-strength actuators). Per seed, 100 episodes, flight_steps 900; PASS needs contact, lateral std &le; 2.73 m, launch 5-20 deg, landed &ge; 90% in det AND stoch. A model passes only if all of seeds 4000/8000/9000 pass; &quot;effectively scripted&quot; = matches the zero-residual script (not a learned drive).</p>

@@ -1,7 +1,7 @@
 # Multi-model comparison (GENERATED from results/leaderboard.json by eval.compare_styles.from_leaderboard - do not edit by hand)
 
 Env fingerprint `c66fd89099c7`, 50 episodes/mode, seeds 4000+. Distance = final ball x; carry = first landing (mean over all episodes; 0 if never landed); +y = left, miss = |y| > 0.5 m.
-Best trained: **imit18_power_dart_s51**; best left-handed: **imit18_power_dart_s51**; best overall incl. scripted baseline: **imit18_power_dart_s51**.
+Best trained: **ppo_v4yaw_s42**; best left-handed: **ppo_v4yaw_s42**; best overall incl. scripted baseline: **ppo_v4yaw_s42**.
 
 | Model | Steps | Hand | Mode | Contact | Mean dist (m) | Max dist (m) | Mean carry (m) | Landed | Lateral std (m) | Left | Right | Peak club mph (mean/max) | % of 120 mph (max) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -145,3 +145,11 @@ Best trained: **imit18_power_dart_s51**; best left-handed: **imit18_power_dart_s
 | imit18_power_dart_s51 | 0 | left | stoch | 100% | 313.79 | 329.40 | 313.79 | 100% | 2.18 | 48% | 38% | 132.4 / 132.5 | 110.4% |
 | imit18_power_dart_s52 | 0 | left | deter | 100% | 313.89 | 328.83 | 313.89 | 100% | 2.18 | 48% | 38% | 132.4 / 132.4 | 110.4% |
 | imit18_power_dart_s52 | 0 | left | stoch | 100% | 313.78 | 329.76 | 313.78 | 100% | 2.17 | 48% | 38% | 132.4 / 132.5 | 110.4% |
+| ppo15_bcreg_s61 | 0 | left | deter | 98% | 106.66 | 271.59 | 101.22 | 96% | 11.19 | 8% | 2% | 118.3 / 119.2 | 99.3% |
+| ppo15_bcreg_s61 | 0 | left | stoch | 100% | 123.92 | 286.16 | 101.68 | 92% | 5.75 | 8% | 12% | 118.8 / 121.9 | 101.6% |
+| ppo15_bcreg_s62 | 0 | left | deter | 100% | 103.58 | 162.59 | 103.58 | 100% | 0.18 | 0% | 4% | 118.4 / 118.5 | 98.7% |
+| ppo15_bcreg_s62 | 0 | left | stoch | 98% | 118.63 | 276.99 | 91.45 | 88% | 5.22 | 8% | 6% | 117.5 / 119.6 | 99.7% |
+| ppo15_stoch_s71 | 0 | left | deter | 96% | 93.73 | 137.15 | 93.72 | 96% | 2.95 | 0% | 2% | 114.5 / 116.0 | 96.7% |
+| ppo15_stoch_s71 | 0 | left | stoch | 100% | 105.34 | 271.19 | 89.41 | 94% | 4.60 | 6% | 12% | 116.2 / 120.9 | 100.8% |
+| ppo15_anneal_s91 | 0 | left | deter | 98% | 106.86 | 177.25 | 106.85 | 98% | 9.80 | 12% | 6% | 120.8 / 121.9 | 101.6% |
+| ppo15_anneal_s91 | 0 | left | stoch | 100% | 120.45 | 266.45 | 115.12 | 98% | 5.25 | 10% | 20% | 121.7 / 124.6 | 103.9% |

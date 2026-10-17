@@ -12,7 +12,7 @@ Leaderboard over every checkpoint in models/.   python -m eval.leaderboard [--ep
 * DTW: mean joint-trajectory DTW (rad) vs every data/references/*_swing.npz (incl. mason_swing.npz if present).
   Non-Scott reference columns are pure reference-style distances.
 """
-import argparse, hashlib, json, time
+import argparse, hashlib, json, math, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -81,7 +81,7 @@ SCRIPTED_BX = "scripted_baseline[trainer cfg: left, loft 7, ball_x 0.422 +-5mm]"
 def config_for(names):
     for n in names:                       # residual-PPO models: exact env flags from results/<name>.json "args"
         j = RES / f"{n}.json"
-        if j.exists() and "res_scale" in json.loads(j.read_text()).get("args", {}):   # any residual-PPO run with a results JSON is auto-scored (new checkpoints need no code change)
+        if j.exists() and ("res_scale" in json.loads(j.read_text()).get("args", {}) or "env_kwargs_full" in json.loads(j.read_text())):   # any residual-PPO run with a results JSON is auto-scored (new checkpoints need no code change)
             from eval.env_factory import resid_kw_from_args
             J = json.loads(j.read_text()); args = J["args"]
             assert args.get("name", n) == n, f"{j} args.name mismatch"
@@ -244,8 +244,26 @@ def main():
         ms = [v for v in c.get("modes", {}).values() if "contact_rate" in v]
         if not ms: return (-1, -1)
         return (sum(v["contact_rate"] for v in ms) / len(ms), sum(v["mean_carry"] for v in ms) / len(ms))
+    # --- smash gate (launch_report thresholds: fail >1.50, warn >1.49 or <1.30). smash = det mean ball mph / det mean impact club mph (ratio of means; NOT smash_factor_mean) ---
+    SM_FAIL, SM_WARN_HI, SM_WARN_LO = 1.50, 1.49, 1.30
+    def smash_ratio(c):
+        v = c.get("modes", {}).get("deterministic", {}); b, k = v.get("mean_peak_ball_speed"), v.get("impact_club_speed_mean")
+        try: r = float(b) / float(k)
+        except Exception: return None
+        return r if math.isfinite(r) else None
+    def smash_flag(c):
+        r = smash_ratio(c)
+        if r is None: return "n/m smash (no ball/impact speed)"
+        if r > SM_FAIL: return "FAIL smash>1.50"
+        if r > SM_WARN_HI: return "WARN smash>1.49"
+        if r < SM_WARN_LO: return "WARN smash<1.30"
+        return None
+    for c in cur:
+        if "modes" in c: c["smash_ratio_det"] = smash_ratio(c); c["smash_flag"] = smash_flag(c)
+    sm_ok = lambda c: c.get("smash_flag") is None and "smash_flag" in c
     ranked_all = sorted(cur, key=score, reverse=True)           # incl. scripted baseline
     ranked = [c for c in ranked_all if not c.get("scripted")]   # trained checkpoints only
+    ranked_ok_all = [c for c in ranked_all if sm_ok(c)]; ranked_ok = [c for c in ranked if sm_ok(c)]   # rows with smash inside 1.30-1.49: only these can be top/best/showcase
     def _fs(c):
         ek = c.get("env_kwargs", {}) or {}
         return 3.0 if "power" in str(ek.get("model_xml", "")) else float(ek.get("force_scale", 1.0) or 1.0)
@@ -261,11 +279,11 @@ def main():
         if sw not in (None, 1.0): return f"BLEND {round((1 - sw) * 100)}% learned / {round(sw * 100)}% scripted (imitation of the script)" if any(x.startswith("imit") for x in c["names"]) else f"BLEND {round((1 - sw) * 100)}/{round(sw * 100)}"
         return "LEARNED residual on scripted swing"
     stock_tr = [c for c in ranked if _fs(c) <= 1.0]; stock_sc = [c for c in ranked_all if c.get("scripted") and _fs(c) <= 1.0]
-    hyp_tr = [c for c in ranked if _fs(c) > 1.0]
+    hyp_tr = [c for c in ranked_ok if _fs(c) > 1.0]
     best_line = "@@STOCK@@"
     if hyp_tr: best_line += "**Best under HYPOTHETICAL-strength actuators (force_scale>1 / power tier; NOT a realistic-motor result): " + " / ".join(hyp_tr[0]["names"]) + f"** ({hyp_tr[0]['steps']} steps; {_motor(hyp_tr[0])}) - mean true contact over det+stoch {score(hyp_tr[0])[0]*100:.0f}%, mean carry {score(hyp_tr[0])[1]:.3f} m."
-    if not ranked: best_line = "No evaluated models."
-    left = [c for c in ranked if c.get("env_kwargs", {}).get("handedness") == "left"]
+    if not ranked_ok: best_line = "No evaluated models with smash inside 1.30-1.49."
+    left = [c for c in ranked_ok if c.get("env_kwargs", {}).get("handedness") == "left"]
     Q_CARRY, Q_LAT, Q_ELEV = 30.0, 2.73, 5.0
     def qual(c):
         v = c.get("modes", {}).get("deterministic", {})
@@ -273,20 +291,21 @@ def main():
         checks = {"contact==100% (det and stoch)": all(m.get("contact_rate", 0) >= 1.0 for m in c["modes"].values()),
                   f"mean carry >= {Q_CARRY:g} m (det)": v["mean_carry"] >= Q_CARRY,
                   f"lateral std <= {Q_LAT:g} m (det)": v["lateral_std"] <= Q_LAT,
-                  f"mean launch elev >= {Q_ELEV:g} deg, not flat (det)": not v["launch_flat_flag"]}
+                  f"mean launch elev >= {Q_ELEV:g} deg, not flat (det)": not v["launch_flat_flag"],
+                  "smash within 1.30-1.49 (ball mph / impact club mph, det)": sm_ok(c)}
         return checks
     qrows = [(c, qual(c)) for c in ranked if qual(c)]
     qualifying = [c for c, q in qrows if all(q.values())]
     qualifying.sort(key=score, reverse=True)
     out = {"env_fingerprint": fp, "episodes": a.episodes, "seed_base": a.seed, "references": refs,
-           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked[0]["names"] if ranked else None), "best_overall": (ranked_all[0]["names"] if ranked_all else None), "best_left": (left[0]["names"] if left else None), "qualifying": [c["names"] for c in qualifying], "best_qualifying": (qualifying[0]["names"] if qualifying else None),
+           "lateral_threshold_m": 0.5, "models": cur, "contact_regressions": flags, "best_model": (ranked_ok[0]["names"] if ranked_ok else None), "best_overall": (ranked_ok_all[0]["names"] if ranked_ok_all else None), "smash_gate": {"fail_above": SM_FAIL, "warn_above": SM_WARN_HI, "warn_below": SM_WARN_LO, "definition": "det mean ball mph / det mean impact club mph (not smash_factor_mean); rows outside 1.30-1.49 are flagged and cannot be best/top/showcase"}, "smash_flagged": ["/".join(c["names"]) + ": " + c["smash_flag"] for c in cur if c.get("smash_flag")], "ranking_unflagged": ["/".join(c["names"]) for c in ranked_ok], "best_left": (left[0]["names"] if left else None), "qualifying": [c["names"] for c in qualifying], "best_qualifying": (qualifying[0]["names"] if qualifying else None),
            "qualify_criterion": {"carry_m_min": Q_CARRY, "lateral_std_m_max": Q_LAT, "launch_elev_deg_min": Q_ELEV, "contact": "100% in both modes", "mode": "deterministic for carry/lateral/launch"},
            "ranking": ["/".join(c["names"]) for c in ranked], "ranking_incl_scripted": ["/".join(c["names"]) for c in ranked_all],
            "track_score_caveat": "VOID/UNVERIFIED: every models[].track_score (mean/min/parts sh,yaw,wr) was computed with the lead/trail arm mapping the Trainer found wrong (trail key scores 0.02). Do not read track_score or any 'Mason-shaped wrist' claim as valid; only the yaw part is unaffected. See the noise/track_score section of leaderboard.md.",
            "history": hist["entries"]}
     (RES / "leaderboard.json").write_text(json.dumps(out, indent=1))
-    if ranked:
-        bv = [v for v in ranked[0]["modes"].values() if "peak_club_speed_max" in v]
+    if ranked_ok:
+        bv = [v for v in ranked_ok[0]["modes"].values() if "peak_club_speed_max" in v]
         if bv:
             mx = max(v["peak_club_speed_max"] for v in bv)
             best_line += (f" Peak club-head speed (best single swing over det+stoch): {mx:.2f} m/s = {mx*2.23694:.1f} mph = {mx/53.64*100:.1f}% of the 120 mph (53.64 m/s) target.")
@@ -304,10 +323,11 @@ def main():
     rank_txt = ("Ranking criterion: (1) true club-ball contact rate averaged over deterministic and stochastic modes, higher first; "
                 "(2) ties broken by mean carry (m, averaged over both modes, mean over all episodes). Distance is not used.")
     rk = " > ".join("/".join(c["names"][:1]) for c in ranked_all)
-    if ranked_all and ranked_all[0].get("scripted"):
-        best_line += f" **Best overall (incl. scripted, no-learning baseline): {SCRIPTED}** - mean contact {score(ranked_all[0])[0]*100:.0f}%, mean carry {score(ranked_all[0])[1]:.3f} m (no trained checkpoint beats it)."
-    elif ranked_all:
-        best_line += f" Best overall incl. scripted baseline: {' / '.join(ranked_all[0]['names'])} [{_motor(ranked_all[0])}]."
+    if ranked_ok_all and ranked_ok_all[0].get("scripted"):
+        best_line += f" **Best overall (incl. scripted, no-learning baseline): {SCRIPTED}** - mean contact {score(ranked_ok_all[0])[0]*100:.0f}%, mean carry {score(ranked_ok_all[0])[1]:.3f} m (no trained checkpoint beats it)."
+    elif ranked_ok_all:
+        best_line += f" Best overall incl. scripted baseline: {' / '.join(ranked_ok_all[0]['names'])} [{_motor(ranked_ok_all[0])}]."
+    best_line += " **SMASH GATE (launch_report thresholds, smash = det ball mph / impact club mph): rows outside 1.30-1.49 are flagged (FAIL >1.50, WARN >1.49 or <1.30) and cannot be a best/top/showcase row; %d of %d evaluated rows are flagged, %d are not (see 'Smash flag' section).**" % (sum(1 for c in cur if c.get("smash_flag")), sum(1 for c in cur if "smash_flag" in c), sum(1 for c in cur if "smash_flag" in c and not c["smash_flag"]))
     boosted = [("/".join(c["names"][:1]), c["env_kwargs"]["force_scale"]) for c in qualifying if c.get("env_kwargs", {}).get("force_scale", 1.0) > 1.0]
     best_line += (" **HYPOTHETICAL-STRENGTH ACTUATORS: " + ", ".join(f"{n} (force_scale {fs:g}, hypothetical-strength actuators)" for n, fs in boosted) + " run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.**") if boosted else ""
     best_line += " Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary."
@@ -322,12 +342,12 @@ def main():
         if c: d_ = c["modes"]["deterministic"]; pair.append(f"{nm}: {why}: det carry {d_['mean_carry']:.1f} m / lat std {d_['lateral_std']:.2f} m; quick noise {_noise(c)} (10 eps, vs clean {d_['mean_carry']:.0f} m)")
     if pair:
         best_line += " **Shown side by side, neither promoted as 'learned from Mason' (both imitate the scripted swing; force_scale 2 hypothetical-strength actuators): " + " | ".join(pair) + ".**"
-    mt = ["", "## Motor strength x label (read this before any carry number)", "", "| model | motor strength | label | det carry m (yd) | det lat std m | det club mph | landed (det) | qualifies (carry>=30 m, lat<=2.73, 100% contact) |", "|---|---|---|---|---|---|---|---|"]
+    mt = ["", "## Motor strength x label (read this before any carry number)", "", "| model | motor strength | label | det carry m (yd) | det lat std m | det club mph | smash (ball/impact club, det) | smash flag | landed (det) | qualifies (carry>=30 m, lat<=2.73, 100% contact, smash 1.30-1.49) |", "|---|---|---|---|---|---|---|---|---|---|"]
     mt += ["", "**imit19_masonmapped_dart_s51 caution (SLOW-SWING / LOW-SPEED ARTIFACT, not better accuracy):** trainer gate JSONs (3 seeds x 100 eps, force_scale 2, results/imit_private/gate_imit19_*) show det club 87.6 mph, carry 58.2-58.4 m, launch 13.9-14.0 deg and lateral std only 0.04-0.11 m (stoch 0.04-0.26), against imit15_dart_s53 at 120 mph, 110-113 m, 0.5-2.1 m. It hits ~27% slower, carries about half as far and its lateral spread is 10-30x smaller (0.1-0.2% of carry vs 0.5-1.9% for imit15), so the tiny spread follows from low club speed and a short, tame swing (script t_down 0.08, wrist_cock -0.6, wr_end -0.09), not from precision at a comparable drive. Do not rank it on lateral std. Its wrist/arm style claims are also covered by the lead/trail arm VOID.", ""]
     for c in sorted(cur, key=lambda c: (_fs(c), c.get("scripted", False), -score(c)[1])):
         d_ = c.get("modes", {}).get("deterministic", {})
         if "mean_carry" not in d_: continue
-        mt.append(f"| {'/'.join(c['names'][:2])[:60]} | {_motor(c)} | {_label(c)} | {d_['mean_carry']:.1f} ({d_['mean_carry']*1.09361:.0f}) | {d_['lateral_std']:.2f} | {d_['peak_club_mph_mean']:.1f} | {d_['landed_fraction']*100:.0f}% | {'yes' if c in qualifying else 'no'} |")
+        mt.append(f"| {'/'.join(c['names'][:2])[:60]} | {_motor(c)} | {_label(c)} | {d_['mean_carry']:.1f} ({d_['mean_carry']*1.09361:.0f}) | {d_['lateral_std']:.2f} | {d_['peak_club_mph_mean']:.1f} | {('%.3f' % c['smash_ratio_det']) if c.get('smash_ratio_det') else 'n/m'} | {c.get('smash_flag') or 'ok'} | {d_['landed_fraction']*100:.0f}% | {'yes' if c in qualifying else 'no'} |")
     # --- sim carry vs launch-monitor-model carry (model-based; existing sim numbers are NOT changed) ---
     try:
         from sim.golf_simulator import shot_from_launch
@@ -411,6 +431,10 @@ def main():
           "| Model | " + " | ".join(next(iter([q for _, q in qrows])).keys()) + " | Qualifies |", "|---|" + "---|" * (len(next(iter([q for _, q in qrows])))+1)]
     for c, q in qrows:
         Qs.append(f"| {'/'.join(c['names'])} | " + " | ".join('yes' if x else 'NO' for x in q.values()) + f" | {'**YES**' if all(q.values()) else 'no'} |")
+    Qs += ["", "## Smash flag", "", "Smash = det mean ball mph / det mean impact club mph (ratio of means; NOT smash_factor_mean). Thresholds from eval/launch_report.py (derived, not published): FAIL >1.50, WARN >1.49 or <1.30. Flagged rows cannot be the best/top/showcase row. Boosted v3 policies sit at ~0.9-1.0 (ball barely faster than the club: not a real-contact smash) and the v4/power impact-model rows at 1.44-1.60.", "",
+           "| model | smash | flag |", "|---|---|---|"]
+    for c in sorted([c for c in cur if "smash_flag" in c and not c.get("scripted")], key=lambda c: -(c.get("smash_ratio_det") or 0)):
+        Qs.append(f"| {'/'.join(c['names'][:1])} | {('%.3f' % c['smash_ratio_det']) if c.get('smash_ratio_det') else 'n/m'} | {c['smash_flag'] or 'ok (1.30-1.49)'} |")
     Qs += ["", ("Qualifying: " + ", ".join('/'.join(c['names']) for c in qualifying)) if qualifying else "**None qualifies.**"]
     flat = [c for c in cur if any(v.get("launch_flat_flag") for v in c.get("modes", {}).values())]
     Qs += ["", "Flat/negative-launch flag (mean elevation < %g deg or >= 50%% of shots below it): " % Q_ELEV + (", ".join('/'.join(c['names']) + " [" + ", ".join(f"{m[:3]} {v['launch_elev_mean_deg']:.1f} deg" for m, v in c['modes'].items() if v.get('launch_flat_flag')) + "]" for c in flat) or "none")]
