@@ -79,13 +79,13 @@ def rollout(model, env, episodes: int, seed: Optional[int] = None,
     for ep in range(episodes):
         obs, _ = env.reset(seed=None if seed is None else seed + ep)
         path = [env.data.geom_xpos[club_id].copy()]
-        jt = [env.data.qpos[14:25].copy()]
+        jt = [env._ref_q(11).copy()]
         done, info = False, {}
         while not done:
             action, _ = model.predict(obs, deterministic=deterministic)
             obs, _, terminated, truncated, info = env.step(action)
             path.append(env.data.geom_xpos[club_id].copy())
-            jt.append(env.data.qpos[14:25].copy())
+            jt.append(env._ref_q(11).copy())
             done = terminated or truncated
         distances.append(info["ball_distance"])
         contacts.append(bool(info["contacted"]))

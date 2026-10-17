@@ -20,7 +20,7 @@ def env_kwargs(a):
     kw = dict(script=dict(cfg["script"]), residual_scale=tuple(a.res_scale), flight_model=True, curriculum=True, carry_reward=True,
               forward_reward=True, randomize_reset=True, gate_lo=15.0, gate_hi=35.0, seq_weight=a.seq_weight, style_prior=False, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05,
               analytic_ball=False, lat_weight=a.lat_weight, lat_angular=a.lat_angular, elev_weight=0.0, carry_cap=a.carry_cap, tempo_scale=0.0, shot_pen=a.shot_pen, act_l2=0.0,
-              script_weight=a.stage_w, learn_scale=list(a.learn_scale), track_set=a.track_set, track_weight=a.track_weight)
+              script_weight=a.stage_w, learn_scale=list(a.learn_scale), track_set=a.track_set, track_weight=a.track_weight, track_time_fix=a.track_time_fix, key_weight=a.key_weight, key_s=a.key_s)
     for k in ("ball_x", "ball_x_noise", "loft_deg", "ball_dz", "tee_height", "force_scale", "kp", "kd", "handedness", "model_xml", "sh_noise", "el_noise", "contact_damp", "impact_model", "elbow_base", "flight_steps"):
         if k in cfg: kw[k] = cfg[k]
     return kw
@@ -74,6 +74,8 @@ def main():
     ap.add_argument("--dagger_iters", type=int, default=0); ap.add_argument("--dagger_eps", type=int, default=60); ap.add_argument("--dagger_noise", type=float, default=0.01)
     ap.add_argument("--w_vec", type=float, nargs=4, default=[3.0, 1.0, 2.0, 2.0]); ap.add_argument("--lat_weight", type=float, default=0.0); ap.add_argument("--lat_angular", action="store_true")
     ap.add_argument("--track_set", default="unified_v1", help="unified_v1 (default, reproducible) or unified_v2 (data/reference_sets/unified_v2.json from origin/main 169403d)")
+    ap.add_argument("--skip_bc", action="store_true", help="skip the distillation pass (pure PPO fine-tune from --init_model)")
+    ap.add_argument("--track_time_fix", action="store_true"); ap.add_argument("--key_weight", type=float, default=0.0); ap.add_argument("--key_s", type=float, default=2.0)
     ap.add_argument("--n_envs", type=int, default=2); ap.add_argument("--track_weight", type=float, default=2.0); ap.add_argument("--seq_weight", type=float, default=0.0)
     ap.add_argument("--shot_pen", type=float, default=1.0); ap.add_argument("--carry_cap", type=float, default=120.0); ap.add_argument("--eval_episodes", type=int, default=100)
     a = ap.parse_args(); torch.set_num_threads(1)
@@ -84,8 +86,8 @@ def main():
     venv = make_vec_env(make_env, n_envs=a.n_envs, seed=a.seed, vec_env_cls=SubprocVecEnv)
     if a.init_model: model = PPO.load(str(ROOT / "models" / a.init_model), env=venv, learning_rate=a.lr, seed=a.seed)
     else: model = PPO("MlpPolicy", venv, verbose=0, learning_rate=a.lr, n_steps=512, batch_size=256, n_epochs=10, seed=a.seed, policy_kwargs=dict(net_arch=[256, 256], log_std_init=a.log_std))
-    t0 = time.time(); out["distill"] = distill(model, kw, a); print("DISTILL", json.dumps(out["distill"]), flush=True)
-    with torch.no_grad(): model.policy.log_std.fill_(a.log_std)
+    t0 = time.time(); out["distill"] = ({} if a.skip_bc else distill(model, kw, a)); print("DISTILL", json.dumps(out["distill"]), flush=True)
+    with torch.no_grad(): model.policy.log_std.fill_(a.log_std)   # (fine-tune: pass --log_std ~ -5.5 so PPO can explore)
     out["after_distill"] = run_eval(lambda o: model.predict(o, deterministic=True)[0], make_env, 40, 5000)
     print("AFTER_DISTILL_DET", json.dumps({k: out["after_distill"][k] for k in ("true_contact_rate", "mean_carry", "lateral_std", "mean_launch_elev_deg")}), flush=True)
     if a.ppo_steps > 0:

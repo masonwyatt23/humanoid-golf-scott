@@ -3,7 +3,7 @@ Style-match metric: DTW distance between a rollout's joint-angle trajectory and 
 reference swing (data/references/<style>_swing.npz, key 'joints_rad', shape (T, 11)).
 
 Definition
-  1. Each trajectory is (T, 11) in radians (env qpos[14:25]).
+  1. Each trajectory is (T, 11) in radians (env._ref_q(11): looked up by joint name, order HumanoidGolfEnv.REF_JOINTS).
   2. Classic DTW (full window) with Euclidean frame cost over the 11 joints.
   3. Score = DTW path cost / (len(path)) i.e. mean per-aligned-frame joint-space
      distance in radians. 0 = identical; lower = closer to the reference style.
@@ -70,7 +70,7 @@ def _to_sim_dt(j: np.ndarray, dt: float) -> np.ndarray:
 
 def load_reference(style: str) -> np.ndarray:
     """(T, 11) radians. Synthetic refs: key 'joints_rad'. Mason video refs: key 'joints' is DEGREES (same 11-col
-    order as env qpos[14:25]); converted with deg2rad and only frames with valid_mask kept (DTW tolerates the gaps/tempo)."""
+    order HumanoidGolfEnv.REF_JOINTS, looked up by joint name); converted with deg2rad and only frames with valid_mask kept (DTW tolerates the gaps/tempo)."""
     path = reference_path(style)
     if not path.exists():
         raise FileNotFoundError(f"no reference for style '{style}': {path}")
