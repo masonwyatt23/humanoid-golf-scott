@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata. Citation details are provisional."
+title: "Humanoid Golf (humanoid-golf-scott): MuJoCo humanoid golf swing simulation and evaluation"
+type: software
+authors:
+  - family-names: Wyatt
+    given-names: Mason
+repository-code: "https://github.com/masonwyatt23/humanoid-golf-scott"
+# TODO(maintainer): confirm author list, affiliation (e.g. AshlrAI), licence and release version before going public.
+# No DOI has been minted; do not add one until a Zenodo (or similar) release exists.
+# license: add SPDX identifier once a LICENSE is chosen (see docs/GOING_PUBLIC_BLOCKERS.md).
+# version: add on first tagged release.
