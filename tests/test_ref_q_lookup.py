@@ -1,8 +1,10 @@
 import numpy as np
+import pytest
 from eval.env_factory import JOINT_NAMES, joint_qpos_idx
 
 
 def _env():
+    pytest.importorskip("mujoco")
     from env.humanoid_golf_env import HumanoidGolfEnv
     e = HumanoidGolfEnv(); e.reset(seed=0); return e
 
