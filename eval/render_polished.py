@@ -47,6 +47,154 @@ def qualification(m, crit):
     return not fails, fails
 
 
+SKY_TOP, SKY_HOR = np.array([70, 120, 200], np.float32), np.array([200, 225, 245], np.float32)
+
+
+def style_scene(env):
+    """Cleaner scene: brighter headlight, light fairway-green ground, haze/fog toward a sky-gradient horizon (sky painted over pure-black background pixels)."""
+    import mujoco
+    m = env.model
+    m.vis.headlight.ambient[:] = [0.55, 0.55, 0.55]; m.vis.headlight.diffuse[:] = [0.85, 0.85, 0.85]; m.vis.headlight.specular[:] = [0.2, 0.2, 0.2]
+    m.vis.rgba.fog[:] = [SKY_HOR[0] / 255, SKY_HOR[1] / 255, SKY_HOR[2] / 255, 1]; m.vis.rgba.haze[:] = m.vis.rgba.fog
+    m.vis.map.fogstart, m.vis.map.fogend = 4.0, 60.0
+    m.geom_rgba[m.geom("ground").id] = [0.45, 0.78, 0.45, 1]
+
+
+def paint_sky(img):
+    h = img.shape[0]
+    mask = (img.sum(axis=2) == 0)
+    if not mask.any(): return img
+    t = np.linspace(0, 1, h, dtype=np.float32)[:, None, None]   # top -> bottom
+    sky = (SKY_TOP[None, None, :] * (1 - t) + SKY_HOR[None, None, :] * t).astype(np.uint8)
+    sky = np.broadcast_to(sky, img.shape)
+    out = img.copy(); out[mask] = sky[mask]
+    return out
+
+
+def actuator_tags(kw):
+    """Honest hardware flags read from the env config (never hard-coded per model)."""
+    tags = []
+    fs, ts = kw.get("force_scale", 1.0), kw.get("torque_scale", None)
+    if fs and fs > 1.0: tags.append(f"force_scale {fs:g} (>1 default = boosted actuator force cap)")
+    if ts and ts > 1.0: tags.append(f"torque_scale {ts:g} (boosted)")
+    td = (kw.get("script") or {}).get("t_down")
+    if td is not None and td < 0.08: tags.append(f"t_down {td:g} s (65-80 ms downswing: not a human tempo)")
+    return tags
+
+
+class PRec:
+    """Polished recorder: tracking side cam + DTL->ball-chase cam, impact-centred slow-motion ramp, live overlay (mph, yards, launch, lateral)."""
+    def __init__(self, env, writer, banner, banner_color, ft, kind, tags):
+        import mujoco, cv2
+        self.mj, self.cv2, self.env, self.w, self.ft, self.kind, self.tags = mujoco, cv2, env, writer, ft, kind, tags
+        self.banner, self.banner_color = banner, banner_color
+        self.r = mujoco.Renderer(env.model, 480, 640)
+        self.cams = [self._cam(90), self._cam(0)]
+        self.trail, self.acc, self.last_k = [], 0, 12
+        self.peak_club, self.t_contact, self.impact_frame, self.start_x = 0.0, None, None, None
+        self.frames0 = writer.frames
+
+    def _cam(self, az):
+        c = self.mj.MjvCamera(); c.type = self.mj.mjtCamera.mjCAMERA_FREE; c.azimuth = az; c.elevation = -8; c.distance = 3.0; c.lookat[:] = (0.9, 0, 0.5); return c
+
+    def Kf(self):
+        e = self.env; t = float(e.data.time)
+        if e.true_contact:
+            if self.t_contact is None: self.t_contact = t
+            ts = t - self.t_contact
+            return 2 if ts < 0.10 else 6 if ts < 0.40 else 24
+        head = e.data.geom_xpos[e._club_geom]; ball = e.data.xpos[e._ball_id]
+        d = float(np.linalg.norm(head - ball)); v = e._club_speed()
+        return 3 if (d < 0.7 and v > 15) else 14
+
+    def install(self):
+        self.orig = self.mj.mj_step
+        def wrapped(m, d, *a, **k):
+            self.orig(m, d, *a, **k)
+            v = self.env._club_speed()
+            if v == v and v <= 100.0: self.peak_club = max(self.peak_club, v)
+            self.acc += 1
+            kk = self.Kf(); self.last_k = kk
+            if self.acc >= kk:
+                self.acc = 0; self.frame(v)
+        self.mj.mj_step = wrapped
+
+    def uninstall(self): self.mj.mj_step = self.orig
+
+    def frame(self, v=None, hold=1):
+        e, cv2 = self.env, self.cv2
+        bp = e.data.xpos[e._ball_id].copy(); hp = e.data.geom_xpos[e._club_geom].copy()
+        if self.start_x is None: self.start_x = float(bp[0])
+        if e.true_contact and bp[2] > 0.03 and (not self.trail or abs(bp - self.trail[-1]).max() > 0.02): self.trail.append(bp)
+        airborne = e.true_contact and bp[0] - self.start_x > 1.5
+        if e.true_contact and self.impact_frame is None: self.impact_frame = self.w.frames
+        panels = []
+        for i, cam in enumerate(self.cams):
+            if i == 0:   # TRACKING side-on: follows the club head, then the ball
+                tgt = bp if airborne else hp
+                cam.lookat[:] = (0.9 + 0.8 * (tgt[0] - 0.9), 0.0, 0.8 + 0.3 * (tgt[2] - 0.8)); cam.distance = 3.0 if not airborne else min(3.0 + 0.35 * (bp[0] - self.start_x), 40)
+                name = "SIDE-ON (tracking)"
+            else:        # DOWN-THE-LINE, then BALL CHASE from behind once airborne
+                if airborne:
+                    cam.lookat[:] = bp; cam.distance = min(6.0 + 0.30 * (bp[0] - self.start_x), 45); cam.elevation = -4; name = "BALL CHASE"
+                else:
+                    cam.lookat[:] = (0.9, 0.0, 0.8); cam.distance = 3.6; cam.elevation = -6; name = "DOWN-THE-LINE"
+            self.r.update_scene(e.data, camera=cam); sc = self.r.scene
+            chase = (i == 1 and airborne)
+            rad = max(0.02, 0.006 * cam.distance)   # keep markers visible but small as the camera pulls back
+            pts = [bp] if chase else self.trail
+            for p in pts:
+                if sc.ngeom >= sc.maxgeom: break
+                g = sc.geoms[sc.ngeom]
+                self.mj.mjv_initGeom(g, self.mj.mjtGeom.mjGEOM_SPHERE, [(0.02 + 0.01 * cam.distance) if chase else rad, 0, 0], p, [1, 0, 0, 0, 1, 0, 0, 0, 1], [1, 0.85, 0, 1]); sc.ngeom += 1
+            img = paint_sky(self.r.render().copy())
+            cv2.putText(img, name, (10, 24), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2, cv2.LINE_AA)
+            panels.append(img)
+        img = np.concatenate(panels, axis=1)
+        cs = e._club_speed() if v is None else v
+        bs = float(np.linalg.norm(e._ball_lin_vel())) if e.true_contact else None
+        le = self.ft.launch_elev_deg() if e.true_contact else float("nan")
+        carry = float(e.carry) if e._landed else 0.0
+        x = float(bp[0]) - self.start_x
+        slow = (1.0 / FPS) / (self.last_k * e.model.opt.timestep)
+        f = lambda val, fmt: "n/a" if val is None or val != val else format(val, fmt)
+        lines = [f"Club speed now: {cs * 2.23694:.0f} mph   peak so far: {self.peak_club * 2.23694:.1f} mph ({self.peak_club / 53.64 * 100:.0f}% of 120)   Ball speed: {f(None if bs is None else bs * 2.23694, '.0f')} mph ({f(bs, '.1f')} m/s)",
+                 f"Launch: {f(le, '.1f')} deg   Carry: {'n/a' if carry <= 0 else format(carry, '.1f') + ' m / ' + format(carry * 1.09361, '.0f') + ' yd'}   Ball dist. so far: {x:.1f} m / {x * 1.09361:.0f} yd   Lateral y (+left): {float(bp[1]):+.2f} m",
+                 f"Slow-mo {slow:.1f}x (ramps around impact)   {self.kind}   left-handed   measured in simulation, this swing only"]
+        if self.tags: lines.append("HYPOTHETICAL ACTUATORS: " + "; ".join(self.tags))
+        ov = img.copy(); cv2.rectangle(ov, (0, 480 - 22 * len(lines) - 10), (1280, 480), (0, 0, 0), -1); img = cv2.addWeighted(ov, 0.6, img, 0.4, 0)
+        for i, t in enumerate(lines): cv2.putText(img, t, (10, 480 - 22 * len(lines) + 22 * i + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 200, 120) if i == 3 else (255, 255, 255), 1, cv2.LINE_AA)
+        if self.banner:
+            ov = img.copy(); cv2.rectangle(ov, (0, 30), (1280, 30 + 24 * len(self.banner) + 6), (0, 0, 0), -1); img = cv2.addWeighted(ov, 0.65, img, 0.35, 0)
+            for i, t in enumerate(self.banner): cv2.putText(img, t, (10, 50 + 24 * i), cv2.FONT_HERSHEY_SIMPLEX, 0.6, self.banner_color if i == 0 else (255, 255, 255), 2 if i == 0 else 1, cv2.LINE_AA)
+        for _ in range(hold): self.w.write(img)
+
+
+def pose_slide(sim_deg, sim_impact, mason_path, kind, label):
+    """Joint-angle traces: Mason reference (2D-proxy MediaPipe angles) vs sim, time normalised takeaway->impact. PROXY: conventions/signs not guaranteed identical."""
+    import cv2
+    d = np.load(mason_path, allow_pickle=True); vm = d["valid_mask"].astype(bool); t = d["time"]; j = d["joints"].astype(float)
+    t0, ti = float(d["t_takeaway"] - d["t_start_in_video"]), float(d["t_impact"] - d["t_start_in_video"])
+    sel = vm & (t >= t0) & (t <= ti)
+    mt, mj = (t[sel] - t0) / max(ti - t0, 1e-6), j[sel]
+    st = np.linspace(0, 1, sim_impact + 1); sj = sim_deg[: sim_impact + 1]
+    img = np.zeros((H, W, 3), np.uint8); img[:] = (12, 16, 24)
+    cv2.putText(img, f"Joint-angle traces: Mason reference vs sim ({kind})  -  PROXY", (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 220, 255), 2, cv2.LINE_AA)
+    cols = [(0, "right_shoulder_pitch"), (2, "right_elbow"), (3, "right_wrist"), (4, "left_shoulder_pitch")]
+    for k, (ci, nm) in enumerate(cols):
+        x0, y0, w_, h_ = 20 + k * 310, 60, 290, 280
+        cv2.rectangle(img, (x0, y0), (x0 + w_, y0 + h_), (80, 80, 80), 1)
+        allv = np.concatenate([mj[:, ci], sj[:, ci]]); lo, hi = float(allv.min()), float(allv.max()); hi = hi if hi - lo > 1 else lo + 1
+        pts = lambda xs, ys: np.array([[x0 + int(x * w_), y0 + h_ - int((y - lo) / (hi - lo) * (h_ - 10)) - 5] for x, y in zip(xs, ys)], np.int32)
+        cv2.polylines(img, [pts(mt, mj[:, ci])], False, (60, 200, 255), 2, cv2.LINE_AA); cv2.polylines(img, [pts(st, sj[:, ci])], False, (120, 255, 120), 2, cv2.LINE_AA)
+        cv2.putText(img, nm, (x0 + 6, y0 + 18), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(img, f"{lo:.0f}..{hi:.0f} deg", (x0 + 6, y0 + h_ - 8), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (180, 180, 180), 1, cv2.LINE_AA)
+    cv2.putText(img, "blue = Mason (" + Path(mason_path).stem + ", native left, 2D-proxy MediaPipe angles, ~30 fps, valid frames only)", (20, 372), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (60, 200, 255), 1, cv2.LINE_AA)
+    cv2.putText(img, f"green = sim {label}: joint angles from this swing, takeaway -> impact", (20, 394), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (120, 255, 120), 1, cv2.LINE_AA)
+    cv2.putText(img, "x = time normalised takeaway->impact (Mason backswing 0.58 s vs sim script tempo differ). Mason angles are not retargeted to this humanoid; sign/zero conventions may differ. Indicative only.", (20, 420), cv2.FONT_HERSHEY_SIMPLEX, 0.42, (200, 200, 120), 1, cv2.LINE_AA)
+    return img
+
+
 def card(lines, colors=None, size=0.8):
     import cv2
     img = np.zeros((H, W, 3), np.uint8); img[:] = (12, 16, 24)
@@ -85,11 +233,43 @@ def wrap(t, n=105):
     return out + [cur]
 
 
+
+def extras(video, meta, lb):
+    """20-30 s social cut (title, impact windows of each segment, leaderboard-det slide, end card) + README hero GIF (<5 MB, docs/hero_swing.gif)."""
+    vd = video.parent; fps = FPS; segs = meta["segments"]
+    parts = [(0, 3.0), (int(3.0 * fps) + 0, 0)]   # placeholder replaced below
+    parts = [(0.0, 3.0)]
+    for s_ in segs:
+        imp = s_["frames"]["impact"]
+        if imp: parts.append((max(0.0, imp / fps - 2.0), 7.0))
+    parts.append((meta["duration_s"] - 8.0, 3.0))   # end card start (8 s card, show first 3 s)
+    # leaderboard det slide sits right after the 4 s title card (held 7 s)
+    parts.insert(1, (4.0, 3.5))
+    tot = sum(d for _, d in parts)
+    fl = "".join(f"[0:v]trim=start={st:.3f}:duration={du:.3f},setpts=PTS-STARTPTS[v{i}];" for i, (st, du) in enumerate(parts))
+    fl += "".join(f"[v{i}]" for i in range(len(parts))) + f"concat=n={len(parts)}:v=1:a=0[o]"
+    out = vd / "showcase_social.mp4"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-filter_complex", fl, "-map", "[o]", "-an", "-vcodec", "libx264", "-pix_fmt", "yuv420p", "-crf", "22", str(out)], check=True)
+    meta["social_cut"] = dict(path=str(out.relative_to(ROOT)), duration_s=tot, parts_s=parts)
+    # hero gif: first segment impact window
+    imp = next((s_["frames"]["impact"] for s_ in segs if s_["frames"]["impact"]), None)
+    if imp:
+        gif = ROOT / "docs" / "hero_swing.gif"; gif.parent.mkdir(exist_ok=True)
+        st = max(0.0, imp / fps - 1.0)
+        for wpx, gfps in ((800, 12), (720, 10), (640, 10), (560, 8)):
+            pal = vd / "_pal.png"
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{st:.3f}", "-t", "6", "-i", str(video), "-vf", f"fps={gfps},scale={wpx}:-1:flags=lanczos,palettegen=max_colors=96", str(pal)], check=True)
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{st:.3f}", "-t", "6", "-i", str(video), "-i", str(pal), "-lavfi", f"fps={gfps},scale={wpx}:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=4", str(gif)], check=True)
+            if gif.stat().st_size < 4.8e6: break
+        meta["hero_gif"] = dict(path=str(gif.relative_to(ROOT)), bytes=gif.stat().st_size, width=wpx, fps=gfps, from_segment=segs[0]["kind"] + " " + segs[0]["model"])
+    (video.with_suffix(".json")).write_text(json.dumps(meta, indent=1, default=float))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pick", default="best_qualifying", choices=["best_qualifying", "best", "best_left"])
     ap.add_argument("--swings", type=int, default=12); ap.add_argument("--seed", type=int, default=5000); ap.add_argument("--K", type=int, default=6)
-    ap.add_argument("--out", default="results/videos/showcase_polished.mp4")
+    ap.add_argument("--out", default="results/videos/showcase_polished.mp4"); ap.add_argument("--no-pose", dest="pose", action="store_false"); ap.add_argument("--no-extras", action="store_true", help="skip social cut + hero gif")
     a = ap.parse_args(); ensure_gl()
     from stable_baselines3 import PPO
     from eval.env_factory import make_env
@@ -152,24 +332,32 @@ def main():
         ban = [f"{title}" + ("" if okq else "  -  DOES NOT YET QUALIFY") , f"All-episode (det): carry {d['mean_carry']:.1f} m | lat std {d['lateral_std']:.2f} m | L/R miss {d['left_miss_rate']*100:.0f}/{d['right_miss_rate']*100:.0f}% | launch {d['launch_elev_mean_deg']:.1f} deg | {d['peak_club_mph_mean']:.1f} mph",
                f"This swing: seed {seed}, median-by-carry of {a.swings} (overlay below = this swing only)"]
         if not okq: ban.insert(2, "Fails: " + "; ".join(fails))
-        ft = FlightTracker(env).install()
+        style_scene(env)
+        from eval.env_factory import joint_qpos_idx
+        qi = joint_qpos_idx(env); tags = actuator_tags(m["env_kwargs"])
+        ft = FlightTracker(env).install(); jt = []
         try:
-            rec = rs.Recorder(env, a.K, "", w); rec.banner = ban; rec.ft = ft
-            rec.banner_color = (120, 255, 120) if okq else (255, 70, 70)
-            if kind != "LEARNED": rec.banner_color = (0, 220, 255) if okq else (255, 170, 60)
+            col = (120, 255, 120) if okq else (255, 70, 70)
+            if kind != "LEARNED": col = (0, 220, 255) if okq else (255, 170, 60)
+            rec = PRec(env, w, ban, col, ft, kind, tags)
             rec.install()
             try:
-                obs, _ = env.reset(seed=seed); ft.reset(); done = False; info = {}
+                obs, _ = env.reset(seed=seed); ft.reset(); done = False; info = {}; jt = [np.degrees(env.data.qpos[qi])]; imp_step = None
                 while not done:
-                    obs, _, te, tr, info = env.step(pol.predict(obs)[0]); ft.step(); done = te or tr
+                    obs, _, te, tr, info = env.step(pol.predict(obs)[0]); ft.step(); jt.append(np.degrees(env.data.qpos[qi])); done = te or tr
+                    if imp_step is None and env.true_contact: imp_step = len(jt) - 1
             finally:
                 rec.uninstall()
             rec.frame(hold=int(3 * FPS)); rec.r.close()
         finally:
             ft.close()
         sw = ft.summary(info)
-        meta["segments"].append(dict(kind=kind, model=label(m), qualifies=okq, failed=fails, seed=seed, selection_pass_carry=sh["carry"],
-                                     rendered=dict(carry=sw["carry"], lateral_y=sw["final_y"], launch_deg=sw["launch_elev_deg"], peak_club_mph=rec.peak_club * 2.23694, impact_club_mps=sw["impact_club_speed"]),
+        seg_frames = (rec.frames0, w.frames, rec.impact_frame)
+        if a.pose and imp_step:
+            hold(pose_slide(np.array(jt), imp_step, ROOT / "data/references/mason_v2_p1_s06.npz", kind, label(m)), 5)
+        meta["segments"].append(dict(kind=kind, model=label(m), qualifies=okq, failed=fails, seed=seed, selection_pass_carry=sh["carry"], actuator_tags=tags,
+                                     frames=dict(start=seg_frames[0], end=seg_frames[1], impact=seg_frames[2]),
+                                     rendered=dict(carry=sw["carry"], carry_yd=sw["carry_yd"], total_yd=sw["total_yd"], lateral_y=sw["final_y"], launch_deg=sw["launch_elev_deg"], peak_club_mph=rec.peak_club * 2.23694, impact_club_mps=sw["impact_club_speed"]),
                                      all_swings=[dict(seed=s_, carry=x["carry"], y=x["final_y"], launch=x["launch_elev_deg"]) for s_, x in res]))
     # end card
     e = ["Caveats", f"- {lb['episodes']} episodes per mode, seeds {lb['seed_base']}+; flight tracker = MuJoCo ball only (no spin / sidespin model), so lateral spread is optimistic.",
@@ -179,8 +367,9 @@ def main():
          "- DTW style scores (leaderboard.md) are 2D-proxy, tempo +-15% indicative only; Mason v3 slow-mo refs are loose-tempo extras."]
     if fallback: e.insert(1, "THIS IS A FALLBACK PREVIEW: no trained model qualifies - the learned segment is not a good drive.")
     hold(card(sum([wrap(x, 108) for x in e], []), {1: (255, 70, 70)} if fallback else {}, 0.55), 8)
-    w.close(); meta["frames"] = w.frames; meta["duration_s"] = w.frames / FPS; meta["slowdown"] = rec.slow
+    w.close(); meta["frames"] = w.frames; meta["duration_s"] = w.frames / FPS; meta["slowdown"] = "ramped: 3-14 physics steps/frame pre-impact, 2 at impact (+0.1 s), 6 then 24 after; factor shown live"
     (ROOT / a.out).with_suffix(".json").write_text(json.dumps(meta, indent=1, default=float)); print(json.dumps({k: v for k, v in meta.items() if k != "segments"}, indent=1, default=float))
+    if not a.no_extras: extras(ROOT / a.out, meta, lb)
     for s_ in meta["segments"]: print(s_["kind"], s_["model"], s_["qualifies"], s_["seed"], {k: round(v, 2) for k, v in s_["rendered"].items()})
 
 
