@@ -6336,6 +6336,44 @@
      "mean_distance": 112.15990778002411
     }
    }
+  },
+  {
+   "md5": "0f85ce1ababaed6513325d762ff32734",
+   "names": [
+    "imit15_dart_s53"
+   ],
+   "steps": 0,
+   "order": 1792249532.6218429,
+   "env_fingerprint": "833a022042ef",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 112.86426978142103
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 113.19761954393012
+    }
+   }
+  },
+  {
+   "md5": "67e566327880206041a28cf835c92660",
+   "names": [
+    "imit19_masonmapped_dart_s51"
+   ],
+   "steps": 0,
+   "order": 1792249532.6218429,
+   "env_fingerprint": "833a022042ef",
+   "modes": {
+    "deterministic": {
+     "contact_rate": 1.0,
+     "mean_distance": 58.25657643902029
+    },
+    "stochastic": {
+     "contact_rate": 1.0,
+     "mean_distance": 59.87100591898798
+    }
+   }
   }
  ]
 }
