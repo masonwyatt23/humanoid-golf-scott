@@ -1,0 +1,26 @@
+{
+ "description": "OPT-IN Mason-shaped WRIST on v3: elbow_base 0.48 + wrist cock -0.5 rad then release (wr_end -0.01), no extra yaw. track_score 0.33->~0.50, key_score 0->0.88 (track_time_fix); club ~115 mph. | BC-teacher address distribution over the full elbow range (0.40 +- 0.17).",
+ "script": {
+  "q_back": 2.2,
+  "t_down": 0.095,
+  "t_back": 0.6,
+  "wr_end": -0.01,
+  "yaw_ff": 0.0,
+  "wrist_cock": -0.5,
+  "yaw_back": 0.0,
+  "yaw_fin": 0.0
+ },
+ "ball_x": 0.396,
+ "ball_x_noise": 0.003,
+ "loft_deg": -31,
+ "ball_dz": -0.008,
+ "tee_height": 0.04,
+ "force_scale": 2.0,
+ "kp": 700,
+ "kd": 23.33,
+ "handedness": "left",
+ "model_xml": "humanoid_golf_v3.xml",
+ "sh_noise": 0.05,
+ "el_noise": 0.17,
+ "elbow_base": 0.4
+}
