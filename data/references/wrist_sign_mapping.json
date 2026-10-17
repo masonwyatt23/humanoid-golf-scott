@@ -1,0 +1,253 @@
+{
+ "status": "UNVERIFIED: video proxies + env geometry; offset fitted to contact geometry, not measured on a human",
+ "env_geometry": {
+  "ball_xyz": [
+   0.43,
+   0.0,
+   0.021
+  ],
+  "shoulder_xyz": [
+   0.15,
+   0.0,
+   1.16
+  ],
+  "interior_forearm_club_deg_vs_wrist_rad": {
+   "-1.571": 180.0,
+   "-0.977": 146.0,
+   "-0.703": 130.3,
+   "-0.500": 118.6,
+   "+0.000": 90.0,
+   "+0.500": 61.4,
+   "+0.703": 49.7,
+   "+0.977": 34.0,
+   "+1.571": 0.0
+  },
+  "identical_v3_v4_power": true,
+  "wrist_zero": "90 deg L between forearm (+x) and club (-z); interior = 90 - w_deg; straight line at w = -90 deg"
+ },
+ "contact_sweep": {
+  "elbow_0.000": {
+   "wrist_best_rad": 0.16,
+   "min_dist_m": 0.0047,
+   "wrist_window_rad_dist_le_0.06": [
+    0.060000000000001386,
+    0.26000000000000156
+   ]
+  },
+  "elbow_0.349": {
+   "wrist_best_rad": -0.02,
+   "min_dist_m": 0.0016,
+   "wrist_window_rad_dist_le_0.06": [
+    -0.11999999999999877,
+    0.0800000000000014
+   ]
+  },
+  "elbow_0.420": {
+   "wrist_best_rad": -0.06,
+   "min_dist_m": 0.0039,
+   "wrist_window_rad_dist_le_0.06": [
+    -0.1599999999999988,
+    0.04000000000000137
+   ]
+  },
+  "elbow_0.650": {
+   "wrist_best_rad": -0.18,
+   "min_dist_m": 0.0055,
+   "wrist_window_rad_dist_le_0.06": [
+    -0.29999999999999893,
+    -0.07999999999999874
+   ]
+  },
+  "elbow_0.853": {
+   "wrist_best_rad": -0.3,
+   "min_dist_m": 0.0043,
+   "wrist_window_rad_dist_le_0.06": [
+    -0.41999999999999904,
+    -0.19999999999999885
+   ]
+  },
+  "elbow_0.981": {
+   "wrist_best_rad": -0.38,
+   "min_dist_m": 0.005,
+   "wrist_window_rad_dist_le_0.06": [
+    -0.4999999999999991,
+    -0.2799999999999989
+   ]
+  },
+  "elbow_1.126": {
+   "wrist_best_rad": -0.48,
+   "min_dist_m": 0.0024,
+   "wrist_window_rad_dist_le_0.06": [
+    -0.5999999999999992,
+    -0.359999999999999
+   ]
+  }
+ },
+ "mapping": {
+  "mason_v2_col3_unsigned": {
+   "env_wrist_rad": "+1 * ref_rad + (-1.31)",
+   "sign": 1,
+   "offset_rad": -1.31
+  },
+  "cmu_col3_cocked_negative": {
+   "env_wrist_rad": "-1 * ref_rad + (-1.31)",
+   "sign": -1,
+   "offset_rad": -1.31
+  },
+  "multisense": "wrist not measured (zero-filled): no mapping",
+  "tolerance_rad": 0.15,
+  "caveat": "offset is constrained only by the ball-contact window (about +/-0.2 rad wide) and is tied to the env's stylised arm/club lengths, not to human anatomy."
+ },
+ "clips": {
+  "mason_v2_p1_s03": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.538,
+   "ref_impact_rad": 0.433,
+   "elbow_impact_rad": 1.909,
+   "env_top_rad": -0.77,
+   "env_impact_rad": -0.875,
+   "contact_wrist_at_this_elbow_rad": -1.02,
+   "contact_window_rad": [
+    -1.1999999999999997,
+    -0.8399999999999994
+   ],
+   "impact_inside_contact_window": true
+  },
+  "mason_v2_p1_s04": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.585,
+   "ref_impact_rad": 0.967,
+   "elbow_impact_rad": 1.716,
+   "env_top_rad": -0.723,
+   "env_impact_rad": -0.341,
+   "contact_wrist_at_this_elbow_rad": -0.88,
+   "contact_window_rad": [
+    -1.0399999999999996,
+    -0.7199999999999993
+   ],
+   "impact_inside_contact_window": false
+  },
+  "mason_v2_p1_s05": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.527,
+   "ref_impact_rad": 0.646,
+   "elbow_impact_rad": 1.838,
+   "env_top_rad": -0.781,
+   "env_impact_rad": -0.662,
+   "contact_wrist_at_this_elbow_rad": -0.96,
+   "contact_window_rad": [
+    -1.1399999999999997,
+    -0.7999999999999994
+   ],
+   "impact_inside_contact_window": false
+  },
+  "mason_v2_p1_s06": {
+   "handedness_verified": true,
+   "view": "oblique",
+   "ref_top_rad": 0.703,
+   "ref_impact_rad": 0.977,
+   "elbow_impact_rad": 0.853,
+   "env_top_rad": -0.604,
+   "env_impact_rad": -0.33,
+   "contact_wrist_at_this_elbow_rad": -0.3,
+   "contact_window_rad": [
+    -0.41999999999999904,
+    -0.19999999999999885
+   ],
+   "impact_inside_contact_window": true
+  },
+  "mason_v2_p2_s01": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.586,
+   "ref_impact_rad": 0.588,
+   "elbow_impact_rad": 1.597,
+   "env_top_rad": -0.721,
+   "env_impact_rad": -0.72,
+   "contact_wrist_at_this_elbow_rad": -0.8,
+   "contact_window_rad": [
+    -0.9399999999999995,
+    -0.6399999999999992
+   ],
+   "impact_inside_contact_window": true
+  },
+  "mason_v2_p2_s02": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.538,
+   "ref_impact_rad": 0.606,
+   "elbow_impact_rad": 2.126,
+   "env_top_rad": -0.77,
+   "env_impact_rad": -0.702,
+   "contact_wrist_at_this_elbow_rad": -1.18,
+   "contact_window_rad": [
+    -1.42,
+    -0.9799999999999995
+   ],
+   "impact_inside_contact_window": false
+  },
+  "mason_v2_p2_s11": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.41,
+   "ref_impact_rad": 0.757,
+   "elbow_impact_rad": 1.257,
+   "env_top_rad": -0.898,
+   "env_impact_rad": -0.55,
+   "contact_wrist_at_this_elbow_rad": -0.56,
+   "contact_window_rad": [
+    -0.6799999999999993,
+    -0.43999999999999906
+   ],
+   "impact_inside_contact_window": true
+  },
+  "mason_v2_p2_s13": {
+   "handedness_verified": true,
+   "view": "down_the_line",
+   "ref_top_rad": 0.579,
+   "ref_impact_rad": 1.129,
+   "elbow_impact_rad": 1.967,
+   "env_top_rad": -0.728,
+   "env_impact_rad": -0.179,
+   "contact_wrist_at_this_elbow_rad": -1.06,
+   "contact_window_rad": [
+    -1.2599999999999998,
+    -0.8799999999999994
+   ],
+   "impact_inside_contact_window": false
+  }
+ },
+ "cmu": {
+  "top_env_rad": -0.072,
+  "impact_env_rad": -0.35,
+  "elbow_impact_rad": 0.981,
+  "contact_wrist_at_this_elbow_rad": -0.38
+ },
+ "stored_impact_0p977": {
+  "elbow_0.349": 0.533,
+  "elbow_0.853": 0.636
+ },
+ "stored_impact_minus_0p977": {
+  "elbow_0.349": 0.407,
+  "elbow_0.853": 0.289
+ },
+ "offset_fits_rad": {
+  "mason_best_clip_impact": -1.277,
+  "cmu_median_impact": -1.338,
+  "mean": -1.308,
+  "implied_static_shaft_offset_c0_deg_mean": 15.1
+ },
+ "contact_wrist_vs_elbow_linear_fit": {
+  "formula": "w_contact = intercept + slope * elbow_rad (impact pose, v3 == v4_power geometry)",
+  "slope": -0.564,
+  "intercept": 0.173,
+  "valid_elbow_rad": [
+   0.0,
+   1.13
+  ],
+  "half_width_rad": 0.1
+ }
+}

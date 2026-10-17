@@ -3,6 +3,7 @@
 Machine-readable: `data/references/wrist_elbow_event_targets.json` (built by `python -m data.wrist_elbow_event_targets`, tests in `tests/test_wrist_elbow_event_targets.py`).
 All Mason numbers are **UNVERIFIED** monocular video proxies (MediaPipe world landmarks, ~30 fps source). They are not measured joint angles.
 Provenance: the Mason clips are derived from Mason's own screen-recorded social-media feed video; use of that data in a release needs Mason's consent (not yet given).
+> **Correction (PureGolf Data Agent finding, unverified):** the sign convention claim in this doc ("cocked is negative in the env") is wrong; per the Data Agent's forward-kinematics analysis, cocked is positive in the env. See `docs/WRIST_SIGN_MAPPING.md`.
 Nothing in `env/`, `eval/`, `train/` was changed; the v3/v4_power XMLs were only read.
 
 ## 1. Biggest finding: arm roles do not match
