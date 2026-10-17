@@ -362,7 +362,7 @@ def main():
     _g = _ek.get("impact_gain") or (_ek.get("impact_model") or {}).get("gain")
     if _pw: _tier = [f"HYPOTHETICAL POWER TIER (force_scale 2 + power XML{', impact gain %g' % _g if _g else ''}); no spin model", "(not a real robot or human; backspin hand-set by the impact model)"]
     elif _boost: _tier = ["BOOSTED ACTUATORS: force_scale 2 = hypothetical-strength actuators", "(not a real robot or human)"]
-    else: _tier = ["STOCK MOTORS (force_scale 1) for the learned segment; the scripted segment and some leaderboard rows use boosted", "actuators (force_scale 2 = hypothetical-strength, not a real robot or human); each is tagged on screen."]
+    else: _tier = ["STOCK MOTORS (force_scale 1) for the policy segment; the scripted segment and some leaderboard rows use boosted", "actuators (force_scale 2 = hypothetical-strength, not a real robot or human); each is tagged on screen."]
     t = [f"Humanoid Golf - {_kind} vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo) - SIMULATION", *([f"{_kind}, {'stock motors (force_scale 1)' if not _boost else 'hypothetical tier'}: " + lm["names"][0]] ), *_tier, f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
     cols = {}
     if fallback:
