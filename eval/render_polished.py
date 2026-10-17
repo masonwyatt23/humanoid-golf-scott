@@ -368,7 +368,7 @@ def main():
         dk = "SCRIPT-DISTILLED POLICY" if (kind == "LEARNED" and swt == 0.0) else kind   # display name: a script-free imitation is not a swing learned independently
         _ek = m.get("env_kwargs") or {}; _fs = _ek.get("force_scale") or 1.0; _g = (_ek.get("impact_model") or {}).get("gain", 1.0) or 1.0
         mot = (", power tier hypothetical (impact gain %g)" % _g if _g > 1.05 else f", force_scale {_fs:g} hypothetical-strength" if _fs > 1.0 else ", stock motors (force_scale 1)") if dk != kind or kind == "LEARNED" else ""
-        title = (f"{dk} ({label(m)}){mot}" if kind == "LEARNED" else f"{kind}") + (f" - {blend}" if blend else "")
+        title = (f"{dk} ({label(m)}){mot}" if kind == "LEARNED" else f"{kind}") + (f" - {blend}" if blend and dk == kind else "")   # distilled rows: the blend is already named in the overlay line, keeps the banner inside the frame
         kind_txt = dk + (f" [{blend}]" if blend else "")
         hold(card([title, f"model: {label(m)}", f"Deterministic, {lb['episodes']} eps: carry {d['mean_carry']:.1f} m mean | lateral std {d['lateral_std']:.2f} m | miss L/R {d['left_miss_rate']*100:.0f}%/{d['right_miss_rate']*100:.0f}%",
                    f"launch {d['launch_elev_mean_deg']:.1f} deg | peak club {d['peak_club_mph_mean']:.1f} mph | landed {d['landed_fraction']*100:.0f}%" + ("   (FLAT launch)" if d.get("launch_flat_flag") else ""),
