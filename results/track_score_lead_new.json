@@ -1,0 +1,85 @@
+{
+ "label": "track_score recomputed with track_arm='lead' (shoulder -> left_shoulder_pitch); wrist untracked (excluded); separate from legacy VOID numbers",
+ "models": {
+  "imit18_power_dart_s52": {
+   "legacy_parts": {
+    "sh": 0.0016009901270445462,
+    "yaw": 0.005506537920432907,
+    "wr": 2.14433108351577e-05
+   },
+   "lead_parts": {
+    "sh": 0.2027495173778954,
+    "yaw": 0.005506537920432907,
+    "wr": 2.14433108351577e-05
+   },
+   "legacy_mean": 0.002376323786104203,
+   "lead_mean_sh_yaw": 0.10412802764916415,
+   "leaderboard_legacy_mean": 0.002376323786104203,
+   "episodes": 10
+  },
+  "ppo15_bcreg_s61": {
+   "legacy_parts": {
+    "sh": 0.0014682596057256992,
+    "yaw": 0.638170637876751,
+    "wr": 0.008040068287317452
+   },
+   "lead_parts": {
+    "sh": 0.0033133516289072717,
+    "yaw": 0.638170637876751,
+    "wr": 0.008040068287317452
+   },
+   "legacy_mean": 0.21589298858993136,
+   "lead_mean_sh_yaw": 0.3207419947528291,
+   "leaderboard_legacy_mean": 0.21589298858993136,
+   "episodes": 10
+  },
+  "ppo15_bcreg_s62": {
+   "legacy_parts": {
+    "sh": 0.0014064540255629488,
+    "yaw": 0.7042311215917907,
+    "wr": 0.001647969812446454
+   },
+   "lead_parts": {
+    "sh": 0.005609534933318263,
+    "yaw": 0.7042311215917907,
+    "wr": 0.001647969812446454
+   },
+   "legacy_mean": 0.23576184847660003,
+   "lead_mean_sh_yaw": 0.3549203282625545,
+   "leaderboard_legacy_mean": 0.23576184847660003,
+   "episodes": 10
+  },
+  "ppo15_stoch_s71": {
+   "legacy_parts": {
+    "sh": 0.0012991896243628287,
+    "yaw": 0.6269930187947781,
+    "wr": 0.002984885128500864
+   },
+   "lead_parts": {
+    "sh": 0.0051389656832265315,
+    "yaw": 0.6269930187947781,
+    "wr": 0.002984885128500864
+   },
+   "legacy_mean": 0.21042569784921392,
+   "lead_mean_sh_yaw": 0.31606599223900234,
+   "leaderboard_legacy_mean": 0.21042569784921392,
+   "episodes": 10
+  },
+  "ppo15_anneal_s91": {
+   "legacy_parts": {
+    "sh": 0.0013521791284114442,
+    "yaw": 0.7440094792202977,
+    "wr": 0.005103872627464206
+   },
+   "lead_parts": {
+    "sh": 0.0023346757007004144,
+    "yaw": 0.7440094792202977,
+    "wr": 0.005103872627464206
+   },
+   "legacy_mean": 0.25015517699205775,
+   "lead_mean_sh_yaw": 0.3731720774604991,
+   "leaderboard_legacy_mean": 0.25015517699205775,
+   "episodes": 10
+  }
+ }
+}
