@@ -33,6 +33,14 @@ def side_by_side(lb):
     return " ".join(out)
 
 
+def stock_note(lb):
+    st = next((m for m in lb["models"] if m.get("scripted") and any("STOCK motors" in n for n in m["names"]) and "modes" in m), None)
+    q = [m for m in lb["models"] if (m.get("env_kwargs") or {}).get("force_scale", 1.0) in (None, 1.0) and not m.get("scripted") and m["names"] in lb.get("qualifying", [])]
+    t = "<b>Motor strength.</b> " + ("A trained stock-motor (force_scale 1) model qualifies: " + e(q[0]["names"][0]) + ". " if q else "<b>No trained model on stock motors (force_scale 1) qualifies.</b> ")
+    if st: d = st["modes"]["deterministic"]; t += f"Stock-motor scripted (not learned) reference: {d['mean_carry_yd']:.0f} yd carry, {d['peak_club_mph_mean']:.0f} mph. "
+    return t + "Every row below tagged force_scale 2 or power tier is hypothetical-strength: not a realistic-motor result."
+
+
 def build():
     lb, val, crs = J("results/leaderboard.json"), J("results/golf_simulator_validation.json"), J("results/course_estimates.json")
     rows = []
@@ -72,6 +80,7 @@ table{{border-collapse:collapse;width:100%;background:#fff;font-size:13px}} th,t
 <h1>Humanoid golf: evaluation dashboard</h1>
 <p>Generated {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} (America/New_York) from <code>results/leaderboard.json</code>, <code>results/golf_simulator_validation.json</code>, <code>results/course_estimates.json</code>. Regenerate: <code>python -m sim.dashboard</code>.</p>
 <div class="note"><b>Honest labels.</b> Every leaderboard row uses boosted actuators (force_scale &gt; 1) unless marked otherwise: <b>force_scale 2 (hypothetical-strength actuators)</b>, not a real robot. Rows tagged SCRIPTED are a hand-written swing, not learned. Leaderboard yards use the MuJoCo-physics ball (smash about 1.0, a known artifact). Launch-monitor and course numbers are <b>model-based</b> (analytic ball model / Monte Carlo), not measured.</div>
+<div class="note">{stock_note(lb)}</div>
 <div class="note"><b>Two models shown side by side, neither promoted as &quot;learned from Mason&quot;.</b> {side_by_side(lb)} Both imitate the scripted swing and run force_scale 2 (hypothetical-strength actuators).</div>
 <h2>Leaderboard (ranked by true contact, then mean carry; star = best qualifying learned model)</h2>
 <table><tr><th>#</th><th>Model</th><th>Contact det / stoch</th><th>Carry yd (det)</th><th>Total yd (det)</th><th>Lateral std m</th><th>Launch deg</th><th>Peak club mph</th><th>Smash</th></tr>{''.join(tr)}</table>
