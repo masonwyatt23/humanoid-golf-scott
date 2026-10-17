@@ -191,8 +191,8 @@ class ResidualGolfEnv(HumanoidGolfEnv):
     def _load_track_shapes(self, track_set):
         """Weighted mean normalised shapes from the unified reference set (train split, manifest weights):
         'sh' shoulder pitch (Mason v2 anatomical col 4), 'yaw' thorax rotation and 'wr' wrist hinge (MultiSense/CMU)."""
-        from data.unified_refset import load_manifest
-        man = load_manifest(); acc = {}
+        from data.unified_refset import load_manifest, VERSIONS
+        man = load_manifest(version=track_set if track_set in VERSIONS else None); acc = {}
         for e in man["entries"]:
             if e.get("split") != "train" or e.get("weight_train", 0) <= 0: continue
             d = np.load(Path(__file__).resolve().parent.parent / e["path"], allow_pickle=True); w = float(e["weight_train"]); dt = float(d["dt"]); t = np.asarray(d["time"], float)

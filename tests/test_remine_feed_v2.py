@@ -84,7 +84,7 @@ def test_multisense_converter_synthetic(tmp_path):
         d = ms.convert_swing(f, meta)
     except Exception as e:                                  # event detection needs a real-looking swing
         pytest.skip(f"synthetic swing not accepted by event detector: {e}")
-    assert d["joints"].shape[1] == 11 and bool(d["commercial_ok"]) and str(d["license_class"]) == "cc0"
+    assert d["joints"].shape[1] == 11 and not bool(d["commercial_ok"]) and str(d["license_class"]) == "needs_counsel" and str(d["license_class_as_published"]) == "cc0"
     assert not bool(d["has_club_head"]) and "wrist_ankle_not_measured" in [str(x) for x in d["qc_flags"]]
 
 
@@ -103,4 +103,6 @@ def test_multisense_drops_nonmonotonic_timestamps(tmp_path):
 def test_provenance_cc0_preset():
     from data import provenance as pr
     d = pr.tag({}, "multisensegolf_cc0")
-    assert d["license_class"].item() == "cc0" and bool(d["commercial_ok"])
+    assert d["license_class"].item() == "needs_counsel" and not bool(d["commercial_ok"])
+    assert d["license_class_as_published"].item() == "cc0" and bool(d["counsel_required"])
+    assert pr.PRESETS["multisensegolf_cc0"] == pr.PRESETS["multisensegolf_needs_counsel"]  # legacy alias

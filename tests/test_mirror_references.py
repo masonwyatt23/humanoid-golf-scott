@@ -68,7 +68,7 @@ def test_multisense_mirror_semantics(tmp_path):
     m = _load(out)
     assert bool(m["mirrored"]) and str(m["mirrored_from"]) == "multisense_P19_s20.npz"
     assert str(m["original_handedness"]) == "right" and str(m["handedness"]) == "left"
-    assert str(m["license_class"]) == "cc0" and bool(m["commercial_ok"])
+    assert str(m["license_class"]) == "needs_counsel" and not bool(m["commercial_ok"])
     assert "player_stated_handedness" not in m  # not Mason
     assert m["joints"].shape == d["joints"].shape
     assert np.allclose(m["joints"][:, 1], -d["joints"][:, 1])
@@ -90,5 +90,5 @@ def test_all_multisense_mirrors_exist_and_tagged():
     assert srcs
     for f in srcs:
         m = _load(f.replace(".npz", "_mirrored.npz"))
-        assert bool(m["mirrored"]) and str(m["license_class"]) == "cc0" and bool(m["commercial_ok"])
+        assert bool(m["mirrored"]) and str(m["license_class"]) == "needs_counsel" and not bool(m["commercial_ok"])
         assert str(m["original_handedness"]) == "right"

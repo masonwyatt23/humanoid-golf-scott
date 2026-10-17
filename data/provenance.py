@@ -2,7 +2,7 @@
 
 Keys written (0-d arrays): license_class, commercial_ok, provenance_source,
 provenance_note, acknowledgment_required (bool), acknowledgment_text (str).
-license_class in {synthetic, self_owned, cmu_permissive, cc0, noncommercial, unknown}.
+license_class in {synthetic, self_owned, cmu_permissive, cc0, needs_counsel, noncommercial, unknown}.
 Unknown / unrecognised data is treated as NOT commercial-safe.
 Not legal advice. Files without tags are treated as unknown (commercial_ok False).
 """
@@ -14,9 +14,10 @@ from typing import Dict, Iterable, List, Optional
 
 import numpy as np
 
-LICENSE_CLASSES = ("synthetic", "self_owned", "cmu_permissive", "cc0", "noncommercial", "unknown")
+LICENSE_CLASSES = ("synthetic", "self_owned", "cmu_permissive", "cc0", "needs_counsel", "noncommercial", "unknown")
 TAG_KEYS = ("license_class", "commercial_ok", "provenance_source", "provenance_note",
-            "acknowledgment_required", "acknowledgment_text")
+            "acknowledgment_required", "acknowledgment_text",
+            "license_class_as_published", "counsel_required")
 
 CMU_ACK = ("The data used in this project was obtained from mocap.cs.cmu.edu. "
            "The database was created with funding from NSF EIA-0196217.")
@@ -35,9 +36,8 @@ PRESETS: Dict[str, Dict] = {
                                       "commercial products; do NOT resell this data directly, even in converted "
                                       "form (no standalone dataset distribution).",
                       acknowledgment_required=True, acknowledgment_text=CMU_ACK),
-    # NOTE: per-file .npz tags written by this preset say cc0/commercial_ok=True (as published). The unified_v1 manifest
-    # overrides them to needs_counsel/commercial_ok=False (data/unified_refset.py MS_LICENSE); .npz files were not rewritten.
-    "multisensegolf_cc0": dict(license_class="cc0", commercial_ok=True, provenance_source="multisensegolf_harvard_dataverse",
+    "multisensegolf_needs_counsel": dict(license_class="needs_counsel", commercial_ok=False,
+                              license_class_as_published="cc0", counsel_required=True, provenance_source="multisensegolf_harvard_dataverse",
                               provenance_note="MultiSenseGolf (Oh et al., Harvard Dataverse doi:10.7910/DVN/LCCLLW), "
                                               "CC0 1.0 (inferred from the Dataverse default waiver; [unverified] against "
                                               "the record text); inertial-mocap joint positions only (no video/faces "
@@ -55,6 +55,10 @@ PRESETS: Dict[str, Dict] = {
                     provenance_note="Origin/license not established; treated as not commercial-safe.",
                     acknowledgment_required=False, acknowledgment_text=""),
 }
+
+
+# Backwards-compatible alias: the old preset name now yields the needs_counsel tag (2026-10 retag; see CHANGELOG.md).
+PRESETS["multisensegolf_cc0"] = PRESETS["multisensegolf_needs_counsel"]
 
 
 def preset(kind: str, **overrides) -> Dict:
@@ -84,7 +88,7 @@ def infer_kind(name: str, arrays: Optional[Dict] = None) -> str:
     if any(w in low for w in ("golfdb", "amass", "sportspose", "rep3d", "golfpose", "caddieset")):
         return "noncommercial"
     if "multisense" in low:
-        return "multisensegolf_cc0"
+        return "multisensegolf_needs_counsel"
     if "cmu" in low:
         return "cmu_mocap"
     if "mason" in low:

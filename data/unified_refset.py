@@ -3,7 +3,7 @@
 Does not modify env/train/eval. Works with imitation.reference_dataset.ReferenceDataset-style dicts
 (`path, joints, club_head, dt, name, license_class, commercial_ok` + extra provenance fields).
 
-  python -m data.unified_refset build      # rewrite data/reference_sets/unified_v1.json (+ sampling config if absent)
+  python -m data.unified_refset build [--version unified_v2]  # rewrite data/reference_sets/unified_v1.json (+ sampling config if absent)
   from data.unified_refset import load_manifest, load_sampling_config, split_entries, sample, load_refs
 """
 import argparse
@@ -19,6 +19,17 @@ REF_DIR = ROOT / "data" / "references"
 SET_DIR = ROOT / "data" / "reference_sets"
 MANIFEST = SET_DIR / "unified_v1.json"
 SAMPLING = SET_DIR / "unified_v1_sampling.json"
+VERSIONS = ("unified_v1", "unified_v2")
+
+
+def manifest_path(version="unified_v1"):
+    assert version in VERSIONS, version
+    return SET_DIR / f"{version}.json"
+
+
+def sampling_path(version="unified_v1"):
+    assert version in VERSIONS, version
+    return SET_DIR / f"{version}_sampling.json"
 
 DEFAULT_SAMPLING = {
     "version": "unified_v1",
@@ -38,11 +49,20 @@ DEFAULT_SAMPLING = {
     "split_seed": 20261016,
 }
 
+# unified_v2 = unified_v1 + sampler honors handedness_unverified / exclude_pending_verification (flagged clips are removed from
+# train AND val, weights renormalised). unified_v1 is frozen (imit2/imit3 reproducibility); see CHANGELOG.md.
+DEFAULT_SAMPLING_V2 = dict(DEFAULT_SAMPLING, version="unified_v2", honor_exclusion_flags=True,
+                           flag_note=("Entries with exclude_pending_verification=true get split='excluded' (original split kept in split_v1) "
+                                      "and weight 0; remaining weights are renormalised within each source and overall."))
+DEFAULT_SAMPLING_V2["rationale"] = DEFAULT_SAMPLING["rationale"] + (" v2 additionally excludes mason_v2_p1_s11 (val) and mason_v2_p2_s10 (train) "
+                                                                   "until their handedness is verified.")
+
 CMU_ACK = ("The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding "
            "from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)")
 # MultiSense licence tag: the dataset record says CC0 1.0 but participants are identifiable, so the project treats it as
 # needs_counsel and NOT commercial-eligible until counsel signs off (docs/research_mocap_datasets_licenses.md,
-# docs/UNIFIED_V1_LICENSE_AUDIT.md). The per-file .npz tags still say cc0/commercial_ok=True; the manifest overrides them.
+# docs/UNIFIED_V1_LICENSE_AUDIT.md). The per-file .npz tags were rewritten to match by scripts/retag_multisense.py (2026-10); the manifest override is kept
+# so unified_v1 stays byte-for-byte reproducible.
 MS_LICENSE = dict(license_class="needs_counsel", commercial_ok=False, license_class_as_published="cc0", counsel_required=True,
                   license_note=("Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until "
                                 "counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."))
@@ -151,7 +171,8 @@ def annotate_manifest(m):
     return m
 
 
-def build_manifest():
+def build_manifest(version="unified_v1"):
+    assert version in VERSIONS, version
     tracked = _tracked_on_origin()
     gid = _groups(None)
     entries = []
@@ -191,15 +212,19 @@ def build_manifest():
                               quality=round(max(0.05, 1 - 0.15 * nflag), 4), variant="mirror_on_load", handedness="left",
                               native_footage=True, effective_mirrored_on_load=True, ack=CMU_ACK,
                               note="file is right-handed; loader mirrors it (data.mirror_references.mirror_dict)"))
-    cfg = dict(DEFAULT_SAMPLING)
-    assign_splits(entries, cfg)
+    cfg = dict(DEFAULT_SAMPLING if version == "unified_v1" else DEFAULT_SAMPLING_V2)
+    assign_splits(entries, cfg)   # splits are assigned over ALL entries (identical to v1) so other entries keep their split
+    if cfg.get("honor_exclusion_flags"):
+        for e in entries:
+            if e.get("exclude_pending_verification"):
+                e["split_v1"] = e["split"]; e["split"] = "excluded"
     for e in entries:
         e["weight_train"] = None
     w = train_weights(entries, cfg)
     for e in entries:
         e["weight_train"] = round(w.get(e["path"], 0.0), 6)
-    return annotate_manifest({
-        "version": "unified_v1",
+    m = annotate_manifest({
+        "version": version,
         "base": "origin/main (impact-geometry commits a873466/09d53d3 are NOT required; no file here comes from that branch)",
         "n_entries": len(entries),
         "notes": ["handedness = effective handedness after any load-time mirroring (all left for the left humanoid)",
@@ -210,6 +235,12 @@ def build_manifest():
                   "entries with handedness_unverified/exclude_pending_verification are FLAGGED ONLY; sampling does not honor the flag (would change recorded results)"],
         "entries": entries,
     })
+    if version == "unified_v2":
+        m["base_version"] = "unified_v1"
+        m["notes"] = [n for n in m["notes"] if "FLAGGED ONLY" not in n and "weight_train = default weight" not in n] + [
+            "weight_train = default weight from unified_v2_sampling.json (train split only; val weight 0)",
+            "unified_v2 honors handedness_unverified/exclude_pending_verification: flagged entries have split='excluded' (split_v1 holds the v1 split) and weight 0; weights renormalised"]
+    return m
 
 
 def _h(seed, key):
@@ -239,7 +270,7 @@ def train_weights(entries, cfg):
     mult = cfg.get("multipliers", {})
     raw = {}
     for e in entries:
-        if e["split"] != "train":
+        if e["split"] != "train" or (cfg.get("honor_exclusion_flags") and e.get("exclude_pending_verification")):
             continue
         m = mult.get(e["variant"], 1.0)
         raw[e["path"]] = (max(e["quality"], 1e-6) ** cfg["quality_power"]) * m
@@ -254,13 +285,14 @@ def train_weights(entries, cfg):
 
 
 # ---------------- loader helpers ----------------
-def load_manifest(path=None):
-    return json.load(open(path or MANIFEST))
+def load_manifest(path=None, version=None):
+    """version: 'unified_v1' (default, frozen) or 'unified_v2'. An explicit path wins."""
+    return json.load(open(path or (manifest_path(version) if version else MANIFEST)))
 
 
-def load_sampling_config(path=None):
-    p = Path(path or SAMPLING)
-    cfg = dict(DEFAULT_SAMPLING)
+def load_sampling_config(path=None, version=None):
+    p = Path(path or (sampling_path(version) if version else SAMPLING))
+    cfg = dict(DEFAULT_SAMPLING_V2 if version == "unified_v2" else DEFAULT_SAMPLING)
     if p.exists():
         cfg.update(json.load(open(p)))
     return cfg
@@ -279,8 +311,10 @@ def iter_split(manifest=None, split="val", root=ROOT):
 def weights(manifest=None, cfg=None, split="train"):
     """Recompute normalised weights from the (possibly user-edited) config. Returns (entries, probs)."""
     m = manifest or load_manifest()
-    cfg = cfg or load_sampling_config()
+    cfg = cfg or load_sampling_config(version=m.get("version") if m.get("version") in VERSIONS else None)
     ents = [dict(e) for e in m["entries"]]
+    if cfg.get("honor_exclusion_flags"):
+        ents = [e for e in ents if not e.get("exclude_pending_verification")]
     w = train_weights(ents, cfg) if split == "train" else {}
     if split != "train":
         ents = [e for e in ents if e["split"] == split]
@@ -323,18 +357,20 @@ def as_reference_dataset(split="train", manifest=None, root=ROOT):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["build", "annotate"]); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("cmd", choices=["build", "annotate"])
+    ap.add_argument("--version", default="unified_v1", choices=VERSIONS); a = ap.parse_args()
+    MANIFEST_V, SAMPLING_V = manifest_path(a.version), sampling_path(a.version)
     if a.cmd == "annotate":     # add licence/handedness flags to the existing manifest in place (no rebuild, no split change)
-        m = annotate_manifest(json.load(open(MANIFEST)))
-        json.dump(m, open(MANIFEST, "w"), indent=1)
+        m = annotate_manifest(json.load(open(MANIFEST_V)))
+        json.dump(m, open(MANIFEST_V, "w"), indent=1)
         print("annotated", m["n_entries"], "entries")
         return
     SET_DIR.mkdir(parents=True, exist_ok=True)
-    if not SAMPLING.exists():
-        json.dump(DEFAULT_SAMPLING, open(SAMPLING, "w"), indent=2)
-    m = build_manifest()
-    json.dump(m, open(MANIFEST, "w"), indent=1)
-    print(m["n_entries"], "entries ->", MANIFEST)
+    if not SAMPLING_V.exists():
+        json.dump(DEFAULT_SAMPLING if a.version == "unified_v1" else DEFAULT_SAMPLING_V2, open(SAMPLING_V, "w"), indent=2)
+    m = build_manifest(a.version)
+    json.dump(m, open(MANIFEST_V, "w"), indent=1)
+    print(m["n_entries"], "entries ->", MANIFEST_V)
 
 
 if __name__ == "__main__":

@@ -109,3 +109,108 @@ def test_face_path_stub_is_unverified():
     from pathlib import Path
     j = json.load(open(Path(__file__).resolve().parents[1] / "data/references/mason_impact_face_path_proxies.json"))
     assert j["unverified_all"] and "face_angle_deg" in j["unavailable"] and "club_path_deg" in j["unavailable"]
+
+
+# ---- unified_v1 frozen / unified_v2 behaviour ---------------------------------------------------------------
+import hashlib  # noqa: E402
+import json  # noqa: E402
+
+# v1 manifest = reconciled version (Data Agent licence annotations 1cdde9f + MultiSense needs_counsel tags). Sampling/weights
+# are unchanged since unified_v1 was first published; imit2/imit3 depend on them. Do NOT regenerate; add a new version instead.
+V1_MANIFEST_SHA256 = "1c9f09024507e8a160d56920f739cf23f928dd06695c3a9345c2d3c442ac7c76"
+V1_SAMPLING_SHA256 = "41daab0a8bdd16b94a19c03e2e9007a3c5fe86927f2f308a33d2e5bc462e5ad9"
+
+
+def _sha(path):
+    return hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
+
+
+def test_v1_files_frozen_by_hash():
+    assert _sha("data/reference_sets/unified_v1.json") == V1_MANIFEST_SHA256
+    assert _sha("data/reference_sets/unified_v1_sampling.json") == V1_SAMPLING_SHA256
+
+
+def test_v1_rebuild_reproduces_committed_manifest_and_default_loaders_are_v1():
+    assert U.build_manifest("unified_v1") == U.load_manifest()
+    assert U.load_manifest()["version"] == "unified_v1" and U.load_sampling_config()["version"] == "unified_v1"
+    assert "honor_exclusion_flags" not in U.load_sampling_config()
+
+
+def test_v1_weights_unchanged_for_flagged_entries():
+    ents, p = U.weights(U.load_manifest())
+    paths = {e["path"] for e in ents}
+    assert "data/references/mason_v2_p2_s10.npz" in paths and abs(p.sum() - 1) < 1e-9
+
+
+V2 = U.load_manifest(version="unified_v2")
+FLAGGED = {"data/references/mason_v2_p1_s11.npz", "data/references/mason_v2_p2_s10.npz"}
+
+
+def test_v2_excludes_flagged_from_train_and_val():
+    flagged = {e["path"]: e for e in V2["entries"] if e.get("exclude_pending_verification")}
+    assert set(flagged) == FLAGGED
+    assert all(e["split"] == "excluded" and e["weight_train"] == 0 for e in flagged.values())
+    assert flagged["data/references/mason_v2_p1_s11.npz"]["split_v1"] == "val"
+    assert flagged["data/references/mason_v2_p2_s10.npz"]["split_v1"] == "train"
+    for split in ("train", "val"):
+        assert not FLAGGED & {e["path"] for e in U.split_entries(V2, split)}
+    ents, p = U.weights(V2)
+    assert not FLAGGED & {e["path"] for e in ents}
+    assert len(U.as_reference_dataset("val", V2)) == len(U.split_entries(V2, "val"))
+    rng = np.random.default_rng(1)
+    assert all(U.sample(rng, V2)["path"].split("/")[-1] not in {"mason_v2_p1_s11.npz", "mason_v2_p2_s10.npz"} for _ in range(100))
+
+
+def test_v2_weights_sum_to_one_and_source_masses():
+    assert abs(sum(e["weight_train"] for e in V2["entries"]) - 1) < 1e-4
+    ents, p = U.weights(V2)
+    assert abs(p.sum() - 1) < 1e-9
+    tot = {}
+    for e, pi in zip(ents, p):
+        tot[e["source"]] = tot.get(e["source"], 0) + pi
+    assert abs(tot["mason"] - 0.6) < 1e-6 and abs(tot["multisense"] - 0.2) < 1e-6 and abs(tot["cmu"] - 0.2) < 1e-6
+
+
+def test_v2_equals_v1_except_exclusions_and_renormalisation():
+    v1 = {e["path"]: e for e in U.load_manifest()["entries"]}
+    assert set(v1) == {e["path"] for e in V2["entries"]}
+    for e in V2["entries"]:
+        o = v1[e["path"]]
+        if e["path"] in FLAGGED:
+            continue
+        assert e["split"] == o["split"] and e["license_class"] == o["license_class"] and e["commercial_ok"] == o["commercial_ok"]
+    assert U.build_manifest("unified_v2") == V2
+    assert V2["version"] == "unified_v2" and U.load_sampling_config(version="unified_v2")["honor_exclusion_flags"] is True
+    assert all(e["license_class"] == "needs_counsel" for e in V2["entries"] if e["source"] == "multisense")
+
+
+def test_multisense_npz_tags_match_manifest_and_arrays_intact():
+    from data import provenance as P
+    for e in V2["entries"]:
+        if e["source"] == "multisense":
+            t = P.read_tags(ROOT / e["path"])
+            assert t["license_class"] == "needs_counsel" and t["commercial_ok"] is False
+            assert t["license_class_as_published"] == "cc0" and bool(t["counsel_required"])
+            assert not P.commercial_cleared(t)
+    assert P.include_commercial_only(sorted((ROOT / "data/references").glob("multisense_*.npz"))) == []
+
+
+def test_retag_script_is_idempotent_and_preserves_arrays(tmp_path):
+    import shutil
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import retag_multisense as R
+    src = ROOT / "data/references/multisense_P19_s20.npz"
+    f = tmp_path / "multisense_P19_s20.npz"
+    # make a legacy-tagged copy
+    d = {k: v for k, v in np.load(src, allow_pickle=True).items()}
+    d["license_class"] = np.array("cc0"); d["commercial_ok"] = np.array(True)
+    for k in ("license_class_as_published", "counsel_required"):
+        d.pop(k, None)
+    np.savez(f, **d)
+    assert R.retag_file(f) == "retagged" and R.retag_file(f) == "skipped"
+    new = np.load(f, allow_pickle=True)
+    assert str(new["license_class"]) == "needs_counsel" and not bool(new["commercial_ok"])
+    for k in d:
+        if k not in R.CHANGED:
+            assert np.array_equal(new[k], d[k])

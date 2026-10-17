@@ -7,7 +7,7 @@ Perception Neuron Studio skeleton, cm, Y-up, +X = subject's left, +Z = facing). 
     python -m data.convert_multisense_golf --raw-dir /workspace/golf_scratch/multisense \
         --participants P19 P20 P22 --top-n 10 --min-club-mph 85
 
-Output: data/references/multisense_<Pxx>_s<NN>.npz  (license-tagged `multisensegolf_cc0`).
+Output: data/references/multisense_<Pxx>_s<NN>.npz  (license-tagged `multisensegolf_needs_counsel`: published CC0, needs_counsel, commercial_ok=False).
 Missing vs CMU: no finger/toe joints -> wrist-hinge (col 3) and ankle (cols 7, 10) are not measured and are
 written as 0 with qc flag `wrist_ankle_not_measured`. Launch-monitor club/ball speed and carry are stored as
 metadata (not club-head trajectories). All 24 participants swing right-handed (Participant Metadata.csv).
@@ -108,7 +108,7 @@ def convert_swing(h5path: Path, meta: Dict, hand: str = "right", fs: float = 100
             "Optical launch monitor club speed at impact; the club head is not tracked in this .npz"),
         "mirrored": np.array(False),
     }
-    prov.tag(out, "multisensegolf_cc0", overwrite=True)
+    prov.tag(out, "multisensegolf_needs_counsel", overwrite=True)
     return out
 
 

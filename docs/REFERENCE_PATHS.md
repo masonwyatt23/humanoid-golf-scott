@@ -81,19 +81,19 @@ Total 34 files: 28 full + 5 partial + 1 unmirrored.
 
 ### MultiSenseGolf (CC0, inertial mocap, full body) - details in docs/research_open_data_v2.md
 `data/references/multisense_P{19,20,22}_sNN.npz`, 28 files (top club-speed swings >= 88 mph of 3 participants; P23 never reached
-88). Right-handed golfers (all 24 participants are). Tag: `license_class=cc0`, `commercial_ok=True`. Keys as CMU files plus
+88). Right-handed golfers (all 24 participants are). Tag (updated 2026-10-17, see CHANGELOG.md): `license_class=needs_counsel`, `commercial_ok=False`, `license_class_as_published=cc0`, `counsel_required=True` (originally written as `cc0`/`commercial_ok=True`). Keys as CMU files plus
 `club_speed_mph_launch_monitor`, `ball_speed_mps`, `carry_m`, `skill_self_report_1to7`, `capture`, `view='3d'`. Fast swings:
 club speed 88.8-102.7 mph, tempo 2.1-3.6, hand peak 7.4-10.5 m/s. `wrist_hinge_deg` and joint cols 3, 7, 10 (wrist, ankles) are NOT measured
 (zeros, flag `wrist_ankle_not_measured`). No club-head trajectory. For a left-handed humanoid, mirror with
 `python -m data.mirror_references --pattern 'multisense_*.npz'` (not done; the mirror tool was written for the 11-col layout and works on
 these files but I left them unmirrored).
 
-License class `cc0` was added to `data/provenance.py` (`multisensegolf_cc0` preset; `infer_kind` maps names containing `multisense`).
+License classes `cc0` and `needs_counsel` are in `data/provenance.py` (preset `multisensegolf_needs_counsel`; `multisensegolf_cc0` is a legacy alias for the same tag; `infer_kind` maps names containing `multisense`).
 
 ## MultiSenseGolf mirrored (2026-10-16)
 `data/references/multisense_P{19,20,22}_sNN_mirrored.npz`, 28 files, made with
 `python -m data.mirror_references --pattern 'multisense_P*_s[0-9]*.npz'`. Tags: `mirrored=True`, `mirrored_from=<source file>`,
-`original_handedness=right`, `handedness=left`, `license_class=cc0`, `commercial_ok=True` (copied). `player_stated_handedness` is NOT set
+`original_handedness=right`, `handedness=left`, `license_class=needs_counsel`, `commercial_ok=False` (copied; retagged 2026-10-17, previously `cc0`/`True`). `player_stated_handedness` is NOT set
 (not set for multisense/cmu sources). Same 11-col layout as the originals, so the Mason mirror rules apply: roll (col 1) negated; legs (5-7)<->(8-10)
 swapped; sagittal flexion angles unchanged; pelvis/thorax rotation, x_factor, lateral_sway negated. Assumptions: no landmarks or club_head
 exist here (nothing to mirror); unmeasured wrist/ankle columns (3, 7, 10) stay zero, but the leg swap moves the ankle zeros between cols 7 and 10 consistently;
@@ -150,3 +150,15 @@ Built on `origin/main` (143b4a3). It uses no files from branch `impact-geometry`
   Env/train/eval are untouched; they need to be pointed at it explicitly.
 - Caveats: Mason joints are 2D-proxy, ~30 fps; MultiSense/CMU joints are mocap-derived; the three sources have
   different time-axis/quality, and mirrored CMU/MultiSense are right-handed motions flipped.
+
+
+## Versioned unified reference sets (`data/reference_sets/`)
+
+| Set | Files | Behaviour |
+|---|---|---|
+| `unified_v1` | `unified_v1.json`, `unified_v1_sampling.json` | **Frozen** (hash-tested in `tests/test_unified_refset.py`). Used by recorded Stage 10 `imit2`/`imit3`. Handedness flags are informational only: `mason_v2_p1_s11` (val) and `mason_v2_p2_s10` (train) are still sampled. MultiSense entries are `needs_counsel`/`commercial_ok=false`. Licence annotations from the Data Agent (counsel_required, license_url, CMU no-resale/acknowledgment fields) are in the manifest; `commercial_cleared(entry)` in `data/provenance.py` is `commercial_ok and not counsel_required`. |
+| `unified_v2` | `unified_v2.json`, `unified_v2_sampling.json` | Same 50 entries and same splits as v1, except entries with `exclude_pending_verification` (`mason_v2_p1_s11`, `mason_v2_p2_s10`) get `split="excluded"` (`split_v1` keeps the old split) and weight 0, so they are in neither train nor val. Train weights are renormalised (source masses stay 0.6/0.2/0.2; sum = 1). Sampling config has `honor_exclusion_flags: true`. |
+
+Build: `python -m data.unified_refset build --version unified_v2`. Load: `load_manifest(version="unified_v2")`, `load_sampling_config(version="unified_v2")`.
+Selecting v2 in training: `ResidualGolfEnv(track_set="unified_v2", track_weight=...)` now loads the v2 manifest (any other value, including `"unified_v1"`, keeps v1).
+`train/train_imitate.py` hard-codes `track_set="unified_v1"` (line 23) and has no CLI arg for it; the Trainer needs to change that one string (or add an arg) for new runs.
