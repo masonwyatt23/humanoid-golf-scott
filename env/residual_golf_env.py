@@ -225,10 +225,10 @@ class ResidualGolfEnv(HumanoidGolfEnv):
         return json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "mason_keyframe_targets.json"))["event_offsets_s"]
 
     def _load_keyframes(self):
-        if self.key_arm == "trail":   # OPT-IN role fix: env right_* is the TRAIL arm; Mason's stored cols 0-3 are his anatomical right = LEAD arm (left-hander). Use the trail-arm event targets (wrist_elbow_event_targets.json): wrist top/impact 0.703/0.977 rad (unsigned; key_wrist_sign picks same-side (+1) or opposite-side (-1) impact deflection), elbow flexion top/impact 1.126/0.853 rad.
+        if self.key_arm in ("trail", "trail_mapped"):   # OPT-IN role fix: env right_* is the TRAIL arm; Mason's stored cols 0-3 are his anatomical right = LEAD arm (left-hander). Use the trail-arm event targets (wrist_elbow_event_targets.json): wrist top/impact 0.703/0.977 rad (unsigned; key_wrist_sign picks same-side (+1) or opposite-side (-1) impact deflection), elbow flexion top/impact 1.126/0.853 rad.
             T = json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "wrist_elbow_event_targets.json"))["env_targets_best_clip"]
             g = {(t["env_joint"], t["event"]): t["value_rad"] for t in T}; e0 = float(self.elbow_base if self.elbow_base is not None else np.deg2rad(20.0))
-            return {4: ((g[("right_elbow", "impact")] - e0) / (g[("right_elbow", "top")] - e0), 0.25), 3: (self.key_wrist_sign * g[("right_wrist", "impact")] / g[("right_wrist", "top")], 0.25)}  # key_wrist_sign +1: impact on the same side as top (1.39x); -1: opposite side
+            return {4: ((g[("right_elbow", "impact")] - e0) / (g[("right_elbow", "top")] - e0), 0.25), 3: ((-0.33 / -0.60) if self.key_arm == "trail_mapped" else self.key_wrist_sign * g[("right_wrist", "impact")] / g[("right_wrist", "top")], 0.25)}  # key_wrist_sign +1: impact on the same side as top (1.39x); -1: opposite side
         """Sparse keyframe targets (Mason keyframe medians, deg), converted to sign/offset-invariant normalised values at IMPACT: y=(q-q_addr)/(q_top-q_addr), sigma = sigma_suggested/|top-addr|. Joints: shoulder pitch, wrist (the env qtraj has no elbow column)."""
         J = json.load(open(Path(__file__).resolve().parent.parent / "data" / "references" / "mason_keyframe_targets.json"))["keyframes"]; out = {}
         for k, col in (("right_shoulder_pitch", 1), ("right_wrist", 3)):

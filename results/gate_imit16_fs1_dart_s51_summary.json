@@ -1,0 +1,65 @@
+{
+ "note": "imit16_fs1_dart_s51 (STOCK force_scale 1, script-distilled) 3-seed evaluator gate, 100 eps each, default elbow. Parsed from logs/gate16_<seed>.log (the eval_gate JSON files were not written because the run was interrupted); label force_scale=1.0",
+ "seeds": {
+  "4000": {
+   "policy_det": {
+    "peak_club_mph_mean": 98.114,
+    "contact_rate": 1.0,
+    "mean_distance": 75.106,
+    "mean_y": 0.059,
+    "lateral_std": 1.203,
+    "mean_carry": 74.687,
+    "landed_fraction": 0.99
+   },
+   "policy_stoch": {
+    "peak_club_mph_mean": 97.954,
+    "contact_rate": 0.99,
+    "mean_distance": 74.059,
+    "mean_y": 0.012,
+    "lateral_std": 0.15,
+    "mean_carry": 74.054,
+    "landed_fraction": 0.99
+   }
+  },
+  "8000": {
+   "policy_det": {
+    "peak_club_mph_mean": 98.36,
+    "contact_rate": 1.0,
+    "mean_distance": 73.419,
+    "mean_y": -0.022,
+    "lateral_std": 0.29,
+    "mean_carry": 73.419,
+    "landed_fraction": 1.0
+   },
+   "policy_stoch": {
+    "peak_club_mph_mean": 98.36,
+    "contact_rate": 1.0,
+    "mean_distance": 75.069,
+    "mean_y": -0.009,
+    "lateral_std": 0.422,
+    "mean_carry": 75.069,
+    "landed_fraction": 1.0
+   }
+  },
+  "9000": {
+   "policy_det": {
+    "peak_club_mph_mean": 98.356,
+    "contact_rate": 1.0,
+    "mean_distance": 75.399,
+    "mean_y": 0.004,
+    "lateral_std": 0.242,
+    "mean_carry": 75.399,
+    "landed_fraction": 1.0
+   },
+   "policy_stoch": {
+    "peak_club_mph_mean": 98.346,
+    "contact_rate": 1.0,
+    "mean_distance": 73.624,
+    "mean_y": 0.009,
+    "lateral_std": 0.227,
+    "mean_carry": 73.624,
+    "landed_fraction": 1.0
+   }
+  }
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "note": "stock force_scale 1 scripted t_down/t_back scan, configs/fast_scripted_v3_fs1_elbowfull.json, 40 eps seed 4000 (eval.eval_v4)",
+ "rows": {
+  "t_down 0.08": {
+   "mph": 98.47,
+   "carry": 73.05,
+   "lat": 0.83
+  },
+  "t_down 0.07": {
+   "mph": 98.27,
+   "carry": 70.16,
+   "lat": 1.44
+  },
+  "t_down 0.06": {
+   "mph": 98.2,
+   "carry": 74.23,
+   "lat": 2.76
+  },
+  "t_down 0.07,t_back 0.45": {
+   "mph": 99.16,
+   "carry": 77.6,
+   "lat": 0.79
+  }
+ },
+ "conclusion": "club speed saturates ~98-99 mph at force_scale 1: actuator-limited, timing does not help"
+}

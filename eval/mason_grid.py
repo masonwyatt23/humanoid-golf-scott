@@ -6,7 +6,7 @@ cfg = json.load(open("configs/fast_scripted_v3_elbow48.json")); cfg.pop("descrip
 n = int(sys.argv[2]) if len(sys.argv) > 2 else 20; extra = json.loads(sys.argv[3]) if len(sys.argv) > 3 else {}
 for ov in json.loads(sys.argv[1]):
     res = []
-    for arm, ws in (("trail", 1.0), ("trail", -1.0)):
+    for arm, ws in (("trail_mapped", 1.0), ("trail", 1.0)):
         kw = dict(B0); kw.update(cfg); kw["script"] = {**B0["script"], **cfg["script"], **ov}; kw.update(extra); kw.update(key_weight=1.0, key_arm=arm, key_wrist_sign=ws, track_set=None)
         env = make_env(kw); R = []
         for i in range(n):
@@ -15,4 +15,4 @@ for ov in json.loads(sys.argv[1]):
             R.append([info.get("key_score", 0), np.degrees(info["launch_elevation"]) if info["true_contact"] else np.nan, info["ball_lateral"], info["carry"], float(info["true_contact"]), info["peak_club_speed"] * 2.23694])
         R = np.array(R); res.append(R)
     a, b = res
-    print(json.dumps(ov), "| key(+ same side) %.2f key(- opposite) %.2f | contact %.2f launch %.1f carry %.0f lat_sd %.2f mph %.0f" % (a[:, 0].mean(), b[:, 0].mean(), a[:, 4].mean(), np.nanmean(a[:, 1]), a[:, 3].mean(), np.nanstd(a[:, 2]), a[:, 5].mean()), flush=True)
+    print(json.dumps(ov), "| key(trail_mapped) %.2f key(raw trail) %.2f | contact %.2f launch %.1f carry %.0f lat_sd %.2f mph %.0f" % (a[:, 0].mean(), b[:, 0].mean(), a[:, 4].mean(), np.nanmean(a[:, 1]), a[:, 3].mean(), np.nanstd(a[:, 2]), a[:, 5].mean()), flush=True)

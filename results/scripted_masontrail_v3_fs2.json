@@ -1,0 +1,30 @@
+{
+ "note": "masontrail script (configs/fast_scripted_v3_masontrail.json), v3 force_scale 2 BOOSTED, scripted zero-residual, eval.eval_v4 100 eps",
+ "seeds": {
+  "4000": {
+   "launch": 10.23,
+   "carry": 55.03,
+   "contact": 1.0,
+   "landed": 1.0,
+   "lateral_std": 0.01,
+   "club_mph": 94.38
+  },
+  "8000": {
+   "launch": 10.23,
+   "carry": 54.72,
+   "contact": 1.0,
+   "landed": 1.0,
+   "lateral_std": 0.01,
+   "club_mph": 94.39
+  },
+  "9000": {
+   "launch": 10.26,
+   "carry": 54.57,
+   "contact": 1.0,
+   "landed": 1.0,
+   "lateral_std": 0.01,
+   "club_mph": 94.39
+  }
+ },
+ "caveat": "lateral_std 0.01 == ball_y start noise passthrough (eval/lat_probe.py), not accuracy"
+}
