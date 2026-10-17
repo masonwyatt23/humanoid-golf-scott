@@ -66,6 +66,7 @@ def discover():
 # results/TRAINING_NOTES.md CORRECTION: eval.eval_gate rebuilt these from train_residual-style args and dropped the v3 address/script settings -> rows are INVALID (superseded by imit2/imit3, which store env_kwargs_full)
 NOISE_PASS_CARRY_FRAC = 0.80   # noise PASS (QUICK) = contact stays 100% AND mean carry >= 80% of the clean full-N deterministic mean carry, at that sigma (N=NOISE_EPS det episodes)
 NOISE_SIGMAS, NOISE_EPS = (0.005, 0.01), 10   # QUICK noise-robustness columns (small N, labelled)
+GATE_ONLY = {'ppo_v4power_s61', 'ppo_v4power_s62'}   # power-tier runs need env code (flight_steps 900, impact_model, power XML) not in this tree's env_factory -> a leaderboard row here would silently use the 450-step default; they are reported ONLY in the hypothetical-tier gate table (eval_gate, 3 seeds)
 INVALID_CONFIG = {"imit_w075_s51", "imit_w075_s52", "imit_w075_s53"}
 SCRIPTED_V3 = "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]"
 SCRIPTED_LOFT = "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]"
@@ -190,7 +191,7 @@ def main():
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
     cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"]
-                  and not any(n in INVALID_CONFIG for n in c["names"])],
+                  and not any(n in INVALID_CONFIG or n in GATE_ONLY for n in c["names"])],
                  key=lambda c: c.get("mtime", 0))
     # noise robustness (QUICK, N=NOISE_EPS det episodes, seeds a.seed+): Gaussian noise sigma on every obs AND action; only for models that pass a quick contact/carry screen; cached per entry
     for c in cur:
@@ -414,6 +415,8 @@ def main():
         (f5, p5), (f10, p10) = f((nr or {}).get("0.005")), f((nr or {}).get("0.01"))
         tstr = f"{ts['mean']:.3f} / {ts['min']:.3f}" if ts and ts.get("defined") else "n/a (undefined: no track config)"
         L.append(f"| {'/'.join(c['names'][:1])} | {'SCRIPTED (not learned)' if c.get('scripted') else learned_note(c)[:60]} | {cl:.1f} / {d0['lateral_std']:.2f} | {f5} | {p5} | {f10} | {p10} | {tstr} |")
+    from eval.hypo_tier import md as hypo_md
+    L += ["", "Note: ppo_v4power_s61/s62 are deliberately NOT leaderboard rows (their env config - flight_steps 900, impact_model, power XML - cannot be rebuilt by this tree's env_factory; a row would silently use the 450-step default and show a false ~36% landed). They appear only in the hypothetical tier below, from 3-seed eval_gate runs."] + hypo_md()   # separate hypothetical tier (force_scale>1 / effectively scripted), from per-seed gate JSONs
     (RES / "leaderboard.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
     from eval.compare_styles import from_leaderboard
     from_leaderboard()

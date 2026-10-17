@@ -11,6 +11,18 @@ def f(v, nd=1, suf=""):
     return "-" if v is None or (isinstance(v, float) and not math.isfinite(v)) else f"{v:.{nd}f}{suf}"
 
 
+def hypo_html():
+    import sys; sys.path.insert(0, ROOT)
+    from eval.hypo_tier import tier
+    rows = []
+    for r in tier():
+        lab = '<span class="b hy">EFFECTIVELY SCRIPTED, hypothetical actuators</span>' if r["effectively_scripted"] else '<span class="b ln">policy differs from script</span> <span class="b hy">hypothetical actuators</span>'
+        for sd, d in sorted(r["seeds"].items()):
+            p, st = d["policy_det"], d["policy_stoch"]
+            rows.append(f"<tr><td>{e(r['name'])}<br>{lab}</td><td>{sd}</td><td>{p['mean_carry']*1.09361:.0f} yd ({p['mean_carry']:.1f} m)</td><td>{p['lateral_std']:.2f} / {st['lateral_std']:.2f}</td><td>{p['landed_fraction']*100:.0f}%</td><td>{p['peak_club_mph_mean']:.1f}</td><td class=\"{'ok' if d['gate_pass'] else 'bad'}\">{'PASS' if d['gate_pass'] else 'FAIL'}</td></tr>")
+    return "".join(rows)
+
+
 def build():
     lb, val, crs = J("results/leaderboard.json"), J("results/golf_simulator_validation.json"), J("results/course_estimates.json")
     rows = []
@@ -53,6 +65,9 @@ table{{border-collapse:collapse;width:100%;background:#fff;font-size:13px}} th,t
 <h2>Leaderboard (ranked by true contact, then mean carry; star = best qualifying learned model)</h2>
 <table><tr><th>#</th><th>Model</th><th>Contact det / stoch</th><th>Carry yd (det)</th><th>Total yd (det)</th><th>Lateral std m</th><th>Launch deg</th><th>Peak club mph</th><th>Smash</th></tr>{''.join(tr)}</table>
 <p>Episodes per row: {lb['episodes']}, seed base {lb['seed_base']}. Total equals carry when the episode ends at first landing (no roll). Qualification: {e(json.dumps(lb['qualify_criterion']))}.</p>
+<h2>Hypothetical tier (force_scale &gt; 1): 3-seed headline gate, separate from learned vs scripted</h2>
+<p>force_scale 2 = boosted actuators (hypothetical). Per seed, 100 episodes, flight_steps 900; PASS needs contact, lateral std &le; 2.73 m, launch 5-20 deg, landed &ge; 90% in det AND stoch. A model passes only if all of seeds 4000/8000/9000 pass; &quot;effectively scripted&quot; = matches the zero-residual script (not a learned drive).</p>
+<table><tr><th>Model</th><th>Seed</th><th>Carry (det)</th><th>Lateral std m det / stoch</th><th>Landed</th><th>Club mph</th><th>Headline</th></tr>{hypo_html()}</table>
 <h2>Launch-monitor validation (analytic ball model vs TrackMan PGA Tour driver average)</h2>
 <p>Benchmark: 113 mph club, 167 mph ball, smash 1.48, 10.9&deg; launch, 2686 rpm, 32 yd apex, 38&deg; landing, <b>275 yd carry</b> (TrackMan published PGA Tour averages; USGA Equipment Specifications Research, Table&nbsp;2). Model from those launch conditions: carry {sc['carry_yd']:.0f} yd, total {sc['total_yd']:.0f} yd, apex {sc['apex_yd']:.0f} yd.</p>
 <table><tr><th>Check</th><th>Metric</th><th>Model</th><th>Published</th><th>Error</th><th>Result</th></tr>{''.join(vt)}</table>
