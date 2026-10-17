@@ -139,3 +139,15 @@ Evaluator protocol (eval.eval_scripted_cfg, MuJoCo flight tracker, no spin model
 - loft -26: contact 100%, launch 9.3/9.5 deg (std 2.7/2.4), mean carry 70.0/71.9 m, landed 98/99%, lateral std 0.013 m, 120.3 mph (53.8 m/s).
 - loft -22: contact 100%, launch 7.5/7.8 deg, carry 50.6/51.1 m, landed 96/97%, lateral std 0.011/0.28 m, 120.4 mph.
 Caveats: lateral std is tiny because the model has no sidespin and the swing is deterministic in the lateral plane; ~4-9% of shots are low-launch (2-5 deg) outliers from address noise; carry in the analytic metric depends on assumed spin. Residual PPO was NOT run on this base (it already meets all criteria; earlier PPO never beat scripted). All old results using positive loft/ball_dz>=0 should be treated as edge-strike artefacts.
+
+## Stage 6: outlier cause, carry vs launch/loft tradeoff (evaluator protocol = PRIMARY), config v3
+Outlier diagnosis (eval/outlier_diag.py, 200 eps): low-launch shots correlate with elbow reset noise (r=0.50) and shoulder noise (0.26), not ball x/y: address pose shifts head height, and at ball_dz -0.01/loft -26 the strike sits near the lower-face cliff (ball_dz -0.014 => only 36% good shots; -0.02 => all negative launch).
+Evaluator-protocol lateral spread comes from contact-generated sidespin/backspin in MuJoCo (corr with spin wz 0.74, wx -0.71; uncorrelated with ball y) and grows as the ball is struck higher on the face (dz -0.003: lat std 7-10 m; -0.01: 0.01 m). Window: dz ~ -0.008 trades outliers vs lateral.
+Evaluator protocol (eval.eval_scripted_cfg, 100 eps, seed 4000 unless noted; t_down .095, yaw_ff 0, ball_x .396+-3mm, default sh/el noise), peak club 120.3 mph (53.8 m/s), contact 100%:
+loft -26 dz -.003: launch 10.0, carry 86.0, lat 7.0 | -30/-.003: 11.7, 119.5, 10.7 | -34/-.003: 13.7, 144.3, 7.0
+loft -28 dz -.009: 10.6, 86.0, 0.21 (landed 99%) | -28/-.007: 10.9, 90.8, 1.39
+loft -30 dz -.009: 11.1, 94.4, 0.20 (landed 96%, flat 4%) | -30/-.007: 11.8, 109.2 (s8000 105.3, s9000 102.0), lat 2.09/2.46/1.48
+loft -32 dz -.009: 11.3, 104.8, 0.06 (landed 91%, flat 9%) | -32/-.007: 12.7, 125.8, lat 2.77 (fails)
+loft -30 dz -.008: s4000 launch 11.7, carry 105.0, lat 1.42; s8000 102.7, 0.38
+loft -31 dz -.008 (**configs/fast_scripted_v3.json**): s4000 launch 12.17 (std 1.37), carry 113.0 (median 109.0), lat 2.12, landed 100%; s8000 launch 12.21, carry 110.6, lat 1.60, landed 100%, flat 0%, 120.3 mph.
+MuJoCo flight has no designed spin model so these carries are conservative relative to the analytic ones (secondary).

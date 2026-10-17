@@ -1,0 +1,3 @@
+{"description":"BEST scripted config (zero residual). v2 + ball_dz -0.008, loft_deg -31: strike mid-face, outliers (launch<7) gone. Evaluator protocol 100 eps: seeds 4000/8000 -> launch 12.2 deg (std 1.4), carry 113.0/110.6 m mean (median 109), lateral std 2.12/1.60 m, landed 100%, contact 100%, 120.3 mph. loft -30/dz -0.008 also passes (carry ~102-105, lat 0.4-1.4). Note v3 xml: negative loft_deg = lofted.",
+"script":{"q_back":2.2,"t_down":0.095,"t_back":0.6,"wr_end":-0.01,"yaw_ff":0.0},
+"ball_x":0.396,"ball_x_noise":0.003,"loft_deg":-31,"ball_dz":-0.008,"tee_height":0.04,"force_scale":2.0,"kp":700,"kd":23.33,"handedness":"left","model_xml":"humanoid_golf_v3.xml","sh_noise":0.05,"el_noise":0.1}
