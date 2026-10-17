@@ -153,7 +153,9 @@ def _fp():
 
 def resolve(name):
     """-> (kw, scripted, label, md5name, hypothetical_note) from the leaderboard cache for the current fingerprint (latest entry whose names contain `name` as substring)."""
-    cache = json.loads((RES / "leaderboard_cache.json").read_text())
+    cpath = RES / "leaderboard_cache.json"   # untracked/gitignored local cache; created by eval.leaderboard
+    if not cpath.exists(): raise SystemExit("results/leaderboard_cache.json is not tracked in git; run `python -m eval.leaderboard` first to generate it")
+    cache = json.loads(cpath.read_text())
     cand = [c for k, c in cache.items() if "env_kwargs" in c and any(name == n or name in n for n in c["names"])]   # latest entry; env kwargs only (the env CODE used is the live working tree)
     if not cand: raise KeyError(f"{name}: no leaderboard-cache entry; run eval.leaderboard first")
     c = max(cand, key=lambda c: c.get("evaluated_at") or "")
