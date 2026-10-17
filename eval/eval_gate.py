@@ -41,4 +41,5 @@ if __name__ == "__main__":
     out["launch_not_flat"] = bool(not p.get("launch_flat_flag", False))
     out["gate_note"] = "carry>11.98 m is a legacy 4-s-horizon baseline (~1/3 of shots landed at ~12 m); weak floor under the 450-step horizon. Showcase criterion (carry>=30, launch not flat, ...) lives in eval/leaderboard.py. See eval_gate.py docstring."
     print("GATE (carry>11.98 & lat_std<2.73 & contact>=99%):", out["gate_pass"])
-    json.dump(out, open(ROOT / "results" / (f"gate_{name}.json" if seed == 4000 else f"gate_{name}_seed{seed}.json"), "w"), indent=1, default=float)
+    OUTD = Path(os.environ["GATE_OUT"]) if os.environ.get("GATE_OUT") else ROOT / "results"; OUTD.mkdir(parents=True, exist_ok=True)   # GATE_OUT=<dir>: private output dir (never the shared results/)
+    json.dump(out, open(OUTD / (f"gate_{name}.json" if seed == 4000 else f"gate_{name}_seed{seed}.json"), "w"), indent=1, default=float)

@@ -21,7 +21,7 @@ def env_kwargs(a):
               forward_reward=True, randomize_reset=True, gate_lo=15.0, gate_hi=35.0, seq_weight=a.seq_weight, style_prior=False, yaw_amp=0.1, wrist_amp=0.0, style_lead=0.05,
               analytic_ball=False, lat_weight=a.lat_weight, lat_angular=a.lat_angular, elev_weight=0.0, carry_cap=a.carry_cap, tempo_scale=0.0, shot_pen=a.shot_pen, act_l2=0.0,
               script_weight=a.stage_w, learn_scale=list(a.learn_scale), track_set=a.track_set, track_weight=a.track_weight)
-    for k in ("ball_x", "ball_x_noise", "loft_deg", "ball_dz", "tee_height", "force_scale", "kp", "kd", "handedness", "model_xml", "sh_noise", "el_noise", "contact_damp", "impact_model"):
+    for k in ("ball_x", "ball_x_noise", "loft_deg", "ball_dz", "tee_height", "force_scale", "kp", "kd", "handedness", "model_xml", "sh_noise", "el_noise", "contact_damp", "impact_model", "elbow_base", "flight_steps"):
         if k in cfg: kw[k] = cfg[k]
     return kw
 
