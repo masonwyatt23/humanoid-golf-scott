@@ -63,6 +63,8 @@ def discover():
     return groups
 
 
+# results/TRAINING_NOTES.md CORRECTION: eval.eval_gate rebuilt these from train_residual-style args and dropped the v3 address/script settings -> rows are INVALID (superseded by imit2/imit3, which store env_kwargs_full)
+INVALID_CONFIG = {"imit_w075_s51", "imit_w075_s52", "imit_w075_s53"}
 SCRIPTED_V3 = "scripted (not learned) [fast v3 Stage 6: left, loft -31, ball_dz -0.008, t_down 0.095, wr_end -0.01]"
 SCRIPTED_LOFT = "scripted (not learned) [fast v2 lofted: left, loft -26, ball_dz -0.01, t_down 0.095, wr_end -0.01]"
 SCRIPTED = "scripted_baseline[ladder cfg: right, loft 6, default ball_x]"   # pseudo-checkpoint: ResidualGolfEnv with the LADDER run's exact config and a ZERO residual action
@@ -75,10 +77,13 @@ def config_for(names):
         j = RES / f"{n}.json"
         if j.exists() and "res_scale" in json.loads(j.read_text()).get("args", {}):   # any residual-PPO run with a results JSON is auto-scored (new checkpoints need no code change)
             from eval.env_factory import resid_kw_from_args
-            args = json.loads(j.read_text())["args"]
+            J = json.loads(j.read_text()); args = J["args"]
             assert args.get("name", n) == n, f"{j} args.name mismatch"
+            if "env_kwargs_full" in J:   # v5 imitation runs: exact env kwargs incl. script_weight/learn_scale/address (rebuilding from args silently drops them - see TRAINING_NOTES CORRECTION)
+                kw = dict(J["env_kwargs_full"], _env="residual", track_weight=0.0, track_set=None); kw["residual_scale"] = list(kw["residual_scale"])
+                return args.get("timesteps", args.get("ppo_steps", 0)), kw, f"results/{j.name} env_kwargs_full (script_weight={kw.get('script_weight')}, learn_scale={kw.get('learn_scale')})"
             note = f"results/{j.name} args" + ("" if "ball_dz" in args else "; ball_dz ABSENT in args (flag predates run) -> env default 0.0 used, true training value UNKNOWN")
-            return args["timesteps"], resid_kw_from_args(args), note
+            return args.get("timesteps", 0), resid_kw_from_args(args), note
     for n in names:                       # prefer a JSON that exists for any alias
         j = RES / f"train_{n.replace('ppo_', '', 1)}.json"
         if j.exists():
@@ -105,7 +110,8 @@ def main():
     if a.quick: a.episodes = a.quick_episodes
     import os
     if a.workers <= 0:
-        a.workers = max(1, min(4, (os.cpu_count() or 2) - int(os.getloadavg()[0])))
+        a.workers = max(1, min(2, (os.cpu_count() or 2) - int(os.getloadavg()[0])))
+    a.workers = min(a.workers, 2)   # shared-box policy: never more than 2 eval workers
     print(f"[leaderboard] mode={'QUICK (provisional)' if a.quick else 'FULL'} episodes={a.episodes} workers={a.workers}", flush=True)
     import eval.dispersion_report as dr
     refs = sorted(p.name[:-len("_swing.npz")] for p in (ROOT / "data/references").glob("*_swing.npz"))
@@ -131,7 +137,7 @@ def main():
         else:
             steps, kw, src = config_for(g["names"])
         chash = hashlib.md5(json.dumps(kw, sort_keys=True, default=str).encode()).hexdigest()[:12] if kw is not None else None
-        if key in cache and not a.force and cache[key].get("config_hash", chash) == chash:   # hit = same checkpoint md5 + env fingerprint + episodes/seed + env-config hash
+        if key in cache and not a.force and cache[key].get("config_hash") == chash:   # hit = same checkpoint md5 + env fingerprint + episodes/seed + env-config hash
             print("skip (cached)", g["names"]); continue
         if kw is None:
             cache[key] = {"md5": h, "names": g["names"], "config_source": "UNKNOWN", "error": "training config unknown; not evaluated"}
@@ -166,7 +172,8 @@ def main():
         (RES / "leaderboard_quick.md").write_text("\n".join(Lq) + "\n"); print("\n".join(Lq)); return
     (RES / "leaderboard_history.json").write_text(json.dumps(hist, indent=1))
 
-    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"]],
+    cur = sorted([c for k, c in cache.items() if k.split(":")[1] == fp and k.split(":")[2:] == [str(a.episodes), str(a.seed), "s12"]
+                  and not any(n in INVALID_CONFIG for n in c["names"])],
                  key=lambda c: c.get("mtime", 0))
     # contact regressions vs best EARLIER-trained checkpoint (any env fingerprint, from history)
     flags = []
@@ -228,6 +235,9 @@ def main():
         best_line += f" **Best overall (incl. scripted, no-learning baseline): {SCRIPTED}** - mean contact {score(ranked_all[0])[0]*100:.0f}%, mean carry {score(ranked_all[0])[1]:.3f} m (no trained checkpoint beats it)."
     elif ranked_all:
         best_line += f" Best overall incl. scripted baseline: {' / '.join(ranked_all[0]['names'])}."
+    boosted = [("/".join(c["names"][:1]), c["env_kwargs"]["force_scale"]) for c in qualifying if c.get("env_kwargs", {}).get("force_scale", 1.0) > 1.0]
+    best_line += (" **HYPOTHETICAL ACTUATORS: " + ", ".join(f"{n} (force_scale {fs:g})" for n, fs in boosted) + " run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.**") if boosted else ""
+    best_line += " Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary."
     L = ["# Leaderboard", "", best_line, "", rank_txt, "", f"Full ranking (scripted baseline included): {rk}", "",
          "Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). "
          "Impact club speed = club_head linear speed at first club-ball contact; smash factor = peak ball speed / impact club speed (contact shots with club speed > 0.05 m/s, averaged).", "",
@@ -250,7 +260,9 @@ def main():
         for n in c["names"]:
             j = RES / f"{n}.json"
             if j.exists():
-                ar = json.loads(j.read_text()).get("args", {})
+                JJ = json.loads(j.read_text()); ar = JJ.get("args", {}); ek = JJ.get("env_kwargs_full") or c.get("env_kwargs", {})
+                if "script_weight" in ek and ek["script_weight"] is not None and ek["script_weight"] != 1.0:   # imitation-distilled blend: script_weight = share of the scripted command in the executed action
+                    sw = float(ek["script_weight"]); return f"BLEND: executed command = {sw*100:.0f}% scripted + {(1-sw)*100:.0f}% learned (script_weight={sw}, learn_scale={ek.get('learn_scale')}); residual cap +-{ar.get('res_scale')} rad" + (" ; HYPOTHETICAL ACTUATORS force_scale %g" % ek["force_scale"] if ek.get("force_scale", 1) > 1 else "")
                 if "res_scale" in ar:
                     ts = ar.get("tempo_scale", "0.3 (env default)")
                     return f"residual on scripted swing: cap +-{ar['res_scale']} rad (shoulder, elbow, wrist, yaw) + tempo_scale {ts}; % of control from policy = not defined/unknown"

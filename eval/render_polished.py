@@ -305,6 +305,7 @@ def extras(video, meta, lb):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pick", default="best_qualifying", choices=["best_qualifying", "best", "best_left"])
+    ap.add_argument("--model", default=None, help="render this checkpoint name (as in the leaderboard, e.g. imit3_w050_s51) instead of the --pick choice")
     ap.add_argument("--swings", type=int, default=12); ap.add_argument("--seed", type=int, default=5000); ap.add_argument("--K", type=int, default=6)
     ap.add_argument("--out", default="results/videos/showcase_polished.mp4"); ap.add_argument("--no-pose", dest="pose", action="store_false"); ap.add_argument("--no-extras", action="store_true", help="skip social cut + hero gif")
     ap.add_argument("--profiles", nargs="?", const="docs/MASON_VS_PROFILES.md", default=None, help="optional style-profile summary slides from this doc (default docs/MASON_VS_PROFILES.md)")
@@ -320,6 +321,7 @@ def main():
     # --- trained model pick
     pk = {"best_qualifying": lb.get("best_qualifying"), "best": lb.get("best_model"), "best_left": lb.get("best_left")}[a.pick]
     fallback = pk is None
+    if a.model: pk, fallback = next(m["names"] for m in models if a.model in m["names"]), False
     if fallback: pk = lb["best_model"]
     lm = by[pk[0]]; ok_l, fail_l = q[pk[0]]
     # --- scripted segments: those that qualify; else the 0.422 trainer-cfg baseline (labeled)
@@ -338,9 +340,10 @@ def main():
     hold(card(t, cols, 0.6), 4)
     # leaderboard slides
     rank = [r.split("/")[0] for r in lb["ranking"]][:4]
-    rows = [(label(by[n]), "LEARNED", by[n], q[n][0]) for n in rank if n in by]
+    kd = lambda m: "LEARNED" if (m.get("env_kwargs") or {}).get("script_weight") in (None, 1.0) else f"BLEND {round((1 - m['env_kwargs']['script_weight']) * 100)}/{round(m['env_kwargs']['script_weight'] * 100)}"
+    rows = [(label(by[n]), kd(by[n]), by[n], q[n][0]) for n in rank if n in by]
     rows += [(label(m), "SCRIPTED", m, q[m["names"][0]][0]) for m in scripted]
-    if lm["names"][0] not in rank: rows.insert(0, (label(lm), "LEARNED", lm, ok_l))
+    if lm["names"][0] not in rank: rows.insert(0, (label(lm), kd(lm), lm, ok_l))
     crit_txt = f"Criterion: contact 100% both modes, det carry >= {crit['carry_m_min']:.0f} m, det lateral std <= {crit['lateral_std_m_max']} m, launch >= {crit['launch_elev_deg_min']:.0f} deg. Ranking = contact then carry (not distance)."
     n1 = [crit_txt, "Top trained models by leaderboard ranking + all zero-residual SCRIPTED rows (not learned). All-episode means; carry/launch from flight tracker."]
     hold(table_slide(f"Leaderboard - DETERMINISTIC policy ({lb['episodes']} eps)", rows, "deterministic", crit, n1), 7)
@@ -349,7 +352,10 @@ def main():
     segs = [("LEARNED", lm, ok_l, fail_l)] + [("SCRIPTED (not learned)", m, *q[m["names"][0]]) for m in seg_s]
     for kind, m, okq, fails in segs:
         name = m["names"][0]; d = m["modes"]["deterministic"]; sc = m.get("scripted", False)
-        title = f"{kind} ({label(m)})" if kind == "LEARNED" else f"{kind}"
+        swt = (m.get("env_kwargs") or {}).get("script_weight")
+        blend = f"{round((1 - swt) * 100)}% learned / {round(swt * 100)}% scripted" if (kind == "LEARNED" and swt is not None and swt < 1.0) else ""   # from the run's env kwargs (verified in results JSON), never guessed
+        title = (f"{kind} ({label(m)})" if kind == "LEARNED" else f"{kind}") + (f" - {blend}" if blend else "")
+        kind_txt = kind + (f" [{blend}]" if blend else "")
         hold(card([title, f"model: {label(m)}", f"Deterministic, {lb['episodes']} eps: carry {d['mean_carry']:.1f} m mean | lateral std {d['lateral_std']:.2f} m | miss L/R {d['left_miss_rate']*100:.0f}%/{d['right_miss_rate']*100:.0f}%",
                    f"launch {d['launch_elev_mean_deg']:.1f} deg | peak club {d['peak_club_mph_mean']:.1f} mph | landed {d['landed_fraction']*100:.0f}%" + ("   (FLAT launch)" if d.get("launch_flat_flag") else ""),
                    ("QUALIFIES under the criterion" if okq else "DOES NOT YET QUALIFY: " + "; ".join(fails))] + [x for x in wrap("Swing shown: ONE deterministic swing, lower median by carry of %d (seeds %d..); live overlay = that swing's own measurement." % (a.swings, a.seed), 100)],
@@ -377,7 +383,7 @@ def main():
         try:
             col = (120, 255, 120) if okq else (255, 70, 70)
             if kind != "LEARNED": col = (0, 220, 255) if okq else (255, 170, 60)
-            rec = PRec(env, w, ban, col, ft, kind, tags)
+            rec = PRec(env, w, ban, col, ft, kind_txt, tags)
             rec.install()
             try:
                 obs, _ = env.reset(seed=seed); ft.reset(); done = False; info = {}; jt = [np.degrees(env.data.qpos[qi])]; imp_step = None
@@ -392,15 +398,15 @@ def main():
         sw = ft.summary(info)
         seg_frames = (rec.frames0, w.frames, rec.impact_frame)
         if a.pose and imp_step:
-            hold(pose_slide(np.array(jt), imp_step, ROOT / "data/references/mason_v2_p1_s06.npz", kind, label(m)), 5)
-        meta["segments"].append(dict(kind=kind, model=label(m), qualifies=okq, failed=fails, seed=seed, selection_pass_carry=sh["carry"], actuator_tags=tags,
+            hold(pose_slide(np.array(jt), imp_step, ROOT / "data/references/mason_v2_p1_s06.npz", kind_txt, label(m)), 5)
+        meta["segments"].append(dict(kind=kind, blend=blend or None, script_weight=swt, model=label(m), qualifies=okq, failed=fails, seed=seed, selection_pass_carry=sh["carry"], actuator_tags=tags,
                                      frames=dict(start=seg_frames[0], end=seg_frames[1], impact=seg_frames[2]),
                                      rendered=dict(carry=sw["carry"], carry_yd=sw["carry_yd"], total_yd=sw["total_yd"], lateral_y=sw["final_y"], launch_deg=sw["launch_elev_deg"], peak_club_mph=rec.peak_club * 2.23694, impact_club_mps=sw["impact_club_speed"]),
                                      all_swings=[dict(seed=s_, carry=x["carry"], y=x["final_y"], launch=x["launch_elev_deg"]) for s_, x in res]))
     # end card
     e = ["Caveats", f"- {lb['episodes']} episodes per mode, seeds {lb['seed_base']}+; flight tracker = MuJoCo ball only (no spin / sidespin model), so lateral spread is optimistic.",
          "- Carry is the first-landing distance; launch = ball velocity at club-ball separation; club speed = peak club-head geom speed (validated < 100 m/s).",
-         "- 'LEARNED' = PPO policy (+ residual on a scripted swing). 'SCRIPTED (not learned)' = zero residual, no learning. Scripted rows never count as learned.",
+         "- 'BLEND a/b' = executed command is a% learned / b% scripted (script_weight from the run's env kwargs). 'LEARNED' = PPO policy (+ residual on a scripted swing). 'SCRIPTED (not learned)' = zero residual, no learning. Scripted rows never count as learned.",
          "- Learned strikes are regime-sensitive: one swing is not the average; see the leaderboard slides for all-episode stats. Address-noise outliers exist.",
          "- DTW style scores (leaderboard.md) are 2D-proxy, tempo +-15% indicative only; Mason v3 slow-mo refs are loose-tempo extras."]
     if fallback: e.insert(1, "THIS IS A FALLBACK PREVIEW: no trained model qualifies - the learned segment is not a good drive.")
