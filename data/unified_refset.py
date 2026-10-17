@@ -25,7 +25,7 @@ DEFAULT_SAMPLING = {
     "source_weights": {"mason": 0.6, "multisense": 0.2, "cmu": 0.2},
     "quality_power": 1.0,
     "rationale": ("Mason is the target player (left-handed, native footage) so he gets the highest total mass (0.6); "
-                  "MultiSenseGolf (28 mirrored CC0 swings, 89-103 mph, IMU mocap) and CMU subject 64 (slow recreational "
+                  "MultiSenseGolf (28 mirrored swings, published CC0 but needs_counsel, 89-103 mph, IMU mocap) and CMU subject 64 (slow recreational "
                   "mocap, mirrored on load) are movement-sequencing priors at 0.2 each. Within a source the per-file "
                   "weight is quality_score**quality_power, normalised to sum to the source weight. Mason quality_score is "
                   "the video heuristic (0.66-0.83); MultiSense/CMU have none so quality=1-0.15*n_qc_flags (floor 0.05). "
@@ -40,6 +40,18 @@ DEFAULT_SAMPLING = {
 
 CMU_ACK = ("The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding "
            "from NSF EIA-0196217. (CMU: free for all uses incl. commercial; do not resell/distribute the converted data standalone.)")
+# MultiSense licence tag: the dataset record says CC0 1.0 but participants are identifiable, so the project treats it as
+# needs_counsel and NOT commercial-eligible until counsel signs off (docs/research_mocap_datasets_licenses.md,
+# docs/UNIFIED_V1_LICENSE_AUDIT.md). The per-file .npz tags still say cc0/commercial_ok=True; the manifest overrides them.
+MS_LICENSE = dict(license_class="needs_counsel", commercial_ok=False, license_class_as_published="cc0", counsel_required=True,
+                  license_note=("Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until "
+                                "counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."))
+# Mason clips whose handedness could not be verified from the footage. FLAG ONLY: sampling is intentionally NOT changed
+# (excluding them would silently change val scoring / train weights of recorded results).
+HANDEDNESS_UNVERIFIED = {
+    "mason_v2_p1_s11.npz": "handedness detected RIGHT (confidence 0.12), stated left, cues disagree; may not be Mason. Val split. Unverified.",
+    "mason_v2_p2_s10.npz": "handedness unverified (detected left, lead-arm cue says right). Train split. Unverified.",
+}
 MS_CITE = ("Oh, Seong, Ko, Lim, Kim, Choi, DelPreto, Rus, Kim. MultiSenseGolf, Harvard Dataverse, doi:10.7910/DVN/LCCLLW (CC0; citation courtesy).")
 
 
@@ -132,7 +144,9 @@ def build_manifest():
                               quality=round(float(d["quality_score"]), 4), variant=variant,
                               handedness="left", native_footage=native, effective_mirrored_on_load=False,
                               ack=None, note=("slow-mo: video-time axis stretched; excluded from default sampling" if slow else
-                                              "caption-flagged flipped edit of a left-handed swing, un-mirrored back to left" if not native else "")))
+                                              "caption-flagged flipped edit of a left-handed swing, un-mirrored back to left" if not native else ""),
+                              **({"handedness_unverified": True, "exclude_pending_verification": True,
+                                  "flag_note": HANDEDNESS_UNVERIFIED[p.name]} if p.name in HANDEDNESS_UNVERIFIED else {})))
     # MultiSense mirrored (left)
     for p in sorted(REF_DIR.glob("multisense_*_mirrored.npz")):
         d = np.load(p, allow_pickle=True)
@@ -140,7 +154,7 @@ def build_manifest():
         entries.append(_entry(p, "multisense", "multisense_" + str(_s(d, "trial_id")), tracked, view="3d",
                               quality=round(max(0.05, 1 - 0.15 * nflag), 4), variant="mirrored", handedness="left",
                               native_footage=True, effective_mirrored_on_load=False, ack=MS_CITE,
-                              club_speed_mph=round(float(_s(d, "club_speed_mph_launch_monitor", 0.0)), 1), note=""))
+                              club_speed_mph=round(float(_s(d, "club_speed_mph_launch_monitor", 0.0)), 1), note="", **MS_LICENSE))
     # CMU subject 64: right-handed originals, mirrored at load time for the left humanoid
     for p in sorted(REF_DIR.glob("cmu_64_*.npz")):
         d = np.load(p, allow_pickle=True)
@@ -163,7 +177,9 @@ def build_manifest():
         "notes": ["handedness = effective handedness after any load-time mirroring (all left for the left humanoid)",
                   "weight_train = default weight from unified_v1_sampling.json (train split only; val weight 0)",
                   "quality for multisense/cmu is a proxy (1-0.15*n_qc_flags); Mason uses video quality_score",
-                  "CMU and MultiSense carry attribution requirements: see 'ack'"],
+                  "CMU and MultiSense carry attribution requirements: see 'ack'",
+                  "MultiSense entries are tagged needs_counsel / commercial_ok=false (published as CC0 but participants are identifiable); see license_note",
+                  "entries with handedness_unverified/exclude_pending_verification are FLAGGED ONLY; sampling does not honor the flag (would change recorded results)"],
         "entries": entries,
     }
 

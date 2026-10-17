@@ -35,6 +35,8 @@ PRESETS: Dict[str, Dict] = {
                                       "commercial products; do NOT resell this data directly, even in converted "
                                       "form (no standalone dataset distribution).",
                       acknowledgment_required=True, acknowledgment_text=CMU_ACK),
+    # NOTE: per-file .npz tags written by this preset say cc0/commercial_ok=True (as published). The unified_v1 manifest
+    # overrides them to needs_counsel/commercial_ok=False (data/unified_refset.py MS_LICENSE); .npz files were not rewritten.
     "multisensegolf_cc0": dict(license_class="cc0", commercial_ok=True, provenance_source="multisensegolf_harvard_dataverse",
                               provenance_note="MultiSenseGolf (Oh et al., Harvard Dataverse doi:10.7910/DVN/LCCLLW), "
                                               "CC0 1.0 per the dataset record; inertial-mocap joint positions only "

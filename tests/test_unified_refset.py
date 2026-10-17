@@ -13,7 +13,14 @@ def test_files_exist_tracked_and_commercial():
         assert (ROOT / e["path"]).exists()
         if tracked:
             assert e["path"] in tracked
-        assert e["commercial_ok"] and e["handedness"] == "left"
+        assert e["handedness"] == "left"
+        if e["source"] == "multisense":
+            # published as CC0 but participants identifiable -> needs counsel, not commercial-eligible
+            assert e["license_class"] == "needs_counsel" and e["commercial_ok"] is False
+            assert e["license_class_as_published"] == "cc0" and e["counsel_required"] is True
+            assert "research_mocap_datasets_licenses" in e["license_note"]
+        else:
+            assert e["commercial_ok"]
         assert e["on_origin_main"] in (True, None)
 
 
@@ -68,3 +75,15 @@ def test_sample_and_loader_with_reference_dataset():
     raw = np.load(ROOT / cmu["path"].replace(str(ROOT) + "/", ""))["joints"]
     assert cmu["mirrored"] and not np.allclose(cmu["joints"], raw)
     assert len(list(U.iter_split(M, "val"))) > 0
+
+
+def test_handedness_unverified_flags_do_not_change_sampling():
+    flagged = {e["path"].split("/")[-1]: e for e in M["entries"] if e.get("handedness_unverified")}
+    assert set(flagged) == {"mason_v2_p1_s11.npz", "mason_v2_p2_s10.npz"}
+    for e in flagged.values():
+        assert e["exclude_pending_verification"] is True and "nverified" in e["flag_note"]
+    # flag only: flagged train entry keeps its weight, and the manifest rebuild logic still lists it
+    assert flagged["mason_v2_p2_s10.npz"]["split"] == "train" and flagged["mason_v2_p2_s10.npz"]["weight_train"] > 0
+    assert flagged["mason_v2_p1_s11.npz"]["split"] == "val"
+    ents, _ = U.weights()
+    assert "data/references/mason_v2_p2_s10.npz" in {e["path"] for e in ents}

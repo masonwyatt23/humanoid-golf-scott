@@ -1550,9 +1550,11 @@
      "n": 28
     }
    },
-   "license_class": "cc0",
+   "commercial_ok": false,
+   "license_class": "needs_counsel",
+   "license_class_as_published": "cc0",
    "n_swings": 28,
-   "note": "88-103 mph club speed, right-handed, IMU mocap; legal sign-off pending (see docs/research_open_data_v2.md)."
+   "note": "Published as CC0 but participants identifiable: needs counsel (docs/research_mocap_datasets_licenses.md). 88-103 mph club speed, right-handed, IMU mocap; legal sign-off pending (see docs/research_open_data_v2.md)."
   },
   "synthetic_all_styles": {
    "aggregate": {

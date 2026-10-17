@@ -64,3 +64,9 @@ Consequence: the earlier statements "no recorded run uses CMU or MultiSense" are
 - Add the CMU acknowledgment and the MultiSense citation to the README and a future model card.
 - Add `counsel_required` and `license_url` to manifest entries; consider a default-deny for entries with unverified handedness or `needs_counsel` sources.
 - Record a hash of the manifest and sampling config in each training result (see `docs/PROVENANCE_AUDIT.md`).
+
+
+## Update: manifest changes (sync2)
+
+- **MultiSense tag:** all 28 `multisense_*_mirrored.npz` entries in `data/reference_sets/unified_v1.json` changed from `license_class: cc0`, `commercial_ok: true` to `license_class: needs_counsel`, `commercial_ok: false`, with new fields `license_class_as_published: "cc0"`, `counsel_required: true` and a `license_note` citing `docs/research_mocap_datasets_licenses.md` and this audit. Set in `data/unified_refset.py` (`MS_LICENSE`). The `.npz` file tags, `data/provenance.py` preset and converter still say `cc0`/`commercial_ok=True`; they were not rewritten. Nothing in sampling reads `commercial_ok`, so training weights and splits are identical (checked: path, split, weight and quality fields are unchanged).
+- **LOUD NOTE, unverified Mason clips:** `mason_v2_p1_s11` (val split; detected right-handed, confidence 0.12, may not be Mason) and `mason_v2_p2_s10` (train split, mass 0.072) now carry `handedness_unverified: true` and `exclude_pending_verification: true`. **Sampling does not honor the flags**: dropping them would silently change val scoring (`results/unified_val_style.*`) and train weights behind the recorded imit2/imit3 runs. Decide to exclude or re-verify, then rebuild and rerun. **[unverified]**

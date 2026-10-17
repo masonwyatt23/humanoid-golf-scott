@@ -256,7 +256,7 @@ def build(refs="data/references"):
                                 "note": "Procedurally generated from textbook params, not measured; tempo set to 3.0 by construction.",
                                 "aggregate": aggregate(scott), "per_swing": scott},
             "synthetic_all_styles": {"n_swings": len(syn), "aggregate": aggregate(syn)},
-            "multisense_cc0_right_handed": {"n_swings": len(ms), "license_class": "cc0", "note": "88-103 mph club speed, right-handed, IMU mocap; legal sign-off pending (see docs/research_open_data_v2.md).",
+            "multisense_cc0_right_handed": {"n_swings": len(ms), "license_class": "needs_counsel", "commercial_ok": False, "license_class_as_published": "cc0", "note": "Published as CC0 but participants identifiable: needs counsel (docs/research_mocap_datasets_licenses.md). 88-103 mph club speed, right-handed, IMU mocap; legal sign-off pending (see docs/research_open_data_v2.md).",
                                             "aggregate": aggregate(ms)},
         },
         "caveats": [

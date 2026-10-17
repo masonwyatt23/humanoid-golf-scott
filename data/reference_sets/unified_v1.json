@@ -6,7 +6,9 @@
   "handedness = effective handedness after any load-time mirroring (all left for the left humanoid)",
   "weight_train = default weight from unified_v1_sampling.json (train split only; val weight 0)",
   "quality for multisense/cmu is a proxy (1-0.15*n_qc_flags); Mason uses video quality_score",
-  "CMU and MultiSense carry attribution requirements: see 'ack'"
+  "CMU and MultiSense carry attribution requirements: see 'ack'",
+  "MultiSense entries are tagged needs_counsel / commercial_ok=false (published as CC0 but participants are identifiable); see license_note",
+  "entries with handedness_unverified/exclude_pending_verification are FLAGGED ONLY; sampling does not honor the flag (would change recorded results)"
  ],
  "entries": [
   {
@@ -122,7 +124,10 @@
    "ack": null,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "handedness_unverified": true,
+   "exclude_pending_verification": true,
+   "flag_note": "handedness detected RIGHT (confidence 0.12), stated left, cues disagree; may not be Mason. Val split. Unverified."
   },
   {
    "path": "data/references/mason_v2_p2_s01.npz",
@@ -191,7 +196,10 @@
    "ack": null,
    "note": "",
    "split": "train",
-   "weight_train": 0.071891
+   "weight_train": 0.071891,
+   "handedness_unverified": true,
+   "exclude_pending_verification": true,
+   "flag_note": "handedness unverified (detected left, lead-arm cue says right). Train split. Unverified."
   },
   {
    "path": "data/references/mason_v2_p2_s11.npz",
@@ -289,8 +297,8 @@
    "path": "data/references/multisense_P19_s20_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_20",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 216,
@@ -307,14 +315,17 @@
    "club_speed_mph": 102.7,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P19_s29_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_29",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 231,
@@ -331,14 +342,17 @@
    "club_speed_mph": 88.8,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P19_s32_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_32",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 217,
@@ -355,14 +369,17 @@
    "club_speed_mph": 92.2,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P19_s34_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_34",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 222,
@@ -379,14 +396,17 @@
    "club_speed_mph": 93.5,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P19_s45_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_45",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 222,
@@ -403,14 +423,17 @@
    "club_speed_mph": 89.0,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P19_s75_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_75",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 217,
@@ -427,14 +450,17 @@
    "club_speed_mph": 89.0,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P19_s99_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P19_99",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 225,
@@ -451,14 +477,17 @@
    "club_speed_mph": 89.5,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s16_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_16",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 216,
@@ -475,14 +504,17 @@
    "club_speed_mph": 90.8,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s20_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_20",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 216,
@@ -499,14 +531,17 @@
    "club_speed_mph": 90.7,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s28_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_28",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 219,
@@ -523,14 +558,17 @@
    "club_speed_mph": 91.2,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s31_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_31",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 216,
@@ -547,14 +585,17 @@
    "club_speed_mph": 94.2,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s37_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_37",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 223,
@@ -571,14 +612,17 @@
    "club_speed_mph": 91.1,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s52_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_52",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 222,
@@ -595,14 +639,17 @@
    "club_speed_mph": 96.2,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s55_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_55",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 219,
@@ -619,14 +666,17 @@
    "club_speed_mph": 90.6,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s61_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_61",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 220,
@@ -643,14 +693,17 @@
    "club_speed_mph": 101.2,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s62_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_62",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 219,
@@ -667,14 +720,17 @@
    "club_speed_mph": 94.6,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s76_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_76",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 223,
@@ -691,14 +747,17 @@
    "club_speed_mph": 92.4,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s77_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_77",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 213,
@@ -715,14 +774,17 @@
    "club_speed_mph": 91.5,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P20_s87_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P20_87",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 220,
@@ -739,14 +801,17 @@
    "club_speed_mph": 93.1,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s108_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_108",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 214,
@@ -763,14 +828,17 @@
    "club_speed_mph": 93.3,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s11_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_11",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 201,
@@ -787,14 +855,17 @@
    "club_speed_mph": 90.6,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s26_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_26",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 207,
@@ -811,14 +882,17 @@
    "club_speed_mph": 92.2,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s46_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_46",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 204,
@@ -835,14 +909,17 @@
    "club_speed_mph": 90.8,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s59_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_59",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 213,
@@ -859,14 +936,17 @@
    "club_speed_mph": 90.1,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s60_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_60",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 212,
@@ -883,14 +963,17 @@
    "club_speed_mph": 91.9,
    "note": "",
    "split": "val",
-   "weight_train": 0.0
+   "weight_train": 0.0,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s83_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_83",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 216,
@@ -907,14 +990,17 @@
    "club_speed_mph": 90.4,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s95_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_95",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 220,
@@ -931,14 +1017,17 @@
    "club_speed_mph": 90.4,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/multisense_P22_s99_mirrored.npz",
    "source": "multisense",
    "group": "multisense_P22_99",
-   "license_class": "cc0",
-   "commercial_ok": true,
+   "license_class": "needs_counsel",
+   "commercial_ok": false,
    "handedness_file": "left",
    "mirrored": true,
    "frames": 217,
@@ -955,7 +1044,10 @@
    "club_speed_mph": 90.6,
    "note": "",
    "split": "train",
-   "weight_train": 0.009091
+   "weight_train": 0.009091,
+   "license_class_as_published": "cc0",
+   "counsel_required": true,
+   "license_note": "Published as CC0 1.0, but participants are identifiable (needs_counsel); not commercial-eligible until counsel signs off. See docs/research_mocap_datasets_licenses.md and docs/UNIFIED_V1_LICENSE_AUDIT.md."
   },
   {
    "path": "data/references/cmu_64_01.npz",
