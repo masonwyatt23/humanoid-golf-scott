@@ -33,6 +33,10 @@ python -m train.train_residual --timesteps 150000 --flight_model --n_envs 6 --se
 # Legacy (non-residual) PPO
 python -m train.train_ppo --style scott --timesteps 50000
 
+# Repo smoke test (stdlib only, no mujoco/torch needed): compiles all .py, rejects tracked videos/zips/.pt/h5/MUJOCO_LOG or files >5 MB,
+# checks results/*.json parse and README-linked paths exist
+python3 scripts/smoke_test.py
+
 # Evaluator-protocol gate for one model: 50 episodes, seed 4000 -> results/gate_<name>.json
 python -m eval.eval_gate ppo_resid_v3_left_an3_s1 50 4000
 
