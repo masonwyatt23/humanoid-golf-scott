@@ -1,9 +1,29 @@
 """Load MuJoCo Menagerie Unitree G1, attach a driver-like club on the right wrist and
 a soft two-hand grip constraint to the left wrist. Verified to compile + step in MuJoCo 3.x.
-Usage: python g1_with_club.py [/path/to/menagerie]   (needs: pip install mujoco numpy)"""
-import sys, numpy as np, mujoco
-import os
-MENAG = sys.argv[1] if len(sys.argv) > 1 else os.environ.get("MENAGERIE_DIR", "/workspace/menagerie")  # arg > $MENAGERIE_DIR > legacy default
+Usage: python g1_with_club.py [--menagerie /path/to/menagerie | /path/to/menagerie]   (needs: pip install mujoco numpy)
+Menagerie path precedence: --menagerie arg (or first positional arg) > $MENAGERIE_PATH > $MENAGERIE_DIR (legacy) > /workspace/menagerie if it exists."""
+import os, sys, numpy as np, mujoco
+
+
+def resolve_menagerie(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    for i, a in enumerate(argv):
+        if a == "--menagerie" and i + 1 < len(argv):
+            return argv[i + 1]
+        if a.startswith("--menagerie="):
+            return a.split("=", 1)[1]
+    pos = [a for a in argv if not a.startswith("-")]
+    if pos:
+        return pos[0]
+    for k in ("MENAGERIE_PATH", "MENAGERIE_DIR"):
+        if os.environ.get(k):
+            return os.environ[k]
+    if os.path.isdir("/workspace/menagerie"):
+        return "/workspace/menagerie"
+    raise SystemExit("MuJoCo Menagerie not found: pass --menagerie PATH or set MENAGERIE_PATH")
+
+
+MENAG = resolve_menagerie()
 CLUB_LEN, GRIP_SEP = 1.15, 0.12        # driver ~45 in; left hand 12 cm below right hand
 SHAFT_M, HEAD_M = 0.07, 0.20           # kg (shaft+grip, head) -> total ~0.27-0.30 kg like a real driver
 
