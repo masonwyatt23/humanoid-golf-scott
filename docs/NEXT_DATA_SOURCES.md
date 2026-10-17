@@ -31,3 +31,13 @@ Practical next steps: (a) send permission requests to #1 and #3; (b) install WHA
 GVHMR on a GPU box (docs/WHAM_GVHMR.md); (c) record 20-50 owned swings; (d) calibrate
 `STYLES` in `data/generate_synthetic_scott.py` against measured tempo / X-factor from
 real clips; (e) fix the degree/radian mismatch in `HumanoidGolfEnv` (uses `joints_rad`).
+
+## Addendum 2026-10-17: additional sources checked (documentation only; nothing downloaded)
+
+Verification level is stated per row; "search snippet" means I only saw the repo/search summary, not the LICENSE file. Not legal advice.
+
+| Source | What | License / terms seen | Provenance tag if ever used | Verdict |
+|---|---|---|---|---|
+| GolfPose (MingHanLee/GolfPose, ICPR 2024) | 3D golf-swing pose GT (`data_3d_golf_gt.npz`) + 2D | Dataset is released **on request by email to the authors**; no license text found in the repo summary (search snippet) | `license_class=unknown`, `commercial_ok=False` until written terms | Ask in writing (research + commercial + derived-model use). Do not use before reply. |
+| Pose2Par (cavanaulton/Pose2Par, 2026) | **Tool**, not data: MMPose + OpenSim pipeline giving pelvis/torso rotation, X-factor, event timing from video up to 120 fps | Repo MIT (search snippet); components MMPose/OpenSim Apache-2.0; `marker-enhancer/LICENSE` **not checked**; its accuracy claim ("validated vs lab mocap") is the authors' claim, unverified | n/a (processing tool; outputs on Mason's own video would be `self_owned`) | Candidate for extracting X-factor/pelvis from Mason's 240 fps session (see docs/FILMING_PROTOCOL.md) after reading the marker-enhancer license. |
+| CMU Mocap Kaggle mirror (kmader/cmu-mocap) | Same CMU data re-hosted | Kaggle page lists **CC BY-ND 4.0** on top of CMU's own text (search snippet). That conflicts in spirit with CMU's original grant ("free for all uses, no direct resale") | keep `cmu_permissive` sourced from mocap.cs.cmu.edu only | Do **not** use the Kaggle mirror; keep fetching/citing the original mocap.cs.cmu.edu terms (already done). No-derivatives wording would be a problem for converted data. |

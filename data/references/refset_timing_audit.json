@@ -1,0 +1,1228 @@
+{
+ "manifest": "unified_v1",
+ "n_files": 50,
+ "joint_limits_deg": {
+  "right_shoulder_pitch": [
+   -180.0,
+   180.0
+  ],
+  "right_shoulder_roll": [
+   -90.0,
+   90.0
+  ],
+  "right_elbow": [
+   0.0,
+   150.0
+  ],
+  "right_wrist": [
+   -90.0,
+   90.0
+  ],
+  "left_shoulder_pitch": [
+   -180.0,
+   180.0
+  ],
+  "right_hip_pitch": [
+   -60.0,
+   60.0
+  ],
+  "right_knee": [
+   0.0,
+   140.0
+  ],
+  "right_ankle": [
+   -40.0,
+   40.0
+  ],
+  "left_hip_pitch": [
+   -60.0,
+   60.0
+  ],
+  "left_knee": [
+   0.0,
+   140.0
+  ],
+  "left_ankle": [
+   -40.0,
+   40.0
+  ]
+ },
+ "thresholds": {
+  "downswing_s": [
+   0.12,
+   0.6
+  ],
+  "backswing_s": [
+   0.35,
+   1.8
+  ],
+  "peak_lag_tol_s": 0.12,
+  "jump_deg_per_frame": 25.0,
+  "limit_tol_deg": 5.0,
+  "note": "heuristic, unverified"
+ },
+ "env_control_dt_check": {
+  "checked": true,
+  "env_ctrl_dt_s": 0.02,
+  "ref_indexed_by_episode_step": true,
+  "env_resamples_reference": false,
+  "reference_dt_s": 0.01,
+  "playback_speed_factor_if_unresampled": 2.0,
+  "RISK_reference_plays_fast": true,
+  "note": "Heuristic text scan of env (read-only). If RISK is true, a ref of dt 0.01 indexed by 0.02 s control steps plays at 2x unless the trainer pre-resamples (resample_for_control)."
+ },
+ "flag_counts": {
+  "backswing_implausible": 1,
+  "downswing_implausible": 1,
+  "events_out_of_range": 1,
+  "impact_not_at_arm_peak": 10,
+  "joint_limit": 47,
+  "jump": 11
+ },
+ "flag_counts_by_source": {
+  "mason": {
+   "joint_limit": 11,
+   "jump": 11,
+   "impact_not_at_arm_peak": 6,
+   "backswing_implausible": 1,
+   "downswing_implausible": 1,
+   "events_out_of_range": 1
+  },
+  "multisense": {
+   "joint_limit": 26
+  },
+  "cmu": {
+   "joint_limit": 10,
+   "impact_not_at_arm_peak": 4
+  }
+ },
+ "train_weight_mass_by_flag": {
+  "joint_limit": 1.0004,
+  "jump": 0.6,
+  "impact_not_at_arm_peak": 0.3121,
+  "backswing_implausible": 0,
+  "downswing_implausible": 0,
+  "events_out_of_range": 0
+ },
+ "files": [
+  {
+   "path": "data/references/mason_v2_p1_s03.npz",
+   "flags": [
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 147,
+   "dt": 0.01,
+   "duration_s": 1.46,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.883,
+   "t_impact": 1.033,
+   "downswing_s": 0.15,
+   "backswing_s": 0.483,
+   "arm_peak_t": 0.94,
+   "impact_minus_arm_peak_s": 0.093,
+   "max_frame_jump_deg": 30.17,
+   "worst_limit_exceed_deg": 14.55,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.073212
+  },
+  {
+   "path": "data/references/mason_v2_p1_s04.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 167,
+   "dt": 0.01,
+   "duration_s": 1.66,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.917,
+   "t_impact": 1.15,
+   "downswing_s": 0.233,
+   "backswing_s": 0.517,
+   "arm_peak_t": 0.94,
+   "impact_minus_arm_peak_s": 0.21,
+   "max_frame_jump_deg": 39.43,
+   "worst_limit_exceed_deg": 25.9,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.073819
+  },
+  {
+   "path": "data/references/mason_v2_p1_s05.npz",
+   "flags": [
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 187,
+   "dt": 0.01,
+   "duration_s": 1.86,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.883,
+   "t_impact": 1.05,
+   "downswing_s": 0.167,
+   "backswing_s": 0.483,
+   "arm_peak_t": 1.03,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 41.76,
+   "worst_limit_exceed_deg": 30.1,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.070539
+  },
+  {
+   "path": "data/references/mason_v2_p1_s06.npz",
+   "flags": [
+    "impact_not_at_arm_peak"
+   ],
+   "frames": 242,
+   "dt": 0.01,
+   "duration_s": 2.41,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.983,
+   "t_impact": 1.15,
+   "downswing_s": 0.167,
+   "backswing_s": 0.583,
+   "arm_peak_t": 1.39,
+   "impact_minus_arm_peak_s": -0.24,
+   "max_frame_jump_deg": 22.39,
+   "worst_limit_exceed_deg": 4.05,
+   "source": "mason",
+   "variant": "native",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/mason_v2_p1_s11.npz",
+   "flags": [
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 191,
+   "dt": 0.01,
+   "duration_s": 1.9,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 1.0,
+   "t_impact": 1.167,
+   "downswing_s": 0.167,
+   "backswing_s": 0.6,
+   "arm_peak_t": 1.14,
+   "impact_minus_arm_peak_s": 0.027,
+   "max_frame_jump_deg": 126.83,
+   "worst_limit_exceed_deg": 82.57,
+   "source": "mason",
+   "variant": "native",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/mason_v2_p2_s01.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 239,
+   "dt": 0.01,
+   "duration_s": 2.38,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.883,
+   "t_impact": 1.05,
+   "downswing_s": 0.167,
+   "backswing_s": 0.483,
+   "arm_peak_t": 0.88,
+   "impact_minus_arm_peak_s": 0.17,
+   "max_frame_jump_deg": 40.61,
+   "worst_limit_exceed_deg": 31.94,
+   "source": "mason",
+   "variant": "native",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/mason_v2_p2_s02.npz",
+   "flags": [
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 227,
+   "dt": 0.01,
+   "duration_s": 2.26,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.883,
+   "t_impact": 1.017,
+   "downswing_s": 0.133,
+   "backswing_s": 0.483,
+   "arm_peak_t": 1.13,
+   "impact_minus_arm_peak_s": -0.113,
+   "max_frame_jump_deg": 35.76,
+   "worst_limit_exceed_deg": 34.95,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.079453
+  },
+  {
+   "path": "data/references/mason_v2_p2_s10.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 157,
+   "dt": 0.01,
+   "duration_s": 1.56,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.883,
+   "t_impact": 1.05,
+   "downswing_s": 0.167,
+   "backswing_s": 0.483,
+   "arm_peak_t": 0.88,
+   "impact_minus_arm_peak_s": 0.17,
+   "max_frame_jump_deg": 41.88,
+   "worst_limit_exceed_deg": 28.45,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.071891
+  },
+  {
+   "path": "data/references/mason_v2_p2_s11.npz",
+   "flags": [
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 124,
+   "dt": 0.01,
+   "duration_s": 1.23,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.867,
+   "t_impact": 1.033,
+   "downswing_s": 0.167,
+   "backswing_s": 0.467,
+   "arm_peak_t": 0.92,
+   "impact_minus_arm_peak_s": 0.113,
+   "max_frame_jump_deg": 42.01,
+   "worst_limit_exceed_deg": 29.35,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.070699
+  },
+  {
+   "path": "data/references/mason_v2_p2_s13.npz",
+   "flags": [
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 147,
+   "dt": 0.01,
+   "duration_s": 1.46,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 0.567,
+   "t_impact": 0.717,
+   "downswing_s": 0.15,
+   "backswing_s": 0.567,
+   "arm_peak_t": 0.62,
+   "impact_minus_arm_peak_s": 0.097,
+   "max_frame_jump_deg": 68.24,
+   "worst_limit_exceed_deg": 32.07,
+   "source": "mason",
+   "variant": "native",
+   "split": "train",
+   "weight_train": 0.071998
+  },
+  {
+   "path": "data/references/mason_v2_p3_s09_unmirrored.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 196,
+   "dt": 0.01,
+   "duration_s": 1.95,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 1.35,
+   "t_impact": 1.683,
+   "downswing_s": 0.333,
+   "backswing_s": 0.95,
+   "arm_peak_t": 1.86,
+   "impact_minus_arm_peak_s": -0.177,
+   "max_frame_jump_deg": 72.29,
+   "worst_limit_exceed_deg": 28.28,
+   "source": "mason",
+   "variant": "flip_edit_unmirrored",
+   "split": "train",
+   "weight_train": 0.088389
+  },
+  {
+   "path": "data/references/mason_v3_p2_s03_slowmo.npz",
+   "flags": [
+    "backswing_implausible",
+    "downswing_implausible",
+    "events_out_of_range",
+    "impact_not_at_arm_peak",
+    "joint_limit",
+    "jump"
+   ],
+   "frames": 492,
+   "dt": 0.01,
+   "duration_s": 4.91,
+   "event_source": "t_*_minus_t_start",
+   "t_top": 4.568,
+   "t_impact": 5.535,
+   "downswing_s": 0.967,
+   "backswing_s": 3.068,
+   "arm_peak_t": 4.62,
+   "impact_minus_arm_peak_s": 0.915,
+   "max_frame_jump_deg": 30.62,
+   "worst_limit_exceed_deg": 9.42,
+   "source": "mason",
+   "variant": "slowmo",
+   "split": "train",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P19_s20_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 216,
+   "dt": 0.01,
+   "duration_s": 2.15,
+   "event_source": "events",
+   "t_top": 0.94,
+   "t_impact": 1.23,
+   "downswing_s": 0.29,
+   "backswing_s": 0.69,
+   "arm_peak_t": 1.22,
+   "impact_minus_arm_peak_s": 0.01,
+   "max_frame_jump_deg": 7.49,
+   "worst_limit_exceed_deg": 17.24,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P19_s29_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 231,
+   "dt": 0.01,
+   "duration_s": 2.3,
+   "event_source": "events",
+   "t_top": 0.96,
+   "t_impact": 1.26,
+   "downswing_s": 0.3,
+   "backswing_s": 0.71,
+   "arm_peak_t": 1.25,
+   "impact_minus_arm_peak_s": 0.01,
+   "max_frame_jump_deg": 8.84,
+   "worst_limit_exceed_deg": 18.02,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P19_s32_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 217,
+   "dt": 0.01,
+   "duration_s": 2.16,
+   "event_source": "events",
+   "t_top": 0.93,
+   "t_impact": 1.22,
+   "downswing_s": 0.29,
+   "backswing_s": 0.68,
+   "arm_peak_t": 1.19,
+   "impact_minus_arm_peak_s": 0.03,
+   "max_frame_jump_deg": 7.56,
+   "worst_limit_exceed_deg": 16.88,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P19_s34_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 222,
+   "dt": 0.01,
+   "duration_s": 2.21,
+   "event_source": "events",
+   "t_top": 0.96,
+   "t_impact": 1.23,
+   "downswing_s": 0.27,
+   "backswing_s": 0.71,
+   "arm_peak_t": 1.23,
+   "impact_minus_arm_peak_s": 0.0,
+   "max_frame_jump_deg": 8.29,
+   "worst_limit_exceed_deg": 16.85,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P19_s45_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 222,
+   "dt": 0.01,
+   "duration_s": 2.21,
+   "event_source": "events",
+   "t_top": 0.93,
+   "t_impact": 1.22,
+   "downswing_s": 0.29,
+   "backswing_s": 0.68,
+   "arm_peak_t": 1.22,
+   "impact_minus_arm_peak_s": 0.0,
+   "max_frame_jump_deg": 7.92,
+   "worst_limit_exceed_deg": 19.34,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P19_s75_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 217,
+   "dt": 0.01,
+   "duration_s": 2.16,
+   "event_source": "events",
+   "t_top": 0.98,
+   "t_impact": 1.25,
+   "downswing_s": 0.27,
+   "backswing_s": 0.73,
+   "arm_peak_t": 1.23,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 8.51,
+   "worst_limit_exceed_deg": 19.21,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P19_s99_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 225,
+   "dt": 0.01,
+   "duration_s": 2.24,
+   "event_source": "events",
+   "t_top": 0.96,
+   "t_impact": 1.25,
+   "downswing_s": 0.29,
+   "backswing_s": 0.71,
+   "arm_peak_t": 1.24,
+   "impact_minus_arm_peak_s": 0.01,
+   "max_frame_jump_deg": 7.21,
+   "worst_limit_exceed_deg": 20.35,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s16_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 216,
+   "dt": 0.01,
+   "duration_s": 2.15,
+   "event_source": "events",
+   "t_top": 1.03,
+   "t_impact": 1.31,
+   "downswing_s": 0.28,
+   "backswing_s": 0.78,
+   "arm_peak_t": 1.3,
+   "impact_minus_arm_peak_s": 0.01,
+   "max_frame_jump_deg": 5.48,
+   "worst_limit_exceed_deg": 29.7,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s20_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 216,
+   "dt": 0.01,
+   "duration_s": 2.15,
+   "event_source": "events",
+   "t_top": 1.05,
+   "t_impact": 1.32,
+   "downswing_s": 0.27,
+   "backswing_s": 0.8,
+   "arm_peak_t": 1.33,
+   "impact_minus_arm_peak_s": -0.01,
+   "max_frame_jump_deg": 5.71,
+   "worst_limit_exceed_deg": 30.11,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s28_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 219,
+   "dt": 0.01,
+   "duration_s": 2.18,
+   "event_source": "events",
+   "t_top": 1.08,
+   "t_impact": 1.31,
+   "downswing_s": 0.23,
+   "backswing_s": 0.83,
+   "arm_peak_t": 1.31,
+   "impact_minus_arm_peak_s": 0.0,
+   "max_frame_jump_deg": 5.87,
+   "worst_limit_exceed_deg": 26.03,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s31_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 216,
+   "dt": 0.01,
+   "duration_s": 2.15,
+   "event_source": "events",
+   "t_top": 1.04,
+   "t_impact": 1.3,
+   "downswing_s": 0.26,
+   "backswing_s": 0.79,
+   "arm_peak_t": 1.28,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 6.71,
+   "worst_limit_exceed_deg": 25.47,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s37_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 223,
+   "dt": 0.01,
+   "duration_s": 2.22,
+   "event_source": "events",
+   "t_top": 1.06,
+   "t_impact": 1.32,
+   "downswing_s": 0.26,
+   "backswing_s": 0.81,
+   "arm_peak_t": 1.3,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 8.59,
+   "worst_limit_exceed_deg": 23.73,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s52_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 222,
+   "dt": 0.01,
+   "duration_s": 2.21,
+   "event_source": "events",
+   "t_top": 1.05,
+   "t_impact": 1.32,
+   "downswing_s": 0.27,
+   "backswing_s": 0.8,
+   "arm_peak_t": 1.3,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 9.76,
+   "worst_limit_exceed_deg": 15.3,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s55_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 219,
+   "dt": 0.01,
+   "duration_s": 2.18,
+   "event_source": "events",
+   "t_top": 1.04,
+   "t_impact": 1.3,
+   "downswing_s": 0.26,
+   "backswing_s": 0.79,
+   "arm_peak_t": 1.27,
+   "impact_minus_arm_peak_s": 0.03,
+   "max_frame_jump_deg": 11.07,
+   "worst_limit_exceed_deg": 13.6,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P20_s61_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 220,
+   "dt": 0.01,
+   "duration_s": 2.19,
+   "event_source": "events",
+   "t_top": 0.97,
+   "t_impact": 1.25,
+   "downswing_s": 0.28,
+   "backswing_s": 0.72,
+   "arm_peak_t": 1.23,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 8.98,
+   "worst_limit_exceed_deg": 13.4,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s62_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 219,
+   "dt": 0.01,
+   "duration_s": 2.18,
+   "event_source": "events",
+   "t_top": 1.08,
+   "t_impact": 1.31,
+   "downswing_s": 0.23,
+   "backswing_s": 0.83,
+   "arm_peak_t": 1.27,
+   "impact_minus_arm_peak_s": 0.04,
+   "max_frame_jump_deg": 8.67,
+   "worst_limit_exceed_deg": 12.98,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s76_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 223,
+   "dt": 0.01,
+   "duration_s": 2.22,
+   "event_source": "events",
+   "t_top": 1.08,
+   "t_impact": 1.36,
+   "downswing_s": 0.28,
+   "backswing_s": 0.83,
+   "arm_peak_t": 1.33,
+   "impact_minus_arm_peak_s": 0.03,
+   "max_frame_jump_deg": 9.02,
+   "worst_limit_exceed_deg": 13.94,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P20_s77_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 213,
+   "dt": 0.01,
+   "duration_s": 2.12,
+   "event_source": "events",
+   "t_top": 1.03,
+   "t_impact": 1.32,
+   "downswing_s": 0.29,
+   "backswing_s": 0.78,
+   "arm_peak_t": 1.27,
+   "impact_minus_arm_peak_s": 0.05,
+   "max_frame_jump_deg": 9.64,
+   "worst_limit_exceed_deg": 13.95,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P20_s87_mirrored.npz",
+   "flags": [],
+   "frames": 220,
+   "dt": 0.01,
+   "duration_s": 2.19,
+   "event_source": "events",
+   "t_top": 1.04,
+   "t_impact": 1.3,
+   "downswing_s": 0.26,
+   "backswing_s": 0.79,
+   "arm_peak_t": 1.27,
+   "impact_minus_arm_peak_s": 0.03,
+   "max_frame_jump_deg": 10.66,
+   "worst_limit_exceed_deg": 0.0,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P22_s108_mirrored.npz",
+   "flags": [],
+   "frames": 214,
+   "dt": 0.01,
+   "duration_s": 2.13,
+   "event_source": "events",
+   "t_top": 0.9,
+   "t_impact": 1.17,
+   "downswing_s": 0.27,
+   "backswing_s": 0.65,
+   "arm_peak_t": 1.16,
+   "impact_minus_arm_peak_s": 0.01,
+   "max_frame_jump_deg": 5.52,
+   "worst_limit_exceed_deg": 4.34,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P22_s11_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 201,
+   "dt": 0.01,
+   "duration_s": 2.0,
+   "event_source": "events",
+   "t_top": 0.86,
+   "t_impact": 1.12,
+   "downswing_s": 0.26,
+   "backswing_s": 0.61,
+   "arm_peak_t": 1.09,
+   "impact_minus_arm_peak_s": 0.03,
+   "max_frame_jump_deg": 14.81,
+   "worst_limit_exceed_deg": 10.46,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P22_s26_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 207,
+   "dt": 0.01,
+   "duration_s": 2.06,
+   "event_source": "events",
+   "t_top": 0.87,
+   "t_impact": 1.16,
+   "downswing_s": 0.29,
+   "backswing_s": 0.62,
+   "arm_peak_t": 1.12,
+   "impact_minus_arm_peak_s": 0.04,
+   "max_frame_jump_deg": 9.73,
+   "worst_limit_exceed_deg": 11.16,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P22_s46_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 204,
+   "dt": 0.01,
+   "duration_s": 2.03,
+   "event_source": "events",
+   "t_top": 0.87,
+   "t_impact": 1.13,
+   "downswing_s": 0.26,
+   "backswing_s": 0.62,
+   "arm_peak_t": 1.1,
+   "impact_minus_arm_peak_s": 0.03,
+   "max_frame_jump_deg": 9.12,
+   "worst_limit_exceed_deg": 12.15,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P22_s59_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 213,
+   "dt": 0.01,
+   "duration_s": 2.12,
+   "event_source": "events",
+   "t_top": 0.9,
+   "t_impact": 1.15,
+   "downswing_s": 0.25,
+   "backswing_s": 0.65,
+   "arm_peak_t": 1.13,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 8.31,
+   "worst_limit_exceed_deg": 9.46,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P22_s60_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 212,
+   "dt": 0.01,
+   "duration_s": 2.11,
+   "event_source": "events",
+   "t_top": 0.9,
+   "t_impact": 1.15,
+   "downswing_s": 0.25,
+   "backswing_s": 0.65,
+   "arm_peak_t": 1.14,
+   "impact_minus_arm_peak_s": 0.01,
+   "max_frame_jump_deg": 9.16,
+   "worst_limit_exceed_deg": 8.93,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/multisense_P22_s83_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 216,
+   "dt": 0.01,
+   "duration_s": 2.15,
+   "event_source": "events",
+   "t_top": 0.89,
+   "t_impact": 1.16,
+   "downswing_s": 0.27,
+   "backswing_s": 0.64,
+   "arm_peak_t": 1.14,
+   "impact_minus_arm_peak_s": 0.02,
+   "max_frame_jump_deg": 5.52,
+   "worst_limit_exceed_deg": 6.48,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P22_s95_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 220,
+   "dt": 0.01,
+   "duration_s": 2.19,
+   "event_source": "events",
+   "t_top": 0.95,
+   "t_impact": 1.22,
+   "downswing_s": 0.27,
+   "backswing_s": 0.7,
+   "arm_peak_t": 1.29,
+   "impact_minus_arm_peak_s": -0.07,
+   "max_frame_jump_deg": 6.31,
+   "worst_limit_exceed_deg": 5.89,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/multisense_P22_s99_mirrored.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 217,
+   "dt": 0.01,
+   "duration_s": 2.16,
+   "event_source": "events",
+   "t_top": 0.9,
+   "t_impact": 1.17,
+   "downswing_s": 0.27,
+   "backswing_s": 0.65,
+   "arm_peak_t": 1.25,
+   "impact_minus_arm_peak_s": -0.08,
+   "max_frame_jump_deg": 5.12,
+   "worst_limit_exceed_deg": 6.96,
+   "source": "multisense",
+   "variant": "mirrored",
+   "split": "train",
+   "weight_train": 0.009091
+  },
+  {
+   "path": "data/references/cmu_64_01.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 268,
+   "dt": 0.01,
+   "duration_s": 2.67,
+   "event_source": "events",
+   "t_top": 1.217,
+   "t_impact": 1.767,
+   "downswing_s": 0.55,
+   "backswing_s": 0.967,
+   "arm_peak_t": 1.81,
+   "impact_minus_arm_peak_s": -0.043,
+   "max_frame_jump_deg": 4.47,
+   "worst_limit_exceed_deg": 14.19,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.022078
+  },
+  {
+   "path": "data/references/cmu_64_02.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 268,
+   "dt": 0.01,
+   "duration_s": 2.67,
+   "event_source": "events",
+   "t_top": 1.258,
+   "t_impact": 1.825,
+   "downswing_s": 0.567,
+   "backswing_s": 1.008,
+   "arm_peak_t": 1.87,
+   "impact_minus_arm_peak_s": -0.045,
+   "max_frame_jump_deg": 5.11,
+   "worst_limit_exceed_deg": 15.29,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/cmu_64_03.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 255,
+   "dt": 0.01,
+   "duration_s": 2.54,
+   "event_source": "events",
+   "t_top": 1.175,
+   "t_impact": 1.775,
+   "downswing_s": 0.6,
+   "backswing_s": 0.925,
+   "arm_peak_t": 1.84,
+   "impact_minus_arm_peak_s": -0.065,
+   "max_frame_jump_deg": 6.11,
+   "worst_limit_exceed_deg": 20.27,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.025974
+  },
+  {
+   "path": "data/references/cmu_64_04.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 227,
+   "dt": 0.01,
+   "duration_s": 2.26,
+   "event_source": "events",
+   "t_top": 1.092,
+   "t_impact": 1.525,
+   "downswing_s": 0.433,
+   "backswing_s": 0.842,
+   "arm_peak_t": 1.59,
+   "impact_minus_arm_peak_s": -0.065,
+   "max_frame_jump_deg": 5.39,
+   "worst_limit_exceed_deg": 15.42,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.025974
+  },
+  {
+   "path": "data/references/cmu_64_05.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 282,
+   "dt": 0.01,
+   "duration_s": 2.81,
+   "event_source": "events",
+   "t_top": 1.125,
+   "t_impact": 1.642,
+   "downswing_s": 0.517,
+   "backswing_s": 0.875,
+   "arm_peak_t": 1.68,
+   "impact_minus_arm_peak_s": -0.038,
+   "max_frame_jump_deg": 4.84,
+   "worst_limit_exceed_deg": 22.03,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.022078
+  },
+  {
+   "path": "data/references/cmu_64_06.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit"
+   ],
+   "frames": 249,
+   "dt": 0.01,
+   "duration_s": 2.48,
+   "event_source": "events",
+   "t_top": 1.15,
+   "t_impact": 1.65,
+   "downswing_s": 0.5,
+   "backswing_s": 0.9,
+   "arm_peak_t": 1.79,
+   "impact_minus_arm_peak_s": -0.14,
+   "max_frame_jump_deg": 4.62,
+   "worst_limit_exceed_deg": 25.48,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "val",
+   "weight_train": 0.0
+  },
+  {
+   "path": "data/references/cmu_64_07.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit"
+   ],
+   "frames": 240,
+   "dt": 0.01,
+   "duration_s": 2.39,
+   "event_source": "events",
+   "t_top": 1.05,
+   "t_impact": 1.583,
+   "downswing_s": 0.533,
+   "backswing_s": 0.8,
+   "arm_peak_t": 1.74,
+   "impact_minus_arm_peak_s": -0.157,
+   "max_frame_jump_deg": 4.71,
+   "worst_limit_exceed_deg": 18.87,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.025974
+  },
+  {
+   "path": "data/references/cmu_64_08.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit"
+   ],
+   "frames": 246,
+   "dt": 0.01,
+   "duration_s": 2.45,
+   "event_source": "events",
+   "t_top": 1.117,
+   "t_impact": 1.65,
+   "downswing_s": 0.533,
+   "backswing_s": 0.867,
+   "arm_peak_t": 1.8,
+   "impact_minus_arm_peak_s": -0.15,
+   "max_frame_jump_deg": 4.84,
+   "worst_limit_exceed_deg": 11.82,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.025974
+  },
+  {
+   "path": "data/references/cmu_64_09.npz",
+   "flags": [
+    "joint_limit"
+   ],
+   "frames": 235,
+   "dt": 0.01,
+   "duration_s": 2.34,
+   "event_source": "events",
+   "t_top": 1.083,
+   "t_impact": 1.575,
+   "downswing_s": 0.492,
+   "backswing_s": 0.833,
+   "arm_peak_t": 1.62,
+   "impact_minus_arm_peak_s": -0.045,
+   "max_frame_jump_deg": 5.4,
+   "worst_limit_exceed_deg": 14.76,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.025974
+  },
+  {
+   "path": "data/references/cmu_64_10.npz",
+   "flags": [
+    "impact_not_at_arm_peak",
+    "joint_limit"
+   ],
+   "frames": 237,
+   "dt": 0.01,
+   "duration_s": 2.36,
+   "event_source": "events",
+   "t_top": 1.142,
+   "t_impact": 1.625,
+   "downswing_s": 0.483,
+   "backswing_s": 0.892,
+   "arm_peak_t": 1.77,
+   "impact_minus_arm_peak_s": -0.145,
+   "max_frame_jump_deg": 5.77,
+   "worst_limit_exceed_deg": 12.56,
+   "source": "cmu",
+   "variant": "mirror_on_load",
+   "split": "train",
+   "weight_train": 0.025974
+  }
+ ]
+}
