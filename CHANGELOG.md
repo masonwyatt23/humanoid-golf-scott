@@ -5,6 +5,8 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ## [Unreleased]
 
 ### Changed
+- **350 yd reading (docs only):** `docs/RECOMMENDED_350YD_PARAMS.md` now states a 350 yd total needs ~318-324 yd (291-296 m) carry at an assumed 1.08-1.10 total/carry ratio (Data Agent's roll note; assumed, not measured; carry only, no roll model); the loft -29 power preset (hypothetical tier, `force_scale` 2.0, ~318-323 yd carry, Trainer-reported, gate JSON held) is near it.
+- **Stage 25/26 and leaderboard port:** Trainer power loft25/27/29 gain-1.20 presets and scans, stock q23 dz016 scan, ppo15_anneal_s91 (failed); Evaluator smash-gate leaderboard, dashboard, style comparison, lead-arm track_score for new models. Gate JSONs stay held locally.
 - **CMU retag (licence diligence, not legal advice):** CMU Graphics Lab mocap (subject 64) was tagged `cmu_permissive` / `commercial_ok: true`. It is now `needs_counsel` / `commercial_ok: false` / `counsel_required: true` (`license_class_as_published: cmu_permissive`). CMU's terms forbid resale "even in converted form" and the repo publicly tracks converted `cmu_64_*.npz`, so redistribution and commercial training are counsel items. Updated: `data/provenance.py` (preset, `LICENSE_FACTS`), the 10 tracked `cmu_64_*.npz` tags (tag metadata only, arrays unchanged), `unified_v1/v2.json`, `mocap_dataset_licenses.json`, the two `mason_*` target JSON/generators, README, tests. No files deleted, no history rewritten; the files remain tracked pending Mason's decision.
 
 ### Added
