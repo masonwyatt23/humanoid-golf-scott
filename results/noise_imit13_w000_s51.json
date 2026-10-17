@@ -1,0 +1,38 @@
+{
+ "0.0": {
+  "true_contact_rate": 0.96,
+  "mean_carry": 109.05810051923854,
+  "lateral_std": 3.4712202949953572,
+  "mean_launch_elev_deg": 11.974229303114157,
+  "frac_launch_8_14": 0.94,
+  "landed_fraction": 0.94,
+  "peak_club_speed_mean_mph": 119.12601645904958
+ },
+ "0.002": {
+  "true_contact_rate": 0.98,
+  "mean_carry": 103.49127671023057,
+  "lateral_std": 7.993970886990207,
+  "mean_launch_elev_deg": 11.17904987419616,
+  "frac_launch_8_14": 0.92,
+  "landed_fraction": 0.96,
+  "peak_club_speed_mean_mph": 118.0628044777914
+ },
+ "0.005": {
+  "true_contact_rate": 0.98,
+  "mean_carry": 83.66521538975212,
+  "lateral_std": 2.6191810455979416,
+  "mean_launch_elev_deg": 9.346815262938387,
+  "frac_launch_8_14": 0.78,
+  "landed_fraction": 0.8,
+  "peak_club_speed_mean_mph": 119.18981638983881
+ },
+ "0.01": {
+  "true_contact_rate": 0.86,
+  "mean_carry": 77.39589389289175,
+  "lateral_std": 5.576721796948957,
+  "mean_launch_elev_deg": 8.218461218212925,
+  "frac_launch_8_14": 0.68,
+  "landed_fraction": 0.76,
+  "peak_club_speed_mean_mph": 115.64452818770962
+ }
+}

@@ -5,7 +5,7 @@ from stable_baselines3 import PPO
 from env.residual_golf_env import ResidualGolfEnv
 ROOT = Path(__file__).resolve().parent.parent
 name = sys.argv[1]; n = int(sys.argv[2]) if len(sys.argv) > 2 else 30; seed = int(sys.argv[3]) if len(sys.argv) > 3 else 4000
-J = json.load(open(ROOT / "results" / "imit9_w000_s51.json")); kw = dict(J["env_kwargs_full"], track_set="unified_v1", track_weight=1.0, track_time_fix=True, key_weight=1.0); kw["residual_scale"] = tuple(kw["residual_scale"])
+J = json.load(open(ROOT / "results" / f"{name}.json")); kw = dict(J["env_kwargs_full"], track_set="unified_v1", track_weight=1.0, track_time_fix=True, key_weight=1.0); kw["residual_scale"] = tuple(kw["residual_scale"])
 env = ResidualGolfEnv(**kw); model = PPO.load(str(ROOT / "models" / name), device="cpu"); R = []
 for i in range(n):
     o, _ = env.reset(seed=seed + i); env.set_progress(1.0); d = False

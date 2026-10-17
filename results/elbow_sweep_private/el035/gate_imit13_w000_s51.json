@@ -1,0 +1,354 @@
+{
+ "name": "imit13_w000_s51",
+ "episodes": 100,
+ "seed": 4000,
+ "env_kwargs": {
+  "script": {
+   "q_back": 2.2,
+   "t_down": 0.095,
+   "t_back": 0.6,
+   "wr_end": -0.01,
+   "yaw_ff": 0.0
+  },
+  "residual_scale": [
+   0.01,
+   0.01,
+   0.01,
+   0.01
+  ],
+  "flight_model": true,
+  "curriculum": true,
+  "carry_reward": true,
+  "forward_reward": true,
+  "randomize_reset": true,
+  "gate_lo": 15.0,
+  "gate_hi": 35.0,
+  "seq_weight": 0.0,
+  "style_prior": false,
+  "yaw_amp": 0.1,
+  "wrist_amp": 0.0,
+  "style_lead": 0.05,
+  "analytic_ball": false,
+  "lat_weight": 0.0,
+  "lat_angular": false,
+  "elev_weight": 0.0,
+  "carry_cap": 120.0,
+  "tempo_scale": 0.0,
+  "shot_pen": 1.0,
+  "act_l2": 0.0,
+  "script_weight": 0.0,
+  "learn_scale": [
+   2.4,
+   0.7,
+   0.15,
+   0.15
+  ],
+  "track_set": null,
+  "track_weight": 0.0,
+  "track_time_fix": false,
+  "key_weight": 0.0,
+  "key_s": 2.0,
+  "ball_x": 0.396,
+  "ball_x_noise": 0.003,
+  "loft_deg": -31,
+  "ball_dz": -0.008,
+  "tee_height": 0.04,
+  "force_scale": 2.0,
+  "kp": 700,
+  "kd": 23.33,
+  "handedness": "left",
+  "model_xml": "humanoid_golf_v3.xml",
+  "sh_noise": 0.05,
+  "el_noise": 0.17,
+  "elbow_base": null,
+  "_env": "residual"
+ },
+ "policy_det": {
+  "launch_elev_mean_deg": 11.959940953506534,
+  "launch_elev_std_deg": 1.4393207096757235,
+  "launch_flat_frac": 0.0,
+  "launch_flat_flag": false,
+  "peak_club_unstable_episodes": 0,
+  "peak_club_raw_max_unstable": null,
+  "peak_club_speed_mean": 53.784346373033195,
+  "peak_club_speed_max": 53.91086723206128,
+  "peak_club_mph_mean": 120.31235577569288,
+  "peak_club_mph_max": 120.59537534608717,
+  "peak_club_pct_target_mean": 100.26910211229156,
+  "peak_club_pct_target_max": 100.50497246842147,
+  "impact_club_speed_mean": 53.784346373033195,
+  "impact_club_speed_max": 53.91086723206128,
+  "smash_factor_mean": 1.0034780437760071,
+  "smash_factor_median": 1.0040317064144069,
+  "smash_factor_n": 100,
+  "episodes": 100,
+  "contact_rate": 1.0,
+  "mean_distance": 109.27813760818337,
+  "std_distance": 27.899559173505374,
+  "median_distance": 108.7224065019897,
+  "max_distance": 185.5001590125095,
+  "mean_y": -0.24769226872290137,
+  "lateral_std": 1.829967131911335,
+  "mean_abs_y": 0.5492376162497048,
+  "max_abs_y": 11.705303189389372,
+  "left_miss_rate": 0.05,
+  "right_miss_rate": 0.08,
+  "in_corridor_rate": 0.87,
+  "left_miss_rate_contact_only": 0.05,
+  "right_miss_rate_contact_only": 0.08,
+  "sequencing_proxy": {
+   "n": 100,
+   "segments": [
+    "hips",
+    "torso(chest_yaw)",
+    "shoulder_R",
+    "elbow_R",
+    "wrist_R",
+    "club_head_speed"
+   ],
+   "peak_rel_impact_ms_median": [
+    -14.999999999998348,
+    4.999999999999449,
+    -14.999999999998348,
+    14.999999999998348,
+    44.99999999999504,
+    -4.999999999999449
+   ],
+   "peak_rel_impact_ms_iqr": [
+    [
+     -14.999999999998348,
+     -13.499999999998513
+    ],
+    [
+     1.4999999999998348,
+     4.999999999999449
+    ],
+    [
+     -14.999999999998348,
+     -13.499999999998513
+    ],
+    [
+     14.999999999998348,
+     16.49999999999818
+    ],
+    [
+     44.99999999999504,
+     46.49999999999488
+    ],
+    [
+     -4.999999999999449,
+     -3.4999999999996145
+    ]
+   ],
+   "frac_proximal_to_distal": 0.0,
+   "wrist_minus_shoulder_s_median": 0.05999999999999339,
+   "elbow_minus_shoulder_s_median": 0.029999999999996696,
+   "torso_minus_hips_s_median": 0.019999999999997797
+  },
+  "mean_carry": 109.27813760818337,
+  "mean_carry_yd": 119.50766406968542,
+  "mean_total_m": 108.88235937834486,
+  "median_total_m": 108.32553065313162,
+  "mean_total_yd": 119.07483703975171,
+  "max_total_yd": 202.43413682142418,
+  "mean_roll_m": 0.0,
+  "landed_fraction": 1.0,
+  "mean_peak_ball_speed": 53.97209183327442,
+  "lateral_threshold_m": 0.5,
+  "mean_max_ball_x": 109.27813760818337
+ },
+ "policy_stoch": {
+  "launch_elev_mean_deg": 11.958943217449487,
+  "launch_elev_std_deg": 1.4109503762427567,
+  "launch_flat_frac": 0.0,
+  "launch_flat_flag": false,
+  "peak_club_unstable_episodes": 0,
+  "peak_club_raw_max_unstable": null,
+  "peak_club_speed_mean": 53.51772537712694,
+  "peak_club_speed_max": 53.909039364203814,
+  "peak_club_mph_mean": 119.71594060511035,
+  "peak_club_mph_max": 120.59128651536209,
+  "peak_club_pct_target_mean": 99.77204581865576,
+  "peak_club_pct_target_max": 100.50156481022337,
+  "impact_club_speed_mean": 53.78535237216573,
+  "impact_club_speed_max": 53.909039364203814,
+  "smash_factor_mean": 1.0035258794269935,
+  "smash_factor_median": 1.0036755523996905,
+  "smash_factor_n": 99,
+  "episodes": 100,
+  "contact_rate": 0.99,
+  "mean_distance": 110.54268424208257,
+  "std_distance": 28.796561882210113,
+  "median_distance": 108.86672064848257,
+  "max_distance": 185.46116488158043,
+  "mean_y": -0.37627733283115494,
+  "lateral_std": 1.6790034231324298,
+  "mean_abs_y": 0.4865131223460624,
+  "max_abs_y": 10.757700711702487,
+  "left_miss_rate": 0.04,
+  "right_miss_rate": 0.08,
+  "in_corridor_rate": 0.88,
+  "left_miss_rate_contact_only": 0.04040404040404041,
+  "right_miss_rate_contact_only": 0.08080808080808081,
+  "sequencing_proxy": {
+   "n": 99,
+   "segments": [
+    "hips",
+    "torso(chest_yaw)",
+    "shoulder_R",
+    "elbow_R",
+    "wrist_R",
+    "club_head_speed"
+   ],
+   "peak_rel_impact_ms_median": [
+    -14.999999999998348,
+    1.4999999999998348,
+    -14.999999999998348,
+    14.999999999998348,
+    44.99999999999504,
+    -4.999999999999449
+   ],
+   "peak_rel_impact_ms_iqr": [
+    [
+     -14.999999999998348,
+     -13.499999999998513
+    ],
+    [
+     1.4999999999998348,
+     4.999999999999449
+    ],
+    [
+     -14.999999999998348,
+     -13.499999999998513
+    ],
+    [
+     14.999999999998348,
+     16.49999999999818
+    ],
+    [
+     44.99999999999504,
+     46.49999999999488
+    ],
+    [
+     -4.999999999999449,
+     -3.4999999999996145
+    ]
+   ],
+   "frac_proximal_to_distal": 0.0,
+   "wrist_minus_shoulder_s_median": 0.05999999999999339,
+   "elbow_minus_shoulder_s_median": 0.029999999999996696,
+   "torso_minus_hips_s_median": 0.014999999999998348
+  },
+  "mean_carry": 110.53931639568891,
+  "mean_carry_yd": 120.88690180348935,
+  "mean_total_m": 110.14690601224406,
+  "median_total_m": 108.47180647183362,
+  "mean_total_yd": 120.45775788405022,
+  "max_total_yd": 202.39149244989883,
+  "mean_roll_m": NaN,
+  "landed_fraction": 0.99,
+  "mean_peak_ball_speed": 53.451281561722745,
+  "lateral_threshold_m": 0.5,
+  "mean_max_ball_x": 110.54319521010108
+ },
+ "scripted_zero_residual": {
+  "launch_elev_mean_deg": 18.353432582778876,
+  "launch_elev_std_deg": 3.3360624199871394,
+  "launch_flat_frac": 0.015151515151515152,
+  "launch_flat_flag": false,
+  "peak_club_unstable_episodes": 0,
+  "peak_club_raw_max_unstable": null,
+  "peak_club_speed_mean": 4.512341373688155,
+  "peak_club_speed_max": 8.934446628958572,
+  "peak_club_mph_mean": 10.093836912457983,
+  "peak_club_mph_max": 19.98582104218259,
+  "peak_club_pct_target_mean": 8.412269525891416,
+  "peak_club_pct_target_max": 16.656313625948123,
+  "impact_club_speed_mean": 0.21605756332853254,
+  "impact_club_speed_max": 0.24223756967848614,
+  "smash_factor_mean": 9.340866337040017,
+  "smash_factor_median": 8.837181864309175,
+  "smash_factor_n": 66,
+  "episodes": 100,
+  "contact_rate": 0.66,
+  "mean_distance": 7.377526536570355,
+  "std_distance": 5.093482765777941,
+  "median_distance": 10.160573864518508,
+  "max_distance": 13.398271421206516,
+  "mean_y": -0.000498734836503197,
+  "lateral_std": 0.01246740060330479,
+  "mean_abs_y": 0.010687022217747012,
+  "max_abs_y": 0.02520151899548916,
+  "left_miss_rate": 0.0,
+  "right_miss_rate": 0.0,
+  "in_corridor_rate": 1.0,
+  "left_miss_rate_contact_only": 0.0,
+  "right_miss_rate_contact_only": 0.0,
+  "sequencing_proxy": {
+   "n": 66,
+   "segments": [
+    "hips",
+    "torso(chest_yaw)",
+    "shoulder_R",
+    "elbow_R",
+    "wrist_R",
+    "club_head_speed"
+   ],
+   "peak_rel_impact_ms_median": [
+    48.49999999999466,
+    33.999999999996255,
+    48.49999999999466,
+    48.49999999999466,
+    43.49999999999521,
+    48.49999999999466
+   ],
+   "peak_rel_impact_ms_iqr": [
+    [
+     48.49999999999466,
+     48.9999999999946
+    ],
+    [
+     33.49999999999631,
+     37.999999999995815
+    ],
+    [
+     48.49999999999466,
+     48.9999999999946
+    ],
+    [
+     47.999999999994714,
+     48.9999999999946
+    ],
+    [
+     42.49999999999532,
+     43.999999999995154
+    ],
+    [
+     47.999999999994714,
+     48.9999999999946
+    ]
+   ],
+   "frac_proximal_to_distal": 0.0,
+   "wrist_minus_shoulder_s_median": -0.004999999999999446,
+   "elbow_minus_shoulder_s_median": 0.0,
+   "torso_minus_hips_s_median": -0.014999999999998345
+  },
+  "mean_carry": 0.0,
+  "mean_carry_yd": 0.0,
+  "mean_total_m": 6.98174830673183,
+  "median_total_m": 9.76364577845105,
+  "mean_total_yd": 7.635309765724996,
+  "max_total_yd": 14.222479675535169,
+  "mean_roll_m": NaN,
+  "landed_fraction": 0.0,
+  "mean_peak_ball_speed": 1.3241476558678626,
+  "lateral_threshold_m": 0.5,
+  "mean_max_ball_x": 7.377526536570355
+ },
+ "gate_pass_legacy": true,
+ "min_carry": 30.0,
+ "gate_pass": true,
+ "gate_pass_showcase30": true,
+ "launch_not_flat": true,
+ "gate_note": "carry>11.98 m is a legacy 4-s-horizon baseline (~1/3 of shots landed at ~12 m); weak floor under the 450-step horizon. Showcase criterion (carry>=30, launch not flat, ...) lives in eval/leaderboard.py. See eval_gate.py docstring."
+}

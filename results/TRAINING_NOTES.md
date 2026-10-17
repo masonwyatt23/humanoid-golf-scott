@@ -1,5 +1,7 @@
 # Training notes (local; verified against results/*.json and logs/*.log, 2026-10-16)
 
+> **LABEL FIX (2026-10-17, applies to every stage below):** `configs/fast_scripted_v3.json` has `force_scale 2.0`, so every "v3", "imit*", "ppo_v4*" and power-tier run in this file uses **2x actuator force (boosted, hypothetical-strength), NOT stock G1 actuators**. Read "v3" as "v3, force_scale 2 (boosted)". Stock-actuator baselines are in Stage 18. Also read "learned" / "learned from Mason" for imitation runs as **script-distilled**: the policies imitate the v3 script; a Mason-derived tracking reward is used only in the fine-tunes imit10-12 (Stage 17), with a small/negative effect on the gate.
+
 Models live in `models/*.zip` (gitignored, local only). Eval = 100 randomized-reset episodes unless noted.
 "Scripted-only" = same env with zero residual (no learning), reported in each JSON.
 
@@ -351,3 +353,35 @@ Reading: with the elbow fixed, lateral spread is no longer the failure (the Stag
 | imit12 | track 0.1, key 0.1, lr 1e-5, log_std -7, 10k | 0.318 | 0.000 | 0.925/0.028/0.000 | 110.5 | 0.74 | 11.6 | 0.050 |
 Honest result: the reward moves yaw toward the Mason/CMU/MultiSense thorax shape (0.002 -> 0.33-0.62) but trades away the shoulder match and strike height: imit10/imit11 drift (RMS 0.14-0.20 rad from the script), launch falls to 8.3-8.6 deg (below the 10 target), imit11 lateral 2.51 m (near the 2.73 limit); they do NOT hold the gate margins and were not 3-seed gated (training-env numbers only). The gentlest weight (imit12) keeps carry/lateral/launch but has no track gain. key_score stays ~0 in every run (the v3 swing's shoulder/wrist progress at impact is far from Mason's medians and the wrist never follows the reference), so the keyframe reward provides no usable gradient at these step budgets. Conclusion: tracking the unified refs with a tiny PPO step does not yield a better-matching AND gate-holding swing; a real attempt needs the wrist/elbow script retuned toward the references first. No Mason-learned model is claimed.
 **(4) Name-based joints in eval/evaluate.py and eval/style_match.py: done** (trivial: `env._ref_q(11)`; style_match only had docstrings). Syntax-checked only; I did not re-run the DTW/leaderboard pipeline (leaderboard files belong to others).
+
+## Stage 18: stock-actuator baseline, elbow sweep, full-range / DART BC (all scripted/policy numbers evaluator protocol unless noted)
+**(1) Actuator-strength baseline (same v3 swing, configs/fast_scripted_v3.json, default elbow; 100 eps x seeds 4000/8000/9000, landed 100%).** v3's `force_scale 2.0` doubles every motor (wrist 3.0 x gear 20 x 2 = 120 N m effective, not the 60 N m of the Stage-4 audit).
+| setting | club mph | launch deg | carry=total m (4000/8000/9000) | contact | lateral std m |
+| force_scale 2 (boosted v3, what all earlier v3/imit results use) | 120.4 | 12.9 | ~115-119 | 100% | 1.1-1.6 |
+| force_scale 1 (stock motors), same swing | 98.3 | 12.7 | 75.8 / 72.9 / 74.0 | 100% | 1.16 / 0.56 / 0.83 |
+| force_scale 1 + H1-2-like wrist (25 N m, humanoid_golf_h12wrist.xml), same swing | club peaks 101 mph but contact 2-5%: no working strike | - | ~1-2 m | 2% | - |
+| same, re-tuned t_down 0.17 (slower downswing), wr_end -0.01 | 84.7 | 12.4 | 57.3 / 58.2 / 57.4 | 100% | 0.02 (suspiciously small; not investigated) |
+| power tier (HYPOTHETICAL: fs 2, wrist 120 N m + damping 0.5, chest +-60) elbow_base 0.48 | 132.4 | 12.6 | 308.9 / 307.6 / 305.5 | 100% | 2.3-2.5 |
+Gap: stock motors cost ~22 mph and ~40 m vs the boosted v3; the H1-2-class wrist costs another ~14 mph / ~17 m after a timing retune (t_down 0.095 -> 0.17; wr_end 0.5/1.0 never strikes; t_down 0.15 gives launch -13 deg). The earlier Stage-12 H1-2 contrast ran at force_scale 2 (i.e. 50 N m effective), so it was not a clean H1-2 test; this is. Not re-tuned beyond t_down/wr_end; no gate applied (scripted only).
+**(3a) Elbow sweep (scripted, strike_probe 100 eps seed 9000; "bad" = launch<9 or |lat|>5 or no contact):**
+| tier | address elbow | frac el<0.31 | bad | mean total m | lateral std m (excl bad) |
+| v3 boosted | 0.35+-0.1 (default) | 0.32 | 0.02 | 108 | 1.21 (0.38) |
+| v3 boosted | 0.41+-0.1 | 0.00 | 0.01 | 118 | 0.87 |
+| v3 boosted | 0.48+-0.1 | 0.00 | 0.03 | 117 | 1.55 |
+| power | 0.35+-0.1 | 0.32 | 0.29 (0.84 of the el<0.31 starts) | 280 | 17.6 (2.55) |
+| power | 0.41+-0.1 | 0.00 | 0.02 | 305 | 2.52 |
+| power | 0.48+-0.1 | 0.00 | 0.00 | 305 | 2.51 |
+=> the cliff is a POWER-tier problem (0.06 s downswing): boosted v3 loses only ~2% of shots; the power tier loses 29% of shots / ~25 m mean total at the default elbow. 0.41 +- 0.1 (Data Agent's bias-corrected Mason estimate; I did not read mason_elbow_camera_bias.json) already removes it. Negative: `script.el0_follow_start` (never command the elbow above its start) is worse (v3 bad 0.15, power bad 0.24 with launch 19 +-12).
+**(3b) Mason-referenced script retune** (eval/wrist_grid.py, track_time_fix scores, 20 eps): the v3 script had wrist_cock 0, so the wrist track/key score were structurally 0. configs/fast_scripted_v3_masonwrist.json = elbow_base 0.48, wrist_cock -0.5 (cock then release, wr_end -0.01): track_score 0.33 -> ~0.50, key_score 0 -> 0.88. Evaluator protocol 100 eps: launch 13.75, carry=total 113.2/112.4/111.0 m, lateral 1.89/2.12/1.54, landed 100%, contact 100%, 115.2 mph (club ~5 mph slower than v3): passes launch>=10, lateral<2.73. Adding small thorax yaw (configs/fast_scripted_v3_masonshape.json, +-0.05) lifts track_score to 0.81 but lateral 4.14/2.67/3.61 -> FAILS the lateral limit; larger yaw breaks the strike (launch 0-7, lateral 11-37).
+**Policy on the Mason-wrist script (imit14_w000_s51, BC 800 eps full elbow range, warm start imit13):** track 0.494, key 0.732 (sh 0.96, wr 0.46) but headline gate FAIL: lateral 9.1/8.2 m (seed 4000, elbow 0.48, det/stoch; carry 140 m, launch ok). The BC policy cannot reproduce the wrist-cocked strike precision; imit14_s52 never ran. So: a Mason-shaped SCRIPT passes, the learned imitation of it does not.
+**(2) Obs-conditioned BC over the full elbow range, and DART noise:**
+- imit9 (trained at elbow 0.48+-0.1) evaluated at the DEFAULT elbow 0.35 (out of distribution): contact 91-93%, club 87-92 mph, carry 62-70 m, landed 63-68%: FAIL. At elbow 0.41+-0.1: contact 97-99%, 112 mph, carry 102-106, landed 88-90%: FAIL.
+- imit13 = BC teacher data over elbow 0.40+-0.17 (0.23-0.57; configs/fast_scripted_v3_elbowfull.json), 800 eps, 1500 epochs, warm start from imit9, bc_noise 0.0005. Default elbow 0.35, seed 4000/9000: s51 PASS / FAIL(contact 98% det; lateral 0.9), s52 FAIL both (lateral 6.8/6.1). At elbow 0.48, seed 4000: s51 and s52 PASS. => conditioning on the full elbow range closes most of the gap for s51 but is not reliable across seeds.
+- imit15_dart_s51 = same data distribution with DART noise (bc_noise 0.008: teacher-labelled states visited under executed action noise), 600 eps, warm start imit13_s51. Default elbow 0.35 headline gate det/stoch: seed 4000 PASS (lat 1.87/2.34, carry 114.6/112.5, landed 97%), 8000 PASS (lat 2.46/1.65, carry 115.2/108.5, landed 99/96%), 9000 PASS (lat 1.83/1.24, carry 108.4/106.9, landed 99/97%), contact 99-100%, 120.3 mph. Single training seed only. Checkpoint models/best_imit_dart_fullelbow_s51.zip.
+- Noise robustness (training env = elbow 0.40+-0.17, harder than the 0.48 env used for imit9; 50 eps): 
+| model | sigma 0 | 0.002 | 0.005 | 0.01 |
+| imit9 (elbow 0.48 env, Stage 17) | 115.5 m, lat 0.84 | 108.6 | 74.3 (launch 6.7) | 27.0 (launch 1.3) |
+| imit13 (full range) | 109.1, lat 3.47, contact 96% | 103.5 | 83.7 | 77.4 (lat 5.6) |
+| imit15 DART | 118.2, lat 2.84 | 103.4 (lat 5.8) | 97.3 (launch 9.8) | 97.3 (lat 0.8, launch 10.9) |
+DART keeps ~97 m at sigma 0.01 vs 27 m for imit9 (different eval address distribution, so not a perfectly clean comparison), but lateral std at low noise is 2.8-5.8 m in this wide-elbow env (mishits at extreme elbows); the strike is only partly compensated, not fixed.
+Verdict on "obs-conditioned strike compensation": partly yes for the boosted-v3 policy (imit15 passes the default-elbow headline gate on 3 seeds, det and stoch), but not shown for the power tier (not trained), not reliable across training seeds (imit13_s52 fails), and the open-loop script itself remains the better strike. imit14/imit15_s52 gaps stand as listed.
