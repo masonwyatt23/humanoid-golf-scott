@@ -10,15 +10,18 @@ Autonomous pipeline for training a simulated humanoid to swing a golf club in th
 | Club speed | Works (scripted + residual) | Trained left-handed runs 107-118.5 mph mean peak (123.6 for the flat-launch `left_fast2_s11`) (gate/leaderboard); scripted lofted base 120.3-120.4 mph (`results/TRAINING_NOTES.md` Stage 5). Target 120 mph |
 | Deep carry (deterministic) | Works, with a caveat | 96-114 m mean carry (an2: 114.3 m, `results/gate_ppo_resid_v3_left_an2_s0.json`). These runs were trained in the pre-fix strike regime (see Known limits) |
 | Lateral gate (carry > 11.98 m, lateral std < 2.73 m, contact >= 99%) | **Fails for every deep-carry trained model** | Lateral std 5.7-8.2 m. Runs that pass the literal gate are flat-launch exploits (e.g. `left_fast2_s11`: 15.2 m carry, -5.8 deg launch) |
-| Leaderboard headline (`results/leaderboard.md`) | Best model `ppo_resid_v3_left_an3_s1` | Ranked by contact then mean carry averaged over deterministic + stochastic: 102.9 m (deterministic alone is 108.6 m, stochastic 97.2 m). **No model meets the showcase criterion** |
-| Scripted baseline, lofted fix (`configs/fast_scripted_v2_lofted.json`) | Passes in the notes only | Evaluator protocol, 100 eps, seeds 4000/8000: contact 100%, launch 9.3/9.5 deg, carry 70.0/71.9 m, lateral std 0.013 m, 120.3 mph. **No committed gate JSON**; lateral std is tiny because the model has no sidespin |
-| Trained policy beating scripted | No | Notes: trained policies never beat their scripted baseline; PPO was not re-run on the fixed base |
+| Leaderboard headline (`results/leaderboard.md`) | Best trained model `ppo_v3tiny_s22` (Stage 7, negative result); best overall is the Stage 6 scripted swing | Ranked by contact then mean carry averaged over deterministic + stochastic: 108.5 m for `ppo_v3tiny_s22` (deterministic 117.1 m, stochastic 99.9 m, lateral std 6.1 / 9.2 m). Its lateral spread still fails the gate. **No model meets the showcase criterion.** The leaderboard's own header line still names a legacy scripted baseline as best overall (113.827 m); the same 113.8 m figure is the Stage 6 row |
+| Scripted baseline, lofted fix (`configs/fast_scripted_v2_lofted.json`) | Passes in the notes only | Evaluator protocol, 100 eps, seeds 4000/8000: contact 100%, launch 9.3/9.5 deg, carry 70.0/71.9 m, lateral std 0.013 m, 120.3 mph. **No committed gate JSON**; lateral std is tiny because the model has no sidespin. Superseded by Stage 6 above (`results/strike_regime_rerun.md`: 68.9 m carry, 9.0 deg launch, 0.013 m lateral std, 50 eps) |
+| **Stage 6 scripted swing (`configs/fast_scripted_v3.json`) - NOT learned** | **Passes all gates** | `results/leaderboard.md` (deterministic = stochastic, zero residual, 50 eps, seed 4000): contact 100%, landed 100%, mean carry 113.8 m, launch 12.2 deg, lateral std 1.66 m, peak club 120.3 mph (max 120.6). Same config in the gate files `results/gate_ppo_v3tiny_s2{1,2,3}.json` (`scripted_zero_residual`, 100 eps): carry 113.0 m, lateral std 2.12 m, 120.3 mph. A hand-tuned config, not a trained policy |
+| Trained policy beating scripted | **No** | Stage 7 (`ppo_v3tiny_s21/22/23`: tiny residual PPO on the Stage 6 script) is a recorded negative result: all `gate_pass=false`; deterministic gate carry 86.4 / 105.1 / 93.6 m, lateral std 6.45 / 5.23 / 4.43 m, versus 113.0 m / 2.12 m for the scripted base (`results/gate_ppo_v3tiny_s2*.json`, 100 eps) |
+| **No trained model qualifies yet** | Confirmed | `results/leaderboard.md`: no model meets the showcase criterion. Earlier trained-model numbers hold only under their original configs (`results/strike_regime_rerun.md`) |
+| Smash factor | **Unverified** | The leaderboard reports scripted ~1.0 (peak ball speed / impact club speed, 1.01 for Stage 6). The ball model has no spin or compliance, so treat smash as a diagnostic, not a validated figure; no real-world comparison exists |
 | Model checkpoints | Not published | See `docs/CHECKPOINT_RELEASE.md` for what blocks a Release |
 | Real robot / real ball validation | None | Simulation only |
 
 ## How to run
 
-Install: `pip install -r requirements.txt` (MuJoCo 3, SB3, torch). Commands below match the scripts in this repo; the leaderboard, gate and showcase need trained `models/*.zip` locally, which are not in git.
+Install: `pip install -r requirements.pinned.txt` for the exact versions used on the training machine (`mujoco 3.16.0`, `torch 2.14.1+cpu`, `stable-baselines3 2.9.0`, `gymnasium 1.4.0`; a full `pip freeze`), or `pip install -r requirements.txt` for the unpinned list. Commands below match the scripts in this repo; the leaderboard, gate and showcase need trained `models/*.zip` locally, which are not in git.
 
 ```bash
 # Train a residual-PPO policy (flags as in results/TRAINING_NOTES.md section D; --name sets models/<name>.zip and results/<name>.json)
@@ -34,7 +37,7 @@ python -m train.train_ppo --style scott --timesteps 50000
 python -m eval.eval_gate ppo_resid_v3_left_an3_s1 50 4000
 
 # Scripted (no learning) config: per-shot distribution, 100 episodes from seed 5000
-python -m eval.shot_dist configs/fast_scripted_v2_lofted.json 100 5000
+python -m eval.shot_dist configs/fast_scripted_v3.json 100 5000   # Stage 6 scripted swing
 
 # Leaderboard (regenerates results/leaderboard.md/.json; --episodes default 50, --seed default 4000, --force ignores cache)
 python -m eval.leaderboard
@@ -59,8 +62,11 @@ pytest tests
 ## Known limits
 
 - **Lateral gate fails for deep-carry models.** All trained left-handed runs with 96-114 m carry have lateral std 5.7-8.2 m against a < 2.73 m gate. Runs with tiny lateral spread (an5, an7, an8, fast2) get it from flat or negative launch and carry only 9-15 m.
-- **Strike-regime artefact.** Stage 5 notes show negative `loft_deg` means more loft in the v3 model, and that older runs with positive loft or `ball_dz >= 0` struck the club's top edge. Treat all earlier carry/launch numbers (including the table below) as results from that regime, not as physical drives.
-- **Scripted vs trained.** The default scripted swing fails the lateral gate (4.22 m / 3.97 m in the gate files). A tuned scripted config passes in the notes, and the lofted v2 config looks better still, but neither has a committed gate JSON. Trained policies have not beaten their scripted baselines.
+- **Strike-regime artefact.** Stage 5 notes show negative `loft_deg` means more loft in the v3 model, and that older runs with positive loft or `ball_dz >= 0` struck the club's top edge. Treat all earlier carry/launch numbers (including the table below) as results from that regime, not as physical drives. The Stage 7 `v3tiny` models are the only trained runs on the fixed regime, and they fail the lateral gate.
+- **Scripted vs trained.** The Stage 6 scripted swing (`configs/fast_scripted_v3.json`) passes every gate (113.8 m, 12.2 deg, lateral std 1.66 m, 120.3 mph; `results/leaderboard.md`) but is a hand-tuned config, **not learned**. The default scripted swing fails the lateral gate (4.22 m / 3.97 m in the gate files). Trained policies have never beaten their scripted baseline; the Stage 7 residual PPO on the Stage 6 script made it worse (`results/TRAINING_NOTES.md` Stage 7). **No trained model qualifies yet.**
+- **Earlier trained-model numbers hold only under their original configs.** Re-running frozen `an2`/`an3`/`fast2` checkpoints under the fixed strike regime (loft -26, ball_dz -0.01) changes carry, launch and lateral std substantially (e.g. `an3_s1` 108.6 m -> 81.1 m, `fast2_s11` 15.2 m -> 33.8 m). These are out-of-distribution diagnostics, not retrained results; see [`results/strike_regime_rerun.md`](results/strike_regime_rerun.md).
+- **Smash factor is unverified.** The reported ~1.0 (scripted) is peak ball speed over club speed in a no-spin, no-compliance ball model; it is not a validated physical figure.
+- **Stage 6 gate evidence.** The scripted swing's gate numbers come from the leaderboard (50 eps) and the `scripted_zero_residual` blocks of the v3tiny gate files (100 eps); there is no standalone gate JSON for it.
 - **Checkpoints are unpublished,** so the leaderboard and gate cannot be reproduced from this repo alone; `results/` holds the recorded outputs.
 - **Deterministic vs stochastic.** The tables below are deterministic unless marked. The leaderboard headline averages both modes (102.9 m for an3_s1), and the carry definition changed between runs (analytic training carry vs MuJoCo physics gate). Compare only within one file.
 - Tempo targets from Mason's swings are a loose band (n=11); no speed target is derivable from them.
