@@ -13,13 +13,13 @@ def f(v, nd=1, suf=""):
 
 def hypo_html():
     import sys; sys.path.insert(0, ROOT)
-    from eval.hypo_tier import tier
+    from eval.hypo_tier import tier, noise_cell
     rows = []
     for r in tier():
-        lab = '<span class="b hy">EFFECTIVELY SCRIPTED, hypothetical actuators</span>' if r["effectively_scripted"] else '<span class="b ln">policy differs from script</span> <span class="b hy">hypothetical actuators</span>'
+        lab = '<span class="b hy">EFFECTIVELY SCRIPTED, force_scale 2 (hypothetical-strength actuators)</span>' if r["effectively_scripted"] else '<span class="b ln">policy differs from script</span> <span class="b hy">force_scale 2 (hypothetical-strength actuators)</span>'
         for sd, d in sorted(r["seeds"].items()):
             p, st = d["policy_det"], d["policy_stoch"]
-            rows.append(f"<tr><td>{e(r['name'])}<br>{lab}</td><td>{sd}</td><td>{p['mean_carry']*1.09361:.0f} yd ({p['mean_carry']:.1f} m)</td><td>{p['lateral_std']:.2f} / {st['lateral_std']:.2f}</td><td>{p['landed_fraction']*100:.0f}%</td><td>{p['peak_club_mph_mean']:.1f}</td><td class=\"{'ok' if d['gate_pass'] else 'bad'}\">{'PASS' if d['gate_pass'] else 'FAIL'}</td></tr>")
+            rows.append(f"<tr><td>{e(r['name'])}<br>{lab}</td><td>{sd}</td><td>{p['mean_carry']*1.09361:.0f} yd ({p['mean_carry']:.1f} m)</td><td>{p['lateral_std']:.2f} / {st['lateral_std']:.2f}</td><td>{p['landed_fraction']*100:.0f}%</td><td>{p['peak_club_mph_mean']:.1f}</td><td>{e(noise_cell(r['name']))}</td><td class=\"{'ok' if d['gate_pass'] else 'bad'}\">{'PASS' if d['gate_pass'] else 'FAIL'}</td></tr>")
     return "".join(rows)
 
 
@@ -38,7 +38,7 @@ def build():
     tr = []
     for i, (cr, carry, m, d, s, name, scripted, fs) in enumerate(rows, 1):
         tag = '<span class="b sc">SCRIPTED (not learned)</span>' if scripted else '<span class="b ln">learned</span>'
-        hyp = '<span class="b hy">hypothetical actuators (force_scale %g)</span>' % fs if fs and fs > 1 else ("" if fs else '<span class="b">default env</span>')
+        hyp = '<span class="b hy">force_scale %g (hypothetical-strength actuators)</span>' % fs if fs and fs > 1 else ("" if fs else '<span class="b">default env</span>')
         star = " &#9733;" if (not scripted and m["names"][:1] == best[:1] and (len(best) < 2 or best[1] in m["names"])) else ""
         tr.append(f"<tr><td>{i}</td><td>{e(' / '.join(m['names']))[:110]}{star}<br>{tag} {hyp}</td><td>{f(d['contact_rate']*100,0,'%')} / {f(s['contact_rate']*100,0,'%')}</td>"
                   f"<td>{f(d.get('mean_carry_yd'),0)}</td><td>{f(d.get('mean_total_yd'),0)}</td><td>{f(d.get('lateral_std'),2)}</td><td>{f(d.get('launch_elev_mean_deg'),1)}</td>"
@@ -61,13 +61,13 @@ table{{border-collapse:collapse;width:100%;background:#fff;font-size:13px}} th,t
 </style></head><body>
 <h1>Humanoid golf: evaluation dashboard</h1>
 <p>Generated {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')} (America/New_York) from <code>results/leaderboard.json</code>, <code>results/golf_simulator_validation.json</code>, <code>results/course_estimates.json</code>. Regenerate: <code>python -m sim.dashboard</code>.</p>
-<div class="note"><b>Honest labels.</b> Every leaderboard row uses boosted actuators (force_scale &gt; 1) unless marked otherwise: <b>hypothetical actuators</b>, not a real robot. Rows tagged SCRIPTED are a hand-written swing, not learned. Leaderboard yards use the MuJoCo-physics ball (smash about 1.0, a known artifact). Launch-monitor and course numbers are <b>model-based</b> (analytic ball model / Monte Carlo), not measured.</div>
+<div class="note"><b>Honest labels.</b> Every leaderboard row uses boosted actuators (force_scale &gt; 1) unless marked otherwise: <b>force_scale 2 (hypothetical-strength actuators)</b>, not a real robot. Rows tagged SCRIPTED are a hand-written swing, not learned. Leaderboard yards use the MuJoCo-physics ball (smash about 1.0, a known artifact). Launch-monitor and course numbers are <b>model-based</b> (analytic ball model / Monte Carlo), not measured.</div>
 <h2>Leaderboard (ranked by true contact, then mean carry; star = best qualifying learned model)</h2>
 <table><tr><th>#</th><th>Model</th><th>Contact det / stoch</th><th>Carry yd (det)</th><th>Total yd (det)</th><th>Lateral std m</th><th>Launch deg</th><th>Peak club mph</th><th>Smash</th></tr>{''.join(tr)}</table>
 <p>Episodes per row: {lb['episodes']}, seed base {lb['seed_base']}. Total equals carry when the episode ends at first landing (no roll). Qualification: {e(json.dumps(lb['qualify_criterion']))}.</p>
 <h2>Hypothetical tier (force_scale &gt; 1): 3-seed headline gate, separate from learned vs scripted</h2>
-<p>force_scale 2 = boosted actuators (hypothetical). Per seed, 100 episodes, flight_steps 900; PASS needs contact, lateral std &le; 2.73 m, launch 5-20 deg, landed &ge; 90% in det AND stoch. A model passes only if all of seeds 4000/8000/9000 pass; &quot;effectively scripted&quot; = matches the zero-residual script (not a learned drive).</p>
-<table><tr><th>Model</th><th>Seed</th><th>Carry (det)</th><th>Lateral std m det / stoch</th><th>Landed</th><th>Club mph</th><th>Headline</th></tr>{hypo_html()}</table>
+<p>force_scale 2 (hypothetical-strength actuators). Per seed, 100 episodes, flight_steps 900; PASS needs contact, lateral std &le; 2.73 m, launch 5-20 deg, landed &ge; 90% in det AND stoch. A model passes only if all of seeds 4000/8000/9000 pass; &quot;effectively scripted&quot; = matches the zero-residual script (not a learned drive).</p>
+<table><tr><th>Model</th><th>Seed</th><th>Carry (det)</th><th>Lateral std m det / stoch</th><th>Landed</th><th>Club mph</th><th>Noise quick (carry, % clean; 0.005 / 0.01)</th><th>Headline</th></tr>{hypo_html()}</table>
 <h2>Launch-monitor validation (analytic ball model vs TrackMan PGA Tour driver average)</h2>
 <p>Benchmark: 113 mph club, 167 mph ball, smash 1.48, 10.9&deg; launch, 2686 rpm, 32 yd apex, 38&deg; landing, <b>275 yd carry</b> (TrackMan published PGA Tour averages; USGA Equipment Specifications Research, Table&nbsp;2). Model from those launch conditions: carry {sc['carry_yd']:.0f} yd, total {sc['total_yd']:.0f} yd, apex {sc['apex_yd']:.0f} yd.</p>
 <table><tr><th>Check</th><th>Metric</th><th>Model</th><th>Published</th><th>Error</th><th>Result</th></tr>{''.join(vt)}</table>

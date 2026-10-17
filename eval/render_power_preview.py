@@ -52,7 +52,7 @@ def main():
     gl = lambda s: f"seed {s}: det carry {g(s,'det')['mean_carry']:.1f} m ({g(s,'det')['mean_carry_yd']:.0f} yd), lat std {g(s,'det')['lateral_std']:.2f} m (stoch {g(s,'stoch')['lateral_std']:.2f}), landed {g(s,'det')['landed_fraction']*100:.0f}%, {g(s,'det')['peak_club_mph_mean']:.1f} mph -> " + ("PASS" if G[s]["gate_pass"] else "FAIL")
     sz = G[8000]["scripted_zero_residual"]; s9 = G[9000]["scripted_zero_residual"]
     title = "POWER TIER PREVIEW: scripted + yaw residual (effectively scripted)"
-    sub = "HYPOTHETICAL ACTUATORS force_scale 2 - fails seed-9000 lateral (17 m)"
+    sub = "force_scale 2 (hypothetical-strength actuators) - fails seed-9000 lateral (17 m)"
     w = rs.Writer(ROOT / a.out); hold = lambda img, s: [w.write(img) for _ in range(int(s * FPS))]
     RED, ORG = (255, 70, 70), (255, 170, 60)
     hold(card([title, sub, f"model: {a.name} (PPO, yaw-only residual +-0.05 rad on the scripted swing, 30k steps)", "NOT the main showcase (that is imit3_w050_s51, 50% learned / 50% scripted).",
@@ -74,9 +74,9 @@ def main():
             rec.uninstall()
         rec.frame(hold=int(3 * FPS)); rec.r.close(); sw = ft.summary(info); ft.close()
         hold(card([f"{lab} (seed {seed}) - measured on the rendered swing", f"carry {sw['carry']:.1f} m / {sw['carry_yd']:.0f} yd | total {sw['total_yd']:.0f} yd | lateral y {sw['final_y']:+.2f} m (+left)",
-                   f"launch {sw['launch_elev_deg']:.1f} deg | peak club {rec.peak_club*2.23694:.1f} mph", "HYPOTHETICAL ACTUATORS: " + "; ".join(tags)], {3: RED}, 0.55), 4)
+                   f"launch {sw['launch_elev_deg']:.1f} deg | peak club {rec.peak_club*2.23694:.1f} mph", "ACTUATORS: " + "; ".join(tags)], {3: RED}, 0.55), 4)
         meta["segments"].append(dict(label=lab, seed=seed, selection_pass=dict(carry=sh["carry"], y=sh["final_y"]), rendered=dict(carry=sw["carry"], carry_yd=sw["carry_yd"], total_yd=sw["total_yd"], lateral_y=sw["final_y"], launch_deg=sw["launch_elev_deg"], peak_club_mph=rec.peak_club * 2.23694)))
-    e = ["Caveats", "- Power tier uses force_scale 2 (boosted actuators): hypothetical hardware, not a human-achievable swing; ~132 mph club speed.",
+    e = ["Caveats", "- Power tier uses force_scale 2 (hypothetical-strength actuators): hypothetical hardware, not a human-achievable swing; ~132 mph club speed.",
          "- Policy ~= zero-residual script on every seed; only a +-0.05 rad yaw residual is learned. Do not read as learning a golf swing.",
          "- Headline gate FAILS on seed 9000 (lateral std ~17 m vs 2.73 m limit, landed 99%); seeds 4000 and 8000 pass.",
          "- Flight = MuJoCo ball + simple impact model (smash ~1.47); spin model ~60% high vs tour data. Simulation only."]

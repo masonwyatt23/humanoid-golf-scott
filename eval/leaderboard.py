@@ -280,7 +280,7 @@ def main():
     elif ranked_all:
         best_line += f" Best overall incl. scripted baseline: {' / '.join(ranked_all[0]['names'])}."
     boosted = [("/".join(c["names"][:1]), c["env_kwargs"]["force_scale"]) for c in qualifying if c.get("env_kwargs", {}).get("force_scale", 1.0) > 1.0]
-    best_line += (" **HYPOTHETICAL ACTUATORS: " + ", ".join(f"{n} (force_scale {fs:g})" for n, fs in boosted) + " run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.**") if boosted else ""
+    best_line += (" **HYPOTHETICAL-STRENGTH ACTUATORS: " + ", ".join(f"{n} (force_scale {fs:g}, hypothetical-strength actuators)" for n, fs in boosted) + " run with boosted actuator force caps (force_scale > 1 = more force than the default model); speeds/carries are not evidence of human- or robot-attainable performance.**") if boosted else ""
     best_line += " Rows `imit_w075_s51/52/53` are excluded: INVALID config (eval rebuilt the env from args and dropped v3 settings; see TRAINING_NOTES CORRECTION; superseded by imit2/imit3). Rows with script_weight<1 are BLENDS (executed command = script_weight x scripted + rest learned), shown in the per-row summary."
     L = ["# Leaderboard", "", best_line, "", rank_txt, "", f"Full ranking (scripted baseline included): {rk}", "",
          "Peak club speed = max club_head linear speed over every physics substep of the swing, measured per episode (mean / max over episodes); mph = m/s x 2.23694; % of target = peak / 53.64 m/s (120 mph). "
@@ -306,7 +306,7 @@ def main():
             if j.exists():
                 JJ = json.loads(j.read_text()); ar = JJ.get("args", {}); ek = JJ.get("env_kwargs_full") or c.get("env_kwargs", {})
                 if "script_weight" in ek and ek["script_weight"] is not None and ek["script_weight"] != 1.0:   # imitation-distilled blend: script_weight = share of the scripted command in the executed action
-                    sw = float(ek["script_weight"]); return ("IMITATION OF THE SCRIPT, %d%% script: " % round(sw * 100) if any(x.startswith("imit") for x in c["names"]) else "") + f"BLEND: executed command = {sw*100:.0f}% scripted + {(1-sw)*100:.0f}% learned (script_weight={sw}, learn_scale={ek.get('learn_scale')}); residual cap +-{ar.get('res_scale')} rad" + (" ; HYPOTHETICAL ACTUATORS force_scale %g" % ek["force_scale"] if ek.get("force_scale", 1) > 1 else "")
+                    sw = float(ek["script_weight"]); return (("SCRIPT-FREE IMITATION of the scripted v3 swing: " if sw == 0 else "IMITATION OF THE SCRIPT, %d%% script: " % round(sw * 100)) if any(x.startswith("imit") for x in c["names"]) else "") + f"BLEND: executed command = {sw*100:.0f}% scripted + {(1-sw)*100:.0f}% learned (script_weight={sw}, learn_scale={ek.get('learn_scale')}); residual cap +-{ar.get('res_scale')} rad" + (" ; HYPOTHETICAL ACTUATORS force_scale %g" % ek["force_scale"] if ek.get("force_scale", 1) > 1 else "")
                 if "res_scale" in ar:
                     ts = ar.get("tempo_scale", "0.3 (env default)")
                     return f"residual on scripted swing: cap +-{ar['res_scale']} rad (shoulder, elbow, wrist, yaw) + tempo_scale {ts}; % of control from policy = not defined/unknown"
