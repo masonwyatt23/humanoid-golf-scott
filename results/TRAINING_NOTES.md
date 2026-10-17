@@ -202,3 +202,4 @@ Checkpoint models/best_v4yaw_s41.zip (gitignored). As before the policy is stati
 Env opt-ins: script_weight, learn_scale (target = w*v3_script + learn_scale*a), track_set/track_weight (unified_v1 normalised-shape tracking: Mason shoulder pitch, MultiSense/CMU thorax rotation + CMU wrist hinge, manifest train weights). Columns: learned = fraction of target-norm from policy / RMS deviation of joint-target trajectory from the v3 script (rad); carry/total from evaluator-protocol gate (100 eps, seed 4000).
 | run | script weight | learned frac / traj dev | carry / total det | carry / total stoch | lat std det / stoch | launch det / stoch | contact | mph | gate |
 | imit_w075_s53 | 0.75 | 0.25 / 0.006 | det 159.1 / 159.1 | stoch 157.0 / 157.0 | 27.52 / 26.48 | 40.0 / 39.4 | 1.00 | 141.0 | FAIL |
+| imit_w075_s51 | 0.75 | 0.25 / 0.007 | det 165.8 / 165.8 | stoch 165.8 / 165.8 | 25.13 / 24.39 | 38.0 / 37.1 | 1.00 | 141.1 | FAIL |
