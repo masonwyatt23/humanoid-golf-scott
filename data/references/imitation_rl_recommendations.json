@@ -1,0 +1,1496 @@
+{
+ "schema_version": 1,
+ "generated": "2026-10-17",
+ "branch": "research-imitation-rl",
+ "scope": "Imitation + RL methods for athletic humanoid motion; recommendations for PPO tracking of the unified refset, the 350yd speed ladder and club-ball impact reward",
+ "evidence_levels": {
+  "verified_in_paper": "numbers/claims read in fetched paper text",
+  "design_inference": "our engineering inference, not from a paper",
+  "code_observation": "read-only observation of repo at origin/main a5df07b"
+ },
+ "read_levels": {
+  "full_text_fetched": "full text fetched in this session (appendix may be truncated)",
+  "partial_text_fetched": "relevant sections of HTML text read via grep; not whole paper",
+  "abstract_only": "abstract (and search synopsis) only",
+  "search_snippet_only": "search-result snippets only"
+ },
+ "sources": {
+  "deepmimic": {
+   "title": "DeepMimic: Example-Guided Deep RL of Physics-Based Character Skills",
+   "url": "https://arxiv.org/abs/1804.02717",
+   "arxiv": "1804.02717",
+   "year": 2018,
+   "venue": "ACM TOG 37(4)",
+   "code_url": "https://github.com/xbpeng/DeepMimic",
+   "code_license": "MIT",
+   "code_license_note": "GitHub API spdx",
+   "read_level": "full_text_fetched"
+  },
+  "amp": {
+   "title": "AMP: Adversarial Motion Priors for Stylized Physics-Based Character Control",
+   "url": "https://arxiv.org/abs/2104.02180",
+   "arxiv": "2104.02180",
+   "year": 2021,
+   "venue": "ACM TOG 40(4)",
+   "code_url": "https://github.com/xbpeng/rl-mimic (not checked); IsaacGym ports exist",
+   "code_license": "unverified",
+   "code_license_note": "official AMP code release not license-checked this session",
+   "read_level": "full_text_fetched"
+  },
+  "ase": {
+   "title": "ASE: Large-Scale Reusable Adversarial Skill Embeddings for Physically Simulated Characters",
+   "url": "https://arxiv.org/abs/2205.01906",
+   "arxiv": "2205.01906",
+   "year": 2022,
+   "venue": "ACM TOG 41(4)",
+   "code_url": "https://github.com/nv-tlabs/ASE",
+   "code_license": "custom (GitHub: NOASSERTION/Other)",
+   "code_license_note": "LICENSE file not read; repo says deprecated, recommends MimicKit (search snippet)",
+   "read_level": "partial_text_fetched"
+  },
+  "phc": {
+   "title": "Perpetual Humanoid Control for Real-time Simulated Avatars (PHC)",
+   "url": "https://arxiv.org/abs/2305.06456",
+   "arxiv": "2305.06456",
+   "year": 2023,
+   "venue": "ICCV 2023",
+   "code_url": "https://github.com/ZhengyiLuo/PHC",
+   "code_license": "custom (GitHub: NOASSERTION/Other)",
+   "code_license_note": "LICENSE file not read; do not assume commercial use",
+   "read_level": "full_text_fetched"
+  },
+  "pulse": {
+   "title": "Universal Humanoid Motion Representations for Physics-Based Control (PULSE)",
+   "url": "https://arxiv.org/abs/2310.04582",
+   "arxiv": "2310.04582",
+   "year": 2023,
+   "venue": "ICLR 2024",
+   "code_url": "https://github.com/ZhengyiLuo/PULSE",
+   "code_license": "none detected",
+   "code_license_note": "GitHub API returned no license => all rights reserved by default; ask before reuse",
+   "read_level": "abstract_only"
+  },
+  "maskedmimic": {
+   "title": "MaskedMimic: Unified Physics-Based Character Control Through Masked Motion Inpainting",
+   "url": "https://arxiv.org/abs/2409.14393",
+   "arxiv": "2409.14393",
+   "year": 2024,
+   "venue": "ACM TOG 43(6)",
+   "code_url": "https://github.com/NVlabs/ProtoMotions",
+   "code_license": "Apache-2.0",
+   "code_license_note": "ProtoMotions repo license per GitHub API (covers MaskedMimic impl.); model weights/data terms not checked",
+   "read_level": "abstract_only"
+  },
+  "exbody": {
+   "title": "Expressive Whole-Body Control for Humanoid Robots (ExBody)",
+   "url": "https://arxiv.org/abs/2402.16796",
+   "arxiv": "2402.16796",
+   "year": 2024,
+   "venue": "RSS 2024",
+   "code_url": "https://github.com/chengxuxin/expressive-humanoid",
+   "code_license": "custom (GitHub: NOASSERTION/Other)",
+   "code_license_note": "LICENSE not read",
+   "read_level": "search_snippet_only"
+  },
+  "exbody2": {
+   "title": "ExBody2: Advanced Expressive Humanoid Whole-Body Control",
+   "url": "https://arxiv.org/abs/2412.13196",
+   "arxiv": "2412.13196",
+   "year": 2024,
+   "venue": null,
+   "code_url": "https://github.com/edpsw/exbody2",
+   "code_license": "NVIDIA non-commercial (secondary source: DeepWiki; GitHub: Other)",
+   "code_license_note": "secondary source only, verify LICENSE file",
+   "read_level": "partial_text_fetched"
+  },
+  "h2o": {
+   "title": "Learning Human-to-Humanoid Real-Time Whole-Body Teleoperation (H2O)",
+   "url": "https://arxiv.org/abs/2403.04436",
+   "arxiv": "2403.04436",
+   "year": 2024,
+   "venue": "IROS 2024",
+   "code_url": "https://github.com/LeCAR-Lab/human2humanoid",
+   "code_license": "none detected",
+   "code_license_note": "GitHub API returned no license",
+   "read_level": "partial_text_fetched"
+  },
+  "omnih2o": {
+   "title": "OmniH2O: Universal and Dexterous Human-to-Humanoid Whole-Body Teleoperation and Learning",
+   "url": "https://arxiv.org/abs/2406.08858",
+   "arxiv": "2406.08858",
+   "year": 2024,
+   "venue": "CoRL 2024",
+   "code_url": "https://github.com/LeCAR-Lab/human2humanoid",
+   "code_license": "none detected",
+   "code_license_note": "same repo as H2O; GitHub API returned no license",
+   "read_level": "search_snippet_only"
+  },
+  "humanplus": {
+   "title": "HumanPlus: Humanoid Shadowing and Imitation from Humans",
+   "url": "https://arxiv.org/abs/2406.10454",
+   "arxiv": "2406.10454",
+   "year": 2024,
+   "venue": "CoRL 2024",
+   "code_url": "https://github.com/MarkFzp/humanplus",
+   "code_license": "none detected",
+   "code_license_note": "GitHub API returned no license",
+   "read_level": "search_snippet_only"
+  },
+  "twist": {
+   "title": "TWIST: Teleoperated Whole-Body Imitation System",
+   "url": "https://arxiv.org/abs/2505.02833",
+   "arxiv": "2505.02833",
+   "year": 2025,
+   "venue": "CoRL 2025",
+   "code_url": "https://github.com/YanjieZe/TWIST",
+   "code_license": "MIT",
+   "code_license_note": "GitHub API spdx",
+   "read_level": "partial_text_fetched"
+  },
+  "gmt": {
+   "title": "GMT: General Motion Tracking for Humanoid Whole-Body Control",
+   "url": "https://arxiv.org/abs/2506.14770",
+   "arxiv": "2506.14770",
+   "year": 2025,
+   "venue": null,
+   "code_url": "https://github.com/zixuan417/humanoid-general-motion-tracking",
+   "code_license": "custom (GitHub: NOASSERTION/Other)",
+   "code_license_note": "LICENSE not read",
+   "read_level": "full_text_fetched"
+  },
+  "beyondmimic": {
+   "title": "BeyondMimic: From Motion Tracking to Versatile Humanoid Control via Guided Diffusion",
+   "url": "https://arxiv.org/abs/2508.08241",
+   "arxiv": "2508.08241",
+   "year": 2025,
+   "venue": null,
+   "code_url": "https://github.com/HybridRobotics/whole_body_tracking",
+   "code_license": "MIT",
+   "code_license_note": "GitHub API spdx",
+   "read_level": "full_text_fetched"
+  },
+  "unitracker": {
+   "title": "UniTracker: Learning Universal Whole-Body Motion Tracker for Humanoid Robots",
+   "url": "https://arxiv.org/abs/2507.07356",
+   "arxiv": "2507.07356",
+   "year": 2025,
+   "venue": null,
+   "code_url": "https://github.com/yinkangning0124/Humanoid-UniTracker",
+   "code_license": "none detected",
+   "code_license_note": "GitHub API returned no license",
+   "read_level": "abstract_only"
+  },
+  "kungfubot": {
+   "title": "KungfuBot (PBHC): Physics-Based Humanoid Whole-Body Control for Learning Highly-Dynamic Skills",
+   "url": "https://arxiv.org/abs/2506.12851",
+   "arxiv": "2506.12851",
+   "year": 2025,
+   "venue": null,
+   "code_url": "not checked",
+   "code_license": "unverified",
+   "code_license_note": "not checked",
+   "read_level": "partial_text_fetched"
+  },
+  "php": {
+   "title": "Perceptive Humanoid Parkour: Chaining Dynamic Human Skills via Motion Matching (PHP)",
+   "url": "https://arxiv.org/abs/2602.15827",
+   "arxiv": "2602.15827",
+   "year": 2026,
+   "venue": null,
+   "code_url": "https://github.com/amazon-far/php_parkour",
+   "code_license": "Apache-2.0",
+   "code_license_note": "GitHub API spdx",
+   "read_level": "search_snippet_only"
+  },
+  "smplolympics": {
+   "title": "SMPLOlympics: Sports Environments for Physically Simulated Humanoids",
+   "url": "https://arxiv.org/abs/2407.00187",
+   "arxiv": "2407.00187",
+   "year": 2024,
+   "venue": null,
+   "code_url": "https://github.com/SMPLOlympics/SMPLOlympics",
+   "code_license": "custom (GitHub: NOASSERTION/Other)",
+   "code_license_note": "LICENSE not read",
+   "read_level": "partial_text_fetched"
+  },
+  "physhoi": {
+   "title": "PhysHOI: Physics-Based Imitation of Dynamic Human-Object Interaction",
+   "url": "https://arxiv.org/abs/2312.04393",
+   "arxiv": "2312.04393",
+   "year": 2023,
+   "venue": null,
+   "code_url": "https://github.com/wyhuai/PhysHOI",
+   "code_license": "custom (GitHub: NOASSERTION/Other)",
+   "code_license_note": "LICENSE not read",
+   "read_level": "abstract_only"
+  },
+  "tennis": {
+   "title": "Learning Physically Simulated Tennis Skills from Broadcast Videos (Vid2Player3D)",
+   "url": "https://doi.org/10.1145/3592408",
+   "arxiv": "(no arXiv id used)",
+   "year": 2023,
+   "venue": "ACM TOG 42(4)",
+   "code_url": "https://github.com/nv-tlabs/vid2player3d",
+   "code_license": "custom (GitHub: NOASSERTION/Other); trained models not released",
+   "code_license_note": "LICENSE not read",
+   "read_level": "search_snippet_only"
+  },
+  "proto": {
+   "title": "ProtoMotions (framework implementing mimic/AMP/MaskedMimic etc.)",
+   "url": "https://github.com/NVlabs/ProtoMotions",
+   "arxiv": "n/a",
+   "year": 2025,
+   "venue": null,
+   "code_url": "https://github.com/NVlabs/ProtoMotions",
+   "code_license": "Apache-2.0",
+   "code_license_note": "GitHub API spdx; repo text from search snippet",
+   "read_level": "search_snippet_only"
+  },
+  "repo_methods_doc": {
+   "title": "Internal: docs/research_methods.md (earlier survey on this repo)",
+   "url": "repo:docs/research_methods.md",
+   "arxiv": "n/a",
+   "year": 2026,
+   "venue": null,
+   "code_url": "repo",
+   "code_license": "internal",
+   "code_license_note": "earlier internal survey; claims there are NOT re-verified here",
+   "read_level": "partial_text_fetched"
+  },
+  "repo_env": {
+   "title": "Internal: env/humanoid_golf_env.py and train/train_ppo.py at origin/main a5df07b (read-only)",
+   "url": "repo:env/humanoid_golf_env.py",
+   "arxiv": "n/a",
+   "year": 2026,
+   "venue": null,
+   "code_url": "repo",
+   "code_license": "internal",
+   "code_license_note": "read-only; uncommitted Trainer edits not visible",
+   "read_level": "full_text_fetched"
+  },
+  "repo_power": {
+   "title": "Internal: data/references/power_profile_350yd_targets.json",
+   "url": "repo:data/references/power_profile_350yd_targets.json",
+   "arxiv": "n/a",
+   "year": 2026,
+   "venue": null,
+   "code_url": "repo",
+   "code_license": "internal",
+   "code_license_note": "350yd ladder 120->130->140->150 mph",
+   "read_level": "partial_text_fetched"
+  }
+ },
+ "methods": {
+  "deepmimic": {
+   "key_idea": "PPO tracks a reference clip with a per-step exponential imitation reward + optional task reward; phase variable in the observation; reference-state initialization (RSI) and early termination (ET) are the two ingredients that make flight-phase skills learnable.",
+   "reported": [
+    {
+     "name": "imitation reward weights (pose,vel,end-effector,COM)",
+     "value": "0.65,0.1,0.15,0.1",
+     "where": "Sec 5.3",
+     "verified": true
+    },
+    {
+     "name": "pose reward",
+     "value": "exp[-2 * sum_j ||q_hat_j (-) q_j||^2]",
+     "where": "Sec 5.3",
+     "verified": true
+    },
+    {
+     "name": "velocity reward",
+     "value": "exp[-0.1 * sum_j ||qdot_hat_j - qdot_j||^2]",
+     "where": "Sec 5.3",
+     "verified": true
+    },
+    {
+     "name": "end-effector reward (m)",
+     "value": "exp[-40 * sum_e ||p_hat_e - p_e||^2]",
+     "where": "Sec 5.3",
+     "verified": true
+    },
+    {
+     "name": "COM reward",
+     "value": "exp[-10 * ||p_hat_c - p_c||^2]",
+     "where": "Sec 5.3",
+     "verified": true
+    },
+    {
+     "name": "imitation:task weights",
+     "value": "0.7:0.3 for all tasks",
+     "where": "Sec 10",
+     "verified": true
+    },
+    {
+     "name": "policy rate / sim rate",
+     "value": "30 Hz / 1.2 kHz (Bullet), PD targets as actions, stable PD",
+     "where": "Sec 5.1, 10",
+     "verified": true
+    },
+    {
+     "name": "PPO: batch / minibatch / gamma / GAE lambda / clip",
+     "value": "4096 / 256 / 0.95 / 0.95 / 0.2",
+     "where": "App. D",
+     "verified": true
+    },
+    {
+     "name": "policy step size / value step size / momentum",
+     "value": "5e-5 (humanoid, Atlas) / 1e-2 / 0.9 (SGD)",
+     "where": "App. D",
+     "verified": true
+    },
+    {
+     "name": "network",
+     "value": "MLP 1024-512 ReLU, fixed diagonal Gaussian covariance",
+     "where": "Sec 5.2",
+     "verified": true
+    },
+    {
+     "name": "sample budget",
+     "value": "about 60M samples, ~2 days on 8 CPU cores per humanoid skill",
+     "where": "App. D",
+     "verified": true
+    },
+    {
+     "name": "ablation normalized return RSI+ET / ET only / RSI only",
+     "value": "Backflip .791/.730/.379; Sideflip .823/.717/.355; Spinkick .848/.858/.358; Walk .980/.981/.974",
+     "where": "Table 5",
+     "verified": true
+    },
+    {
+     "name": "task objective matters",
+     "value": "Throw success 75% (imitation+task) vs 5% (imitation only); Strike 99% vs 19%",
+     "where": "Table 4",
+     "verified": true
+    },
+    {
+     "name": "early termination",
+     "value": "torso/head (selected links) contact with ground => episode ends; zero reward for remainder",
+     "where": "Sec 6.2",
+     "verified": true
+    },
+    {
+     "name": "phase limitation",
+     "value": "phase advances linearly with time; limits timing adaptation",
+     "where": "Sec 11",
+     "verified": true
+    }
+   ],
+   "relevance": "Direct template for PPO tracking of a swing clip. Our env differs: single mean-squared-joint-error term, no velocity/end-effector/COM terms, ET only on torso height<0.4, phase = steps/max_steps (not clip progress)."
+  },
+  "amp": {
+   "key_idea": "Discriminator on state transitions gives a style reward from unstructured clips; no phase/clip selection; combined with a task reward.",
+   "reported": [
+    {
+     "name": "task:style weights",
+     "value": "0.5:0.5 for all tasks",
+     "where": "Sec 8.2",
+     "verified": true
+    },
+    {
+     "name": "style reward",
+     "value": "max[0, 1 - 0.25 (D - 1)^2], least-squares discriminator",
+     "where": "Eq. 7",
+     "verified": true
+    },
+    {
+     "name": "gradient penalty coefficient",
+     "value": "w_gp = 10; found the most vital component",
+     "where": "Sec 8.1, 8.5",
+     "verified": true
+    },
+    {
+     "name": "policy rate / sim rate",
+     "value": "30 Hz / 1.2 kHz",
+     "where": "Sec 8.1",
+     "verified": true
+    },
+    {
+     "name": "budget",
+     "value": "100-300M samples, 30-140 h on 16 CPU cores",
+     "where": "Sec 8.1",
+     "verified": true
+    },
+    {
+     "name": "RSI and early termination",
+     "value": "used; ET when any body part except feet touches ground",
+     "where": "Sec 6.3",
+     "verified": true
+    },
+    {
+     "name": "limitation",
+     "value": "single-clip AMP converges to local optima (e.g. front-flip shuffle) because pose-deviation ET is not applicable without a phase",
+     "where": "Sec 8.4",
+     "verified": true
+    }
+   ],
+   "relevance": "Fallback if tracking over-constrains the policy. Not first choice: we have one swing style per clip and need precise impact timing; SMPLOlympics reports AMP reward can dominate task reward and AMP/PPO failed golf contact."
+  },
+  "ase": {
+   "key_idea": "AMP-style discriminator + unsupervised skill discovery (latent z) + diversity objective, pre-trained on large unstructured data, then reused by a high-level task policy; recovery from random initial states pre-trained.",
+   "reported": [
+    {
+     "name": "gradient penalty",
+     "value": "same as AMP",
+     "where": "Sec (adversarial training)",
+     "verified": true
+    },
+    {
+     "name": "diversity objective",
+     "value": "w_div term: KL between action distributions scaled by distance between latents",
+     "where": "Sec 4",
+     "verified": true
+    },
+    {
+     "name": "hyperparameters (latent dim, rates)",
+     "value": "not extracted",
+     "where": "-",
+     "verified": false,
+     "note": "existing internal doc cites 64-d latent at 6 Hz [V] - not re-verified here"
+    }
+   ],
+   "relevance": "Overkill: needs large diverse data and GPU scale ('over a decade of simulated experience'). Useful only as concept for later hierarchical use of a swing-skill latent."
+  },
+  "phc": {
+   "key_idea": "Single PPO tracker + AMP reward; progressive multiplicative control policy (PMCP) for hard clips; fail-state recovery; relaxed early termination (RET); hard-negative mining.",
+   "reported": [
+    {
+     "name": "reward",
+     "value": "r = 0.5 r_task + 0.5 r_amp + r_energy",
+     "where": "Eq. 1",
+     "verified": true
+    },
+    {
+     "name": "imitation reward",
+     "value": "w_jp exp(-100||p_hat-p||) + w_jr exp(-10||q_hat (-) q||) + w_jv exp(-0.1||v_hat-v||) + w_jw exp(-0.1||w_hat-w||)",
+     "where": "Eq. 2",
+     "verified": true
+    },
+    {
+     "name": "reward weights jp/jr/jv/jw",
+     "value": "0.5/0.3/0.1/0.1",
+     "where": "App. Table 5",
+     "verified": true
+    },
+    {
+     "name": "energy penalty",
+     "value": "-0.0005 * sum_j |mu_j * omega_j|^2 (torque x joint velocity); prevents foot jitter",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "early termination",
+     "value": "mean joint distance to reference > 0.5 m; ankle/toe removed from criterion (RET)",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "success definition",
+     "value": "mean joint error > 0.5 m at any time = failure",
+     "where": "Sec 4 metrics",
+     "verified": true
+    },
+    {
+     "name": "RSI",
+     "value": "random start point in clip",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "control / sim rate",
+     "value": "30 Hz / 60 Hz (Isaac Gym)",
+     "where": "Sec 4",
+     "verified": true
+    },
+    {
+     "name": "PPO batch / sigma / gamma / clip",
+     "value": "1536 envs / 0.05 / 0.99 / 0.2",
+     "where": "App. Table 5",
+     "verified": true
+    },
+    {
+     "name": "learning rate",
+     "value": "printed as '5 x 2^-5' in the HTML rendering",
+     "where": "App. Table 5",
+     "verified": false,
+     "note": "almost certainly 5e-5 (rendering/typo); treat as UNVERIFIED"
+    },
+    {
+     "name": "network",
+     "value": "MLP [1024, 512] for policy, value and discriminator",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "PMCP effect (noisy video ablation success)",
+     "value": "1 primitive 59.4% -> 4 primitives 88.7%",
+     "where": "Table 6/3",
+     "verified": true
+    },
+    {
+     "name": "hard negative mining",
+     "value": "re-train on sequences the current policy fails",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "action",
+     "value": "PD targets, not residual on reference (robust to noisy references)",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "compute",
+     "value": "~7 days, ~10B samples, 1536 envs, A100",
+     "where": "App. Training Process",
+     "verified": true
+    }
+   ],
+   "relevance": "Relaxed termination (tolerate non-critical joints) and energy penalty are directly applicable: wrist/club-hand tracking should be relaxed in the impact window, torso/pelvis strict. Video-derived Mason refs are noisy => PD-target action space, not residual."
+  },
+  "pulse": {
+   "key_idea": "Distill PHC-style imitator into a variational latent space + proprioception-conditioned prior; hierarchical RL in the latent space for tasks.",
+   "reported": [
+    {
+     "name": "claims",
+     "value": "latent space from all-human-motion imitator; used for hierarchical RL on strike, terrain, VR tracking",
+     "where": "abstract",
+     "verified": true
+    },
+    {
+     "name": "success rates quoted by internal doc (99.8% train / 97.1% test)",
+     "value": "see repo_methods_doc",
+     "where": "-",
+     "verified": false,
+     "note": "not re-verified this session"
+    }
+   ],
+   "relevance": "SMPLOlympics reports only PULSE/PULSE+AMP solved golf contact reliably; needs SMPL humanoid + GPU (we have 8 CPU cores, no GPU)."
+  },
+  "maskedmimic": {
+   "key_idea": "Train full-body tracker, then distill into a masked-inpainting policy conditioned on sparse keyframes/text/scene.",
+   "reported": [
+    {
+     "name": "two-stage recipe",
+     "value": "1) full-body tracker (transformer) 2) MaskedMimic distilled from tracker with random masking",
+     "where": "ProtoMotions README (search snippet)",
+     "verified": true
+    },
+    {
+     "name": "public checkpoint scope",
+     "value": "SMPL & G1, masked body/time targets, no text control in SMPL card",
+     "where": "ProtoMotions model card (search snippet)",
+     "verified": true
+    }
+   ],
+   "relevance": "Later: specify only club-path/impact keyframes and let policy inpaint the rest. Not for first PPO milestone."
+  },
+  "exbody": {
+   "key_idea": "Expressive whole-body control; per GMT related work, ExBody decouples upper-body and lower-body control (compromise expressiveness vs balance).",
+   "reported": [
+    {
+     "name": "details",
+     "value": "not read",
+     "where": "-",
+     "verified": false,
+     "note": "only second-hand description from GMT Sec 2.2 and Table 1 (780 clips)"
+    }
+   ],
+   "relevance": "Counter-example for golf: golf is whole-body (pelvis/thorax rotation drives club speed); decoupling would hurt."
+  },
+  "exbody2": {
+   "key_idea": "Generalist/specialist training, automatic dataset filtering, decoupled keypoint tracking (in local frame) vs velocity control, privileged teacher -> student.",
+   "reported": [
+    {
+     "name": "local-frame keypoints",
+     "value": "keypoints converted to local frame; velocity tracking guides movement, keypoints do imitation; global keypoint tracking (H2O/OmniH2O) fails when robot cannot align to global keypoints",
+     "where": "Intro (iii)",
+     "verified": true
+    },
+    {
+     "name": "teacher privileged info",
+     "value": "real root velocity, accurate body link positions, friction etc.",
+     "where": "Intro",
+     "verified": true
+    },
+    {
+     "name": "reward weights / hyperparameters",
+     "value": "not extracted",
+     "where": "App. B-C",
+     "verified": false,
+     "note": "section exists (Reward Design) but values not read"
+    }
+   ],
+   "relevance": "Supports using root-relative (local) key-body targets for club/hands; our swing is stationary so global drift is a smaller concern."
+  },
+  "h2o": {
+   "key_idea": "'sim-to-data': train a privileged imitator without DR to filter infeasible retargeted clips (about 8.5k of 10k AMASS retained for H1), then DR-trained real-time imitator.",
+   "reported": [
+    {
+     "name": "early termination",
+     "value": "base height < 0.3 m; projected gravity x or y > 0.7; mean link distance to reference > 0.5 m",
+     "where": "Sec V-D",
+     "verified": true
+    },
+    {
+     "name": "feasibility filter",
+     "value": "privileged imitator (PHC/PULSE recipe) w/o DR; failures = implausible clips",
+     "where": "Sec IV",
+     "verified": true
+    }
+   ],
+   "relevance": "Do the same audit on our unified refset: run a privileged tracker and drop/downweight clips it cannot track (candidate cause of 'timing errors')."
+  },
+  "omnih2o": {
+   "key_idea": "Teacher with privileged state -> student with sparse sensors; 'max feet height per step' reward + curriculum to stop stomping.",
+   "reported": [
+    {
+     "name": "student history",
+     "value": "25-step history (search snippet)",
+     "where": "-",
+     "verified": false,
+     "note": "snippet-level"
+    },
+    {
+     "name": "key regularizer",
+     "value": "max feet height per step reward, introduced via curriculum",
+     "where": "Sec 4 (search snippet)",
+     "verified": true
+    }
+   ],
+   "relevance": "Pattern: introduce shaping/regularization terms via curriculum rather than from step 0."
+  },
+  "humanplus": {
+   "key_idea": "Shadow human (RGB pose) to humanoid; low-level policy trained in sim on large mocap; imitation learning of skills.",
+   "reported": [
+    {
+     "name": "data",
+     "value": "10k clips (per GMT Table 1)",
+     "where": "GMT Table 1",
+     "verified": false,
+     "note": "second-hand"
+    },
+    {
+     "name": "details",
+     "value": "not read",
+     "where": "-",
+     "verified": false
+    }
+   ],
+   "relevance": "Context only; no golf-specific lessons extracted."
+  },
+  "twist": {
+   "key_idea": "Real-time whole-body teleop via retargeting + tracking; two-stage teacher (sees future frames) -> student (single current frame); mix of 15K offline clips with 150 online-mocap clips to close offline->online gap.",
+   "reported": [
+    {
+     "name": "single-frame observation => hesitant behavior; teacher with privileged future frames gives smoother behavior",
+     "value": "qualitative",
+     "where": "Intro",
+     "verified": true
+    },
+    {
+     "name": "training mix",
+     "value": "15K offline clips + 150 online-mocap clips",
+     "where": "Intro",
+     "verified": true
+    },
+    {
+     "name": "retargeting",
+     "value": "jointly optimizing 3D joint positions and orientations narrows offline-online gap",
+     "where": "Intro",
+     "verified": true
+    }
+   ],
+   "relevance": "Supports giving our tracker a short future-reference window (impact anticipation) instead of only the current frame."
+  },
+  "gmt": {
+   "key_idea": "Single unified tracker via adaptive sampling (random clipping + performance-based sampling probability) and motion mixture-of-experts; long future window.",
+   "reported": [
+    {
+     "name": "reward terms (all exp(-||err||^2) unless noted)",
+     "value": "joint pos, joint vel, root pose (roll/pitch+height), root vel, key body pos, alive=1.0, foot slip, joint vel, joint acc, action rate penalties",
+     "where": "Table 3",
+     "verified": true
+    },
+    {
+     "name": "control / sim rate",
+     "value": "50 Hz / 500 Hz, IsaacGym, 4096 envs, ~6.8B samples",
+     "where": "Sec 4.1, 6.5",
+     "verified": true
+    },
+    {
+     "name": "adaptive termination threshold",
+     "value": "E_i = 0.25 exp((c_i-1)/9 * ln(0.6/0.25)); c_i starts 10, x0.99 on each completion, min 1 (threshold tightens 0.6 -> 0.25)",
+     "where": "Sec 3.1",
+     "verified": true,
+     "note": "units of E_i not stated in the text read"
+    },
+    {
+     "name": "sampling level",
+     "value": "s_i = c_i if c_i>1 else (min(E_max_keybody/0.15,1))^5; probability = normalized s_i",
+     "where": "Eq. 1",
+     "verified": true
+    },
+    {
+     "name": "random clipping",
+     "value": "clips >10 s cut into <=10 s sub-clips with random offset up to 2 s, re-clipped periodically",
+     "where": "Sec 3.1",
+     "verified": true
+    },
+    {
+     "name": "future window",
+     "value": "stacked frames covering ~2 s (100 frames) encoded by conv encoder, plus immediate next frame; next-frame-only is worse; window-only (no next frame) is worst",
+     "where": "Sec 3.4, Table 2(b)",
+     "verified": true
+    },
+    {
+     "name": "ablation (AMASS-test E_mpkpe mm)",
+     "value": "full 42.07; w/o MoE 42.53; w/o AS 43.54; w/o both 44.34",
+     "where": "Table 2",
+     "verified": true
+    },
+    {
+     "name": "domain randomization",
+     "value": "friction [0.1,2.0]; base mass +-3 kg; base COM +-0.05 m; push 0-1 m/s; motor strength [0.8,1.2]; action delay [0,0.02] s; gravity +-0.1; terrain height [0,0.02] m",
+     "where": "Table 4",
+     "verified": true
+    },
+    {
+     "name": "armature",
+     "value": "armature = k^2 * I (reduction ratio squared x drive inertia)",
+     "where": "Sec 6.2",
+     "verified": true
+    },
+    {
+     "name": "data curation",
+     "value": "rule-based filter (root roll/pitch/height) + preliminary-policy completion filter => 8925 clips / 33.12 h",
+     "where": "Sec 3.3",
+     "verified": true
+    }
+   ],
+   "relevance": "Adaptive sampling + tolerance curriculum map to per-phase sampling (backswing/downswing/impact) and a tightening tracking threshold; future window supports impact anticipation."
+  },
+  "beyondmimic": {
+   "key_idea": "Compact tracking MDP (one task term per quantity + 3 regularizers), same hyperparameters across motions, adaptive sampling over 1 s bins, minimal DR, careful actuation modelling (armature, PD gains from natural frequency).",
+   "reported": [
+    {
+     "name": "task reward",
+     "value": "sum over {pos,ori,lin vel,ang vel}: exp(-mean_sq_err / sigma^2), uniform weights over target bodies",
+     "where": "Sec Rewards",
+     "verified": true
+    },
+    {
+     "name": "sigmas",
+     "value": "pos 0.3, ori 0.4, lin vel 1.0, ang vel 3.14",
+     "where": "Supp. Reward",
+     "verified": true
+    },
+    {
+     "name": "regularizers",
+     "value": "joint-limit (soft limits 0.9x), action-rate ||a_t-a_{t-1}||, self-contact count (f>1 N); weights printed as -10.0, -0.1, -0.1",
+     "where": "Supp. Reward",
+     "verified": true,
+     "note": "sign as printed; magnitudes 10/0.1/0.1"
+    },
+    {
+     "name": "optional global anchor term weight",
+     "value": "0.5",
+     "where": "Supp. Reward",
+     "verified": true
+    },
+    {
+     "name": "termination",
+     "value": "anchor or end-effector |z error| > 0.25 m, or anchor orientation error > 0.8 rad",
+     "where": "Supp. Termination",
+     "verified": true
+    },
+    {
+     "name": "adaptive sampling",
+     "value": "1 s bins; EMA failure rate f <- 0.999 f + 0.001 f_s; floor 0.1/S; look-back kernel rho=0.8 over 3 bins; sampled phase init + small pose noise (xy +-0.05 m, z +-0.01 m, roll/pitch +-0.1 rad, yaw +-0.2 rad)",
+     "where": "Supp. Termination/Adaptive",
+     "verified": true
+    },
+    {
+     "name": "ablation effect",
+     "value": "without adaptive sampling 3 of 4 motions fail hard segments after 30k iters; easy motion needs 2k vs 4k iters",
+     "where": "Fig 8B text",
+     "verified": true
+    },
+    {
+     "name": "PD gains",
+     "value": "kp = I w^2, kd = 2 I zeta w with zeta=2, natural freq 10 Hz, I = reflected armature; action scale alpha = 0.25 tau_max / kp",
+     "where": "Supp. Heuristic",
+     "verified": true
+    },
+    {
+     "name": "domain randomization",
+     "value": "static friction U(0.3,1.6), dynamic U(0.3,1.2), restitution U(0,0.5); default joint offset +-0.01 rad (ankle +-0.1); torso COM +-(0.025,0.05,0.05) m; velocity pushes every 1-3 s +-(0.5,0.5,0.2) m/s",
+     "where": "Supp. DR",
+     "verified": true
+    },
+    {
+     "name": "observation findings",
+     "value": "Rot6D better than quaternion/axis-angle for sim-to-real; adding history hurt in their setup; zero-armature causes overswing; latency 2 ms raises vel error, 5 ms one failure, 10 ms two of three failures",
+     "where": "Validation section",
+     "verified": true
+    },
+    {
+     "name": "asymmetric actor-critic",
+     "value": "critic also sees per-body anchor-relative poses",
+     "where": "Supp. Observation",
+     "verified": true
+    }
+   ],
+   "relevance": "Best single recipe for our PPO tracker. A golf downswing is a short, fast motion with a hard impact: BeyondMimic shows velocity terms + adaptive phase sampling + accurate actuator model are what make agile segments work."
+  },
+  "unitracker": {
+   "key_idea": "Three-stage: privileged teacher -> CVAE universal policy (global latent aligning partial-observation prior with full-observation encoder) -> lightweight adaptation module on hard sequences.",
+   "reported": [
+    {
+     "name": "details",
+     "value": "abstract only; hyperparameters not extracted",
+     "where": "abstract",
+     "verified": false
+    }
+   ],
+   "relevance": "Adaptation-on-hard-clips is the same idea as PHC hard-negative mining; later stage only."
+  },
+  "kungfubot": {
+   "key_idea": "Physics-based motion filtering/correction of video-extracted references + adaptive tracking-factor sigma in exp(-x/sigma) rewards (sigma tightens as the policy improves).",
+   "reported": [
+    {
+     "name": "tracking reward form",
+     "value": "r(x) = exp(-x/sigma), x = MSE error, sigma = tracking factor",
+     "where": "Sec 3.2.1",
+     "verified": true
+    },
+    {
+     "name": "optimal sigma (derived under assumptions)",
+     "value": "sigma* = mean of optimal tracking error over trajectory",
+     "where": "Eq. 7",
+     "verified": true
+    },
+    {
+     "name": "adaptive rule",
+     "value": "maintain EMA of instantaneous tracking error x_hat; sigma <- min(sigma, x_hat); non-increasing; large sigma_init",
+     "where": "Eq. 8",
+     "verified": true
+    },
+    {
+     "name": "phase variable and RSI",
+     "value": "time phase phi in [0,1] in actor obs; RSI at random phases",
+     "where": "Sec 3.3",
+     "verified": true
+    },
+    {
+     "name": "asymmetric actor-critic, reward vectorization",
+     "value": "separate value head per reward term, advantages aggregated",
+     "where": "Sec 3.3",
+     "verified": true
+    },
+    {
+     "name": "reference smoothing",
+     "value": "EMA smoothing applied after floating correction to remove frame jitter",
+     "where": "Sec 3.1",
+     "verified": true
+    }
+   ],
+   "relevance": "Our references come from video (noisy, ~30 fps). Adaptive sigma avoids hand-tuning the loose 0.5 in our current reward; per-term value heads help when impact reward and tracking reward have very different scales."
+  },
+  "php": {
+   "key_idea": "Motion matching composes retargeted clips into long references; privileged RL experts distilled into one depth policy (DAgger + RL).",
+   "reported": [
+    {
+     "name": "details",
+     "value": "search snippet only",
+     "where": "-",
+     "verified": false
+    }
+   ],
+   "relevance": "Low: parkour/perception; the privileged-expert -> distillation pattern recurs."
+  },
+  "smplolympics": {
+   "key_idea": "Sports benchmark (golf, tennis, table tennis...) for SMPL humanoids; baselines PPO, AMP, PULSE, PULSE+AMP; video-derived motion used as AMP prior.",
+   "reported": [
+    {
+     "name": "golf setup",
+     "value": "right hand replaced by 1.14 m club, driver head box 0.05x0.025x0.02 m, wave terrain amplitude 0.5 m, goal 0-20 m to the left",
+     "where": "Sec golf + Supp",
+     "verified": true
+    },
+    {
+     "name": "golf reward",
+     "value": "w_p r_p + w_c r_c + w_g r_g + w_pred r_pred, all weights 1",
+     "where": "Supp (golf)",
+     "verified": true
+    },
+    {
+     "name": "r_p",
+     "value": "clamp(||p_ball(t-1) - p_tar|| - ||p_ball(t) - p_tar||, 0, 1)",
+     "where": "Supp",
+     "verified": true
+    },
+    {
+     "name": "r_c (contact)",
+     "value": "exp(-100 ||p_ball - p_club||^2) before contact, 1 after contact",
+     "where": "Eq. 5",
+     "verified": true
+    },
+    {
+     "name": "r_g",
+     "value": "exp(-0.1 ||p_ball,xy - p_tar,xy||^2)",
+     "where": "Supp",
+     "verified": true
+    },
+    {
+     "name": "r_pred (predicted landing)",
+     "value": "exp(-0.1 ||p_land - p_ball,xy||^2), landing from ball pos/vel ballistic formula",
+     "where": "Eq. 6",
+     "verified": true
+    },
+    {
+     "name": "early termination (golf)",
+     "value": "ball moves backward; no club contact within 2 s; ball too close to body; humanoid falls",
+     "where": "Supp",
+     "verified": true
+    },
+    {
+     "name": "finding",
+     "value": "for golf/penalty/free-throw 'initiating contact' is a sparse-exploration problem; only PULSE and PULSE+AMP solved it consistently; PPO/AMP exhibit inhuman strategies",
+     "where": "Sec results",
+     "verified": true
+    },
+    {
+     "name": "finding",
+     "value": "AMP reward can conflict with task reward (tennis): long rallies raise discriminator reward, policy ignores task",
+     "where": "Sec results",
+     "verified": true
+    },
+    {
+     "name": "results table (hit rate etc.)",
+     "value": "not transcribed",
+     "where": "Table 2",
+     "verified": false
+    }
+   ],
+   "relevance": "Only published humanoid golf RL reward found; our env's contact term is exp(-3*dist) (very wide) vs exp(-100*d^2) here, and ours lacks a predicted-landing dense term (we have analytic ball flight in env/ball_flight_analytic.py)."
+  },
+  "physhoi": {
+   "key_idea": "Imitate human-object interaction with a contact-graph reward instead of task-specific rewards (BallPlay dataset: 8 basketball skills).",
+   "reported": [
+    {
+     "name": "claim",
+     "value": "contact graph reward 'proved to be critical for precise HOI imitation'",
+     "where": "abstract",
+     "verified": true
+    },
+    {
+     "name": "reward coefficients",
+     "value": "not extracted",
+     "where": "-",
+     "verified": false
+    }
+   ],
+   "relevance": "Idea: reward matching the reference's contact event (club-ball contact timing/position) instead of only distance."
+  },
+  "tennis": {
+   "key_idea": "Hierarchical: low-level imitation tracker on corrected video-derived motion + high-level RL that picks latent/wrist-elbow corrections to hit a target.",
+   "reported": [
+    {
+     "name": "ball state input",
+     "value": "next 10 predicted ball positions",
+     "where": "paper (search snippet)",
+     "verified": false,
+     "note": "snippet-level"
+    },
+    {
+     "name": "reward structure",
+     "value": "racket-to-ball alignment before contact; after contact bounce-position and spin-direction rewards",
+     "where": "paper (search snippet)",
+     "verified": false
+    },
+    {
+     "name": "curriculum",
+     "value": "three stages: approach ball -> fixed target zones -> continuous targets",
+     "where": "paper (search snippet)",
+     "verified": false
+    }
+   ],
+   "relevance": "Template for our curriculum: contact first, then fixed-distance targets, then ladder speed targets. Video-derived reference needed wrist correction by high-level policy (noisy hand motion) - analogous to our video refs."
+  }
+ },
+ "recommendations": [
+  {
+   "id": "R01",
+   "priority": "P0",
+   "area": "timing/phase",
+   "recommendation": "Index the reference by simulated time, not by step count. Compute ref_idx = min(len-1, round(t_sim / ref_dt)) (ref_dt from the npz 'dt'; unified refset is 0.01 s, env control step is 0.02 s) and define phase = ref_time / clip_duration so phase 1.0 = end of the clip.",
+   "rationale": "DeepMimic defines phase phi in [0,1] as progress through the clip and syncs it to the reference clock; PHC/GMT/BeyondMimic all run reference and policy on the same clock. On origin/main the env sets ref_idx = episode_steps (control step 0.02 s) and ignores reference['dt'], so a 0.01 s reference plays at 2x speed and a 200-step episode covers only 2.0 s of reference; phase = steps/max_steps is unrelated to clip length. This is read-only evidence from a5df07b; Trainer's uncommitted edits may already fix it.",
+   "parameters": {
+    "ref_dt_s": 0.01,
+    "control_dt_s": 0.02,
+    "ref_idx": "round(t_sim/ref_dt)",
+    "phase": "t_ref/T_clip"
+   },
+   "source_ids": [
+    "deepmimic",
+    "kungfubot",
+    "repo_env"
+   ],
+   "evidence_level": "verified_in_paper+code_observation",
+   "unverified_notes": "whether the 0.4 s bug mentioned by the Orchestrator is this issue is not verified here",
+   "acceptance_check": "unit test: constructing env with a 0.01 s reference, after 50 control steps ref_idx==100 and ref time == sim time"
+  },
+  {
+   "id": "R02",
+   "priority": "P0",
+   "area": "rsi",
+   "recommendation": "Use reference-state initialization: reset to a state sampled from the clip (pose AND velocity, set club/ball consistent), uniform over phase at first, then adaptive. Keep a fraction (e.g. 20%) of resets at phase 0 so address-position starts are still trained.",
+   "rationale": "DeepMimic Table 5: RSI is vital for dynamic skills with flight/ballistic phases (backflip 0.379 without RSI vs 0.791 with RSI+ET); PHC, KungfuBot and BeyondMimic all use RSI. A golf downswing is a ballistic-like fast phase that is hard to reach from address under exploration noise.",
+   "parameters": {
+    "rsi": "uniform phase then adaptive",
+    "fraction_phase0": 0.2
+   },
+   "source_ids": [
+    "deepmimic",
+    "phc",
+    "beyondmimic",
+    "kungfubot"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "the 20% address-start fraction is an engineering choice, not from a paper",
+   "acceptance_check": "after change, episodes starting at phase >=0.5 reach impact within the first 0.5 s of sim"
+  },
+  {
+   "id": "R03",
+   "priority": "P0",
+   "area": "termination",
+   "recommendation": "Replace torso-height-only termination with a tracking-error termination that is loose early and tightens: terminate when mean key-body error > E(c) where E goes 0.6 m -> 0.25 m as the clip is completed repeatedly, plus a fall check (base height / gravity projection). Do NOT terminate on club-head error alone; do not terminate after ball contact for the remaining follow-through unless fallen.",
+   "rationale": "GMT tightens the threshold per clip from 0.6 to 0.25 with completion count; BeyondMimic terminates on |z error|>0.25 m or anchor orientation >0.8 rad; H2O terminates at base height<0.3 m, gravity proj>0.7, mean link error>0.5 m; PHC uses 0.5 m with relaxed ankle/toe; DeepMimic ET on torso/head contact is critical. SMPLOlympics golf ET adds: ball moves backward, no contact within 2 s, ball too close to body.",
+   "parameters": {
+    "E_start_m": 0.6,
+    "E_end_m": 0.25,
+    "gate": "completion count c: c0=10, x0.99 per completed clip, min 1 (GMT)",
+    "fall_base_height_m": 0.3,
+    "gravity_proj_max": 0.7,
+    "golf_extra": [
+     "no club contact within 2 s => end",
+     "ball moves backward => end"
+    ]
+   },
+   "source_ids": [
+    "gmt",
+    "beyondmimic",
+    "h2o",
+    "phc",
+    "deepmimic",
+    "smplolympics"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "units of GMT E_i not stated in the text read; thresholds for a G1-scale model unverified; 2 s no-contact window is for SMPLOlympics golf and our swings last ~1.5-2.7 s",
+   "acceptance_check": "unit test: perturbed reference drives early termination; pin_torso mode still terminates on tracking error"
+  },
+  {
+   "id": "R04",
+   "priority": "P0",
+   "area": "reward",
+   "recommendation": "Split the imitation reward into separate exponential terms with explicit scales instead of one exp(-mean(err^2)/0.5): joint position, joint velocity, key-body (club head, both hands) position, root/pelvis orientation, optionally COM. Start from DeepMimic weights (0.65 pose, 0.1 vel, 0.15 end-effector, 0.1 COM) with club head as the key end-effector; keep rewards bounded in [0,1].",
+   "rationale": "DeepMimic and PHC both use per-quantity exponentials including velocity terms; GMT and BeyondMimic weight all terms uniformly. Our env currently has one joint-position term (units radians, /0.5) + club_head term (1.5, /0.5) and no velocity term, so it cannot represent a fast-but-wrong-timed swing.",
+   "parameters": {
+    "weights": {
+     "joint_pos": 0.5,
+     "joint_vel": 0.1,
+     "club_head_pos": 0.25,
+     "pelvis_orient": 0.15
+    },
+    "sigmas_note": "start sigma from BeyondMimic (pos 0.3, ori 0.4, vel 1.0) then adapt (R05)",
+    "form": "exp(-mean_sq_err/sigma^2)"
+   },
+   "source_ids": [
+    "deepmimic",
+    "phc",
+    "gmt",
+    "beyondmimic",
+    "repo_env"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "the specific weight split above is a starting point derived by us, NOT from a paper; our joint vector is 11-D degrees->rad, not a full-body keypoint set",
+   "acceptance_check": "ablation on one clip: joint-vel term on vs off, report tracking error and time-to-impact error"
+  },
+  {
+   "id": "R05",
+   "priority": "P1",
+   "area": "reward/sigma",
+   "recommendation": "Make each tracking sigma adaptive: sigma <- min(sigma, EMA of current tracking error) starting from a large sigma_init, non-increasing.",
+   "rationale": "KungfuBot derives sigma* = mean optimal tracking error and implements a closed-loop EMA rule so reward stays sensitive as the policy improves; avoids hand tuning for noisy video-derived references.",
+   "parameters": {
+    "rule": "sigma=min(sigma,ema_err)",
+    "ema_decay_note": "EMA rate not extracted from paper",
+    "sigma_init": "large (e.g. 2x initial error)"
+   },
+   "source_ids": [
+    "kungfubot"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "EMA decay and sigma_init values not extracted; check on a held-out clip before trusting",
+   "acceptance_check": "sigma monotonic non-increasing in logs; tracking error decreases"
+  },
+  {
+   "id": "R06",
+   "priority": "P1",
+   "area": "regularization",
+   "recommendation": "Add three light regularizers, ramped in after tracking works: action-rate penalty, joint-limit penalty (soft limit 0.9x), and an energy/power penalty -0.0005*sum|torque*joint_vel|^2 that is switched OFF (or scaled to 0.1) in a window around impact.",
+   "rationale": "BeyondMimic uses exactly action-rate, joint-limit (0.9 soft limit) and self-contact penalties; PHC uses the -0.0005 energy term to remove jitter; OmniH2O introduces its feet-height regularizer via curriculum. The impact-window exemption is our inference: a 130-150 mph target needs near-peak torque (see repo power profile: wrist torque margin).",
+   "parameters": {
+    "action_rate_w": 0.1,
+    "joint_limit_w": 10.0,
+    "joint_limit_soft": 0.9,
+    "energy_w": 0.0005,
+    "impact_window_s": [
+     -0.15,
+     0.1
+    ],
+    "impact_scale": 0.1
+   },
+   "source_ids": [
+    "beyondmimic",
+    "phc",
+    "omnih2o",
+    "repo_power"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "weights from BeyondMimic are for a 29-DoF G1 with PD actions; transfer to our torque-controlled env is unverified; impact window values are ours",
+   "acceptance_check": "reward component logs show regularizer total < 20% of tracking reward in downswing"
+  },
+  {
+   "id": "R07",
+   "priority": "P1",
+   "area": "task-reward",
+   "recommendation": "Add the club-ball impact/task reward ON TOP of tracking with a bounded weight (start 0.7 tracking : 0.3 task) and gate it by the reference impact event. Pre-contact: r_c = exp(-100*||p_ball-p_club||^2) (SMPLOlympics golf), post-contact: 1 for contact + predicted-landing/carry term. For power: reward exp(-(v_club_impact - v_target)^2/s^2) with v_target from the 350yd ladder (120->130->140->150 mph).",
+   "rationale": "DeepMimic: imitation-only success 5%/19% vs 75%/99% with the task term (throw/strike), weights 0.7/0.3 for all tasks; AMP uses 0.5/0.5; SMPLOlympics golf reward = position+contact+goal+predicted landing, all weight 1, with the 100x contact kernel; PhysHOI's contact-graph reward and Vid2Player's pre/post contact reward split support timing the contact term to the reference impact event. Our env's contact term exp(-3*dist) is a much wider linear-distance kernel than exp(-100*d^2) and is not gated by contact timing.",
+   "parameters": {
+    "w_track": 0.7,
+    "w_task": 0.3,
+    "contact_kernel": "exp(-100*d^2)",
+    "predicted_landing": "use env/ball_flight_analytic.py",
+    "speed_target_ladder_mph": [
+     120,
+     130,
+     140,
+     150
+    ],
+    "speed_sigma_mph": 5
+   },
+   "source_ids": [
+    "deepmimic",
+    "amp",
+    "smplolympics",
+    "physhoi",
+    "tennis",
+    "repo_power",
+    "repo_env"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "speed_sigma 5 mph and the speed-target reward form are ours (no paper reports a club-speed reward); tennis items are snippet-level",
+   "acceptance_check": "eval on unified refset val split: contact rate and club speed at impact reported per ladder step"
+  },
+  {
+   "id": "R08",
+   "priority": "P1",
+   "area": "curriculum",
+   "recommendation": "Stage the training and gate stages on success rate, not timesteps: A) pure tracking (task weight 0) until >=80% of val clips complete without termination; B) add contact reward; C) add carry/direction; D) climb the speed ladder 120->130->140->150 mph only after C is stable. Existing set_progress() ramp in the env can implement the gating.",
+   "rationale": "DeepMimic progressive training; Vid2Player tennis three-stage curriculum (approach -> fixed targets -> continuous targets, snippet-level); GMT completion-level curriculum; OmniH2O curriculum for regularizers; SMPLOlympics says contact initiation is the hard sparse-exploration step.",
+   "parameters": {
+    "stage_gate_success": 0.8,
+    "stages": [
+     "track",
+     "contact",
+     "carry",
+     "speed_ladder"
+    ]
+   },
+   "source_ids": [
+    "deepmimic",
+    "tennis",
+    "gmt",
+    "omnih2o",
+    "smplolympics"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "the 80% gate is ours",
+   "acceptance_check": "stage transitions logged with the success metric that triggered them"
+  },
+  {
+   "id": "R09",
+   "priority": "P1",
+   "area": "sampling",
+   "recommendation": "Use performance-based adaptive sampling over phase bins and over clips: sample start phase and clip in proportion to recent failure rate (EMA), with a uniform floor so easy segments are not forgotten; use bins of 0.25 s for 1.5-2.7 s swings (BeyondMimic uses 1 s bins for minutes-long motions).",
+   "rationale": "BeyondMimic: without adaptive sampling 3 of 4 motions fail hard segments after 30k iterations; GMT: removing adaptive sampling worsens every metric (Table 2); PHC hard-negative mining.",
+   "parameters": {
+    "bin_s": 0.25,
+    "ema": 0.999,
+    "uniform_floor": "0.1/S",
+    "kernel_rho": 0.8,
+    "lookback_bins": 3,
+    "clip_weights": "unified refset 0.6 Mason / 0.2 MultiSense / 0.2 CMU as prior"
+   },
+   "source_ids": [
+    "beyondmimic",
+    "gmt",
+    "phc"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "0.25 s bin size is ours; the other numbers are BeyondMimic's",
+   "acceptance_check": "sampling histogram concentrates on downswing/impact bins early, flattens later"
+  },
+  {
+   "id": "R10",
+   "priority": "P1",
+   "area": "data-audit",
+   "recommendation": "Run a feasibility filter over the unified refset before long training: train/evaluate a quick privileged tracker (no DR) per clip and flag clips it cannot track within the R03 tolerance; down-weight or drop them. Also smooth video-derived references (EMA) and check dt consistency per clip.",
+   "rationale": "H2O 'sim-to-data' keeps ~8.5k of 10k AMASS clips; GMT two-stage curation (rule-based + preliminary policy completion rate); KungfuBot physics-based filter + EMA smoothing; this directly serves the Orchestrator's request to audit for timing errors.",
+   "parameters": {
+    "max_tracking_error_m": 0.25,
+    "min_completion": 0.9
+   },
+   "source_ids": [
+    "h2o",
+    "gmt",
+    "kungfubot"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "completion threshold is ours",
+   "acceptance_check": "report listing clips flagged; per-clip dt and duration table"
+  },
+  {
+   "id": "R11",
+   "priority": "P2",
+   "area": "action-space",
+   "recommendation": "Move from direct torque (ctrl = action*torque_scale) to PD-target actions at the sim rate, with gains from kp=I*w^2, kd=2*I*zeta*w (zeta=2, w = 2*pi*10 Hz class) using actuator armature, action scale 0.25*tau_max/kp. The env already has a _substep_ctrl hook for per-substep PD.",
+   "rationale": "DeepMimic, AMP, PHC, BeyondMimic, GMT all use PD-target actions; PHC keeps actions absolute (not residual on reference) for robustness to noisy references; BeyondMimic: zero armature causes overswing.",
+   "parameters": {
+    "zeta": 2,
+    "natural_freq_hz": 10,
+    "action_scale": "0.25*tau_max/kp"
+   },
+   "source_ids": [
+    "deepmimic",
+    "phc",
+    "beyondmimic",
+    "gmt",
+    "repo_env"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "BeyondMimic's 10 Hz is for G1 joints; a swing needs much higher wrist bandwidth so tune per joint (unverified); BeyondMimic states natural frequency 10 Hz, not whether in rad/s",
+   "acceptance_check": "step response test per joint: overshoot < 10%"
+  },
+  {
+   "id": "R12",
+   "priority": "P2",
+   "area": "observation",
+   "recommendation": "Give the policy phase (progress of clip) plus a short future reference window (next 3-5 frames at 0.04-0.1 s, including club-head target) and the previous action; use 6D rotation for orientations if quaternions are fed.",
+   "rationale": "DeepMimic/KungfuBot include phase; GMT: next-frame-only is worse than next+2 s window, window-only is worst; TWIST: single-frame students are hesitant, privileged-future teachers smoother; BeyondMimic: Rot6D beats quaternion for sim-to-real, history hurt in their setup.",
+   "parameters": {
+    "future_frames": [
+     1,
+     2,
+     3,
+     5
+    ],
+    "frame_dt_s": 0.02,
+    "orientation": "rot6d"
+   },
+   "source_ids": [
+    "deepmimic",
+    "kungfubot",
+    "gmt",
+    "twist",
+    "beyondmimic"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "GMT's window is 2 s; for a 1.5-2.7 s swing we propose a much shorter lookahead - unverified",
+   "acceptance_check": "ablation: no window vs window, tracking error at impact"
+  },
+  {
+   "id": "R13",
+   "priority": "P2",
+   "area": "domain-randomization",
+   "recommendation": "Keep randomization minimal and physically grounded: friction (0.3-1.6), joint zero offsets (+-0.01 rad), torso COM (+-0.025/0.05 m), small action delay <=20 ms, push velocities; add club-specific ones (grip slip, club mass +-5%, ball restitution) only for sim-to-sim robustness tests.",
+   "rationale": "BeyondMimic: compact DR preserves agility; GMT table of ranges; both stress that latency matters (BeyondMimic: 10 ms delay fails 2 of 3 hardware trials; GMT randomizes delay 0-20 ms).",
+   "parameters": {
+    "friction": [
+     0.3,
+     1.6
+    ],
+    "joint_offset_rad": 0.01,
+    "com_m": [
+     0.025,
+     0.05,
+     0.05
+    ],
+    "action_delay_s": [
+     0,
+     0.02
+    ],
+    "club_mass_frac": 0.05
+   },
+   "source_ids": [
+    "beyondmimic",
+    "gmt"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "club-specific ranges are ours",
+   "acceptance_check": "policy evaluated at nominal + 3 perturbed settings, success drop reported"
+  },
+  {
+   "id": "R14",
+   "priority": "P2",
+   "area": "ppo",
+   "recommendation": "Raise PPO batch/parallelism and set gamma 0.95-0.99, GAE lambda 0.95, clip 0.2. Current train_ppo.py: n_envs=4, n_steps=2048, batch_size=64, n_epochs=10, gamma=0.99, lr 3e-4 (SB3 defaults-like).",
+   "rationale": "DeepMimic used batch 4096 / minibatch 256 / gamma 0.95 / lambda 0.95 / clip 0.2 and ~60M samples (2 days, 8 CPU cores); PHC gamma 0.99; GMT 4096 envs. This box has no GPU and 8 CPU cores, so expect DeepMimic-order sample budgets to take days.",
+   "parameters": {
+    "gamma": 0.95,
+    "gae_lambda": 0.95,
+    "clip": 0.2,
+    "minibatch": 256,
+    "batch": 4096,
+    "n_envs": 8
+   },
+   "source_ids": [
+    "deepmimic",
+    "phc",
+    "gmt",
+    "repo_env"
+   ],
+   "evidence_level": "verified_in_paper+design_inference",
+   "unverified_notes": "no paper verifies these for a MuJoCo CPU env with 11 joints",
+   "acceptance_check": "learning curves over 3 seeds, mean tracking error"
+  },
+  {
+   "id": "R15",
+   "priority": "P2",
+   "area": "per-term-value",
+   "recommendation": "Give tracking and impact/task rewards separate value heads (reward vectorization) or at least normalize each term, because the sparse impact reward and dense tracking reward have very different scales.",
+   "rationale": "KungfuBot vectorizes rewards with a value head per term; BeyondMimic uses an asymmetric critic with privileged per-body poses.",
+   "parameters": {
+    "heads": [
+     "tracking",
+     "regularization",
+     "impact"
+    ]
+   },
+   "source_ids": [
+    "kungfubot",
+    "beyondmimic"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "SB3 PPO does not support multi-head critics out of the box; would need a custom policy or an RL library change (not verified)",
+   "acceptance_check": "impact term advantage variance logged"
+  },
+  {
+   "id": "R16",
+   "priority": "P3",
+   "area": "fallback",
+   "recommendation": "If tracking + task reward cannot create ball contact (sparse exploration), try a latent-space hierarchical policy (PULSE-style) or pretrain a swing-skill prior; do not rely on plain AMP.",
+   "rationale": "SMPLOlympics: only PULSE and PULSE+AMP solved golf consistently; PPO and AMP produced inhuman strategies; AMP can ignore task reward.",
+   "parameters": {},
+   "source_ids": [
+    "smplolympics",
+    "pulse",
+    "amp",
+    "ase"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "SMPL humanoid + GPU scale, not directly our G1; PULSE repo has no detected license",
+   "acceptance_check": "n/a"
+  },
+  {
+   "id": "R17",
+   "priority": "P3",
+   "area": "sim2real",
+   "recommendation": "Defer sim-to-real tricks (teacher->student distillation, latency model, armature identification) until the sim tracker meets success gates; then: privileged teacher with future frames, student single-frame with 5-25 step history, 2-5 ms latency discipline.",
+   "rationale": "TWIST/GMT/OmniH2O teacher-student; BeyondMimic latency ablation; GMT armature = k^2*I.",
+   "parameters": {},
+   "source_ids": [
+    "twist",
+    "gmt",
+    "omnih2o",
+    "beyondmimic"
+   ],
+   "evidence_level": "verified_in_paper",
+   "unverified_notes": "history lengths differ by paper (5, 20, 25) and BeyondMimic found history hurt; unverified for golf",
+   "acceptance_check": "n/a"
+  }
+ ],
+ "env_audit": [
+  {
+   "item": "reference indexing",
+   "finding": "ref_idx = min(len(joints)-1, episode_steps); reference['dt'] loaded but unused",
+   "file": "env/humanoid_golf_env.py:481",
+   "severity": "high",
+   "rec": "R01"
+  },
+  {
+   "item": "phase variable",
+   "finding": "phase = episode_steps/max_steps (max_steps=200), not clip progress",
+   "file": "env/humanoid_golf_env.py:413-414",
+   "severity": "high",
+   "rec": "R01"
+  },
+  {
+   "item": "termination",
+   "finding": "torso height<0.4 (disabled if pin_torso) or max_steps; no tracking-error ET",
+   "file": "env/humanoid_golf_env.py:487",
+   "severity": "high",
+   "rec": "R03"
+  },
+  {
+   "item": "imitation reward",
+   "finding": "2.0*exp(-mean(sq joint err rad)/0.5) (+1.5*exp(-club_err/0.5) in legacy); no velocity/orientation/COM terms",
+   "file": "env/humanoid_golf_env.py:238,302-309",
+   "severity": "medium",
+   "rec": "R04"
+  },
+  {
+   "item": "contact reward",
+   "finding": "legacy 1.5*exp(-3*dist); curriculum 1.5*w_contact*exp(-3*dist); SMPLOlympics uses exp(-100*d^2)",
+   "file": "env/humanoid_golf_env.py:228,317",
+   "severity": "medium",
+   "rec": "R07"
+  },
+  {
+   "item": "action space",
+   "finding": "direct torque ctrl = clip(action)*torque_scale (legacy 10); PD hook _substep_ctrl exists",
+   "file": "env/humanoid_golf_env.py:417",
+   "severity": "medium",
+   "rec": "R11"
+  },
+  {
+   "item": "PPO config",
+   "finding": "SB3 PPO MlpPolicy lr 3e-4, n_steps 2048, batch 64, epochs 10, gamma .99, n_envs 4",
+   "file": "train/train_ppo.py:111-122",
+   "severity": "low",
+   "rec": "R14"
+  },
+  {
+   "item": "RSI",
+   "finding": "reset sets ref_idx=0 / phase 0; no random-phase reset visible in reset()",
+   "file": "env/humanoid_golf_env.py:374-375",
+   "severity": "high",
+   "rec": "R02"
+  }
+ ],
+ "unverified": [
+  "Whether the Orchestrator's '0.4 s bug' equals the 2x reference-clock mismatch in R01 (not verified).",
+  "All numeric weights marked 'ours' in recommendation parameters (R04, R06, R07, R08, R09, R10, R12, R13, R14) are engineering starting points, not paper values.",
+  "PHC learning rate (printed '5 x 2^-5').",
+  "Hyperparameters not extracted: ASE, ExBody/ExBody2 reward values, H2O/OmniH2O reward weights, HumanPlus, UniTracker, PhysHOI contact-graph coefficients, tennis paper numbers (snippet-level), SMPLOlympics result tables.",
+  "Code licenses marked 'custom'/'none detected'/'unverified' were not read from LICENSE files; treat as not cleared for commercial use.",
+  "No paper reports a club-speed-at-impact reward or a 350 yd/150 mph target; the speed-ladder reward in R07 is our design.",
+  "Papers' results are on SMPL humanoids or Unitree G1/H1 with PD control and GPU-scale sampling; transfer to this MuJoCo CPU env is untested."
+ ],
+ "caveats": [
+  "Style-profile language only: this is a methods survey; no player likeness data is used.",
+  "No video was scraped; only arXiv/GitHub text was fetched.",
+  "Do not copy third-party code with custom/non-commercial licenses into the commercial pipeline without legal review."
+ ]
+}
