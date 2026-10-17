@@ -1,0 +1,357 @@
+{
+ "schema_version": 1,
+ "name": "recommended_350yd_params",
+ "written": "2026-10-17 America/New_York (Saturday)",
+ "honesty": [
+  "No Instagram-derived or Mason-clip data, no video, no imit_private files read for this table. Env numbers come only from the scripted zero-residual scan results/power_loft_scan1_s25.json.",
+  "Env distance/carry are in METRES (env reward/penalty code and TrackMan 251 m comparison); yards = m*1.0936. Env has no roll: distance == carry.",
+  "Model rows are repo analytic model (NOT a source). Mason's 120+ mph is self-reported, unverified. Nothing here was rolled out in MuJoCo for the recommended loft_deg -28 (interpolated)."
+ ],
+ "measured_loft_scan": [
+  {
+   "loft_deg": -31,
+   "launch_deg": 12.58,
+   "carry_m": 298.84,
+   "carry_yd": 326.8,
+   "lateral_std_m": 2.05,
+   "basis": "measured (env, scripted, gain 1.20, n=40)"
+  },
+  {
+   "loft_deg": -29,
+   "launch_deg": 11.15,
+   "carry_m": 299.09,
+   "carry_yd": 327.1,
+   "lateral_std_m": 2.05,
+   "basis": "measured (env, scripted, gain 1.20, n=40)"
+  },
+  {
+   "loft_deg": -27,
+   "launch_deg": 9.72,
+   "carry_m": 292.7,
+   "carry_yd": 320.1,
+   "lateral_std_m": 1.87,
+   "basis": "measured (env, scripted, gain 1.20, n=40)"
+  },
+  {
+   "loft_deg": -25,
+   "launch_deg": 8.3,
+   "carry_m": 274.41,
+   "carry_yd": 300.1,
+   "lateral_std_m": 1.52,
+   "basis": "measured (env, scripted, gain 1.20, n=40)"
+  },
+  {
+   "loft_deg": -23,
+   "launch_deg": 10.02,
+   "carry_m": 235.24,
+   "carry_yd": 257.3,
+   "lateral_std_m": 2.52,
+   "basis": "measured (env, scripted, gain 1.20, n=40)",
+   "note": "cliff: launch std 13.7 deg = mixed mishits; carry 235 m; do not use"
+  }
+ ],
+ "scan_fit": {
+  "launch_deg_per_loft_deg": -0.714,
+  "intercept": -9.54,
+  "fit_over": [
+   -31,
+   -29,
+   -27,
+   -25
+  ],
+  "interpolated_launch_by_loft": {
+   "-24": 7.58,
+   "-25": 8.3,
+   "-26": 9.01,
+   "-27": 9.72,
+   "-28": 10.44,
+   "-29": 11.15
+  },
+  "basis": "linear fit of measured points (4 pts); -23 excluded (cliff)"
+ },
+ "verdict": {
+  "target_launch_deg": "9.7-10.4 (not 7.8)",
+  "reasons": [
+   "7.8 deg would be loft_deg ~-24.3 (fit), beyond the measured -25 (8.30 deg, carry 274 m = -25 m / -8% vs peak) and next to the -23 failure (launch std 13.7 deg, carry 235 m).",
+   "Model: 7.5-8.2 deg costs 0..8 yd at best (K=4.0) and 8-16 yd at K=5.6 at 130 mph; model optimum 10-11 deg.",
+   "-27 (9.72 deg) measured costs 6.4 m (2%) vs the -29 peak; -28 interpolates ~10.4 deg for ~3 m.",
+   "Env spin formula 130*v*sin(launch+2) gives ~2340 rpm at 9.7 deg (a gate JSON backspin of ~2359 was reported by the Trainer, consistent), inside the 1800-3000 gate."
+  ]
+ },
+ "recommended": {
+  "loft_deg": -28,
+  "impact_gain": 1.2,
+  "elev_target_deg": 10.0,
+  "elev_weight": 1.0,
+  "spin_k": 130,
+  "ball_x": 0.396,
+  "ball_x_noise": 0.003,
+  "ball_dz": -0.008,
+  "tee_height": 0.04,
+  "fallback_measured": "loft_deg=-27 (launch 9.72 deg, carry 292.7 m measured)",
+  "predicted_env_launch_deg_interpolated": 10.44,
+  "predicted_env_carry_m_interpolated": 295.9
+ },
+ "model_prediction_130_132": [
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.5,
+   "spin_loft_deg": 7.5,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.5,
+   "smash": 1.488,
+   "launch_deg": 10.2,
+   "spin_rpm": 2121,
+   "carry_yd": 321.6,
+   "total_yd": 350.1,
+   "basis": "model (NOT a source)",
+   "config": "rec AoA +4 DL 11.5",
+   "env_formula_spin_rpm_k130": 2376
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.0,
+   "spin_loft_deg": 7.0,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 193.7,
+   "smash": 1.49,
+   "launch_deg": 9.8,
+   "spin_rpm": 1980,
+   "carry_yd": 322.0,
+   "total_yd": 351.1,
+   "basis": "model (NOT a source)",
+   "config": "alt AoA +4 DL 11.0",
+   "env_formula_spin_rpm_k130": 2302
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.5,
+   "spin_loft_deg": 7.5,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 193.4,
+   "smash": 1.488,
+   "launch_deg": 10.6,
+   "spin_rpm": 1515,
+   "carry_yd": 324.7,
+   "total_yd": 355.7,
+   "basis": "model (NOT a source)",
+   "config": "rec AoA +4 DL 11.5",
+   "env_formula_spin_rpm_k130": 2452
+  },
+  {
+   "club_mph": 130,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.0,
+   "spin_loft_deg": 7.0,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 193.6,
+   "smash": 1.49,
+   "launch_deg": 10.2,
+   "spin_rpm": 1414,
+   "carry_yd": 323.4,
+   "total_yd": 355.2,
+   "basis": "model (NOT a source)",
+   "config": "alt AoA +4 DL 11.0",
+   "env_formula_spin_rpm_k130": 2378
+  },
+  {
+   "club_mph": 132,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.5,
+   "spin_loft_deg": 7.5,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 196.4,
+   "smash": 1.488,
+   "launch_deg": 10.2,
+   "spin_rpm": 2153,
+   "carry_yd": 326.8,
+   "total_yd": 355.1,
+   "basis": "model (NOT a source)",
+   "config": "rec AoA +4 DL 11.5",
+   "env_formula_spin_rpm_k130": 2412
+  },
+  {
+   "club_mph": 132,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.0,
+   "spin_loft_deg": 7.0,
+   "K": 4.0,
+   "e": 0.845,
+   "ball_mph": 196.6,
+   "smash": 1.49,
+   "launch_deg": 9.8,
+   "spin_rpm": 2010,
+   "carry_yd": 327.4,
+   "total_yd": 356.3,
+   "basis": "model (NOT a source)",
+   "config": "alt AoA +4 DL 11.0",
+   "env_formula_spin_rpm_k130": 2336
+  },
+  {
+   "club_mph": 132,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.5,
+   "spin_loft_deg": 7.5,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 196.4,
+   "smash": 1.488,
+   "launch_deg": 10.6,
+   "spin_rpm": 1538,
+   "carry_yd": 330.4,
+   "total_yd": 361.2,
+   "basis": "model (NOT a source)",
+   "config": "rec AoA +4 DL 11.5",
+   "env_formula_spin_rpm_k130": 2490
+  },
+  {
+   "club_mph": 132,
+   "aoa_deg": 4,
+   "dynamic_loft_deg": 11.0,
+   "spin_loft_deg": 7.0,
+   "K": 5.6,
+   "e": 0.845,
+   "ball_mph": 196.6,
+   "smash": 1.49,
+   "launch_deg": 10.2,
+   "spin_rpm": 1436,
+   "carry_yd": 329.4,
+   "total_yd": 361.0,
+   "basis": "model (NOT a source)",
+   "config": "alt AoA +4 DL 11.0",
+   "env_formula_spin_rpm_k130": 2414
+  }
+ ],
+ "three_fifty_note": "350 yd TOTAL = 320 m. Measured env carry at 132.4 mph is 293-299 m = 320-327 yd carry (no roll). Model total (carry + roll) at 130-132 mph AoA+4 DL 11-12 is 349-361 yd (K=4.0: 349-356, K=5.6: 355-361). 350 yd CARRY (320 m) is ~21-27 m above the best measured env carry and not reached by the model (max ~333 yd): stretch/unverified.",
+ "shaping_terms": [
+  {
+   "term": "start_line",
+   "def_": "eps_s = ball start azimuth - target azimuth (deg), from first 5 ms of ball velocity",
+   "form": "-w*min((eps_s/sigma)^2, 9)",
+   "sigma_deg": 1.0,
+   "w": 1.5,
+   "anchor": "PING 2018: start = 0.76 face + 0.24 path (snippet-verified, unverified full text); model start-line sigma 1.03 deg for pro (face=path=1.29) and 1.39 for Broadie Am1; start sigma 1.0 = pro-level goal; +3 stock ~1.4",
+   "basis": "derived"
+  },
+  {
+   "term": "face_angle_at_impact",
+   "def_": "f = club-face yaw (face normal projected on ground) minus target line at first contact (deg)",
+   "form": "-w*min((f/sigma)^2, 9)",
+   "sigma_deg": 1.5,
+   "w": 1.0,
+   "anchor": "stock +3 face sigma ~1.5 deg (between model rows 1.29 pro / 1.75 Am1; no published face sigma exists); curriculum: start sigma 3.0 anneal to 1.5",
+   "basis": "derived, UNVERIFIED sigma"
+  },
+  {
+   "term": "club_path",
+   "def_": "p = club-head velocity azimuth at contact minus target line (deg)",
+   "form": "-w*min((p/sigma)^2, 9)",
+   "sigma_deg": 1.5,
+   "w": 0.5,
+   "anchor": "same as face; path matters 24% for start line but sets curve via face-to-path",
+   "basis": "derived, UNVERIFIED sigma"
+  },
+  {
+   "term": "face_to_path",
+   "def_": "d = f - p (deg)",
+   "form": "-w*min((d/sigma)^2, 9)",
+   "sigma_deg": 2.0,
+   "w": 0.5,
+   "anchor": "TrackMan: 2 deg F2P ~19 yd curve, 5 deg ~44 yd at 275 yd carry (snippet, unverified); elite keep within ~1 deg",
+   "basis": "published-ish (snippet) + derived"
+  },
+  {
+   "term": "lateral_miss_yards",
+   "def_": "existing env term: lat_weight*_lat_pen with lat_angular=True (percent of carry, cap 30) so short shots cannot hide a miss; report in yards = metres*1.0936",
+   "form": "-lat_weight * min(|lat|/max(carry,30),0.3)*100",
+   "lat_weight": 1.0,
+   "lat_angular": true,
+   "anchor": "Broadie pro direction sigma 4.0 deg = 7% of carry = ~21 yd at 300 yd; 1 deg ~1.75% ; with carry reward ~24/shot, 1 pro-sigma miss costs ~7",
+   "basis": "derived; uses existing env knob (no code change)"
+  },
+  {
+   "term": "launch_elev",
+   "def_": "existing elev_target_deg/elev_weight (elev_weight is 0.0 in the loft-27 gate config, so the 12.5 deg default target was NOT active there)",
+   "form": "-elev_weight*|launch - target|/10",
+   "elev_target_deg": 10.0,
+   "elev_weight": 1.0,
+   "anchor": "model carry optimum 10-11 deg at 130 mph; env scan carry peak at 11.2-12.6 deg",
+   "basis": "measured env scan + model"
+  }
+ ],
+ "shaping_scale_note": "All per-shot terminal terms, summed with the existing carry reward (~24 at carry_cap 120). Weights and sigmas are derived starting points to be tuned, not published values. Cap each squared term at 9 (3 sigma).",
+ "dispersion_anchors": {
+  "face_path_sigma_deg_pro_model": 1.29,
+  "face_path_sigma_deg_am1_model": 1.75,
+  "stock_plus3_face_path_sigma_deg": 1.5,
+  "broadie_pro_direction_sigma_deg": 4.0,
+  "broadie_am1_direction_sigma_deg": 5.4,
+  "lateral_1sigma_yd_at_320yd_carry": {
+   "pro": 22.4,
+   "+3 (face=path 1.5)": 26.0
+  },
+  "env_scripted_lateral_std_m": "1.5-2.5 m (0.3-0.5 deg at 293 m) in the scan: the scripted swing is ~10x tighter than any human reference, so the goal for a learned policy is to stay near it, not to match human scatter",
+  "source": "docs/LOFT_ENV_PARAMS_AND_DISPERSION.md (Broadie fetched; PING, TrackMan snippets unverified; face/path sigma not published)"
+ },
+ "logging_needed": "Env does not log face yaw, club path, or dynamic loft at contact; add them (read face normal and club-head velocity at first contact) before using face/path terms. env/ is read-only for the Data Agent.",
+ "bc_prior_options": [
+  {
+   "source": "CMU subject 64 (10 swings)",
+   "license_tag": "counsel_required",
+   "note": "reference tracking/RSI prior; provenance.py still says commercial_ok=True (open flag for Mason/counsel)"
+  },
+  {
+   "source": "MultiSenseGolf (28 swings)",
+   "license_tag": "counsel_required",
+   "note": "no wrist data; low weight"
+  },
+  {
+   "source": "BONES-SEED",
+   "license_tag": "counsel_required",
+   "note": "not in repo; general humanoid prior; never commit"
+  },
+  {
+   "source": "100STYLE",
+   "license_tag": "cc_by",
+   "note": "locomotion only"
+  },
+  {
+   "source": "AMASS / GolfDB / HumanML3D / Motion-X",
+   "license_tag": "EXCLUDED_commercial",
+   "note": "do not use"
+  },
+  {
+   "source": "LAFAN1",
+   "license_tag": "noncommercial",
+   "note": "do not use"
+  },
+  {
+   "source": "scripted zero-residual swing + residual policy (own code)",
+   "license_tag": "none",
+   "note": "recommended base: measured scatter 2 m; learn residual with shaping terms above"
+  }
+ ],
+ "recommended_bc": "Use scripted swing as the behaviour prior (own code, no license issue): DAgger/BC-regularise the residual toward zero (small residual_scale) and add the shaping terms; use CMU/MultiSense only as tagged counsel_required tracking references.",
+ "unverified_items": [
+  "loft_deg -28 outcome (interpolated)",
+  "all model rows",
+  "face/path sigmas 1.5/1.29 (not published; calibrated or assumed)",
+  "shaping weights and scales (derived)",
+  "TrackMan F2P yards and PING 76% (snippets)",
+  "step from scripted to learned-policy scatter",
+  "env units = metres (code reading; confirm with Trainer)"
+ ],
+ "sources": [
+  "https://business.columbia.edu/sites/default/files-efs/pubfiles/2851/broadie_wscg_v_200802.pdf",
+  "https://www.mdpi.com/2504-3900/2/6/249",
+  "https://www.trackman.com/blog/face-to-path"
+ ]
+}
