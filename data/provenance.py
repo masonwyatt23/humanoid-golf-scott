@@ -31,10 +31,13 @@ PRESETS: Dict[str, Dict] = {
                               provenance_note="Instagram-recorded footage of Mason's own swings; confirm no "
                                               "third-party content/music in the source video.",
                               acknowledgment_required=False, acknowledgment_text=""),
-    "cmu_mocap": dict(license_class="cmu_permissive", commercial_ok=True, provenance_source="cmu_mocap",
-                      provenance_note="CMU Graphics Lab Motion Capture Database (subject 64). May be used in "
-                                      "commercial products; do NOT resell this data directly, even in converted "
-                                      "form (no standalone dataset distribution).",
+    "cmu_mocap": dict(license_class="needs_counsel", commercial_ok=False, license_class_as_published="cmu_permissive",
+                      counsel_required=True, provenance_source="cmu_mocap",
+                      provenance_note="CMU Graphics Lab Motion Capture Database (subject 64). RETAGGED 2026-10: counsel_required / "
+                                      "commercial_ok=False. CMU's terms allow use in commercial products but forbid resale "
+                                      "'even in converted form'; whether public redistribution of converted .npz in this repo "
+                                      "and commercial model training are within that clause is a counsel item. Acknowledgment "
+                                      "still required.",
                       acknowledgment_required=True, acknowledgment_text=CMU_ACK),
     "multisensegolf_needs_counsel": dict(license_class="needs_counsel", commercial_ok=False,
                               license_class_as_published="cc0", counsel_required=True, provenance_source="multisensegolf_harvard_dataverse",
@@ -132,11 +135,11 @@ def save_npz_atomic(path, arrays: Dict) -> None:
 
 # ---- extra licence facts (additive; not stored in existing .npz files) -------------------------------------
 # Source of truth: data/references/mocap_dataset_licenses.json (ids cmu_mocap, multisensegolf).
-# Not legal advice. `commercial_ok` is left as originally tagged; use `commercial_cleared()` to also honour counsel.
+# Not legal advice. CMU and MultiSense are both counsel_required (CMU retagged 2026-10); use `commercial_cleared()` to also honour counsel.
 LICENSE_FACTS: Dict[str, Dict] = {
     "cmu": dict(license_url="http://mocap.cs.cmu.edu/", license_dataset_id="cmu_mocap", verification="primary_fetched",
-                counsel_required=False, no_standalone_resale=True, acknowledgment_required=True,
-                counsel_note=("Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). "
+                counsel_required=True, no_standalone_resale=True, acknowledgment_required=True,
+                counsel_note=("RETAGGED 2026-10 to counsel_required. Home page: no direct resale 'even in converted form'; FAQ wording differs (follow the stricter). "
                               "Whether public redistribution of converted/mirrored .npz in the repo is within that clause is a "
                               "counsel item (docs/UNIFIED_V1_LICENSE_AUDIT.md)."),
                 counsel_redistribution_question=True),

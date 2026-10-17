@@ -63,6 +63,6 @@ def test_known_hard_facts(doc):
     by = {d["id"]: d for d in doc["datasets"]}
     for k in ("amass", "lafan1", "human36m", "sportspose", "motionx", "bedlam", "3dpw", "cmu_panoptic", "golfdb"):
         assert by[k]["commercial_ok"] == "no", k
-    assert by["cmu_mocap"]["commercial_ok"] == "yes" and by["cmu_mocap"]["recommended_tag"] == "cmu_permissive"
+    assert by["cmu_mocap"]["commercial_ok"] == "needs_counsel" and by["cmu_mocap"]["recommended_tag"] == "needs_counsel"  # retagged 2026-10
     assert "mocap.cs.cmu.edu" in by["cmu_mocap"]["attribution_requirement"] or "Acknowledg" in by["cmu_mocap"]["attribution_requirement"]
     assert by["golfpose"]["commercial_ok"] == "needs_counsel"

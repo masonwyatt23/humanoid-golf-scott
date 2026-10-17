@@ -492,8 +492,9 @@
      "n": 10
     }
    },
-   "commercial_ok": true,
-   "license_class": "cmu_permissive",
+   "commercial_ok": false,
+   "license_class": "needs_counsel",
+   "counsel_required": true,
    "n_swings": 10,
    "note": "Recreational lab volunteer; slow (tempo ~1.7). Acknowledgment text required (docs/CMU_MOCAP_GOLF.md). Do not redistribute as a dataset.",
    "per_swing": [

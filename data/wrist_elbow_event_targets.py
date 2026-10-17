@@ -228,7 +228,7 @@ def build():
     ref_med["multisense_mirrored_trail_arm"]["note"] = ("needs_counsel (participant consent scope not established); analysis only, do not publish. Wrist col 3 is zero-filled "
                                                          "(no finger markers) so wrist values are unavailable when wrist_measured is false.")
     ref_med["cmu_64_trail_arm"]["n_files"] = len(cmu)
-    ref_med["cmu_64_trail_arm"]["license_class"] = "cmu_permissive"
+    ref_med["cmu_64_trail_arm"]["license_class"] = "needs_counsel"
     ref_med["cmu_64_trail_arm"]["note"] = ("CMU acknowledgment text required; no standalone redistribution of converted files. Slow recreational mocap (tempo ~1.7). Hand = LeftHandIndex1/RightHandIndex1 bone, "
                                            "wrist col negative = cocked. NOTE: the CMU manifest entry is flagged needs_counsel in the repo's release questions - keep flagged.")
 

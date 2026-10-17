@@ -48,7 +48,7 @@
    "license_name": "Custom statement ('free for all uses')",
    "license_url": "http://mocap.cs.cmu.edu/",
    "license_evidence_quote": "This dataset of motions is free for all uses. ... You may include this data in commercially-sold products, but you may not resell this data directly, even in converted form. ... add this text to your acknowledgments: The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217.",
-   "commercial_ok": "yes",
+   "commercial_ok": "needs_counsel",
    "commercial_note": "Commercial products OK; no standalone resale of data even converted. NOTE: the FAQ page (http://mocap.cs.cmu.edu/faqs.php) separately says 'may be copied, modified, or redistributed without permission' - the two statements are not identical; follow the stricter home-page text.",
    "attribution_requirement": "Acknowledgment text requested in publications (we require it in the project).",
    "ml_training_note": "No ML restriction stated.",
@@ -56,9 +56,9 @@
    "format": "ASF/AMC, C3D, BVH (3rd-party conversions), AVI/MPG",
    "access": "Free direct download, no registration",
    "verification": "primary_fetched",
-   "recommended_tag": "cmu_permissive",
-   "counsel_needed": false,
-   "counsel_reason": "",
+   "recommended_tag": "needs_counsel",
+   "counsel_needed": true,
+   "counsel_reason": "Retagged 2026-10: CMU forbids resale 'even in converted form' and its home page and FAQ wording differ; whether public redistribution of converted .npz in this repo and commercial model training fall within that clause is unresolved.",
    "citation_url": "http://mocap.cs.cmu.edu/faqs.php"
   },
   {

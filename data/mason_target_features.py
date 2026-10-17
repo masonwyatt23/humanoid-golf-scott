@@ -249,7 +249,7 @@ def build(refs="data/references"):
         },
         "mason_slowmo_v3": slowmo_block(refs),
         "comparison": {
-            "cmu_subject64": {"n_swings": len(cmu), "license_class": "cmu_permissive", "commercial_ok": True,
+            "cmu_subject64": {"n_swings": len(cmu), "license_class": "needs_counsel", "commercial_ok": False, "counsel_required": True,
                               "note": "Recreational lab volunteer; slow (tempo ~1.7). Acknowledgment text required (docs/CMU_MOCAP_GOLF.md). Do not redistribute as a dataset.",
                               "aggregate": aggregate(cmu), "per_swing": cmu},
             "synthetic_scott": {"n_swings": len(scott), "license_class": "synthetic", "commercial_ok": True,

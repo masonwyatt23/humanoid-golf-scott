@@ -1014,7 +1014,7 @@
      "q75": -51.5
     }
    },
-   "license_class": "cmu_permissive",
+   "license_class": "needs_counsel",
    "n_files": 10,
    "note": "CMU acknowledgment text required; no standalone redistribution of converted files. Slow recreational mocap (tempo ~1.7). Hand = LeftHandIndex1/RightHandIndex1 bone, wrist col negative = cocked. NOTE: the CMU manifest entry is flagged needs_counsel in the repo's release questions - keep flagged.",
    "top": {

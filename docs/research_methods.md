@@ -129,7 +129,7 @@ If E3 gates pass (so physics is validated) but throughput is the limiter, port t
 - Mason's video references: monocular pose gives noisy wrists/club (Vid2Player3D lesson [V][T1]); use as a style prior.
 - Speed claims such as "club ≥ 50 m/s in sim with realistic torque" are unproven here [?].
 - ProtoMotions MuJoCo backend is debugging-only [V][P2]; do not plan on it for training.
-- Licensing: CMU data is OK commercially but not for standalone redistribution (Data Agent report); SMPL body models have their own non-commercial license [?: check before depending on SMPL].
+- Licensing: CMU data: commercial products OK but no resale even converted; retagged counsel_required 2026-10 (Data Agent report); SMPL body models have their own non-commercial license [?: check before depending on SMPL].
 
 ## Sources
 - [S1] SMPLOlympics: https://arxiv.org/html/2407.00187 ; GitHub https://github.com/SMPLOlympics/SMPLOlympics

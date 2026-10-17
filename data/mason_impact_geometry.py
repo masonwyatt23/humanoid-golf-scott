@@ -39,7 +39,7 @@ VIEW_W_VERT = {"down_the_line": 1.0, "oblique": 1.0, "face_on": 1.0}      # heig
 VIEW_W_FWD = {"face_on": 1.0, "oblique": 0.6, "down_the_line": 0.4}       # forward = depth for DTL: weak
 SH_L, SH_R, WR_L, WR_R, HIP_L, HIP_R = 11, 12, 15, 16, 23, 24
 LICENSE = {"mason": "self_owned (Mason's own swings, Instagram screen recordings; confirm no third-party content)",
-           "cmu": "cmu_permissive (CMU Graphics Lab mocap, subject 64; commercial use of products OK, no standalone "
+           "cmu": "needs_counsel / commercial_ok=False (CMU Graphics Lab mocap, subject 64; retagged 2026-10, published terms allow commercial products but no resale even converted; counsel item; no standalone "
                   "redistribution; acknowledgment text required)",
            "synthetic": "synthetic (generated, commercial_ok)"}
 CMU_ACK = ("The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with "
@@ -349,7 +349,7 @@ def cmu_block(refs, bvh_dir):
         return {"status": UNAVAIL, "reason": "raw BVH not present (data/raw_mocap/cmu is gitignored; re-download per "
                 "docs/CMU_MOCAP_GOLF.md and pass --cmu-bvh). Last committed values live in this JSON."}
     return {"status": "ok", "n_swings": len([p for p in per if p.get("status") == "ok"]),
-            "license": LICENSE["cmu"], "acknowledgment_text": CMU_ACK, "commercial_ok": True,
+            "license": LICENSE["cmu"], "acknowledgment_text": CMU_ACK, "commercial_ok": False,
             "frame": "TRUE 3-D (not view-limited); same definitions: tgt = address hip line, up = world Y",
             "caveats": ["Slow recreational volunteer (tempo ~1.7), right-handed; features are lead/trail-defined so "
                         "handedness-invariant. Wrist midpoint, no club."],

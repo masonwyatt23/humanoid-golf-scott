@@ -38,7 +38,7 @@ Every `.npz` carries `license_class`, `commercial_ok`, `provenance_source`, `pro
 |---|---|---|---|
 | `scott_/scheffler_/rory_/average_swing.npz` | synthetic | yes | Procedural, textbook parameters; not measured data |
 | `mason_swing_*.npz` (incl. `_refined`) | self_owned | yes | Instagram-recorded footage of Mason's own swings; confirm no third-party content/music |
-| `cmu_64_01..10.npz` | cmu_permissive | yes | Include CMU acknowledgment (`acknowledgment_text`); no standalone resale of converted data |
+| `cmu_64_01..10.npz` | needs_counsel (retagged 2026-10; published as cmu_permissive) | no (counsel_required) | Include CMU acknowledgment (`acknowledgment_text`); no standalone resale of converted data |
 | GolfDB / AMASS / SportsPose etc. | noncommercial | **no** | none present currently |
 | anything untagged / `process_video.py` output | unknown | **no** | retag with `tag_provenance --force` once origin is known |
 

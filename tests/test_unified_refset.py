@@ -19,6 +19,9 @@ def test_files_exist_tracked_and_commercial():
             assert e["license_class"] == "needs_counsel" and e["commercial_ok"] is False
             assert e["license_class_as_published"] == "cc0" and e["counsel_required"] is True
             assert "research_mocap_datasets_licenses" in e["license_note"]
+        elif e["source"] == "cmu":
+            # retagged 2026-10: CMU resale clause ("even in converted form") -> counsel_required
+            assert e["license_class"] == "needs_counsel" and e["commercial_ok"] is False and e["counsel_required"] is True
         else:
             assert e["commercial_ok"]
         assert e["on_origin_main"] in (True, None)
@@ -98,7 +101,8 @@ def test_licence_flags_in_manifest():
     assert all(e["counsel_required"] for e in by["multisense"])
     assert not any(commercial_cleared(e) for e in by["multisense"])
     assert all(e["no_standalone_resale"] and e["acknowledgment_required"] and e["ack"] for e in by["cmu"])
-    assert all(commercial_cleared(e) for e in by["cmu"])
+    assert not any(commercial_cleared(e) for e in by["cmu"])  # CMU retagged counsel_required 2026-10
+    assert all(e["counsel_required"] and not e["commercial_ok"] for e in by["cmu"])
     assert all("license_url" in e and "verification" in e for e in by["cmu"] + by["multisense"])
     s11 = [e for e in by["mason"] if e["path"].endswith("mason_v2_p1_s11.npz")][0]
     assert s11["needs_mason_confirmation"] and not s11["handedness_verified"] and s11["split"] == "val"
@@ -117,7 +121,7 @@ import json  # noqa: E402
 
 # v1 manifest = reconciled version (Data Agent licence annotations 1cdde9f + MultiSense needs_counsel tags). Sampling/weights
 # are unchanged since unified_v1 was first published; imit2/imit3 depend on them. Do NOT regenerate; add a new version instead.
-V1_MANIFEST_SHA256 = "1c9f09024507e8a160d56920f739cf23f928dd06695c3a9345c2d3c442ac7c76"
+V1_MANIFEST_SHA256 = "572bc269ad9e21c0cb780dc499fef6257a29cb0d7c9f13a3d73c5de02ecb527b"  # updated 2026-10 for CMU retag (counsel_required)
 V1_SAMPLING_SHA256 = "41daab0a8bdd16b94a19c03e2e9007a3c5fe86927f2f308a33d2e5bc462e5ad9"
 
 

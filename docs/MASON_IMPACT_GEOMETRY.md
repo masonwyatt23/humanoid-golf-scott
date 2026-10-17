@@ -6,7 +6,7 @@ Reproduce: `python -m data.mason_impact_geometry [--cmu-bvh data/raw_mocap/cmu]`
 - **Hand path**, a **hand-forward / lead-arm-line lean proxy**, and a **hand low-point timing proxy** around the impact event, from single-view MediaPipe world landmarks of Mason's feed clips (~30 unique fps).
 - **No club data exists.** Shaft lean is **unavailable**; only hand-forward and lead-shoulder->wrist line lean exist, and they are proxies for lag/lean, not shaft lean.
 - **Launch angle is not derived and is not claimed.** It needs a launch monitor or club tracking. Dynamic loft, attack angle, club path, face angle, club/ball speed are all `"unavailable"` in the JSON.
-- Everything is view-dependent (9 of 11 clips down-the-line, 1 oblique, 1 face-on). Use only `commercial_ok` data (Mason = self_owned, CMU = cmu_permissive with acknowledgment, synthetic).
+- Everything is view-dependent (9 of 11 clips down-the-line, 1 oblique, 1 face-on). Use only `commercial_ok` data (Mason = self_owned, CMU is now needs_counsel (retagged 2026-10), so exclude it from commercial use until counsel signs off; synthetic).
 
 ## Method (short)
 1. Selection = same as `mason_target_features.py` (11 recommended, commercial_ok, native-left v2 swings; mirrored copies excluded) plus the recommended native-left v3 slow-mo clip (`p2_s03`), reported per swing but kept out of the aggregate.

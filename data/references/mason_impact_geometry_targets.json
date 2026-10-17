@@ -2282,9 +2282,9 @@
   "cmu_subject64": {
    "status": "ok",
    "n_swings": 10,
-   "license": "cmu_permissive (CMU Graphics Lab mocap, subject 64; commercial use of products OK, no standalone redistribution; acknowledgment text required)",
+   "license": "needs_counsel / commercial_ok=False (CMU Graphics Lab mocap, subject 64; retagged 2026-10, published terms allow commercial products but no resale even converted; counsel item; no standalone redistribution; acknowledgment text required)",
    "acknowledgment_text": "The data used in this project was obtained from mocap.cs.cmu.edu. The database was created with funding from NSF EIA-0196217.",
-   "commercial_ok": true,
+   "commercial_ok": false,
    "frame": "TRUE 3-D (not view-limited); same definitions: tgt = address hip line, up = world Y",
    "caveats": [
     "Slow recreational volunteer (tempo ~1.7), right-handed; features are lead/trail-defined so handedness-invariant. Wrist midpoint, no club."
@@ -4069,7 +4069,7 @@
  "provenance": {
   "license": {
    "mason": "self_owned (Mason's own swings, Instagram screen recordings; confirm no third-party content)",
-   "cmu": "cmu_permissive (CMU Graphics Lab mocap, subject 64; commercial use of products OK, no standalone redistribution; acknowledgment text required)",
+   "cmu": "needs_counsel / commercial_ok=False (CMU Graphics Lab mocap, subject 64; retagged 2026-10, published terms allow commercial products but no resale even converted; counsel item; no standalone redistribution; acknowledgment text required)",
    "synthetic": "synthetic (generated, commercial_ok)"
   },
   "cmu_acknowledgment_required": true,

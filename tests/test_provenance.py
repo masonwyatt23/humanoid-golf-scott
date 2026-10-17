@@ -20,14 +20,15 @@ def test_tag_and_filter(tmp_path):
     _mk(tmp_path / "mystery.npz")
     T.main(["--dir", str(tmp_path)])
     cls = {p.stem: P.read_tags(p)["license_class"] for p in tmp_path.glob("*.npz")}
-    assert cls == {"scott_swing": "synthetic", "cmu_64_01": "cmu_permissive", "mason_a": "self_owned",
+    assert cls == {"scott_swing": "synthetic", "cmu_64_01": "needs_counsel", "mason_a": "self_owned",
                    "golfdb_x": "noncommercial", "mystery": "unknown"}
     ok = {Path(p).stem for p in P.include_commercial_only(sorted(tmp_path.glob("*.npz")))}
-    assert ok == {"scott_swing", "cmu_64_01", "mason_a"}
+    assert ok == {"scott_swing", "mason_a"}  # CMU retagged counsel_required 2026-10
     assert P.read_tags(tmp_path / "cmu_64_01.npz")["acknowledgment_required"] is True
+    assert P.read_tags(tmp_path / "cmu_64_01.npz")["commercial_ok"] is False and P.read_tags(tmp_path / "cmu_64_01.npz")["counsel_required"] is True
     assert "mocap.cs.cmu.edu" in P.read_tags(tmp_path / "cmu_64_01.npz")["acknowledgment_text"]
     assert len(ReferenceDataset(tmp_path)) == 5
-    assert len(ReferenceDataset(tmp_path, commercial_only=True)) == 3
+    assert len(ReferenceDataset(tmp_path, commercial_only=True)) == 2
 
 
 def test_idempotent_preserves_arrays(tmp_path):
