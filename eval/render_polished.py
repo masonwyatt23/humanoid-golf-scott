@@ -234,13 +234,15 @@ def table_slide(title, rows, mode, crit, note):
     import cv2
     img = np.zeros((H, W, 3), np.uint8); img[:] = (12, 16, 24)
     cv2.putText(img, title, (20, 34), cv2.FONT_HERSHEY_SIMPLEX, 0.85, (0, 220, 255), 2, cv2.LINE_AA)
-    cols = [("model", 20), ("kind", 440), ("contact", 500), ("carry m", 590), ("landed", 680), ("lat std m", 760), ("miss L/R", 860), ("launch deg", 960), ("peak mph", 1070), ("qual.", 1170)]
+    cols = [("model", 20), ("kind", 440), ("contact", 500), ("carry m", 590), ("landed", 680), ("lat std m", 760), ("miss L/R", 860), ("launch deg", 960), ("peak mph", 1070), ("qual.", 1150), ("smash (! = flagged)", 1200)]
     for c, x in cols: cv2.putText(img, c, (x, 66), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (180, 180, 180), 1, cv2.LINE_AA)
     y = 94
     for name, kind, m, q in rows:
         d = m["modes"][mode]
-        disp = (name[name.index("[") + 1:].rstrip("]") if "[" in name else name); vals = [fit_text(disp, 410), kind, f"{d['contact_rate']*100:.0f}%", f"{d['mean_carry']:.1f}", f"{d['landed_fraction']*100:.0f}%", f"{d['lateral_std']:.2f}",
-                f"{d['left_miss_rate']*100:.0f}/{d['right_miss_rate']*100:.0f}%", f"{d['launch_elev_mean_deg']:.1f}" + (" FLAT" if d.get("launch_flat_flag") else ""), f"{d['peak_club_mph_mean']:.1f}", "YES" if q else "no"]
+        disp = (name[name.index("[") + 1:].rstrip("]") if "[" in name else name); ek_ = m.get("env_kwargs") or {}
+        mt_ = "[POWER hypo] " if "power" in str(ek_.get("model_xml", "")) else "[fs%g HYPO] " % ek_.get("force_scale") if (ek_.get("force_scale") or 1) > 1 else "[stock] "
+        sm_ = m.get("smash_ratio_det"); vals = [fit_text(mt_ + disp, 410), kind, f"{d['contact_rate']*100:.0f}%", f"{d['mean_carry']:.1f}", f"{d['landed_fraction']*100:.0f}%", f"{d['lateral_std']:.2f}",
+                f"{d['left_miss_rate']*100:.0f}/{d['right_miss_rate']*100:.0f}%", f"{d['launch_elev_mean_deg']:.1f}" + (" FLAT" if d.get("launch_flat_flag") else ""), f"{d['peak_club_mph_mean']:.1f}", "YES" if q else "no", ("smash %.2f" % sm_ + ("!" if m.get("smash_flag") else "")) if sm_ else "smash n/m"]
         col = (120, 255, 120) if q else (255, 255, 255)
         for (c, x), v in zip(cols, vals):
             fs = 0.45
@@ -353,13 +355,14 @@ def main():
                 scripted_segments=[label(m) for m in seg_s], scripted_qualify={label(m): q[m["names"][0]] for m in scripted}, criterion=crit,
                 leaderboard_env_fingerprint=lb.get("env_fingerprint"), segments=[])
     # title card
-    t = ["Humanoid Golf - residual-PPO vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo)", f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
+    t = ["Humanoid Golf - distilled policy vs scripted swing", "Left-handed setup (v3 humanoid, MuJoCo) - SIMULATION", "BOOSTED ACTUATORS: force_scale 2 = hypothetical-strength actuators", "(not a real robot or human). Power tier = hypothetical, no spin model.", f"Rendered {when}   |   data: results/leaderboard.json ({lb['episodes']} episodes/mode, seeds {lb['seed_base']}+)"]
     cols = {}
     if fallback:
-        t += ["FALLBACK PREVIEW: no trained model meets the showcase criterion", "Learned segment = best trained model, shown for transparency - NOT a good drive"]; cols = {3: (255, 70, 70), 4: (255, 70, 70)}
+        t += ["FALLBACK PREVIEW: no trained model meets the showcase criterion", "Learned segment = best trained model, shown for transparency - NOT a good drive"]; cols = {5: (255, 70, 70), 6: (255, 70, 70)}
+        cols = dict(cols); cols[2] = (255, 170, 80); cols[3] = (255, 170, 80)
     hold(card(t, cols, 0.6), 4)
     # leaderboard slides
-    rank = [r.split("/")[0] for r in lb["ranking"]][:4]
+    rank = [r.split("/")[0] for r in (lb.get("ranking_unflagged") or lb["ranking"])][:4]   # smash-flagged rows (outside 1.30-1.49) are not eligible as top rows
     kd = lambda m: "LEARNED" if (m.get("env_kwargs") or {}).get("script_weight") in (None, 1.0) else "DISTILLED" if (m.get("env_kwargs") or {}).get("script_weight") == 0.0 else f"BLEND {round((1 - m['env_kwargs']['script_weight']) * 100)}/{round(m['env_kwargs']['script_weight'] * 100)}"
     rows = [(label(by[n]), kd(by[n]), by[n], q[n][0]) for n in rank if n in by]
     rows += [(label(m), "SCRIPTED", m, q[m["names"][0]][0]) for m in scripted]
@@ -436,7 +439,7 @@ def main():
                                      rendered=dict(carry=sw["carry"], carry_yd=sw["carry_yd"], total_yd=sw["total_yd"], lateral_y=sw["final_y"], launch_deg=sw["launch_elev_deg"], peak_club_mph=rec.peak_club * 2.23694, impact_club_mps=sw["impact_club_speed"]),
                                      all_swings=[dict(seed=s_, carry=x["carry"], y=x["final_y"], launch=x["launch_elev_deg"]) for s_, x in res]))
     # end card
-    e = ["Caveats", f"- {lb['episodes']} episodes per mode, seeds {lb['seed_base']}+; flight tracker = MuJoCo ball only (no spin / sidespin model), so lateral spread is optimistic.",
+    e = ["Caveats", "- ACTUATORS: force_scale 2 rows = HYPOTHETICAL-strength actuators (boosted force caps), not real hardware; power tier = hypothetical, no spin model (backspin hand-set), impact gain 1.28 INFLATED (gain 1.20 smash ~1.46-1.48). Stock = force_scale 1.", f"- {lb['episodes']} episodes per mode, seeds {lb['seed_base']}+; flight tracker = MuJoCo ball only (no spin / sidespin model), so lateral spread is optimistic.",
          "- Carry is the first-landing distance; launch = ball velocity at club-ball separation; club speed = peak club-head geom speed (validated < 100 m/s).",
          "- 'BLEND a/b' = executed command is a% learned / b% scripted (script_weight from the run's env kwargs). 'LEARNED' = trained policy (PPO residual on a scripted swing, or behaviour-cloned imitation: see segment label). 'SCRIPTED (not learned)' = zero residual, no learning. Scripted rows never count as learned.",
          "- Learned strikes are regime-sensitive: one swing is not the average; see the leaderboard slides for all-episode stats. Address-noise outliers exist.",
