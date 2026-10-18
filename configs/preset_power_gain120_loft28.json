@@ -1,0 +1,7 @@
+{
+ "preset": "power_gain120_loft28",
+ "version": 1,
+ "description": "HYPOTHETICAL power tier (v4_power, force_scale 2 BOOSTED; NOT stock). OPT-IN: impact_model.gain 1.20 + loft_deg -28 (default -31): Stage 27 3-seed gate. Applied via GATE_OVERRIDE at gate time on an unchanged script-distilled policy (imit18), not retrained.",
+ "hypothetical": true,
+ "gate_override": {"impact_gain": 1.20, "loft_deg": -28}
+}
